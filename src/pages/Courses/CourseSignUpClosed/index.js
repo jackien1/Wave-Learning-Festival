@@ -45,11 +45,11 @@ const CourseSignUpClosed = () => {
         <div style={{maxWidth: 650}}>
           <>
           <Typography.Header color={Colors.WLF_YELLOW} fontSize="36px">
-            Wave 5 course registration opens soon!
+            Registration for Fall Programs opens soon!
           </Typography.Header>
 
           <Typography.BodyText color="white" fontSize="21px">
-            Sign up here to receive email alerts and be the first to register for Wave 5! Registration for Wave 5 will open on August 1.
+            Sign up here to receive email alerts and be the first to get involved with our fall initiatives!
             {subscribed && <Styles.Popup subscribed={subscribed}><p>Thank you for subscribing! Please follow the directions sent to your email to ensure you receive our updates. </p>
             </Styles.Popup>}
           </Typography.BodyText>

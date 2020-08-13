@@ -303,7 +303,7 @@ function App () {
               <Blog />
             </Route>
             <Route path="/course-sign-up">
-              <CourseSignUp />
+              <CourseSignUpClosed />
             </Route>
             <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />
