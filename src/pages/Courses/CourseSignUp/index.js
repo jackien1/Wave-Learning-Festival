@@ -574,7 +574,7 @@ const Complete = () => {
     <div>
     <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
     <Typography.BodyText color="white" style={{fontSize: 21}}>
-      You and/or your parent should recieve a confirmation email shortly. <br/><br/>
+      You and/or your parent should receive a confirmation email shortly. <br/><br/>
       We never want financial ability to prevent anyone from being able to learn. In order for us to provide accessible educational resources to students across the world, we need your help! <br/><br/>
       If you have the means, please donate to help Wave better serve our students. (We recommend $5 per course, but any amount is greatly appreciated!)
       <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'left', marginTop:-10, fontSize:24}}>
