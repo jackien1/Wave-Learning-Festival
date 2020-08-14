@@ -74,7 +74,7 @@ const Dashboard = () => {
   const [theError, setTheError] = useState(null)
   const [courses, setCourses] = useState([])
   const [coursesDisplayed, setCoursesDisplayed] = useState([])
-  const [wave, setWave] = useState('4')
+  const [wave, setWave] = useState('5')
   const [edit, toggleEdit] = useState(false)
   const [localInfo, setLocalInfo] = useState({})
   const [docID, setDocID] = useState('')
@@ -352,6 +352,7 @@ const Dashboard = () => {
   }
 
   const WAVE_OPTIONS = [
+    5,
     4/*,
     3,
     2,
