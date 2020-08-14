@@ -113,9 +113,10 @@ const About = () => {
                 Announcements:
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
-                    <li><b>WAVE 5 COURSE REGISTRATION IS OPEN!</b> <a href="/courses" style={{color: Colors.WLF_YELLOW}}>Learn More</a></li>
-                    <li>Interested in joining the Wave team? Applications are open until 8/11! <a href="/join" style={{color: Colors.WLF_YELLOW}}>Learn More</a></li>
-                    <li>Learn how to build a bestselling novel with author Ruta Sepetys on Tuesday, 8/18! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Learn how to build a bestselling novel with author Ruta Sepetys on 8/18! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Paint with klein air painter Lisa Baldwin throughout Wave 5! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Cliff Hsia reveals how to ace your job interviews on 8/19! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Delve into the classic 'Wonderful Wizard of Oz' with Professor Andrew Cramer on 8/22! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>
