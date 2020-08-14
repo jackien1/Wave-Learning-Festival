@@ -42,9 +42,6 @@ const Speakers = () => {
       age: "12+ including adults",
       signup: "/speaker-sign-up-lisa"
     },
-  ]
-
-  const speakers = [
     {
       name: 'Cliff Hsia: How to Ace Your Job Interviews to Get Hired',
       img: Cliff,
@@ -54,9 +51,9 @@ const Speakers = () => {
       bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques. 
         <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator. 
         <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
-      hasTime: false,
+      hasTime: true,
       age: "9th Grade and up",
-      signup: ""
+      signup: "/speaker-sign-up-cliff"
     },
     {
       img: Andrew,
@@ -65,10 +62,13 @@ const Speakers = () => {
       title: 'Professor at Los Angeles Mission College',
       desc: "While L. Frank Baum claimed his classic 'Wonderful Wizard of Oz' was written 'solely to please the children of today', many scholars have interpreted the book as an allegory or metaphor for the political, economic and social events of America in the 1890s. European fairy tales of old often contained political allegory disguised as legend or myth in time of despotism when people were unable, sometimes even forbidden by law, to speak out about harsh, unfair treatment.  This presentation has much to say about the current state of affairs in the United States, where regardless of political persuasion every point of view is called 'fake news' and the divisive politics of populism rules the land.  Professor Cramer will guide attendees through the most common symbols from the book/movie 'Wizard of Oz' and connect them to their most likely historical counterparts.  Using everything from contemporary music to vivid imagery, video clips and even references to modern musicals 'The Wiz' and 'Wicked', Prof. Cramer guarantees you will never look at the land of Oz the same way again!",
       bio: "I graduated from Miami University of Ohio in 1991, earning two Bachelors degrees in English, one in Creative Writing and the other in Professional Writing. After graduation, I joined the US Navy for six years and was stationed in Japan and Hawaii as a public affairs specialist. I got out of the Navy in 1997 and went to work for CBS as a reporter/anchor in Colorado. Two years later, I switched networks to NBC and became a photojournalist. While working for NBC in Springfield, Illinois, I began working on my first Masters degree in American History with a specialty in Native American Studies and Treaties. I left NBC in 2000 to work on my MA full-time and graduated from the University of Illinois-Springfield in 2002. I earned a second Masters degree in American History from the University of Miami-Florida in 2005 specializing in pop culture, sports history, and entertainment. I moved to California in 2006, originally teaching for various community colleges in the San Fernando Valley. I've been teaching at Mission College for over ten years now, and at a couple private high schools in the area as well. I’ve also worked as a background actor for various films and TV shows, and I teach for various online and community colleges from time to time. I am a rabid James Bond & Doctor Who fan and I love going to sports bars (Go Chicago Cubs/White Sox/Bears/Bulls/Blackhawks!). In my free time, I enjoy going to movies, wine tasting, reading mysteries (Harlen Coben) and science fiction (Robert Jordan), and faith-based books on St. Ignatius.",
-      hasTime: false, 
+      hasTime: true, 
       age: "High School ages 15-18 (sophomores, juniors, seniors)",
-      signup: ""
+      signup: "/speaker-sign-up-andrew"
     },
+  ]
+
+  const speakers = [
     {
       name: 'Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction',
       img: Ruta,
