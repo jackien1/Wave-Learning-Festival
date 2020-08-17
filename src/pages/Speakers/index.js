@@ -27,7 +27,7 @@ const Speakers = () => {
       date: "Tuesday 8/18 7:00-8:00pm EDT",
       desc: <p><b>Seminar 1: Anatomy of a Page-Turner: Building a Bestselling Novel</b><br/>  Why do some books pull you to the page and keep you there? This seminar will examine the elements of compelling story building including plot, stakes, pacing, characters, setting, and voice. Presentation will be followed by a Q & A. Stay tuned for Ruta's second and third seminars!</p>,
       bio: 'Ruta Sepetys is a #1 New York Times bestselling author of historical fiction published in over sixty countries and forty languages. Sepetys is considered a “crossover” novelist as her books are read by both students and adults worldwide. Winner of the Carnegie Medal, Ruta is renowned for giving voice to underrepresented history and those who experienced it.  Her books have won or been shortlisted for over forty book prizes, are included on over thirty state reading lists, and are currently in development for film and television. www.rutasepetys.com',
-      hasTime: true,
+      hasTime: false,
       age: "6th - 12th Grade",
       signup: "/speaker-sign-up-ruta1"
     },
@@ -92,6 +92,17 @@ const Speakers = () => {
       signup: "/speaker-sign-up-ruta3"
     },
     {
+      name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
+      img: Jasmine,
+      title: "AKA studyquill! UCLA '24",
+      date: 'Tuesday 9/1 7:30pm EDT',
+      desc: <p>How do people become famous? Specifically, how do people talking to themselves in their bedrooms blow up into Internet stars? I don't have all the answers to the age-old puzzle of popularity, but here's what I can tell you: <br/><br/> How to start creating or improve your own content! I'll share the top tips I've learned from my four years of video and photo experience, and my insider reflections on the 'influencer industry' as a whole. <br/><br/> How people seem to make an income out of thin air! I'll show you how monetization, sponsorships, affiliate marketing, and other methods work, so you can be an informed consumer or get started on your Internet career. <br/><br/> And maybe, just maybe... how to become famous.</p>,
+      bio: "Hello! My name is Jasmine. I'm the creator behind the YouTube channel and Instagram account @studyquill, where I share tips on studying and bullet journaling. In my four years on social media, I've gained 550,000+ subscribers and 300,000+ Instagram followers. I've collaborated with brands like Google Chromebooks, Texas Instruments, and Grammarly, and have been profiled in the Wall Street Journal and National Geographic textbooks. I also published a book about bullet journaling and interned with the marketing team of my favorite stationery company! Proud Ravenclaw and lover of string crafts.",
+      hasTime: false, 
+      age: "9th - 12th Grade",
+      signup: ""
+    },
+    {
       name: 'Cliff Hsia: How to Negotiate Your Salary to Get Paid More',
       img: Cliff,
       title: 'Writer, Marketer, Teacher',
@@ -115,17 +126,6 @@ const Speakers = () => {
       age: "7th - 12th Grade",
       signup: ""
     },
-    {
-      name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
-      img: Jasmine,
-      title: "AKA studyquill! UCLA '24",
-      date: 'TBD',
-      desc: <p>How do people become famous? Specifically, how do people talking to themselves in their bedrooms blow up into Internet stars? I don't have all the answers to the age-old puzzle of popularity, but here's what I can tell you: <br/><br/> How to start creating or improve your own content! I'll share the top tips I've learned from my four years of video and photo experience, and my insider reflections on the 'influencer industry' as a whole. <br/><br/> How people seem to make an income out of thin air! I'll show you how monetization, sponsorships, affiliate marketing, and other methods work, so you can be an informed consumer or get started on your Internet career. <br/><br/> And maybe, just maybe... how to become famous.</p>,
-      bio: "Hello! My name is Jasmine. I'm the creator behind the YouTube channel and Instagram account @studyquill, where I share tips on studying and bullet journaling. In my four years on social media, I've gained 550,000+ subscribers and 300,000+ Instagram followers. I've collaborated with brands like Google Chromebooks, Texas Instruments, and Grammarly, and have been profiled in the Wall Street Journal and National Geographic textbooks. I also published a book about bullet journaling and interned with the marketing team of my favorite stationery company! Proud Ravenclaw and lover of string crafts.",
-      hasTime: false, 
-      age: "9th - 12th Grade",
-      signup: ""
-    },    
   ]
 
   const colors1 = [Colors.WLF_TURQOUISE, Colors.WLF_YELLOW, Colors.WLF_ORANGE, Colors.WLF_PURPLE]
