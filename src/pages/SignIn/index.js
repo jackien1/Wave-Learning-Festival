@@ -42,8 +42,8 @@ const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission
       </Typography.Header>
 
       <Typography.BodyText color="white" fontsize="21px">
-      If you have registered for Wave 4 courses, you will receive an email on Friday, July 24th with the email and password to log in to your account.
-      After you have logged in, you will be able to access your Dashboard, where you can view your Wave 4 enrollment details and withdraw from courses.
+      If you have registered for Wave 4 or Wave 5 courses, you should have received an email and password to log in to your account.
+      After you have logged in, you will be able to access your Dashboard, where you can view your enrollment details and withdraw from courses.
       </Typography.BodyText>
 
       <br />

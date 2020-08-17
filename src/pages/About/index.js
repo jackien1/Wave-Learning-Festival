@@ -113,7 +113,6 @@ const About = () => {
                 Announcements:
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
-                    <li>Learn how to build a bestselling novel with author Ruta Sepetys on 8/18! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Paint with klein air painter Lisa Baldwin throughout Wave 5! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Cliff Hsia reveals how to ace your job interviews on 8/19! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Delve into the classic 'Wonderful Wizard of Oz' with Professor Andrew Cramer on 8/22! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
@@ -342,8 +341,8 @@ const About = () => {
             style={{ color: 'white', fontSize: 28, marginBottom: 30 }}
           >
             {' '}
-            Sign up here to get alerted and be the first to register for Wave 5!
-            {/*<Popup subscribed = {true}><p>Registration is currently open from July 10 - July 23! Once you've subscribed, click <a href="http://www.wavelf.org/courses">here</a> to see the courses we plan to offer!</p></Popup>
+            Sign up here to receive email alerts and be the first to get involved with our fall initiatives!
+            {/*<Popup subscribed = {true}><p>Registration for our fall iniatives will begin around September!</p></Popup>
             {subscribed && <Popup subscribed={subscribed}><p>Thank you for subscribing! Please follow the directions sent to your email to ensure you receive our updates. Furthermore, click on "Courses" at the top of our webpage to check out the courses we'll be offering!</p>
             </Popup>} */}
           </Typography.Header>
