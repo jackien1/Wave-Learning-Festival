@@ -47,7 +47,10 @@ const Speakers = () => {
       img: Cliff,
       title: 'Writer, Marketer, Teacher',
       date: 'Wednesday 8/19 7:00-8:00pm EDT',
-      desc: <p><b>Seminar 2: How to Ace Your Job Interviews to Get Hired</b></p>,
+      desc: <p><b>Seminar 2: How to Ace Your Job Interviews to Get Hired</b>
+      <br/>You've landed a job interview. Great! Now what? How do you get past initial phone screens with recruiters? And once you're onsite—or on Zoom nowadays—how do you impress the hiring manager and the rest of the team?
+      <br/>In this seminar, you'll learn the skills needed to make it past each part of the recruitment process—from the recruiter to the hiring manager to the broader team. The result? You'll have the subtle and important skills that will help you ace interviews and get the jobs you want.
+      <br/>Come with your questions as there will be plenty of time for Q&A with Cliff.</p>,
       bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques. 
         <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator. 
         <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
@@ -107,7 +110,10 @@ const Speakers = () => {
       img: Cliff,
       title: 'Writer, Marketer, Teacher',
       date: 'Wednesday 9/2 7:00-8:00pm EDT',
-      desc: <p><b>Seminar 3: How to Negotiate Your Salary to Get Paid More</b></p>,
+      desc: <p><b>Seminar 3: How to Negotiate Your Salary to Get Paid More</b>
+      <br/>So, the recruiter asks you what your salary expectations are. Now what? Stop right there. First person to say a number loses.
+      <br/>In this seminar, you'll learn the time-tested techniques to get recruiters or managers to say their numbers or ranges first, so you'll be in better control of the salary negotiation. Find out which questions to ask and how to specifically ask them, so that you can get paid what you're worth. And it doesn't stop there. With these negotiation techniques, you'll learn how to negotiate nearly anything, whether it's working remotely, pay raises, benefits, and more.
+      <br/>Come with your questions as there will be plenty of time for Q&A with Cliff.</p>,
       bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques. 
         <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator. 
         <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
