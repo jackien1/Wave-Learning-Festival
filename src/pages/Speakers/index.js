@@ -21,17 +21,6 @@ import { Typography, Colors } from '@/styles'
 const Speakers = () => {
   const upcomingSpeakers = [
     {
-      name: 'Ruta Sepetys: Anatomy of a Page-Turner: Building a Bestselling Novel',
-      img: Ruta,
-      title: '#1 NYT Bestselling Author of Historical Fiction',
-      date: "Tuesday 8/18 7:00-8:00pm EDT",
-      desc: <p><b>Seminar 1: Anatomy of a Page-Turner: Building a Bestselling Novel</b><br/>  Why do some books pull you to the page and keep you there? This seminar will examine the elements of compelling story building including plot, stakes, pacing, characters, setting, and voice. Presentation will be followed by a Q & A. Stay tuned for Ruta's second and third seminars!</p>,
-      bio: 'Ruta Sepetys is a #1 New York Times bestselling author of historical fiction published in over sixty countries and forty languages. Sepetys is considered a “crossover” novelist as her books are read by both students and adults worldwide. Winner of the Carnegie Medal, Ruta is renowned for giving voice to underrepresented history and those who experienced it.  Her books have won or been shortlisted for over forty book prizes, are included on over thirty state reading lists, and are currently in development for film and television. www.rutasepetys.com',
-      hasTime: false,
-      age: "6th - 12th Grade",
-      signup: "/speaker-sign-up-ruta1"
-    },
-    {
       name: 'Lisa Baldwin: The Natural Way to Paint',
       img: Lisa,
       title: 'Contemporary Plein Air Painter',
@@ -41,22 +30,6 @@ const Speakers = () => {
       hasTime: true, 
       age: "12+ including adults",
       signup: "/speaker-sign-up-lisa"
-    },
-    {
-      name: 'Cliff Hsia: How to Ace Your Job Interviews to Get Hired',
-      img: Cliff,
-      title: 'Writer, Marketer, Teacher',
-      date: 'Wednesday 8/19 7:00-8:00pm EDT',
-      desc: <p><b>Seminar 2: How to Ace Your Job Interviews to Get Hired</b>
-      <br/>You've landed a job interview. Great! Now what? How do you get past initial phone screens with recruiters? And once you're onsite—or on Zoom nowadays—how do you impress the hiring manager and the rest of the team?
-      <br/>In this seminar, you'll learn the skills needed to make it past each part of the recruitment process—from the recruiter to the hiring manager to the broader team. The result? You'll have the subtle and important skills that will help you ace interviews and get the jobs you want.
-      <br/>Come with your questions as there will be plenty of time for Q&A with Cliff.</p>,
-      bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques. 
-        <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator. 
-        <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
-      hasTime: true,
-      age: "9th Grade and up",
-      signup: "/speaker-sign-up-cliff"
     },
     {
       img: Andrew,
