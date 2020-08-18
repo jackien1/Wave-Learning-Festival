@@ -36,6 +36,7 @@ const About = () => {
   const [emailError, toggleEmail] = useState(false)
   const [subscribed, toggleSubscribed] = useState(false)
   const { db } = useContext(FirebaseContext)
+  
   const addEmail = async () => {
     API.graphql(graphqlOperation(createNewsletter, {
         input: {
