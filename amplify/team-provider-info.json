@@ -19,5 +19,26 @@
                 }
             }
         }
+    },
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-wavelearningfestival-master-131140-authRole",
+            "UnauthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-master-131140-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-master-131140-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-wavelearningfestival-master-131140-deployment",
+            "UnauthRoleName": "amplify-wavelearningfestival-master-131140-unauthRole",
+            "StackName": "amplify-wavelearningfestival-master-131140",
+            "StackId": "arn:aws:cloudformation:us-west-2:910856264954:stack/amplify-wavelearningfestival-master-131140/0dc6a280-e23f-11ea-ace5-06e79ce32c50",
+            "AmplifyAppId": "d3jlx3tyqn40aw"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3jlx3tyqn40aw",
+                    "type": "cicd"
+                }
+            }
+        }
     }
 }

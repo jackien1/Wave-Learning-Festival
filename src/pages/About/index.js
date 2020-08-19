@@ -36,7 +36,7 @@ const About = () => {
   const [emailError, toggleEmail] = useState(false)
   const [subscribed, toggleSubscribed] = useState(false)
   const { db } = useContext(FirebaseContext)
-  
+
   const addEmail = async () => {
     API.graphql(graphqlOperation(createNewsletter, {
         input: {
@@ -112,11 +112,6 @@ const About = () => {
               <a href="/course-sign-up" className="sign-up-link">
                 <Button>
                   <p>Register!</p>
-                </Button>
-              </a>
-              <a  className="sign-up-link">
-                <Button onClick={() => addEmail()}>
-                  <p>Add test</p>
                 </Button>
               </a>
             </div>
