@@ -37,6 +37,7 @@ const PastSpeakers = () => {
       signup: "/speaker-sign-up-cliff"
     },
     {
+
       name: 'Ruta Sepetys: Anatomy of a Page-Turner: Building a Bestselling Novel',
       img: Ruta,
       title: '#1 NYT Bestselling Author of Historical Fiction',

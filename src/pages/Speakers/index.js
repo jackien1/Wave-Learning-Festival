@@ -42,9 +42,6 @@ const Speakers = () => {
       age: "High School ages 15-18 (sophomores, juniors, seniors)",
       signup: "/speaker-sign-up-andrew"
     },
-  ]
-
-  const speakers = [
     {
       name: 'Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction',
       img: Ruta,
@@ -67,11 +64,15 @@ const Speakers = () => {
       age: "6th - 12th Grade",
       signup: "/speaker-sign-up-ruta3"
     },
+  ]
+
+  const speakers = [
+    
     {
       name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
       img: Jasmine,
       title: "AKA studyquill! UCLA '24",
-      date: 'Tuesday 9/1 7:30pm EDT',
+      date: 'Tuesday 9/1 8:30pm EDT',
       desc: <p>How do people become famous? Specifically, how do people talking to themselves in their bedrooms blow up into Internet stars? I don't have all the answers to the age-old puzzle of popularity, but here's what I can tell you: <br/><br/> How to start creating or improve your own content! I'll share the top tips I've learned from my four years of video and photo experience, and my insider reflections on the 'influencer industry' as a whole. <br/><br/> How people seem to make an income out of thin air! I'll show you how monetization, sponsorships, affiliate marketing, and other methods work, so you can be an informed consumer or get started on your Internet career. <br/><br/> And maybe, just maybe... how to become famous.</p>,
       bio: "Hello! My name is Jasmine. I'm the creator behind the YouTube channel and Instagram account @studyquill, where I share tips on studying and bullet journaling. In my four years on social media, I've gained 550,000+ subscribers and 300,000+ Instagram followers. I've collaborated with brands like Google Chromebooks, Texas Instruments, and Grammarly, and have been profiled in the Wall Street Journal and National Geographic textbooks. I also published a book about bullet journaling and interned with the marketing team of my favorite stationery company! Proud Ravenclaw and lover of string crafts.",
       hasTime: false, 
