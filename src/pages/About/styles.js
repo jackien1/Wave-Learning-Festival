@@ -154,7 +154,7 @@ export const DescItem = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 0 40px;
+  margin: 0 0px;
   justify-content: flex-start;
 `
 
@@ -317,3 +317,29 @@ export const Announcements = styled.div`
 
 `
 
+export const Card = styled.div`
+    width: 85%;
+    height: 350px;
+    margin-top: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 0 1.25rem rgba(31, 45, 61, 0.3);
+    border-radius: 30px; 
+    padding: 5px 15px 5px 15px; 
+    transition: 0.1s; 
+    &:hover{
+        box-shadow: 0 0 1.25rem rgba(31, 45, 61, 0.5);
+    }
+    font-family: 'Muli', sans-serif;
+
+    & h3 {
+        font-family: 'Mukta Mahee', sans-serif;
+        margin-top: 0.5em; 
+        margin-bottom: 0.5em; 
+        color: ${props => props.color}
+    }
+
+    & p {
+        font-family: 'Muli', sans-serif;
+    }
+
+`
