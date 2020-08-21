@@ -69,9 +69,6 @@ const Speakers = () => {
       age: "High School ages 15-18 (sophomores, juniors, seniors)",
       signup: "/speaker-sign-up-andrew"
     },
-  ]
-
-  const speakers = [
     {
       name: 'Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction',
       img: Ruta,
@@ -94,6 +91,10 @@ const Speakers = () => {
       age: "6th - 12th Grade",
       signup: "/speaker-sign-up-ruta3"
     },
+  ]
+
+  const speakers = [
+    
     {
       name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
       img: Jasmine,
