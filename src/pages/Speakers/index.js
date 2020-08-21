@@ -21,17 +21,6 @@ import { Typography, Colors } from '@/styles'
 const Speakers = () => {
   const upcomingSpeakers = [
     {
-      name: 'Ruta Sepetys: Anatomy of a Page-Turner: Building a Bestselling Novel',
-      img: Ruta,
-      title: '#1 NYT Bestselling Author of Historical Fiction',
-      date: "Tuesday 8/18 7:00-8:00pm EDT",
-      desc: <p><b>Seminar 1: Anatomy of a Page-Turner: Building a Bestselling Novel</b><br/>  Why do some books pull you to the page and keep you there? This seminar will examine the elements of compelling story building including plot, stakes, pacing, characters, setting, and voice. Presentation will be followed by a Q & A. Stay tuned for Ruta's second and third seminars!</p>,
-      bio: 'Ruta Sepetys is a #1 New York Times bestselling author of historical fiction published in over sixty countries and forty languages. Sepetys is considered a “crossover” novelist as her books are read by both students and adults worldwide. Winner of the Carnegie Medal, Ruta is renowned for giving voice to underrepresented history and those who experienced it.  Her books have won or been shortlisted for over forty book prizes, are included on over thirty state reading lists, and are currently in development for film and television. www.rutasepetys.com',
-      hasTime: false,
-      age: "6th - 12th Grade",
-      signup: "/speaker-sign-up-ruta1"
-    },
-    {
       name: 'Lisa Baldwin: The Natural Way to Paint',
       img: Lisa,
       title: 'Contemporary Plein Air Painter',
