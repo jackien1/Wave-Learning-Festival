@@ -40,7 +40,7 @@ type Student @model {
 
 type EventAssignments @model {
   id: ID!
-  event: Event!
+  event: SpecialEvent!
   waitlisted: Boolean!
   absences: Int!
 }
