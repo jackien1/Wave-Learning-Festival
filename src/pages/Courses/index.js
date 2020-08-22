@@ -8,7 +8,6 @@ import { FirebaseContext } from '../../firebaseContext'
 import { Button, Header, Title, Heading } from './styles'
 import 'firebase/firestore'
 
-import WaveLogo from '../Blog/wave-learning-logo.png'
 import ProgressBar from './ProgressBars/wlf_progressbar-01.png'
 
 import Filter from '../../components/Filter'
@@ -204,25 +203,6 @@ const Courses = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <div className="progressbar">
-            <img src= {ProgressBar} alt = "centered image" />
-          </div>
-
-          <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
-            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Five running from <strong>August 17th to August 30th</strong>. Our
-            volunteer educators have worked hard to prepare engaging and
-            thoughtful curricula and can't wait to share their passions with
-            you. Feel free to send any
-            questions to{' '}
-            <a href="mailto:wavelf.logistics@gmail.com">
-              wavelf.logistics@gmail.com
-            </a><p></p>Click each course for more info –– note the target audience range, course times, and class maxes.<br /><br /><br />
-          </Typography.BodyText>
-          <a href="/course-sign-up" className="sign-up-link">
-            <Button>
-              <p>Register Now!</p>
-            </Button>
-          </a>
           <div className = "row">
             <Filter
               addFilter={addFilter}

@@ -5,7 +5,6 @@ import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography } from '@/styles'
 import { ListContainer, Card, Header, Title, Teachers, Category, CardCompressed, CardExpanded, CourseImage, CourseInfo, Heading, HeaderP, Button, HeadingCompressed } from './styles'
 import AnimateHeight from 'react-animate-height'
-import WaveLogo from '../../pages/Blog/wave-learning-logo.png'
 
 const noSeconds = (time) => {
   var timeSplit = time.toLocaleTimeString('en-US').split(':')
@@ -100,7 +99,7 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
       <AnimateHeight height={show ? 'auto' : 0} duration={80}>
         <CardExpanded>
           <CourseImage>
-            <img src = {image} alt={WaveLogo} />
+            <img src = {image} alt={"Nothere"} />
           </CourseImage>
           <CourseInfo>
             <h3>Course Description:</h3>

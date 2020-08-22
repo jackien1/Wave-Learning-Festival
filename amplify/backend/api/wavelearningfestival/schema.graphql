@@ -1,21 +1,16 @@
-type Blog @model {
+type Newsletter @model {
   id: ID!
+  email: String!
   name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
 }
 
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
+type Date @model {
   id: ID!
-  title: String!
-  content: String!
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  year: Int!
+  month: Int!
+  day: Int!
+  hour: Int!
+  minute: Int!
+  second: Int!
 }
 
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
-  id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
-  content: String!
-}

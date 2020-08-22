@@ -58,263 +58,21 @@ const Navbar = () => {
         <BrandText onClick={() => window.location.href = '/'}src={LogoTextFull} />
         <Brand onClick={() => window.location.href = '/'} src={Logo} />
         <Links>
-          <NavItem onMouseEnter={() => setAboutShow(true)}
-            onMouseLeave={() => setAboutShow(false)}>
-            <Link>About Us</Link>
-            {aboutShow && (<NavbarDropdown>
-              <Link to="/mission">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    Mission and Values
-                </DropdownItem>
-              </Link>
-              <Link to="/team">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaUserFriends /></div>
-                  </IconContext.Provider>
-                    Meet the Team
-                </DropdownItem>
-              </Link>
-            </NavbarDropdown>
-            )}
+          <NavItem>
+            <Link to="/courses">Courses</Link>
           </NavItem>
-          <NavItem onMouseEnter={() => setCoursesShow(true)}
-            onMouseLeave={() => setCoursesShow(false)}>
-            <Link>Courses</Link>
-            {coursesShow && (<NavbarDropdown>
-              <Link to="/courses">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    New
-                </DropdownItem>
-              </Link>
-              <Link to="/courses-inprogress">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    In Progress
-                </DropdownItem>
-              </Link>
-              <Link to="/courses-archive">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    Past
-                </DropdownItem>
-              </Link>
-            </NavbarDropdown>
-            )}
-          </NavItem>
-          <NavItem onMouseEnter={() => setSpeakersShow(true)}
-            onMouseLeave={() => setSpeakersShow(false)}>
-            <Link>Speakers</Link>
-            {speakersShow && (<NavbarDropdown>
-              <Link to="/speakers">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaMicrophoneAlt /></div>
-                  </IconContext.Provider>
-                    Upcoming
-                </DropdownItem>
-              </Link>
-              <Link to="/past-speakers">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaMicrophoneAlt/></div>
-                  </IconContext.Provider>
-                    Past
-                </DropdownItem>
-              </Link>
-            </NavbarDropdown>
-            )}
-          </NavItem>
-          <NavItem onMouseEnter={() => setApplyShow(true)}
-            onMouseLeave={() => setApplyShow(false)}>
-            <Link>Apply</Link>
-            {applyShow && (<NavbarDropdown>
-              <Link to="/teachers">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    Teach
-                </DropdownItem>
-              </Link>
-              <Link to="/join">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaUserFriends /></div>
-                  </IconContext.Provider>
-                    Join the Team
-                </DropdownItem>
-              </Link>
-            </NavbarDropdown>
-            )}
+          <NavItem>
+            <Link to="/speakers">Speakers</Link>
           </NavItem>
           <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
-          <NavItem
-            onMouseEnter={() => setFaqShow(true)}
-            onMouseLeave={() => setFaqShow(false)}
-          >
-            <Link>FAQ</Link>
-            {faqShow && (
-              <>
-                <NavbarDropdown>
-                  <Link to="/faq-students">
-                    <DropdownItem>
-                      <IconContext.Provider
-                        value={{
-                          color: WLF_PURPLE,
-                          style: {
-                            verticalAlign: 'middle',
-                            marginRight: '10px'
-                          }
-                        }}
-                      >
-                        <div>
-                          <FaUserAlt />
-                        </div>
-                      </IconContext.Provider>
-                      Students
-                    </DropdownItem>
-                  </Link>
-                  <Link to="/faq-parents">
-                    <DropdownItem>
-                      <IconContext.Provider
-                        value={{
-                          color: WLF_PURPLE,
-                          style: {
-                            verticalAlign: 'middle',
-                            marginRight: '10px'
-                          }
-                        }}
-                      >
-                        <div>
-                          <FaUserFriends />
-                        </div>
-                      </IconContext.Provider>
-                      Parents
-                    </DropdownItem>
-                  </Link>
-                  <Link to="/faq-teachers">
-                    <DropdownItem>
-                      <IconContext.Provider
-                        value={{
-                          color: WLF_PURPLE,
-                          style: {
-                            verticalAlign: 'middle',
-                            marginRight: '10px'
-                          }
-                        }}
-                      >
-                        <div>
-                          <FaChalkboardTeacher />
-                        </div>
-                      </IconContext.Provider>
-                      Instructors
-                    </DropdownItem>
-                  </Link>
-                </NavbarDropdown>
-              </>
-            )}
-          </NavItem>
           <NavItem>
-            <Link to="/donate">Donate</Link>
+            <Link to="/students">Students</Link>
           </NavItem>
-          {/*
-                    <Link to='/login'>
-                        <Button>
-                            Login
-                        </Button>
-                    </Link>
-                    */}
           <NavItem style={{ border: 'none' }}>
             {accountStatus}
           </NavItem>
-          {/* <NavItem>
-            <Link><Button onClick = {() => logOut()}>Signout</Button></Link>
-          </NavItem> */}
         </Links>
         <Hamburger slide={slide} onClick={() => toggleSlide(!slide)}>
           <div style={{ backgroundColor: 'rgb(240,240,240)', width: 40, height: 40, borderRadius: 20, marginLeft: -5, marginTop: -4, position: 'absolute', zIndex: 1 }}></div>
@@ -324,18 +82,8 @@ const Navbar = () => {
         </Hamburger>
 
         <SideBar show={slide}>
-          {/* <Brand
-            style={{ marginLeft: "15px", marginBottom: "20px", width: "9em" }}
-            src={LogoText}
-          /> */}
           <NavItem>
             <Link to="/">Home</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/mission">Mission and Values</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/team">Team</Link>
           </NavItem>
           <NavItem>
             <Link to="/courses">Courses</Link>
@@ -344,29 +92,9 @@ const Navbar = () => {
             <Link to="/speakers">Speakers</Link>
           </NavItem>
           <NavItem>
-            <Link to="/past-speakers">Past Speakers</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/teachers">Apply to Teach</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/join">Join the Team</Link>
-          </NavItem>
-          <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
           <NavItem>
-            <Link to="/faq-students">Students FAQ</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/faq-parents">Parents FAQ</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/faq-teachers">Instructors FAQ</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/donate">Donate</Link>
-          </NavItem><NavItem>
             <Link to="/sign-in">Dashboard</Link>
           </NavItem>
         </SideBar>

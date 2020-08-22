@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react'
 import { FirebaseContext } from '../../../firebaseContext'
 import Teacher from './teacher.js'
-import WaveLogo from '../../Blog/wave-learning-logo.png'
+import WaveLogo from '../../wave-learning-logo.png'
 
 const Teachers = ({ teachersObj }) => {
   const { db, storage } = useContext(FirebaseContext)

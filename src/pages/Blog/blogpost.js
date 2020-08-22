@@ -3,7 +3,7 @@ import { Colors, Typography } from '../../styles'
 import { FirebaseContext } from '../../firebaseContext'
 import 'firebase/firestore'
 
-import WaveLogo from './wave-learning-logo.png'
+import WaveLogo from '../wave-learning-logo.png'
 
 /**
  * Blog Post is for an individual post directly on the blog page

@@ -3,7 +3,7 @@ import { Container, ContainerInner } from "../../../globalStyles.js"
 import {FirebaseContext} from '../../../firebaseContext'
 import 'firebase/firestore'
 
-import WaveLogo from '../../Blog/wave-learning-logo.png'
+import WaveLogo from '../../wave-learning-logo.png'
 import Teacher from './teacher.js'
 
 export default class Course {
