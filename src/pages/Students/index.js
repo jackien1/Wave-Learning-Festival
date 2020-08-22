@@ -6,7 +6,10 @@ import './styles.css'
 import { Colors, Typography, } from '../../styles'
 import { FirebaseContext } from '../../firebaseContext'
 import { Button, Header, Title, Heading } from './styles'
-import 'firebase/firestore'
+
+
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import { getStudents } from './graphql/queries';
 
 import Filter from '../../components/Filter'
 import CourseCard from '../../components/CourseCard'
@@ -67,8 +70,19 @@ const Students = () => {
       }))
     }*/
   }
-  
+
   useEffect(() => {
+    try {
+      const studentData = await API.graphql(graphqlOperation(getStudents));
+      const studentList = studentData.data.listSongs.items;
+      console.log('student list', studentList);
+      setSongs(studentList);
+  } catch (error) {
+      console.log('error on fetching songs', error);
+  }
+  }, [])
+  
+ /* useEffect(() => {
     console.log("Updating Students")
     if (db) {
       db.collection('StudentRegistrations').limit(200).onSnapshot(function (querySnapshot) {
@@ -107,7 +121,7 @@ const Students = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   console.log(filteredStudents.length)
-  }, [db, storage])
+  }, [db, storage])*/
 
   /*useEffect(() => {
     console.log(students.length)
