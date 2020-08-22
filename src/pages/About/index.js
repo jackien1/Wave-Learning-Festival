@@ -26,6 +26,8 @@ import { Colors, Typography, Form } from '@/styles'
 import './styles.css'
 import * as Assets from './assets'
 import { FirebaseContext } from '@/firebaseContext'
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import { createStudent } from '../../graphql/mutations';
 
 const About = () => {
   const [name, updateName] = useState('')
@@ -34,6 +36,27 @@ const About = () => {
   const [emailError, toggleEmail] = useState(false)
   const [subscribed, toggleSubscribed] = useState(false)
   const { db } = useContext(FirebaseContext)
+  
+  
+  const createPerson = async () => {
+    API.graphql(graphqlOperation(createStudent, {
+      input: {
+        id: "daniela3",
+      city: "Kirkland",
+      state: "Washington",
+      country: "USA",
+      school: "Harvard",
+      first_name: "Daniela",
+      last_name: "Shuman",
+      age: "18",
+      howYouHear: "woot woot",
+      numCourses: 2,
+      parentName: "Daniela",
+      parentEmail: "Email",
+      }
+    }
+  ))
+  }
 
   const subscribe = () => {
     toggleEmail(false)
@@ -95,11 +118,9 @@ const About = () => {
                   <p>Instructors</p>
                 </Button>
               </a>
-              <a href="/course-sign-up" className="sign-up-link">
-                <Button>
+                <Button onClick={createPerson}>
                   <p>Register!</p>
                 </Button>
-              </a>
             </div>
             <Announcements>
               <Typography.Header

@@ -32,15 +32,24 @@ type Student @model {
   age: Int!
   howYouHear: String!
   numCourses: Int!
+  parentName: String!
+  parentEmail: String!
   registeredEvents: [SpecialEvent]
-  registeredOfficeHours: [OfficeHours]
   registeredSeminars: [SeminarAssignments]
+}
+
+type EventAssignments @model {
+  id: ID!
+  event: SpecialEvent!
+  waitlisted: Boolean!
+  absences: Int!
 }
 
 type SeminarAssignments @model {
   id: ID!
   seminar: Seminar!
   waitlisted: Boolean!
+  absences: Int!
 }
 
 type BlogPost @model {

@@ -1,54 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography, Form } from '@/styles'
-import { ListContainer, Card, Header, Title, Teachers, Category, CardCompressed, CardExpanded, CourseImage, CourseInfo, Heading, HeaderP, Button, HeadingCompressed } from './styles'
-import AnimateHeight from 'react-animate-height'
+import { Styles } from './styles'
 
-import styled from 'styled-components'
 import { useTable, usePagination } from 'react-table'
-
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid grey;
-    border-radius: 10px;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid grey;
-      border-right: 1px solid grey;
-
-      :last-child {
-        border-right: 0;
-      }
-
-      input {
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-        border: 0;
-      }
-    }
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-`
 
 // Create an editable cell renderer
 const EditableCell = ({
@@ -77,16 +32,12 @@ const EditableCell = ({
   return <input value={value} onChange={onChange} onBlur={onBlur} />
 }
 
-// Set our editable cell renderer as the default Cell renderer
 const defaultColumn = {
   Cell: EditableCell,
 }
 
-// Be sure to pass our updateMyData and the skipPageReset option
 function Table({ columns, data, updateMyData, skipPageReset }) {
-  // For this example, we're using pagination to illustrate how to stop
-  // the current page from resetting when our data changes
-  // Otherwise, nothing is different here.
+  console.log(data);  
   const {
     getTableProps,
     getTableBodyProps,
@@ -107,19 +58,15 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
       columns,
       data,
       defaultColumn,
-      // use the skipPageReset option to disable page resetting temporarily
       autoResetPage: !skipPageReset,
-      // updateMyData isn't part of the API, but
-      // anything we put into these options will
-      // automatically be available on the instance.
-      // That way we can call this function from our
-      // cell renderer!
       updateMyData,
     },
     usePagination
   )
 
-  // Render the UI for your table
+  console.log(page[0].cells[0].getCellProps)
+  console.log(page)
+
   return (
     <>
       <table {...getTableProps()}>
@@ -195,104 +142,36 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
 
 function App(objs) {
   console.log(objs)
-  /*const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Name',
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'name_first',
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'name_last',
-          },
-        ],
-      },
-      {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
-          },
-          {
-            Header: 'Email',
-            accessor: 'email',
-          },
-          {
-            Header: 'School',
-            accessor: 'school',
-          },
-          {
-            Header: 'Parent Name',
-            accessor: 'parentName',
-          },
-        ],
-      },
-    ],
-    []
-  )*/
-
-  const tableData = [{ 
-    name: 'Aman', 
-    age: 20,
-    course:'BCA'
-    },{ 
-    name: 'Anubhav', 
-    age: 21,
-    course:'MCA' 
-    },{ 
-    name: 'Akash', 
-    age: 22,
-    course:'MCA' 
-    },{ 
-    name: 'Amit', 
-    age: 20,
-    course:'BCA' 
-    },{ 
-    name: 'Keshav', 
-    age: 21,
-    course:'MCA' 
-    },{ 
-    name: 'Kailash', 
-    age: 20,
-    course:'B.sc' 
-    },{ 
-    name: 'Govind', 
-    age: 20,
-    course:'B.com' 
-    },{ 
-    name: 'Raghav', 
-    age: 21, 
-    course:'MCA' 
-    }] 
-
 
     const columns = [{ 
-      Header: 'Name', 
-      accessor: 'name' 
+      Header: 'First Name', 
+      accessor: 'first_name' 
+      },{ 
+      Header: 'Last Name', 
+      accessor: 'last_name' 
       },{ 
       Header: 'Age', 
       accessor: 'age' 
       },{ 
-      Header: 'Course', 
-      accessor: 'course' 
-    }] 
+      Header: 'Parent Email', 
+      accessor: 'parentEmail' 
+      }
+    ] 
 
-  const [data, setData] = React.useState(tableData)
+  const obj_cleaned = () => {
+    var arr = [];
+    Object.keys(objs).forEach((k) => {  
+      arr.push(objs[k])
+    })
+    console.log(arr);
+    return arr;
+  }
+
+  const [data, setData] = React.useState(obj_cleaned)
   const [originalData] = React.useState(data)
   const [skipPageReset, setSkipPageReset] = React.useState(false)
 
-  // We need to keep the table from resetting the pageIndex when we
-  // Update data. So we can keep track of that flag with a ref.
-
-  // When our cell renderer calls updateMyData, we'll use
-  // the rowIndex, columnId and new value to update the
-  // original data
   const updateMyData = (rowIndex, columnId, value) => {
-    // We also turn on the flag to not reset the page
     setSkipPageReset(true)
     setData(old =>
       old.map((row, index) => {
@@ -307,18 +186,13 @@ function App(objs) {
     )
   }
 
-  // After data chagnes, we turn the flag back off
-  // so that if data actually changes when we're not
-  // editing it, the page is reset
   React.useEffect(() => {
     setSkipPageReset(false)
   }, [data])
 
-  // Let's add a data resetter/randomizer to help
-  // illustrate that flow...
   const downloadData = () => {
     var element = document.createElement('a'); 
-    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(objs)); //TO CHANGE
+    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(JSON.stringify(objs))); //TO CHANGE
     element.setAttribute('download', "downloaded.csv"); 
     document.body.appendChild(element); 
     element.click(); 
@@ -327,11 +201,9 @@ function App(objs) {
 
   return (
     <Styles>
-      
         <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
             <b>Download Data</b>
         </Form.Button>
-      
       <Table
         columns={columns}
         data={data}

@@ -1,5 +1,0 @@
-type Newsletter @model {
-  id: ID!
-  email: String!
-  name: String!
-}
