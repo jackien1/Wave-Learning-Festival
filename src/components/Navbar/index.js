@@ -101,6 +101,7 @@ const Navbar = () => {
             onMouseLeave={() => setCoursesShow(false)}>
             <Link>Courses</Link>
             {coursesShow && (<NavbarDropdown>
+              {/*
               <Link to="/courses">
                 <DropdownItem>
                   <IconContext.Provider
@@ -117,6 +118,7 @@ const Navbar = () => {
                     New
                 </DropdownItem>
               </Link>
+              */}
               <Link to="/courses-inprogress">
                 <DropdownItem>
                   <IconContext.Provider
