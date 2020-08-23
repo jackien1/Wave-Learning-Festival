@@ -114,8 +114,7 @@ const About = () => {
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
                     <li>Paint with klein air painter Lisa Baldwin throughout Wave 5! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Cliff Hsia reveals how to ace your job interviews on 8/19! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Delve into the classic 'Wonderful Wizard of Oz' with Professor Andrew Cramer on 8/22! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Unearth buried history and creative research with best-selling author Ruta Sepetys on Tuesday 8/25! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>
