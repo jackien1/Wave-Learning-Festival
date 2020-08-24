@@ -285,24 +285,28 @@ function App () {
             <Route path="/past-speakers">
               <PastSpeakers />
             </Route>
-            <Route path="/speaker-sign-up-ruta1">
+            <Route path="/speaker-sign-up-jasmine">
               <Speaker1SignUp />
             </Route>
-            <Route path="/speaker-sign-up-ruta2">
+            <Route path="/speaker-sign-up-iris">
               <Speaker2SignUp />
             </Route>
             <Route path="/speaker-sign-up-ruta3">
               <Speaker3SignUp />
             </Route>
+            {/*
             <Route path="/speaker-sign-up-lisa">
               <Speaker4SignUp />
             </Route>
+            */}
             <Route path="/speaker-sign-up-cliff">
               <Speaker5SignUp />
             </Route>
+            {/*
             <Route path="/speaker-sign-up-andrew">
               <Speaker6SignUp />
             </Route>
+            */}
             <Route path="/reset-password">
               <ResetPassword />
             </Route>
