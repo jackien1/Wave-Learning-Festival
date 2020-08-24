@@ -8,8 +8,8 @@ import firebase from 'firebase'
 import { FirebaseContext } from '@/firebaseContext'
 import { COUNTRIES, UNITED_STATES, STATES } from './data'
 
-const TITLE = "Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction"
-const SPEAKERS = ["Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction (8/25 7pm EDT)"]
+const TITLE = "Iris Fu: How to Self-Publish a Book in a Month"
+const SPEAKERS = ["Iris Fu: How to Self-Publish a Book in a Month (9/3 5:30pm EDT)"]
 
 var inputChanged = function (key, setStudentData) {
   var result = (event) => {
