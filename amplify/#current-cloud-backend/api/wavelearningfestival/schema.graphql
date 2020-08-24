@@ -25,16 +25,17 @@ type TeacherRegistration @model {
   id: ID!
   first_name: String!
   last_name: String!
+  email: String!
   school: String!
-  gradYear: Int!
+  gradYear: String!
   coFirst: String
   coLast: String
   coEmail: String
   coSchool: String
-  coYear: Int
+  coYear: String
   seminarTitle: String!
   seminarDesc: String!
-  numSessions: Int!
+  numSessions: String!
   qualifications: String!
   priorTeaching: String!
   engagement: String!

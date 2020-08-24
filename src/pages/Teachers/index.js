@@ -8,7 +8,7 @@ import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import { BodyText } from '@/styles/Typography'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
-import { createTeacherRegistration } from "../../graphql/mutations.js"
+import { createTeacherRegistration, createNewsletter } from "../../graphql/mutations.js"
 
 
 const TeacherHome = ({ setPage }) => {
@@ -17,7 +17,7 @@ const TeacherHome = ({ setPage }) => {
       Instructors
     </Typography.Header>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
-      Want to share your passions with students worldwide? Apply to be a teacher for Wave Learning Festival!
+    Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
@@ -114,7 +114,7 @@ const renderReferralOption = ({ option, teacherData, setTeacherData }) => (
   </Form.RadioInputBackground>
 )
 
-const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
+const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongSubmission }) => {
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Teacher Information
@@ -286,7 +286,7 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
     <Typography.BodyText color="white">
       Please limit your description to 100 words.
     </Typography.BodyText>
-    <Form.Input
+    <Form.BigInput
       value={teacherData.seminarDesc}
       onChange={event => {
         const value = event.target.value
@@ -318,9 +318,9 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
       Why are you qualified to teach your seminar? What are some personal/professional experiences or insights related to this topic that have prepared you to teach your seminar? *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      Please limit your description to 100 words.
+      Please limit your response to 100 words.
     </Typography.BodyText>
-    <Form.Input
+    <Form.BigInput
       value={teacherData.qualifications}
       onChange={event => {
         const value = event.target.value
@@ -335,9 +335,9 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
       Please describe any prior teaching experiences you have. *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      Please limit your description to 100 words.
+      Please limit your response to 100 words.
     </Typography.BodyText>
-    <Form.Input
+    <Form.BigInput
       value={teacherData.priorTeaching}
       onChange={event => {
         const value = event.target.value
@@ -352,9 +352,9 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
       How do you plan to incorporate an interactive “engaged” element in your seminar? *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      Please limit your description to 100 words.
+      Please limit your response to 100 words.
     </Typography.BodyText>
-    <Form.Input
+    <Form.BigInput
       value={teacherData.engagement}
       onChange={event => {
         const value = event.target.value
@@ -369,9 +369,9 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
       What skills/ideas do you hope students learn from your seminar? By the end of your seminar, what will students be able to do/create? *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      Please limit your description to 100 words.
+      Please limit your response to 100 words.
     </Typography.BodyText>
-    <Form.Input
+    <Form.BigInput
       value={teacherData.skills}
       onChange={event => {
         const value = event.target.value
@@ -413,13 +413,21 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <Form.Button onClick={(event) => {
         submit()
-        setPage('thanks')
         }}>
         <Typography.Header color="white" fontSize="24px">
           Submit
         </Typography.Header>
       </Form.Button>
     </div>
+
+    <Typography.BodyText color="white">
+      * Required field
+    </Typography.BodyText>
+
+    {wrongSubmission &&
+    <Typography.BodyText color="white">
+      {wrongSubmission}
+    </Typography.BodyText>}
   </div>)
 }
 
@@ -739,7 +747,7 @@ const FinalInput = ({ setPage, teacherData, setTeacherData, submit }) => {
 const Thanks = ({ setPage }) => (
   <>
     <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
-    <Typography.Header2 color="white">We will reach out regarding interviews within a couple weeks.</Typography.Header2>
+    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews within a couple weeks. If you have any questions/concerns, please email us at wavelearningfestival@gmail.com.</Typography.Header2>
     <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Form.Button onClick={() => setPage('home')}>
         <Typography.Header color="white" fontSize="24px">
@@ -752,6 +760,7 @@ const Thanks = ({ setPage }) => (
 
 const Teachers = () => {
   const [page, setPage] = useState('home')
+  const [wrongSubmission, setWrongSubmission] = useState("")
   const [teacherData, setTeacherData] = useState({
     first_name: "",
     last_name: "",
@@ -839,11 +848,57 @@ const Teachers = () => {
   }
   ))
   */
+
+  var requiredFields = (form) => {
+    return form.first_name != "" &&
+      form.last_name != "" &&
+      form.email != "" &&
+      form.school != "" &&
+      form.gradYear != "" &&
+      form.seminarTitle != "" &&
+      form.seminarDesc != "" &&
+      form.numSessions != "" &&
+      form.qualifications != "" &&
+      form.priorTeaching != "" &&
+      form.engagement != "" &&
+      form.skills != "" &&
+      form.previousWaves != "";
+  }
+
   const submit = () => {
     console.log(teacherData);
-    API.graphql(graphqlOperation(createTeacherRegistration, {
-      input: teacherData
-    }));
+    var email = teacherData.email.toLowerCase();
+    if (!emailValidated(email)) {
+      setWrongSubmission("Invalid email.");
+    } else if (!requiredFields(teacherData)) {
+      setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
+    } else {
+      API.graphql(graphqlOperation(createTeacherRegistration, {
+        input: {
+          first_name: teacherData.first_name,
+          last_name: teacherData.last_name,
+          school: teacherData.school,
+          email: email,
+          gradYear: teacherData.gradYear,
+          coFirst: teacherData.coFirst,
+          coLast: teacherData.coLast,
+          coEmail: teacherData.coEmail,
+          coSchool: teacherData.coSchool,
+          coYear: teacherData.coYear,
+          seminarTitle: teacherData.seminarTitle,
+          seminarDesc: teacherData.seminarDesc,
+          numSessions: teacherData.numSessions,
+          qualifications: teacherData.qualifications,
+          priorTeaching: teacherData.priorTeaching,
+          engagement: teacherData.engagement,
+          skills: teacherData.skills,
+          previousWaves: teacherData.previousWaves,
+          questions: teacherData.questions
+        }
+      }));
+      setPage('thanks');
+    }
+
   }
 
   return (
@@ -852,7 +907,7 @@ const Teachers = () => {
       <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
           {page === 'home' && TeacherHome({ setPage })}
-          {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData, submit })}
+          {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData, submit, wrongSubmission })}
           {page === 'coData' && CoDataInput({ setPage, coData, setCoData })}
           {page === 'classData' && ClassDataInput({ setPage, classData, setClassData })}
           {page === 'final' && FinalInput({ setPage, teacherData, setTeacherData, submit })}

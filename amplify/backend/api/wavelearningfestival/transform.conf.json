@@ -116,6 +116,17 @@
         "DeleteTeacherResolver": "Teacher",
         "GetAttTeacherTableStreamArn": "Teacher",
         "GetAttTeacherDataSourceName": "Teacher",
-        "GetAttTeacherTableName": "Teacher"
+        "GetAttTeacherTableName": "Teacher",
+        "TeacherRegistrationTable": "TeacherRegistration",
+        "TeacherRegistrationIAMRole": "TeacherRegistration",
+        "TeacherRegistrationDataSource": "TeacherRegistration",
+        "GetTeacherRegistrationResolver": "TeacherRegistration",
+        "ListTeacherRegistrationResolver": "TeacherRegistration",
+        "CreateTeacherRegistrationResolver": "TeacherRegistration",
+        "UpdateTeacherRegistrationResolver": "TeacherRegistration",
+        "DeleteTeacherRegistrationResolver": "TeacherRegistration",
+        "GetAttTeacherRegistrationTableStreamArn": "TeacherRegistration",
+        "GetAttTeacherRegistrationDataSourceName": "TeacherRegistration",
+        "GetAttTeacherRegistrationTableName": "TeacherRegistration"
     }
 }

@@ -142,16 +142,16 @@ export const deleteTeacher = /* GraphQL */ `
     }
   }
 `;
-
-export const createTeacherRegistration  = /* GraphQL */ `
+export const createTeacherRegistration = /* GraphQL */ `
   mutation CreateTeacherRegistration(
-    $input: CreateTeacherRegistration!
+    $input: CreateTeacherRegistrationInput!
     $condition: ModelTeacherRegistrationConditionInput
   ) {
     createTeacherRegistration(input: $input, condition: $condition) {
       id
       first_name
       last_name
+      email
       school
       gradYear
       coFirst
@@ -173,16 +173,16 @@ export const createTeacherRegistration  = /* GraphQL */ `
     }
   }
 `;
-
-export const updateTeacherRegistration  = /* GraphQL */ `
+export const updateTeacherRegistration = /* GraphQL */ `
   mutation UpdateTeacherRegistration(
-    $input: UpdateTeacherRegistration!
+    $input: UpdateTeacherRegistrationInput!
     $condition: ModelTeacherRegistrationConditionInput
   ) {
     updateTeacherRegistration(input: $input, condition: $condition) {
       id
       first_name
       last_name
+      email
       school
       gradYear
       coFirst
@@ -204,16 +204,16 @@ export const updateTeacherRegistration  = /* GraphQL */ `
     }
   }
 `;
-
-export const deleteTeacherRegistration  = /* GraphQL */ `
+export const deleteTeacherRegistration = /* GraphQL */ `
   mutation DeleteTeacherRegistration(
-    $input: DeleteTeacherRegistration!
+    $input: DeleteTeacherRegistrationInput!
     $condition: ModelTeacherRegistrationConditionInput
   ) {
     deleteTeacherRegistration(input: $input, condition: $condition) {
       id
       first_name
       last_name
+      email
       school
       gradYear
       coFirst
@@ -235,7 +235,6 @@ export const deleteTeacherRegistration  = /* GraphQL */ `
     }
   }
 `;
-
 export const createStudent = /* GraphQL */ `
   mutation CreateStudent(
     $input: CreateStudentInput!

@@ -31,16 +31,17 @@ type TeacherRegistration {
   id: ID!
   first_name: String!
   last_name: String!
+  email: String!
   school: String!
-  gradYear: Int!
+  gradYear: String!
   coFirst: String
   coLast: String
   coEmail: String
   coSchool: String
-  coYear: Int
+  coYear: String
   seminarTitle: String!
   seminarDesc: String!
-  numSessions: Int!
+  numSessions: String!
   qualifications: String!
   priorTeaching: String!
   engagement: String!
@@ -446,16 +447,17 @@ input ModelTeacherRegistrationFilterInput {
   id: ModelIDInput
   first_name: ModelStringInput
   last_name: ModelStringInput
+  email: ModelStringInput
   school: ModelStringInput
-  gradYear: ModelIntInput
+  gradYear: ModelStringInput
   coFirst: ModelStringInput
   coLast: ModelStringInput
   coEmail: ModelStringInput
   coSchool: ModelStringInput
-  coYear: ModelIntInput
+  coYear: ModelStringInput
   seminarTitle: ModelStringInput
   seminarDesc: ModelStringInput
-  numSessions: ModelIntInput
+  numSessions: ModelStringInput
   qualifications: ModelStringInput
   priorTeaching: ModelStringInput
   engagement: ModelStringInput
@@ -471,16 +473,17 @@ input CreateTeacherRegistrationInput {
   id: ID
   first_name: String!
   last_name: String!
+  email: String!
   school: String!
-  gradYear: Int!
+  gradYear: String!
   coFirst: String
   coLast: String
   coEmail: String
   coSchool: String
-  coYear: Int
+  coYear: String
   seminarTitle: String!
   seminarDesc: String!
-  numSessions: Int!
+  numSessions: String!
   qualifications: String!
   priorTeaching: String!
   engagement: String!
@@ -493,16 +496,17 @@ input UpdateTeacherRegistrationInput {
   id: ID!
   first_name: String
   last_name: String
+  email: String
   school: String
-  gradYear: Int
+  gradYear: String
   coFirst: String
   coLast: String
   coEmail: String
   coSchool: String
-  coYear: Int
+  coYear: String
   seminarTitle: String
   seminarDesc: String
-  numSessions: Int
+  numSessions: String
   qualifications: String
   priorTeaching: String
   engagement: String
@@ -518,16 +522,17 @@ input DeleteTeacherRegistrationInput {
 input ModelTeacherRegistrationConditionInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
+  email: ModelStringInput
   school: ModelStringInput
-  gradYear: ModelIntInput
+  gradYear: ModelStringInput
   coFirst: ModelStringInput
   coLast: ModelStringInput
   coEmail: ModelStringInput
   coSchool: ModelStringInput
-  coYear: ModelIntInput
+  coYear: ModelStringInput
   seminarTitle: ModelStringInput
   seminarDesc: ModelStringInput
-  numSessions: ModelIntInput
+  numSessions: ModelStringInput
   qualifications: ModelStringInput
   priorTeaching: ModelStringInput
   engagement: ModelStringInput
