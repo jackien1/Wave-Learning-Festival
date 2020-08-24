@@ -19,14 +19,17 @@ const TeacherHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
     Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
     </Typography.BodyText>
-    <div style={{ display: 'flex', flexDirection: 'row'}}>
+    {/*<div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
           Apply Now!
         </Typography.Header>
       </Form.Button>
       <div style={{ flex: 1 }} />
-  </div>
+  </div>*/}
+  <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
+      <b><br/>Applications will open before 8/25. If you have submitted an application on 8/24, you may need to resubmit if you do not recieve any follow-up. </b>
+    </Typography.BodyText>
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
         <Styles.TeacherImage src={TeacherPic} />
@@ -49,19 +52,19 @@ const TeacherHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
       Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
     </Typography.BodyText>
-    <div style={{ display: 'flex', flexDirection: 'row'}}>
+    {/*<div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
           Apply Now!
         </Typography.Header>
       </Form.Button>
-      <div style={{ flex: 1 }} />
-  </div>
-  {/*
+  <div style={{ flex: 1 }} />
+  </div>*/}
+  
     <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b>Applications are now closed for the summer. Look forward to Fall Teaching Opportunities soon! </b>
+      <b>Applications will open before 8/25. </b>
     </Typography.BodyText>
-    */}
+  
   </>)
 }
 
