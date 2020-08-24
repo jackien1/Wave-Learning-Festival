@@ -27,6 +27,30 @@ type Teacher {
   updatedAt: AWSDateTime!
 }
 
+type TeacherRegistration {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  school: String!
+  gradYear: Int!
+  coFirst: String
+  coLast: String
+  coEmail: String
+  coSchool: String
+  coYear: Int
+  seminarTitle: String!
+  seminarDesc: String!
+  numSessions: Int!
+  qualifications: String!
+  priorTeaching: String!
+  engagement: String!
+  skills: String!
+  previousWaves: String!
+  questions: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
 type Student {
   id: ID!
   city: String!
@@ -219,6 +243,8 @@ type Query {
   listDates(filter: ModelDateFilterInput, limit: Int, nextToken: String): ModelDateConnection
   getTeacher(id: ID!): Teacher
   listTeachers(filter: ModelTeacherFilterInput, limit: Int, nextToken: String): ModelTeacherConnection
+  getTeacherRegistration(id: ID!): TeacherRegistration
+  listTeacherRegistrations(filter: ModelTeacherRegistrationFilterInput, limit: Int, nextToken: String): ModelTeacherRegistrationConnection
   getStudent(id: ID!): Student
   listStudents(filter: ModelStudentFilterInput, limit: Int, nextToken: String): ModelStudentConnection
   getEventAssignments(id: ID!): EventAssignments
@@ -257,6 +283,9 @@ type Mutation {
   createTeacher(input: CreateTeacherInput!, condition: ModelTeacherConditionInput): Teacher
   updateTeacher(input: UpdateTeacherInput!, condition: ModelTeacherConditionInput): Teacher
   deleteTeacher(input: DeleteTeacherInput!, condition: ModelTeacherConditionInput): Teacher
+  createTeacherRegistration(input: CreateTeacherRegistrationInput!, condition: ModelTeacherRegistrationConditionInput): TeacherRegistration
+  updateTeacherRegistration(input: UpdateTeacherRegistrationInput!, condition: ModelTeacherRegistrationConditionInput): TeacherRegistration
+  deleteTeacherRegistration(input: DeleteTeacherRegistrationInput!, condition: ModelTeacherRegistrationConditionInput): TeacherRegistration
   createStudent(input: CreateStudentInput!, condition: ModelStudentConditionInput): Student
   updateStudent(input: UpdateStudentInput!, condition: ModelStudentConditionInput): Student
   deleteStudent(input: DeleteStudentInput!, condition: ModelStudentConditionInput): Student
@@ -292,6 +321,9 @@ type Subscription {
   onCreateTeacher: Teacher @aws_subscribe(mutations: ["createTeacher"])
   onUpdateTeacher: Teacher @aws_subscribe(mutations: ["updateTeacher"])
   onDeleteTeacher: Teacher @aws_subscribe(mutations: ["deleteTeacher"])
+  onCreateTeacherRegistration: TeacherRegistration @aws_subscribe(mutations: ["createTeacherRegistration"])
+  onUpdateTeacherRegistration: TeacherRegistration @aws_subscribe(mutations: ["updateTeacherRegistration"])
+  onDeleteTeacherRegistration: TeacherRegistration @aws_subscribe(mutations: ["deleteTeacherRegistration"])
   onCreateStudent: Student @aws_subscribe(mutations: ["createStudent"])
   onUpdateStudent: Student @aws_subscribe(mutations: ["updateStudent"])
   onDeleteStudent: Student @aws_subscribe(mutations: ["deleteStudent"])
@@ -403,6 +435,108 @@ input ModelTeacherConditionInput {
   and: [ModelTeacherConditionInput]
   or: [ModelTeacherConditionInput]
   not: ModelTeacherConditionInput
+}
+
+type ModelTeacherRegistrationConnection {
+  items: [TeacherRegistration]
+  nextToken: String
+}
+
+input ModelTeacherRegistrationFilterInput {
+  id: ModelIDInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  school: ModelStringInput
+  gradYear: ModelIntInput
+  coFirst: ModelStringInput
+  coLast: ModelStringInput
+  coEmail: ModelStringInput
+  coSchool: ModelStringInput
+  coYear: ModelIntInput
+  seminarTitle: ModelStringInput
+  seminarDesc: ModelStringInput
+  numSessions: ModelIntInput
+  qualifications: ModelStringInput
+  priorTeaching: ModelStringInput
+  engagement: ModelStringInput
+  skills: ModelStringInput
+  previousWaves: ModelStringInput
+  questions: ModelStringInput
+  and: [ModelTeacherRegistrationFilterInput]
+  or: [ModelTeacherRegistrationFilterInput]
+  not: ModelTeacherRegistrationFilterInput
+}
+
+input CreateTeacherRegistrationInput {
+  id: ID
+  first_name: String!
+  last_name: String!
+  school: String!
+  gradYear: Int!
+  coFirst: String
+  coLast: String
+  coEmail: String
+  coSchool: String
+  coYear: Int
+  seminarTitle: String!
+  seminarDesc: String!
+  numSessions: Int!
+  qualifications: String!
+  priorTeaching: String!
+  engagement: String!
+  skills: String!
+  previousWaves: String!
+  questions: String
+}
+
+input UpdateTeacherRegistrationInput {
+  id: ID!
+  first_name: String
+  last_name: String
+  school: String
+  gradYear: Int
+  coFirst: String
+  coLast: String
+  coEmail: String
+  coSchool: String
+  coYear: Int
+  seminarTitle: String
+  seminarDesc: String
+  numSessions: Int
+  qualifications: String
+  priorTeaching: String
+  engagement: String
+  skills: String
+  previousWaves: String
+  questions: String
+}
+
+input DeleteTeacherRegistrationInput {
+  id: ID
+}
+
+input ModelTeacherRegistrationConditionInput {
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  school: ModelStringInput
+  gradYear: ModelIntInput
+  coFirst: ModelStringInput
+  coLast: ModelStringInput
+  coEmail: ModelStringInput
+  coSchool: ModelStringInput
+  coYear: ModelIntInput
+  seminarTitle: ModelStringInput
+  seminarDesc: ModelStringInput
+  numSessions: ModelIntInput
+  qualifications: ModelStringInput
+  priorTeaching: ModelStringInput
+  engagement: ModelStringInput
+  skills: ModelStringInput
+  previousWaves: ModelStringInput
+  questions: ModelStringInput
+  and: [ModelTeacherRegistrationConditionInput]
+  or: [ModelTeacherRegistrationConditionInput]
+  not: ModelTeacherRegistrationConditionInput
 }
 
 type ModelStudentConnection {

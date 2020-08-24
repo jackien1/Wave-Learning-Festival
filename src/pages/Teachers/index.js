@@ -8,26 +8,8 @@ import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import { BodyText } from '@/styles/Typography'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
+import { createTeacherRegistration } from "../../graphql/mutations.js"
 
-/*
-API.graphql(graphqlOperation(createStudent, {
-  input: {
-    id: "daniela3",
-  city: "Kirkland",
-  state: "Washington",
-  country: "USA",
-  school: "Harvard",
-  first_name: "Daniela",
-  last_name: "Shuman",
-  age: "18",
-  howYouHear: "woot woot",
-  numCourses: 2,
-  parentName: "Daniela",
-  parentEmail: "Email",
-  }
-}
-))
-*/
 
 const TeacherHome = ({ setPage }) => {
   return (<>
@@ -83,10 +65,16 @@ const TeacherHome = ({ setPage }) => {
   </>)
 }
 
+var emailValidated = function(email) {
+  //Based on thouroughly tested regex
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regexEmail.test(String(email.replace(" ", "")));
+}
+
 const REFERRAL_OPTIONS = [
   'From a Facebook group',
   'From a friend or family member',
-  'From a social media page (Facebook page/Twitter/LinkedIn',
+  'From a social media page (Facebook page/Twitter/LinkedIn)',
   'From a Google search',
   'Other'
 ]
@@ -126,34 +114,42 @@ const renderReferralOption = ({ option, teacherData, setTeacherData }) => (
   </Form.RadioInputBackground>
 )
 
-const TeacherDataInput = ({ setPage, teacherData, setTeacherData }) => {
-  console.log(teacherData.referral)
-  const valid =
-    teacherData.name !== '' &&
-    teacherData.email !== '' &&
-    teacherData.school !== '' &&
-    teacherData.gradYear !== '' &&
-    teacherData.pronouns !== '' &&
-    teacherData.referral.length > 0
+const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit }) => {
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Teacher Information
     </Typography.Header>
+
     <Typography.Header2 color="white" fontSize="24px">
-      Name
+      First Name *
     </Typography.Header2>
     <Form.Input
-      value={teacherData.name}
+      value={teacherData.first_name}
       onChange={event => {
         const value = event.target.value
         setTeacherData(prevData => ({
           ...prevData,
-          name: value
+          first_name: value
         }))
       }}
     />
+
     <Typography.Header2 color="white" fontSize="24px">
-      Email (.edu preferrable)
+      Last Name *
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.last_name}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          last_name: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Email *
     </Typography.Header2>
     <Form.Input
       value={teacherData.email}
@@ -165,8 +161,9 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData }) => {
         }))
       }}
     />
+
     <Typography.Header2 color="white" fontSize="24px">
-      High School / University
+      School *
     </Typography.Header2>
     <Form.Input
       value={teacherData.school}
@@ -178,9 +175,13 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData }) => {
         }))
       }}
     />
+
     <Typography.Header2 color="white" fontSize="24px">
-      Graduation Year
+      Graduation Year *
     </Typography.Header2>
+    <Typography.BodyText color="white">
+      You must be at least a high school junior to apply.
+    </Typography.BodyText>
     <Form.Input
       value={teacherData.gradYear}
       onChange={event => {
@@ -191,35 +192,231 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData }) => {
         }))
       }}
     />
+
     <Typography.Header2 color="white" fontSize="24px">
-      Preferred Gender Pronouns (she/her/hers, he/him/his, they/them,their, etc.)
+      Co-Instructor First Name
     </Typography.Header2>
     <Form.Input
-      value={teacherData.pronouns}
+      value={teacherData.coFirst}
       onChange={event => {
         const value = event.target.value
         setTeacherData(prevData => ({
           ...prevData,
-          pronouns: value
+          coFirst: value
         }))
       }}
     />
+
     <Typography.Header2 color="white" fontSize="24px">
-      How did you hear about wave?
+      Co-Instructor Last Name
     </Typography.Header2>
-    {REFERRAL_OPTIONS.map((value) => (
-      renderReferralOption({ option: value, teacherData, setTeacherData })
-    ))}
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-      <Form.Button onClick={() => setPage('home')}>
+    <Form.Input
+      value={teacherData.coLast}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          coLast: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Co-Instructor Email
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.coEmail}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          coEmail: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Co-Instructor School
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.coSchool}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          coSchool: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Co-Instructor Graduation Year
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Your co-instructor must be at least a high school junior to apply.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.coYear}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          coYear: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Proposed Seminar Title *
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.seminarTitle}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          seminarTitle: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Seminar Description *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your description to 100 words.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.seminarDesc}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          seminarDesc: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Proposed Number of Sessions (3-10) *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Your seminar will run 1-2 times/week for 5 weeks, and can range from meeting every other week to twice a week.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.numSessions}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          numSessions: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you qualified to teach your seminar? What are some personal/professional experiences or insights related to this topic that have prepared you to teach your seminar? *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your description to 100 words.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.qualifications}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          qualifications: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Please describe any prior teaching experiences you have. *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your description to 100 words.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.priorTeaching}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          priorTeaching: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      How do you plan to incorporate an interactive “engaged” element in your seminar? *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your description to 100 words.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.engagement}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          engagement: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      What skills/ideas do you hope students learn from your seminar? By the end of your seminar, what will students be able to do/create? *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your description to 100 words.
+    </Typography.BodyText>
+    <Form.Input
+      value={teacherData.skills}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          skills: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Have you taught a course in a previous Wave? If so, what was the title of the course, and which Wave(s)? *
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.previousWaves}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          previousWaves: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Any questions/comments?
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.questions}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          questions: value
+        }))
+      }}
+    />
+
+    <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+      <Form.Button onClick={(event) => {
+        submit()
+        setPage('thanks')
+        }}>
         <Typography.Header color="white" fontSize="24px">
-          Cancel
-        </Typography.Header>
-      </Form.Button>
-      <div style={{ flex: 1 }} />
-      <Form.Button onClick={() => setPage('coData')} enabled={valid}>
-        <Typography.Header color="white" fontSize="24px">
-          Next
+          Submit
         </Typography.Header>
       </Form.Button>
     </div>
@@ -541,8 +738,8 @@ const FinalInput = ({ setPage, teacherData, setTeacherData, submit }) => {
 
 const Thanks = ({ setPage }) => (
   <>
-    <Typography.Header color={Colors.WLF_YELLOW}>Your application to teach has been received.</Typography.Header>
-    <Typography.Header2 color="white">Thank you for applying!</Typography.Header2>
+    <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
+    <Typography.Header2 color="white">We will reach out regarding interviews within a couple weeks.</Typography.Header2>
     <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Form.Button onClick={() => setPage('home')}>
         <Typography.Header color="white" fontSize="24px">
@@ -556,15 +753,24 @@ const Thanks = ({ setPage }) => (
 const Teachers = () => {
   const [page, setPage] = useState('home')
   const [teacherData, setTeacherData] = useState({
-    name: '',
-    email: '',
-    school: '',
-    gradYear: '',
-    pronouns: '',
-    inDemand: [],
-    referral: [],
-    otherReferral: '',
-    comment: ''
+    first_name: "",
+    last_name: "",
+    school: "",
+    gradYear: "",
+    coFirst: "",
+    coLast: "",
+    coEmail: "",
+    coSchool: "",
+    coYear: "",
+    seminarTitle: "",
+    seminarDesc: "",
+    numSessions: "",
+    qualifications: "",
+    priorTeaching: "",
+    engagement: "",
+    skills: "",
+    previousWaves: "",
+    questions: ""
   })
   const [coData, setCoData] = useState({
     name: '',
@@ -614,37 +820,30 @@ const Teachers = () => {
     })
   }
 
-  const submit = () => {
-    const newReferral = teacherData.referral
-    if (newReferral.indexOf('Other') > 0) {
-      newReferral.referral.push(teacherData.otherReferral)
+  /*
+  API.graphql(graphqlOperation(createStudent, {
+    input: {
+      id: "daniela3",
+    city: "Kirkland",
+    state: "Washington",
+    country: "USA",
+    school: "Harvard",
+    first_name: "Daniela",
+    last_name: "Shuman",
+    age: "18",
+    howYouHear: "woot woot",
+    numCourses: 2,
+    parentName: "Daniela",
+    parentEmail: "Email",
     }
-    db.collection('TeacherApplications')
-      .add({
-        comment: teacherData.comment,
-        email: teacherData.email,
-        gradYear: teacherData.gradYear,
-        inDemand: teacherData.inDemand,
-        name: teacherData.name,
-        pronouns: teacherData.pronouns,
-        referral: newReferral,
-        school: teacherData.school,
-
-        co_email: coData.email,
-        co_gradYear: coData.gradYear,
-        co_name: coData.name,
-        co_pronouns: coData.pronouns,
-        co_school: coData.school,
-
-        description: classData.description,
-        grade: classData.grade,
-        qualified: classData.qualified,
-        runTime: classData.runTime,
-        schedule: classData.schedule,
-        times: classData.times,
-        title: classData.title
-      })
-    resetData()
+  }
+  ))
+  */
+  const submit = () => {
+    console.log(teacherData);
+    API.graphql(graphqlOperation(createTeacherRegistration, {
+      input: teacherData
+    }));
   }
 
   return (
@@ -653,7 +852,7 @@ const Teachers = () => {
       <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
           {page === 'home' && TeacherHome({ setPage })}
-          {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData })}
+          {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData, submit })}
           {page === 'coData' && CoDataInput({ setPage, coData, setCoData })}
           {page === 'classData' && ClassDataInput({ setPage, classData, setClassData })}
           {page === 'final' && FinalInput({ setPage, teacherData, setTeacherData, submit })}

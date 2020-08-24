@@ -142,6 +142,100 @@ export const deleteTeacher = /* GraphQL */ `
     }
   }
 `;
+
+export const createTeacherRegistration  = /* GraphQL */ `
+  mutation CreateTeacherRegistration(
+    $input: CreateTeacherRegistration!
+    $condition: ModelTeacherRegistrationConditionInput
+  ) {
+    createTeacherRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const updateTeacherRegistration  = /* GraphQL */ `
+  mutation UpdateTeacherRegistration(
+    $input: UpdateTeacherRegistration!
+    $condition: ModelTeacherRegistrationConditionInput
+  ) {
+    updateTeacherRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const deleteTeacherRegistration  = /* GraphQL */ `
+  mutation DeleteTeacherRegistration(
+    $input: DeleteTeacherRegistration!
+    $condition: ModelTeacherRegistrationConditionInput
+  ) {
+    deleteTeacherRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 export const createStudent = /* GraphQL */ `
   mutation CreateStudent(
     $input: CreateStudentInput!
