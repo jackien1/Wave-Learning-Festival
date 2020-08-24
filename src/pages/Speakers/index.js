@@ -42,6 +42,10 @@ const Speakers = () => {
       age: "6th - 12th Grade",
       signup: "/speaker-sign-up-ruta3"
     },
+  ]
+
+  const speakers = [
+    
     {
       name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
       img: Jasmine,
