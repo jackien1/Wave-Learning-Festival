@@ -117,7 +117,7 @@ const renderReferralOption = ({ option, teacherData, setTeacherData }) => (
 const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongSubmission }) => {
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
-      Teacher Information
+      Instructor Information
     </Typography.Header>
 
     <Typography.Header2 color="white" fontSize="24px">

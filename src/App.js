@@ -95,7 +95,7 @@ function App () {
       <Router>
         <div>
           <Switch>
-            <Route path="/teachers">
+            <Route path="/instructors">
               <Teachers />
             </Route>
             <Route path="/team">
@@ -107,7 +107,7 @@ function App () {
             <Route path="/faq-parents">
               <FAQParents />
             </Route>
-            <Route path="/faq-teachers">
+            <Route path="/faq-instructors">
               <FAQTeachers />
             </Route>
             <Route path="/courses">

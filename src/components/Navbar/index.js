@@ -197,7 +197,7 @@ const Navbar = () => {
             onMouseLeave={() => setApplyShow(false)}>
             <Link>Apply</Link>
             {applyShow && (<NavbarDropdown>
-              <Link to="/teachers">
+              <Link to="/instructors">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -279,7 +279,7 @@ const Navbar = () => {
                       Parents
                     </DropdownItem>
                   </Link>
-                  <Link to="/faq-teachers">
+                  <Link to="/faq-instructors">
                     <DropdownItem>
                       <IconContext.Provider
                         value={{
@@ -349,7 +349,7 @@ const Navbar = () => {
             <Link to="/past-speakers">Past Speakers</Link>
           </NavItem>
           <NavItem>
-            <Link to="/teachers">Apply to Teach</Link>
+            <Link to="/instructors">Apply to Teach</Link>
           </NavItem>
           <NavItem>
             <Link to="/join">Join the Team</Link>
@@ -364,7 +364,7 @@ const Navbar = () => {
             <Link to="/faq-parents">Parents FAQ</Link>
           </NavItem>
           <NavItem>
-            <Link to="/faq-teachers">Instructors FAQ</Link>
+            <Link to="/faq-instructors">Instructors FAQ</Link>
           </NavItem>
           <NavItem>
             <Link to="/donate">Donate</Link>
