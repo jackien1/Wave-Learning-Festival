@@ -7,6 +7,8 @@ import Logo from './logo.png'
 import firebase from 'firebase'
 import { FirebaseContext } from '@/firebaseContext'
 import { Redirect } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
+
 
 var inputChanged = function (key, setField) {
   var result = (event) => {

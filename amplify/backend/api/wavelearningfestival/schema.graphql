@@ -43,6 +43,7 @@ type EventAssignments @model {
   event: SpecialEvent!
   waitlisted: Boolean!
   absences: Int!
+  test: Boolean
 }
 
 type SeminarAssignments @model {
