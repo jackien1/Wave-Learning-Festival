@@ -39,12 +39,11 @@
                 "GraphQLAPIEndpointOutput": "https://etlm4gjnrvffndchjkf5oibqei.appsync-api.us-west-2.amazonaws.com/graphql",
                 "GraphQLAPIKeyOutput": "da2-zcb6s2djyngwxircnd2adnzrii"
             },
-            "lastPushTimeStamp": "2020-08-24T06:34:48.659Z",
+            "lastPushTimeStamp": "2020-08-24T07:03:24.888Z",
             "providerMetadata": {
                 "s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/api/cloudformation-template.json",
                 "logicalId": "apiwavelearningfestival"
-            },
-            "lastPushDirHash": "FaYb3CgZp/sQVNT94wdLGDl6mbY="
+            }
         }
     },
     "hosting": {
@@ -59,11 +58,6 @@
             "providerPlugin": "awscloudformation",
             "dependsOn": [],
             "customAuth": false,
-            "providerMetadata": {
-                "s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/auth/wavelearningfestivalfac48596-cloudformation-template.yml",
-                "logicalId": "authwavelearningfestivalfac48596"
-            },
-            "lastPushTimeStamp": "2020-08-24T06:34:48.660Z",
             "output": {
                 "AppClientSecret": "bnberpg46revrhbq1h8ci70evkvqbb8so2ijtfeno522gal6cjs",
                 "UserPoolId": "us-west-2_AdtTieFO4",
@@ -73,7 +67,11 @@
                 "IdentityPoolName": "wavelearningfestivalfac48596_identitypool_fac48596__dev",
                 "UserPoolName": "wavelearningfestivalfac48596_userpool_fac48596"
             },
-            "lastPushDirHash": "VWxGQDIOex4UlTv3omk9PCvnbPY="
+            "lastPushTimeStamp": "2020-08-24T07:03:24.890Z",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/auth/wavelearningfestivalfac48596-cloudformation-template.yml",
+                "logicalId": "authwavelearningfestivalfac48596"
+            }
         }
     }
 }
