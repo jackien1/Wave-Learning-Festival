@@ -17,6 +17,9 @@
                     "appId": "d3jlx3tyqn40aw",
                     "type": "cicd"
                 }
+            },
+            "auth": {
+                "wavelearningfestivalfac48596": {}
             }
         }
     }
