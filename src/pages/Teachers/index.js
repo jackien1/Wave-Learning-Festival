@@ -16,18 +16,14 @@ const TeacherHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
       Want to share your passions with students worldwide? Apply to be a teacher for Wave Learning Festival!
     </Typography.BodyText>
-    {/* <div style={{ display: 'flex', flexDirection: 'row'}}>
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
           Apply Now!
         </Typography.Header>
       </Form.Button>
       <div style={{ flex: 1 }} />
-  </div> */}
-    <Typography.BodyText color="white" fontSize="20px" style={{ paddingTop: 20 }}>
-      Wave Learning Festival is an educational platform organized by students at Harvard, Stanford, Northwestern,
-      UPenn, Williams, RISD, and SLO in which college students teach free seminars on a variety of topics to middle and high schoolers online.
-    </Typography.BodyText>
+  </div>
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
         <Styles.TeacherImage src={TeacherPic} />
@@ -42,32 +38,27 @@ const TeacherHome = ({ setPage }) => {
       </Styles.TestimonialItem>
     </Styles.TestimonialBackground>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-      The global pandemic has changed what education and summer
-      programs look like, and in some cases, completely shut them down.
-      By providing fun and diverse live classes, we hope to help students
-      continue learning, stay engaged, and interact with others while stuck
-      at home. We also hope to alleviate some of the new burderns that have
-      fallen on parents who no longer have summer programs to keep their
-      children busy while they work full-time.
+    As an Engaged Seminars instructor, you would teach an “engaged” seminar that runs for about 5 weeks. These 5-week sessions are affectionately referred to as Tides!
     </Typography.BodyText>
-    <Typography.BodyText color="white" fontSize="20px">
-      Wave is an opportunity to gain valuable teaching and leadership
-      experience while sharing your passions with  wide audience. The
-      flexibility of the time commitment allows you to volunteer while also
-      pursuing other summer experiences. No prior teaching experience is
-      required, and you will receive help in making your class come to life!
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
+      In each of our Engaged Seminars, we are looking for an element of interactivity to promote active learning and make each class more of a conversation rather than a lecture. Your class will meet about 1-2 times/week for the duration of those five weeks, either on weekends or after-school hours on weekdays. Seminars can range from meeting every two weeks (3 sessions total) to twice a week (10 sessions total). The long-form structure will give you more time to build on a topic that excites you and allows your students to learn a greater depth of information. We encourage instructors to bring co-instructors (double the ideas, half the work!), though that is optional. Regardless of whether you onboard a co-instructor, you will have support throughout your course planning process—a member of our Seminars team will guide you through teaching in a virtual setting and help with course-planning.
     </Typography.BodyText>
-    {/* <div style={{ display: 'flex', flexDirection: 'row'}}>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
+      Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
+    </Typography.BodyText>
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
           Apply Now!
         </Typography.Header>
       </Form.Button>
       <div style={{ flex: 1 }} />
-  </div> */}
+  </div>
+  {/*
     <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
       <b>Applications are now closed for the summer. Look forward to Fall Teaching Opportunities soon! </b>
     </Typography.BodyText>
+    */}
   </>)
 }
 
