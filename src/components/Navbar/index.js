@@ -65,6 +65,9 @@ const Navbar = () => {
             <Link to="/speakers">Speakers</Link>
           </NavItem>
           <NavItem>
+            <Link to="/teachers">Teachers</Link>
+          </NavItem>
+          <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
           <NavItem>
@@ -87,6 +90,9 @@ const Navbar = () => {
           </NavItem>
           <NavItem>
             <Link to="/courses">Courses</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/teachers">Teachers</Link>
           </NavItem>
           <NavItem>
             <Link to="/speakers">Speakers</Link>

@@ -5,26 +5,22 @@ import { Styles } from './styles'
 
 import { useTable, usePagination } from 'react-table'
 
-// Create an editable cell renderer
 const EditableCell = ({
   value: initialValue,
   row: { index },
   column: { id },
-  updateMyData, // This is a custom function that we supplied to our table instance
+  updateMyData,
 }) => {
-  // We need to keep and update the state of the cell normally
   const [value, setValue] = React.useState(initialValue)
 
   const onChange = e => {
     setValue(e.target.value)
   }
 
-  // We'll only update the external data when the input is blurred
   const onBlur = () => {
     updateMyData(index, id, value)
   }
 
-  // If the initialValue is changed external, sync it up with our state
   React.useEffect(() => {
     setValue(initialValue)
   }, [initialValue])
@@ -36,8 +32,7 @@ const defaultColumn = {
   Cell: EditableCell,
 }
 
-function Table({ columns, data, updateMyData, skipPageReset }) {
-  console.log(data);  
+function Table({ columns, data, updateMyData, skipPageReset }) {  
   const {
     getTableProps,
     getTableBodyProps,
@@ -64,7 +59,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
     usePagination
   )
 
-  console.log(page[0].cells[0].getCellProps)
+  //console.log(page[0].cells[0].render('Cell'))
   console.log(page)
 
   return (
@@ -143,7 +138,8 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
 function App(objs) {
   console.log(objs)
 
-    const columns = [{ 
+    const columns = React.useMemo(
+      () => [{ 
       Header: 'First Name', 
       accessor: 'first_name' 
       },{ 
@@ -156,15 +152,18 @@ function App(objs) {
       Header: 'Parent Email', 
       accessor: 'parentEmail' 
       }
-    ] 
+    ],[])
 
   const obj_cleaned = () => {
     var arr = [];
-    Object.keys(objs).forEach((k) => {  
-      arr.push(objs[k])
+    console.log(objs)
+    console.log(Object.keys(objs))
+    console.log(Object.values(objs))
+    Object.values(objs).forEach((k) => {  
+      arr.push(k)
     })
-    console.log(arr);
-    return arr;
+    console.log(arr[0]);
+    return arr[0];
   }
 
   const [data, setData] = React.useState(obj_cleaned)
@@ -172,6 +171,7 @@ function App(objs) {
   const [skipPageReset, setSkipPageReset] = React.useState(false)
 
   const updateMyData = (rowIndex, columnId, value) => {
+    console.log("UPDATED");
     setSkipPageReset(true)
     setData(old =>
       old.map((row, index) => {
