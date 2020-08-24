@@ -21,6 +21,28 @@ import { Colors } from '@/styles'
 const PastSpeakers = () => {
   const pastSpeakers = [
     {
+      img: Andrew,
+      name: 'Andrew Cramer: Wizard of Populism',
+      date: 'Saturday 8/22 5:00-6:00pm EDT',
+      title: 'Professor at Los Angeles Mission College',
+      desc: "While L. Frank Baum claimed his classic 'Wonderful Wizard of Oz' was written 'solely to please the children of today', many scholars have interpreted the book as an allegory or metaphor for the political, economic and social events of America in the 1890s. European fairy tales of old often contained political allegory disguised as legend or myth in time of despotism when people were unable, sometimes even forbidden by law, to speak out about harsh, unfair treatment.  This presentation has much to say about the current state of affairs in the United States, where regardless of political persuasion every point of view is called 'fake news' and the divisive politics of populism rules the land.  Professor Cramer will guide attendees through the most common symbols from the book/movie 'Wizard of Oz' and connect them to their most likely historical counterparts.  Using everything from contemporary music to vivid imagery, video clips and even references to modern musicals 'The Wiz' and 'Wicked', Prof. Cramer guarantees you will never look at the land of Oz the same way again!",
+      bio: "I graduated from Miami University of Ohio in 1991, earning two Bachelors degrees in English, one in Creative Writing and the other in Professional Writing. After graduation, I joined the US Navy for six years and was stationed in Japan and Hawaii as a public affairs specialist. I got out of the Navy in 1997 and went to work for CBS as a reporter/anchor in Colorado. Two years later, I switched networks to NBC and became a photojournalist. While working for NBC in Springfield, Illinois, I began working on my first Masters degree in American History with a specialty in Native American Studies and Treaties. I left NBC in 2000 to work on my MA full-time and graduated from the University of Illinois-Springfield in 2002. I earned a second Masters degree in American History from the University of Miami-Florida in 2005 specializing in pop culture, sports history, and entertainment. I moved to California in 2006, originally teaching for various community colleges in the San Fernando Valley. I've been teaching at Mission College for over ten years now, and at a couple private high schools in the area as well. I’ve also worked as a background actor for various films and TV shows, and I teach for various online and community colleges from time to time. I am a rabid James Bond & Doctor Who fan and I love going to sports bars (Go Chicago Cubs/White Sox/Bears/Bulls/Blackhawks!). In my free time, I enjoy going to movies, wine tasting, reading mysteries (Harlen Coben) and science fiction (Robert Jordan), and faith-based books on St. Ignatius.",
+      hasTime: false, 
+      age: "High School ages 15-18 (sophomores, juniors, seniors)",
+      signup: ""
+    },
+    {
+      name: 'Lisa Baldwin: The Natural Way to Paint',
+      img: Lisa,
+      title: 'Contemporary Plein Air Painter',
+      date: 'Pre-recorded videos sent every Monday, Wednesday, Friday, during Wave 5 (6 videos total)',
+      desc: 'Develop the fundamental skills of plein air painting. Students will learn how to sketch, mix colors, the basics of composition, and the use of perspective. Discover like the French Impressionists how to capture natural light, shade, and color. This hands on 6 session course gives students both historical background and practical instruction on how to paint nature from observation. With drawing and painting exercises and coaching students will also be encouraged to develop their own individual painting styles.',
+      bio: 'Lisa Baldwin is a contemporary plein air painter who edits her compositions to include only what is essential like a visual haiku. Lisa is from South Eastern Quebec and moved to Los Angeles four and a half years ago. She has always been an outdoors woman and her work is influenced by the paintings of Tom Thomson and the Canadian Group of Seven. They were a collective of early 20th century artists who, like the Impressionists painted outdoors on location. They traveled into the wilderness to paint and believed that a distinct Canadian art could be developed through direct contact with nature. Lisa is currently represented by Topanga Canyon Gallery in Los Angeles and Cube Projects in Ottawa. Her work is in private collections across Canada, the United States, Belgium, Hungary, and China.',
+      hasTime: false, 
+      age: "12+ including adults",
+      signup: ""
+    },
+    {
       name: 'Cliff Hsia: How to Ace Your Job Interviews to Get Hired',
       img: Cliff,
       title: 'Writer, Marketer, Teacher',
@@ -34,7 +56,7 @@ const PastSpeakers = () => {
         <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
       hasTime: false,
       age: "9th Grade and up",
-      signup: "/speaker-sign-up-cliff"
+      signup: ""
     },
     {
 
@@ -46,7 +68,7 @@ const PastSpeakers = () => {
       bio: 'Ruta Sepetys is a #1 New York Times bestselling author of historical fiction published in over sixty countries and forty languages. Sepetys is considered a “crossover” novelist as her books are read by both students and adults worldwide. Winner of the Carnegie Medal, Ruta is renowned for giving voice to underrepresented history and those who experienced it.  Her books have won or been shortlisted for over forty book prizes, are included on over thirty state reading lists, and are currently in development for film and television. www.rutasepetys.com',
       hasTime: false,
       age: "6th - 12th Grade",
-      signup: "/speaker-sign-up-ruta1"
+      signup: ""
     },
     {
       name: 'Cliff Hsia: How to Write a Resumé That Will Get Recruiters’ Attention and Get You Interviews',

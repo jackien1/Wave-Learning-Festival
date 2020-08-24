@@ -20,7 +20,7 @@ import Speaker4SignUp from './pages/Speakers/SpeakerSignup/speaker4.js'
 import Speaker5SignUp from './pages/Speakers/SpeakerSignup/speaker5.js'
 import Speaker6SignUp from './pages/Speakers/SpeakerSignup/speaker6.js'
 
-
+/*
 // wave 1
 import CourseLearnPython from './pages/Courses_W1/CoursePages/LearnPython'
 import CourseHowCancerWorks from './pages/Courses_W1/CoursePages/HowCancerWorks'
@@ -63,6 +63,7 @@ import CourseSignLanguage2 from './pages/Courses_W2/CoursePages/AmericanSignLang
 import CourseAIHealthcare from './pages/Courses_W2/CoursePages/AIHealthcare'
 import CourseMakingAsian from './pages/Courses_W2/CoursePages/MakingAsian'
 import CoursePublicSpeaking from './pages/Courses_W2/CoursePages/PublicSpeaking'
+*/
 
 import TermsAndConditions from './pages/Terms/TermsConditions'
 import PrivacyPolicy from './pages/Terms/PrivacyPolicy'
@@ -94,7 +95,7 @@ function App () {
       <Router>
         <div>
           <Switch>
-            <Route path="/teachers">
+            <Route path="/instructors">
               <Teachers />
             </Route>
             <Route path="/team">
@@ -106,7 +107,7 @@ function App () {
             <Route path="/faq-parents">
               <FAQParents />
             </Route>
-            <Route path="/faq-teachers">
+            <Route path="/faq-instructors">
               <FAQTeachers />
             </Route>
             <Route path="/courses">
@@ -122,7 +123,7 @@ function App () {
               <Join />
             </Route>
 
-            {/* wave 1 */}
+{/*
             <Route path="/course-learn-python">
               <CourseLearnPython />
             </Route>
@@ -166,7 +167,6 @@ function App () {
               <CourseSignLanguage />
             </Route>
 
-            {/* wave 2 */}
             <Route path="/course-coding-activities">
               <CourseCodingActivities/>
             </Route>
@@ -245,6 +245,7 @@ function App () {
             <Route path="/course-public-speaking">
               <CoursePublicSpeaking/>
             </Route>
+            */}
 
             <Route path="/terms-conditions">
               <TermsAndConditions />
@@ -285,24 +286,28 @@ function App () {
             <Route path="/past-speakers">
               <PastSpeakers />
             </Route>
-            <Route path="/speaker-sign-up-ruta1">
+            <Route path="/speaker-sign-up-jasmine">
               <Speaker1SignUp />
             </Route>
-            <Route path="/speaker-sign-up-ruta2">
+            <Route path="/speaker-sign-up-iris">
               <Speaker2SignUp />
             </Route>
             <Route path="/speaker-sign-up-ruta3">
               <Speaker3SignUp />
             </Route>
+            {/*
             <Route path="/speaker-sign-up-lisa">
               <Speaker4SignUp />
             </Route>
+            */}
             <Route path="/speaker-sign-up-cliff">
               <Speaker5SignUp />
             </Route>
+            {/*
             <Route path="/speaker-sign-up-andrew">
               <Speaker6SignUp />
             </Route>
+            */}
             <Route path="/reset-password">
               <ResetPassword />
             </Route>

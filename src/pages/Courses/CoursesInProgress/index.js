@@ -8,7 +8,7 @@ import { FirebaseContext } from '@/firebaseContext'
 import { Button, Header, Title, Heading } from '../styles'
 import 'firebase/firestore'
 
-import ProgressBar from '../ProgressBars/w4_progressbar-04.png'
+import ProgressBar from '../ProgressBars/w5_progressbar-04.png'
 
 import Filter from '@/components/Filter'
 import CourseCard from '@/components/CourseCard'
@@ -32,7 +32,7 @@ const Courses = () => {
   }
 
   /* Set Current Wave */
-  const WAVE = '4'
+  const WAVE = '5'
 
   useEffect(() => {
     if (db) {
@@ -138,7 +138,7 @@ const Courses = () => {
           </div>
 
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
-            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Four running from <strong>July 27th to August 14th</strong>. Our
+            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Five running from <strong>August 17th to August 30th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
             you. Feel free to send any
