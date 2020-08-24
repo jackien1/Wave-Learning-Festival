@@ -113,6 +113,7 @@ const About = () => {
                 Announcements:
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
+                    <li>Instructor applications for Engaged Seminars are now open! <a href="/instructors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Unearth buried history and creative research with best-selling author Ruta Sepetys on Tuesday 8/25! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
