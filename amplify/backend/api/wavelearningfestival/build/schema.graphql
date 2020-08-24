@@ -23,6 +23,32 @@ type Teacher {
   first_name: String!
   last_name: String!
   school: String!
+  email: String!
+  gradYear: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type TeacherRegistration {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  school: String!
+  email: String!
+  gradYear: Int!
+  coName: String
+  coEmail: String
+  coSchool: String
+  coGradYear: Int
+  seminarTitle: String!
+  seminarDesc: String!
+  numSessions: Int!
+  qualifications: String!
+  priorTeaching: String!
+  engagement: String!
+  takeaway: String!
+  previousWave: String!
+  questions: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
