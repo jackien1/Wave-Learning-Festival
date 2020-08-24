@@ -4,6 +4,8 @@ import { Colors, Typography, Form } from '@/styles'
 import { Styles } from './styles'
 
 import { useTable, usePagination } from 'react-table'
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import { updateStudent } from '../../graphql/mutations';
 
 const EditableCell = ({
   value: initialValue,
@@ -135,7 +137,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
   )
 }
 
-function App(objs) {
+function App(objs, update) {
   console.log(objs)
 
     const columns = React.useMemo(
@@ -186,6 +188,14 @@ function App(objs) {
     )
   }
 
+  //Get update function from 
+  const saveData = () => {
+    data.map(row => {
+      console.log(row)
+      API.graphql(graphqlOperation(updateStudent, {input: row}));
+    })
+  } 
+
   React.useEffect(() => {
     setSkipPageReset(false)
   }, [data])
@@ -201,9 +211,14 @@ function App(objs) {
 
   return (
     <Styles>
+        <div style={{display: "flex"}}>
         <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
             <b>Download Data</b>
         </Form.Button>
+        <Form.Button onClick={saveData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18,  }}>
+            <b>Save Data</b>
+        </Form.Button>
+        </div>
       <Table
         columns={columns}
         data={data}
