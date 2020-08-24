@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "wavelearningfestival",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-wavelearningfestival-dev-164155-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/ffca59000d5ce6685d204a830bfc966de86077d2"
+}

@@ -1,0 +1,708 @@
+type Newsletter {
+  id: ID!
+  email: String!
+  name: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Date {
+  id: ID!
+  year: Int!
+  month: Int!
+  day: Int!
+  hour: Int!
+  minute: Int!
+  second: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Teacher {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  school: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Student {
+  id: ID!
+  city: String!
+  state: String!
+  country: String!
+  school: String!
+  first_name: String!
+  last_name: String!
+  age: Int!
+  howYouHear: String!
+  numCourses: Int!
+  parentName: String!
+  parentEmail: String!
+  registeredEvents: [SpecialEvent]
+  registeredSeminars: [SeminarAssignments]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type EventAssignments {
+  id: ID!
+  event: SpecialEvent!
+  waitlisted: Boolean!
+  absences: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type SeminarAssignments {
+  id: ID!
+  seminar: Seminar!
+  waitlisted: Boolean!
+  absences: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type BlogPost {
+  id: ID!
+  content: String!
+  date: String!
+  image: String!
+  title: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Seminar {
+  id: ID!
+  classTimes: String!
+  classDays: String!
+  classDates: String!
+  courseCategory: [String!]!
+  courseDescription: String!
+  courseTitle: String!
+  edLink: String!
+  maxClassSize: Int
+  picture: String
+  prereqs: String
+  syllabus: String
+  targetAudience: [Int]
+  teachers: [ID!]!
+  zoomLink: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum SpecialEvent {
+  COLLEGEPANEL
+  CAREERPANEL
+  SPECIALGUEST
+}
+
+type OfficeHours {
+  id: ID!
+  teachers: [Teacher!]!
+  targetAudience: [Int]
+  subject: String!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelNewsletterConnection {
+  items: [Newsletter]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelNewsletterFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  name: ModelStringInput
+  and: [ModelNewsletterFilterInput]
+  or: [ModelNewsletterFilterInput]
+  not: ModelNewsletterFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getNewsletter(id: ID!): Newsletter
+  listNewsletters(filter: ModelNewsletterFilterInput, limit: Int, nextToken: String): ModelNewsletterConnection
+  getDate(id: ID!): Date
+  listDates(filter: ModelDateFilterInput, limit: Int, nextToken: String): ModelDateConnection
+  getTeacher(id: ID!): Teacher
+  listTeachers(filter: ModelTeacherFilterInput, limit: Int, nextToken: String): ModelTeacherConnection
+  getStudent(id: ID!): Student
+  listStudents(filter: ModelStudentFilterInput, limit: Int, nextToken: String): ModelStudentConnection
+  getEventAssignments(id: ID!): EventAssignments
+  listEventAssignmentss(filter: ModelEventAssignmentsFilterInput, limit: Int, nextToken: String): ModelEventAssignmentsConnection
+  getSeminarAssignments(id: ID!): SeminarAssignments
+  listSeminarAssignmentss(filter: ModelSeminarAssignmentsFilterInput, limit: Int, nextToken: String): ModelSeminarAssignmentsConnection
+  getBlogPost(id: ID!): BlogPost
+  listBlogPosts(filter: ModelBlogPostFilterInput, limit: Int, nextToken: String): ModelBlogPostConnection
+  getSeminar(id: ID!): Seminar
+  listSeminars(filter: ModelSeminarFilterInput, limit: Int, nextToken: String): ModelSeminarConnection
+}
+
+input CreateNewsletterInput {
+  id: ID
+  email: String!
+  name: String!
+}
+
+input UpdateNewsletterInput {
+  id: ID!
+  email: String
+  name: String
+}
+
+input DeleteNewsletterInput {
+  id: ID
+}
+
+type Mutation {
+  createNewsletter(input: CreateNewsletterInput!, condition: ModelNewsletterConditionInput): Newsletter
+  updateNewsletter(input: UpdateNewsletterInput!, condition: ModelNewsletterConditionInput): Newsletter
+  deleteNewsletter(input: DeleteNewsletterInput!, condition: ModelNewsletterConditionInput): Newsletter
+  createDate(input: CreateDateInput!, condition: ModelDateConditionInput): Date
+  updateDate(input: UpdateDateInput!, condition: ModelDateConditionInput): Date
+  deleteDate(input: DeleteDateInput!, condition: ModelDateConditionInput): Date
+  createTeacher(input: CreateTeacherInput!, condition: ModelTeacherConditionInput): Teacher
+  updateTeacher(input: UpdateTeacherInput!, condition: ModelTeacherConditionInput): Teacher
+  deleteTeacher(input: DeleteTeacherInput!, condition: ModelTeacherConditionInput): Teacher
+  createStudent(input: CreateStudentInput!, condition: ModelStudentConditionInput): Student
+  updateStudent(input: UpdateStudentInput!, condition: ModelStudentConditionInput): Student
+  deleteStudent(input: DeleteStudentInput!, condition: ModelStudentConditionInput): Student
+  createEventAssignments(input: CreateEventAssignmentsInput!, condition: ModelEventAssignmentsConditionInput): EventAssignments
+  updateEventAssignments(input: UpdateEventAssignmentsInput!, condition: ModelEventAssignmentsConditionInput): EventAssignments
+  deleteEventAssignments(input: DeleteEventAssignmentsInput!, condition: ModelEventAssignmentsConditionInput): EventAssignments
+  createSeminarAssignments(input: CreateSeminarAssignmentsInput!, condition: ModelSeminarAssignmentsConditionInput): SeminarAssignments
+  updateSeminarAssignments(input: UpdateSeminarAssignmentsInput!, condition: ModelSeminarAssignmentsConditionInput): SeminarAssignments
+  deleteSeminarAssignments(input: DeleteSeminarAssignmentsInput!, condition: ModelSeminarAssignmentsConditionInput): SeminarAssignments
+  createBlogPost(input: CreateBlogPostInput!, condition: ModelBlogPostConditionInput): BlogPost
+  updateBlogPost(input: UpdateBlogPostInput!, condition: ModelBlogPostConditionInput): BlogPost
+  deleteBlogPost(input: DeleteBlogPostInput!, condition: ModelBlogPostConditionInput): BlogPost
+  createSeminar(input: CreateSeminarInput!, condition: ModelSeminarConditionInput): Seminar
+  updateSeminar(input: UpdateSeminarInput!, condition: ModelSeminarConditionInput): Seminar
+  deleteSeminar(input: DeleteSeminarInput!, condition: ModelSeminarConditionInput): Seminar
+}
+
+input ModelNewsletterConditionInput {
+  email: ModelStringInput
+  name: ModelStringInput
+  and: [ModelNewsletterConditionInput]
+  or: [ModelNewsletterConditionInput]
+  not: ModelNewsletterConditionInput
+}
+
+type Subscription {
+  onCreateNewsletter: Newsletter @aws_subscribe(mutations: ["createNewsletter"])
+  onUpdateNewsletter: Newsletter @aws_subscribe(mutations: ["updateNewsletter"])
+  onDeleteNewsletter: Newsletter @aws_subscribe(mutations: ["deleteNewsletter"])
+  onCreateDate: Date @aws_subscribe(mutations: ["createDate"])
+  onUpdateDate: Date @aws_subscribe(mutations: ["updateDate"])
+  onDeleteDate: Date @aws_subscribe(mutations: ["deleteDate"])
+  onCreateTeacher: Teacher @aws_subscribe(mutations: ["createTeacher"])
+  onUpdateTeacher: Teacher @aws_subscribe(mutations: ["updateTeacher"])
+  onDeleteTeacher: Teacher @aws_subscribe(mutations: ["deleteTeacher"])
+  onCreateStudent: Student @aws_subscribe(mutations: ["createStudent"])
+  onUpdateStudent: Student @aws_subscribe(mutations: ["updateStudent"])
+  onDeleteStudent: Student @aws_subscribe(mutations: ["deleteStudent"])
+  onCreateEventAssignments: EventAssignments @aws_subscribe(mutations: ["createEventAssignments"])
+  onUpdateEventAssignments: EventAssignments @aws_subscribe(mutations: ["updateEventAssignments"])
+  onDeleteEventAssignments: EventAssignments @aws_subscribe(mutations: ["deleteEventAssignments"])
+  onCreateSeminarAssignments: SeminarAssignments @aws_subscribe(mutations: ["createSeminarAssignments"])
+  onUpdateSeminarAssignments: SeminarAssignments @aws_subscribe(mutations: ["updateSeminarAssignments"])
+  onDeleteSeminarAssignments: SeminarAssignments @aws_subscribe(mutations: ["deleteSeminarAssignments"])
+  onCreateBlogPost: BlogPost @aws_subscribe(mutations: ["createBlogPost"])
+  onUpdateBlogPost: BlogPost @aws_subscribe(mutations: ["updateBlogPost"])
+  onDeleteBlogPost: BlogPost @aws_subscribe(mutations: ["deleteBlogPost"])
+  onCreateSeminar: Seminar @aws_subscribe(mutations: ["createSeminar"])
+  onUpdateSeminar: Seminar @aws_subscribe(mutations: ["updateSeminar"])
+  onDeleteSeminar: Seminar @aws_subscribe(mutations: ["deleteSeminar"])
+}
+
+type ModelDateConnection {
+  items: [Date]
+  nextToken: String
+}
+
+input ModelDateFilterInput {
+  id: ModelIDInput
+  year: ModelIntInput
+  month: ModelIntInput
+  day: ModelIntInput
+  hour: ModelIntInput
+  minute: ModelIntInput
+  second: ModelIntInput
+  and: [ModelDateFilterInput]
+  or: [ModelDateFilterInput]
+  not: ModelDateFilterInput
+}
+
+input CreateDateInput {
+  id: ID
+  year: Int!
+  month: Int!
+  day: Int!
+  hour: Int!
+  minute: Int!
+  second: Int!
+}
+
+input UpdateDateInput {
+  id: ID!
+  year: Int
+  month: Int
+  day: Int
+  hour: Int
+  minute: Int
+  second: Int
+}
+
+input DeleteDateInput {
+  id: ID
+}
+
+input ModelDateConditionInput {
+  year: ModelIntInput
+  month: ModelIntInput
+  day: ModelIntInput
+  hour: ModelIntInput
+  minute: ModelIntInput
+  second: ModelIntInput
+  and: [ModelDateConditionInput]
+  or: [ModelDateConditionInput]
+  not: ModelDateConditionInput
+}
+
+type ModelTeacherConnection {
+  items: [Teacher]
+  nextToken: String
+}
+
+input ModelTeacherFilterInput {
+  id: ModelIDInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  school: ModelStringInput
+  and: [ModelTeacherFilterInput]
+  or: [ModelTeacherFilterInput]
+  not: ModelTeacherFilterInput
+}
+
+input CreateTeacherInput {
+  id: ID
+  first_name: String!
+  last_name: String!
+  school: String!
+}
+
+input UpdateTeacherInput {
+  id: ID!
+  first_name: String
+  last_name: String
+  school: String
+}
+
+input DeleteTeacherInput {
+  id: ID
+}
+
+input ModelTeacherConditionInput {
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  school: ModelStringInput
+  and: [ModelTeacherConditionInput]
+  or: [ModelTeacherConditionInput]
+  not: ModelTeacherConditionInput
+}
+
+type ModelStudentConnection {
+  items: [Student]
+  nextToken: String
+}
+
+input ModelSpecialEventListInput {
+  eq: [SpecialEvent]
+  ne: [SpecialEvent]
+  contains: SpecialEvent
+  notContains: SpecialEvent
+}
+
+input ModelStudentFilterInput {
+  id: ModelIDInput
+  city: ModelStringInput
+  state: ModelStringInput
+  country: ModelStringInput
+  school: ModelStringInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  age: ModelIntInput
+  howYouHear: ModelStringInput
+  numCourses: ModelIntInput
+  parentName: ModelStringInput
+  parentEmail: ModelStringInput
+  registeredEvents: ModelSpecialEventListInput
+  and: [ModelStudentFilterInput]
+  or: [ModelStudentFilterInput]
+  not: ModelStudentFilterInput
+}
+
+input CreateStudentInput {
+  id: ID
+  city: String!
+  state: String!
+  country: String!
+  school: String!
+  first_name: String!
+  last_name: String!
+  age: Int!
+  howYouHear: String!
+  numCourses: Int!
+  parentName: String!
+  parentEmail: String!
+  registeredEvents: [SpecialEvent]
+}
+
+input UpdateStudentInput {
+  id: ID!
+  city: String
+  state: String
+  country: String
+  school: String
+  first_name: String
+  last_name: String
+  age: Int
+  howYouHear: String
+  numCourses: Int
+  parentName: String
+  parentEmail: String
+  registeredEvents: [SpecialEvent]
+}
+
+input DeleteStudentInput {
+  id: ID
+}
+
+input ModelStudentConditionInput {
+  city: ModelStringInput
+  state: ModelStringInput
+  country: ModelStringInput
+  school: ModelStringInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  age: ModelIntInput
+  howYouHear: ModelStringInput
+  numCourses: ModelIntInput
+  parentName: ModelStringInput
+  parentEmail: ModelStringInput
+  registeredEvents: ModelSpecialEventListInput
+  and: [ModelStudentConditionInput]
+  or: [ModelStudentConditionInput]
+  not: ModelStudentConditionInput
+}
+
+type ModelEventAssignmentsConnection {
+  items: [EventAssignments]
+  nextToken: String
+}
+
+input ModelSpecialEventInput {
+  eq: SpecialEvent
+  ne: SpecialEvent
+}
+
+input ModelEventAssignmentsFilterInput {
+  id: ModelIDInput
+  event: ModelSpecialEventInput
+  waitlisted: ModelBooleanInput
+  absences: ModelIntInput
+  and: [ModelEventAssignmentsFilterInput]
+  or: [ModelEventAssignmentsFilterInput]
+  not: ModelEventAssignmentsFilterInput
+}
+
+input CreateEventAssignmentsInput {
+  id: ID
+  event: SpecialEvent!
+  waitlisted: Boolean!
+  absences: Int!
+}
+
+input UpdateEventAssignmentsInput {
+  id: ID!
+  event: SpecialEvent
+  waitlisted: Boolean
+  absences: Int
+}
+
+input DeleteEventAssignmentsInput {
+  id: ID
+}
+
+input ModelEventAssignmentsConditionInput {
+  event: ModelSpecialEventInput
+  waitlisted: ModelBooleanInput
+  absences: ModelIntInput
+  and: [ModelEventAssignmentsConditionInput]
+  or: [ModelEventAssignmentsConditionInput]
+  not: ModelEventAssignmentsConditionInput
+}
+
+type ModelSeminarAssignmentsConnection {
+  items: [SeminarAssignments]
+  nextToken: String
+}
+
+input ModelSeminarAssignmentsFilterInput {
+  id: ModelIDInput
+  waitlisted: ModelBooleanInput
+  absences: ModelIntInput
+  and: [ModelSeminarAssignmentsFilterInput]
+  or: [ModelSeminarAssignmentsFilterInput]
+  not: ModelSeminarAssignmentsFilterInput
+}
+
+input CreateSeminarAssignmentsInput {
+  id: ID
+  waitlisted: Boolean!
+  absences: Int!
+}
+
+input UpdateSeminarAssignmentsInput {
+  id: ID!
+  waitlisted: Boolean
+  absences: Int
+}
+
+input DeleteSeminarAssignmentsInput {
+  id: ID
+}
+
+input ModelSeminarAssignmentsConditionInput {
+  waitlisted: ModelBooleanInput
+  absences: ModelIntInput
+  and: [ModelSeminarAssignmentsConditionInput]
+  or: [ModelSeminarAssignmentsConditionInput]
+  not: ModelSeminarAssignmentsConditionInput
+}
+
+type ModelBlogPostConnection {
+  items: [BlogPost]
+  nextToken: String
+}
+
+input ModelBlogPostFilterInput {
+  id: ModelIDInput
+  content: ModelStringInput
+  date: ModelStringInput
+  image: ModelStringInput
+  title: ModelStringInput
+  and: [ModelBlogPostFilterInput]
+  or: [ModelBlogPostFilterInput]
+  not: ModelBlogPostFilterInput
+}
+
+input CreateBlogPostInput {
+  id: ID
+  content: String!
+  date: String!
+  image: String!
+  title: String!
+}
+
+input UpdateBlogPostInput {
+  id: ID!
+  content: String
+  date: String
+  image: String
+  title: String
+}
+
+input DeleteBlogPostInput {
+  id: ID
+}
+
+input ModelBlogPostConditionInput {
+  content: ModelStringInput
+  date: ModelStringInput
+  image: ModelStringInput
+  title: ModelStringInput
+  and: [ModelBlogPostConditionInput]
+  or: [ModelBlogPostConditionInput]
+  not: ModelBlogPostConditionInput
+}
+
+type ModelSeminarConnection {
+  items: [Seminar]
+  nextToken: String
+}
+
+input ModelSeminarFilterInput {
+  id: ModelIDInput
+  classTimes: ModelStringInput
+  classDays: ModelStringInput
+  classDates: ModelStringInput
+  courseCategory: ModelStringInput
+  courseDescription: ModelStringInput
+  courseTitle: ModelStringInput
+  edLink: ModelStringInput
+  maxClassSize: ModelIntInput
+  picture: ModelStringInput
+  prereqs: ModelStringInput
+  syllabus: ModelStringInput
+  targetAudience: ModelIntInput
+  teachers: ModelIDInput
+  zoomLink: ModelStringInput
+  and: [ModelSeminarFilterInput]
+  or: [ModelSeminarFilterInput]
+  not: ModelSeminarFilterInput
+}
+
+input CreateSeminarInput {
+  id: ID
+  classTimes: String!
+  classDays: String!
+  classDates: String!
+  courseCategory: [String!]!
+  courseDescription: String!
+  courseTitle: String!
+  edLink: String!
+  maxClassSize: Int
+  picture: String
+  prereqs: String
+  syllabus: String
+  targetAudience: [Int]
+  teachers: [ID!]!
+  zoomLink: String!
+}
+
+input UpdateSeminarInput {
+  id: ID!
+  classTimes: String
+  classDays: String
+  classDates: String
+  courseCategory: [String!]
+  courseDescription: String
+  courseTitle: String
+  edLink: String
+  maxClassSize: Int
+  picture: String
+  prereqs: String
+  syllabus: String
+  targetAudience: [Int]
+  teachers: [ID!]
+  zoomLink: String
+}
+
+input DeleteSeminarInput {
+  id: ID
+}
+
+input ModelSeminarConditionInput {
+  classTimes: ModelStringInput
+  classDays: ModelStringInput
+  classDates: ModelStringInput
+  courseCategory: ModelStringInput
+  courseDescription: ModelStringInput
+  courseTitle: ModelStringInput
+  edLink: ModelStringInput
+  maxClassSize: ModelIntInput
+  picture: ModelStringInput
+  prereqs: ModelStringInput
+  syllabus: ModelStringInput
+  targetAudience: ModelIntInput
+  teachers: ModelIDInput
+  zoomLink: ModelStringInput
+  and: [ModelSeminarConditionInput]
+  or: [ModelSeminarConditionInput]
+  not: ModelSeminarConditionInput
+}
