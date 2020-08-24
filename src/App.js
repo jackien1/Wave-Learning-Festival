@@ -20,7 +20,7 @@ import Speaker4SignUp from './pages/Speakers/SpeakerSignup/speaker4.js'
 import Speaker5SignUp from './pages/Speakers/SpeakerSignup/speaker5.js'
 import Speaker6SignUp from './pages/Speakers/SpeakerSignup/speaker6.js'
 
-
+/*
 // wave 1
 import CourseLearnPython from './pages/Courses_W1/CoursePages/LearnPython'
 import CourseHowCancerWorks from './pages/Courses_W1/CoursePages/HowCancerWorks'
@@ -63,6 +63,7 @@ import CourseSignLanguage2 from './pages/Courses_W2/CoursePages/AmericanSignLang
 import CourseAIHealthcare from './pages/Courses_W2/CoursePages/AIHealthcare'
 import CourseMakingAsian from './pages/Courses_W2/CoursePages/MakingAsian'
 import CoursePublicSpeaking from './pages/Courses_W2/CoursePages/PublicSpeaking'
+*/
 
 import TermsAndConditions from './pages/Terms/TermsConditions'
 import PrivacyPolicy from './pages/Terms/PrivacyPolicy'
@@ -122,7 +123,7 @@ function App () {
               <Join />
             </Route>
 
-            {/* wave 1 */}
+{/*
             <Route path="/course-learn-python">
               <CourseLearnPython />
             </Route>
@@ -166,7 +167,6 @@ function App () {
               <CourseSignLanguage />
             </Route>
 
-            {/* wave 2 */}
             <Route path="/course-coding-activities">
               <CourseCodingActivities/>
             </Route>
@@ -245,6 +245,7 @@ function App () {
             <Route path="/course-public-speaking">
               <CoursePublicSpeaking/>
             </Route>
+            */}
 
             <Route path="/terms-conditions">
               <TermsAndConditions />
