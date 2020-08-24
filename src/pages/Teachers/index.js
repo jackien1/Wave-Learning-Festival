@@ -7,6 +7,27 @@ import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import { BodyText } from '@/styles/Typography'
+import Amplify, { API, graphqlOperation } from "aws-amplify"
+
+/*
+API.graphql(graphqlOperation(createStudent, {
+  input: {
+    id: "daniela3",
+  city: "Kirkland",
+  state: "Washington",
+  country: "USA",
+  school: "Harvard",
+  first_name: "Daniela",
+  last_name: "Shuman",
+  age: "18",
+  howYouHear: "woot woot",
+  numCourses: 2,
+  parentName: "Daniela",
+  parentEmail: "Email",
+  }
+}
+))
+*/
 
 const TeacherHome = ({ setPage }) => {
   return (<>
