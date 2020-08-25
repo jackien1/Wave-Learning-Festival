@@ -10,6 +10,7 @@ import { Button, Header, Title, Heading } from './styles'
 
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { listStudents } from '../../graphql/queries';
+import { updateStudent } from '../../graphql/mutations';
 
 import Filter from '../../components/Filter'
 import CourseCard from '../../components/CourseCard'
@@ -44,6 +45,22 @@ const Students = () => {
     }
   }, [students])
 
+  const columns = React.useMemo(
+    () => [{ 
+    Header: 'First Name', 
+    accessor: 'first_name' 
+    },{ 
+    Header: 'Last Name', 
+    accessor: 'last_name' 
+    },{ 
+    Header: 'Age', 
+    accessor: 'age' 
+    },{ 
+    Header: 'Parent Email', 
+    accessor: 'parentEmail' 
+    }
+  ],[])
+
   if (!loading) {
     return (
       <>
@@ -65,7 +82,7 @@ const Students = () => {
         <ContainerInner>
           <Typography.BodyText>Total Number Displayed: {students.length}</Typography.BodyText>
           {loading && 
-            <Table objs={students}/>}
+            <Table objs={students} update={updateStudent} columns={columns}/>}
         </ContainerInner>
       </Container>
     </div>

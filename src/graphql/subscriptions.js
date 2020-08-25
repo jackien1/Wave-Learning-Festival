@@ -115,6 +115,90 @@ export const onDeleteTeacher = /* GraphQL */ `
     }
   }
 `;
+export const onCreateTeacherRegistration = /* GraphQL */ `
+  subscription OnCreateTeacherRegistration {
+    onCreateTeacherRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateTeacherRegistration = /* GraphQL */ `
+  subscription OnUpdateTeacherRegistration {
+    onUpdateTeacherRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteTeacherRegistration = /* GraphQL */ `
+  subscription OnDeleteTeacherRegistration {
+    onDeleteTeacherRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateStudent = /* GraphQL */ `
   subscription OnCreateStudent {
     onCreateStudent {

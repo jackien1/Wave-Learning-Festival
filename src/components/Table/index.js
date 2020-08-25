@@ -4,6 +4,7 @@ import { Colors, Typography, Form } from '@/styles'
 import { Styles } from './styles'
 
 import { useTable, usePagination } from 'react-table'
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
 
 const EditableCell = ({
   value: initialValue,
@@ -135,35 +136,20 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
   )
 }
 
-function App(objs) {
-  console.log(objs)
-
-    const columns = React.useMemo(
-      () => [{ 
-      Header: 'First Name', 
-      accessor: 'first_name' 
-      },{ 
-      Header: 'Last Name', 
-      accessor: 'last_name' 
-      },{ 
-      Header: 'Age', 
-      accessor: 'age' 
-      },{ 
-      Header: 'Parent Email', 
-      accessor: 'parentEmail' 
-      }
-    ],[])
+function App(props) {
+  console.log("columns", props.columns)
+  console.log(props.objs)
 
   const obj_cleaned = () => {
     var arr = [];
-    console.log(objs)
-    console.log(Object.keys(objs))
-    console.log(Object.values(objs))
-    Object.values(objs).forEach((k) => {  
+    console.log(props.objs)
+    console.log(Object.keys(props.objs))
+    console.log(Object.values(props.objs))
+    Object.values(props.objs).forEach((k) => {  
       arr.push(k)
     })
-    console.log(arr[0]);
-    return arr[0];
+    console.log(arr);
+    return arr;
   }
 
   const [data, setData] = React.useState(obj_cleaned)
@@ -186,13 +172,21 @@ function App(objs) {
     )
   }
 
+  //Get update function from 
+  const saveData = () => {
+    data.map(row => {
+      console.log(row)
+      API.graphql(graphqlOperation(props.update, {input: row}));
+    })
+  } 
+
   React.useEffect(() => {
     setSkipPageReset(false)
   }, [data])
 
   const downloadData = () => {
     var element = document.createElement('a'); 
-    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(JSON.stringify(objs))); //TO CHANGE
+    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(JSON.stringify(props.objs))); //TO CHANGE
     element.setAttribute('download', "downloaded.csv"); 
     document.body.appendChild(element); 
     element.click(); 
@@ -201,11 +195,16 @@ function App(objs) {
 
   return (
     <Styles>
+        <div style={{display: "flex"}}>
         <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
             <b>Download Data</b>
         </Form.Button>
+        <Form.Button onClick={saveData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18,  }}>
+            <b>Save Data</b>
+        </Form.Button>
+        </div>
       <Table
-        columns={columns}
+        columns={props.columns}
         data={data}
         updateMyData={updateMyData}
         skipPageReset={skipPageReset}
