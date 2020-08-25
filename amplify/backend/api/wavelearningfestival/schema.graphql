@@ -21,6 +21,29 @@ type Teacher @model {
   school: String!
 }
 
+type TeacherRegistration @model {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+  school: String!
+  gradYear: String!
+  coFirst: String
+  coLast: String
+  coEmail: String
+  coSchool: String
+  coYear: String
+  seminarTitle: String!
+  seminarDesc: String!
+  numSessions: String!
+  qualifications: String!
+  priorTeaching: String!
+  engagement: String!
+  skills: String!
+  previousWaves: String!
+  questions: String
+}
+
 type Student @model {
   id: ID!
   city: String!

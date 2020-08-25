@@ -98,6 +98,73 @@ export const listTeachers = /* GraphQL */ `
     }
   }
 `;
+export const getTeacherRegistration = /* GraphQL */ `
+  query GetTeacherRegistration($id: ID!) {
+    getTeacherRegistration(id: $id) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      coFirst
+      coLast
+      coEmail
+      coSchool
+      coYear
+      seminarTitle
+      seminarDesc
+      numSessions
+      qualifications
+      priorTeaching
+      engagement
+      skills
+      previousWaves
+      questions
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTeacherRegistrations = /* GraphQL */ `
+  query ListTeacherRegistrations(
+    $filter: ModelTeacherRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTeacherRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        first_name
+        last_name
+        email
+        school
+        gradYear
+        coFirst
+        coLast
+        coEmail
+        coSchool
+        coYear
+        seminarTitle
+        seminarDesc
+        numSessions
+        qualifications
+        priorTeaching
+        engagement
+        skills
+        previousWaves
+        questions
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getStudent = /* GraphQL */ `
   query GetStudent($id: ID!) {
     getStudent(id: $id) {

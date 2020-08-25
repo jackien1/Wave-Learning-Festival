@@ -9,13 +9,14 @@ import { Button, Header, Title, Heading } from './styles'
 
 
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import { listStudents } from '../../graphql/queries';
+import { listTeacherRegistrations } from '../../graphql/queries';
+import { updateTeacherRegistration } from '../../graphql/mutations';
 
 import Filter from '../../components/Filter'
 import CourseCard from '../../components/CourseCard'
 import Table from '../../components/Table'
 
-const Students = () => {
+const Teachers = () => {
   const { db, storage } = useContext(FirebaseContext)
   const [loading, setLoading] = useState(false)
   const [students, updateStudents] = useState([])
@@ -24,8 +25,8 @@ const Students = () => {
 
   const fetchStudents = async () => {
     try { 
-      const studentData = await API.graphql(graphqlOperation(listStudents));
-      const studentList = studentData.data.listStudents.items;
+      const studentData = await API.graphql(graphqlOperation(listTeacherRegistrations));
+      const studentList = studentData.data.listTeacherRegistrations.items;
       console.log('student list', studentList);
       updateStudents(studentList);
     } catch (error) {
@@ -43,6 +44,58 @@ const Students = () => {
       setLoading(true)
     }
   }, [students])
+
+  const columns = React.useMemo(
+    () => [{ 
+    Header: 'TimeStamp', 
+    accessor: 'createdAt' 
+    },{ 
+    Header: 'First Name', 
+    accessor: 'first_name' 
+    },{ 
+    Header: 'Last Name', 
+    accessor: 'last_name' 
+    },{ 
+    Header: 'Email', 
+    accessor: 'email' 
+    },{ 
+    Header: 'GradYear', 
+    accessor: 'gradYear' 
+    },{ 
+    Header: 'School', 
+    accessor: 'school' 
+    },{ 
+    Header: 'Prior Teaching', 
+    accessor: 'priorTeaching' 
+    },{ 
+    Header: 'Qualifications', 
+    accessor: 'qualifications' 
+    },{ 
+    Header: 'Engagement', 
+    accessor: 'engagement' 
+    },{ 
+    Header: 'Co-Teacher First Name', 
+    accessor: 'coFirst' 
+    },{ 
+    Header: 'Co-Teacher Last Name', 
+    accessor: 'coLast' 
+    },{ 
+    Header: 'Co-Teacher School', 
+    accessor: 'coSchool' 
+    },{ 
+    Header: 'Co-Teacher GradYear', 
+    accessor: 'coYear' 
+    },{ 
+    Header: 'Previous Waves', 
+    accessor: 'previousWaves' 
+    },{ 
+    Header: 'Number of Sessions', 
+    accessor: 'numSessions' 
+    },{ 
+    Header: 'Seminar Description', 
+    accessor: 'seminarDesc' 
+    }    
+  ],[])
 
   if (!loading) {
     return (
@@ -65,11 +118,11 @@ const Students = () => {
         <ContainerInner>
           <Typography.BodyText>Total Number Displayed: {students.length}</Typography.BodyText>
           {loading && 
-            <Table objs={students}/>}
+            <Table objs={students} columns={columns} update={updateTeacherRegistration}/>}
         </ContainerInner>
       </Container>
     </div>
   )
 }
 
-export default Students
+export default Teachers
