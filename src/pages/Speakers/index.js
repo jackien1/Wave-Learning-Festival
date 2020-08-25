@@ -42,10 +42,6 @@ const Speakers = () => {
       age: "6th - 12th Grade",
       signup: "/speaker-sign-up-ruta3"
     },
-  ]
-
-  const speakers = [
-    
     {
       name: 'Jasmine Shao: Become an iNfLuEnCeR: How to Grow & Monetize Your Platform!',
       img: Jasmine,
@@ -84,6 +80,9 @@ const Speakers = () => {
       age: "7th - 12th Grade",
       signup: "/speaker-sign-up-iris"
     },
+  ]
+
+  const speakers = [
   ]
 
   const colors1 = [Colors.WLF_TURQOUISE, Colors.WLF_YELLOW, Colors.WLF_ORANGE, Colors.WLF_PURPLE]
