@@ -172,12 +172,10 @@ function App(props) {
     )
   }
 
-  //Get update function from 
   const saveData = () => {
     data.map(row => {
-      console.log(row)
-      API.graphql(graphqlOperation(props.update, {input: row}));
-    })
+      props.update(row);
+      })    
   } 
 
   React.useEffect(() => {
