@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
-import './styles.css'
 import WavyPurple from '../About/assets/wavy_purple.svg'
 import { Container, Sidebar, ListItem, Highlight, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
 import Navbar from './components/Navbar'
