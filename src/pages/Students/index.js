@@ -61,6 +61,20 @@ const Students = () => {
     }
   ],[])
 
+
+  const saveData = (studentData) => {
+    console.log(studentData)
+    API.graphql(graphqlOperation(updateStudent, {
+      input: {id: studentData.id,
+        first_name: studentData.first_name,
+        last_name: studentData.last_name,
+        school: studentData.school,
+        email: studentData.email,
+        gradYear: studentData.gradYear
+      }
+      }))
+  }
+
   if (!loading) {
     return (
       <>
@@ -82,7 +96,7 @@ const Students = () => {
         <ContainerInner>
           <Typography.BodyText>Total Number Displayed: {students.length}</Typography.BodyText>
           {loading && 
-            <Table objs={students} update={updateStudent} columns={columns}/>}
+            <Table objs={students} update={saveData} columns={columns}/>}
         </ContainerInner>
       </Container>
     </div>
