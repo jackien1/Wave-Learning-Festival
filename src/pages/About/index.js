@@ -293,7 +293,7 @@ const About = () => {
             <Typography.Header
                 style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20}}
               >
-                {countries}+
+                {countries}
             </Typography.Header>
             <Typography.Header
                 style={{ fontSize: 22, color: Colors.WLF_BLACK }}
