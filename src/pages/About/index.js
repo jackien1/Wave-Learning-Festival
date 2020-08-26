@@ -37,7 +37,7 @@ const About = () => {
   const [subscribed, toggleSubscribed] = useState(false)
   const { db } = useContext(FirebaseContext)
   const [courses, totalCourses] = useState(60)
-  const [registrations, totalRegs] = useState(8660)
+  const [registrations, totalRegs] = useState(9510)
   const [countries, totalCountries] = useState(5)
 
   const subscribe = () => {
@@ -69,12 +69,12 @@ const About = () => {
       const intervalId = setInterval(() => {
         totalCourses(count => {
           // NEEDS UPDATE: for dynamic courses count, needs to sync with database.  Manually entered 123 now.
-          if (count === 123) {
+          if (count === 300) {
             clearInterval(intervalId)
             return count
           }
           else
-            return count + 1
+            return count + 10
         })
       }, 215)
       return () => clearInterval(intervalId)
@@ -84,12 +84,12 @@ const About = () => {
       const intervalId = setInterval(() => {
         totalRegs(count => {
           // NEEDS UPDATE: for dynamic registrations count, needs to sync with database.  Manually entered 8765 now.
-          if (count === 8765) {
+          if (count === 10000) {
             clearInterval(intervalId)
             return count
           }
           else
-            return count + 1
+            return count + 10
         })
       }, 125)
       return () => clearInterval(intervalId)
@@ -99,18 +99,18 @@ const About = () => {
       const intervalId = setInterval(() => {
         totalCountries(count => {
           // NEEDS UPDATE: for dynamic countries count, needs to sync with database.  Manually entered 36 now.
-          if (count === 36) {
+          if (count === 60) {
             clearInterval(intervalId)
             return count
           }
           else
-            return count + 1
+            return count + 5
         })
       }, 415)
       return () => clearInterval(intervalId)
     }, [])
 
-      
+
   return (
     <MetaContainer>
       <Navbar />
@@ -241,22 +241,22 @@ const About = () => {
             <DescItem>
             <Highlight
                 src={Assets.Blob1}
-                style={{width: 250, height: 118, marginTop: 20}}
+                style={{width: 250, height: 128, marginTop: 20}}
             />
             <Typography.Header
-                style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20 }}
+                style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 68, marginBottom: 20, marginTop: 30 }}
               >
-                {registrations}
+                {registrations}+
             </Typography.Header>
             <Typography.Header
                 style={{ fontSize: 22, color: Colors.WLF_BLACK }}
               >
-                Unique Registrations
+                Registrations
             </Typography.Header>
             <Typography.BodyText
                 style={{ fontSize: 16, color: Colors.WLF_BLACK }}
               >
-                Wave has served over 8765 students from all over the world.
+                Wave has served over 10000 students from all over the world.
             </Typography.BodyText>
             </DescItem>
           </Card>
@@ -269,7 +269,7 @@ const About = () => {
             <Typography.Header
                 style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20 }}
               >
-              {courses}
+              {courses}+
             </Typography.Header>
             <Typography.Header
                 style={{ fontSize: 22, color: Colors.WLF_BLACK }}
@@ -279,7 +279,7 @@ const About = () => {
             <Typography.BodyText
                 style={{ fontSize: 16, color: Colors.WLF_BLACK }}
               >
-                Choose from over 100 different classes and seminars covering everything from math and physics
+                We've provided over 300 different classes and seminars covering everything from math and physics
                 to art history and public transportation systems.
             </Typography.BodyText>
             </DescItem>
@@ -293,7 +293,7 @@ const About = () => {
             <Typography.Header
                 style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20}}
               >
-                {countries}
+                {countries}+
             </Typography.Header>
             <Typography.Header
                 style={{ fontSize: 22, color: Colors.WLF_BLACK }}
@@ -303,7 +303,7 @@ const About = () => {
             <Typography.BodyText
                 style={{ fontSize: 16, color: Colors.WLF_BLACK }}
               >
-                We have students from 36 countries, including the United Arab Emirates, China, India, and Antarctica.
+                We have students from over 60 countries, including the United Arab Emirates, China, India, and Antarctica.
             </Typography.BodyText>
             </DescItem>
           </Card>
