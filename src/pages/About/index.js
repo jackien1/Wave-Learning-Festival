@@ -303,7 +303,7 @@ const About = () => {
             <Typography.BodyText
                 style={{ fontSize: 16, color: Colors.WLF_BLACK }}
               >
-                We have students from over 60 countries, including the United Arab Emirates, China, India, and Antarctica.
+                We have students from 60 countries, including the United Arab Emirates, China, India, and Antarctica.
             </Typography.BodyText>
             </DescItem>
           </Card>
