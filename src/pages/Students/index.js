@@ -161,9 +161,10 @@ const Students = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <Typography.BodyText>Total Number Displayed: {students.length}</Typography.BodyText>
+          <Typography.Header>Student Profiles</Typography.Header>
+          <Typography.BodyText style={{color: Colors.WLF_BLACK}}>Total Number Displayed: {students.length}</Typography.BodyText>
           {loading && 
-            <Table title="Student Information" data={students} columns={columns} 
+            <Table title="" data={students} columns={columns} 
             saveData={saveData} addData={addData} deleteData={delData}/>}
         </ContainerInner>
       </Container>
