@@ -32,6 +32,7 @@ function App(props) {
   console.log("columns", props.columns)
   console.log(props.data)
   
+  {/*
   const downloadData = () => {
     var element = document.createElement('a'); 
     element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(JSON.stringify(props.objs))); //TO CHANGE
@@ -40,14 +41,18 @@ function App(props) {
     element.click(); 
     document.body.removeChild(element); 
   }
+  */}
 
   return (
     <Styles>
+      {/*
       <div style={{display: "flex"}}>
       <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
           <b>Download Data</b>
       </Form.Button>
       </div>
+      */}
+      <Typography.BodyText style={{color:Colors.WLF_BLACK}}><b>Total Number of Responses: {props.data.length}</b></Typography.BodyText>
       <MaterialTable
         title={props.title}
         icons={tableIcons}
@@ -83,6 +88,25 @@ function App(props) {
                 dataUpdate.splice(props.data.indexOf(oldData), 1));
               }, 2000);
             }),
+        }}
+        options={{
+          headerStyle: {
+            color: Colors.WLF_BLACK,
+            fontSize: '18px',
+            fontFamily: 'Mukta Mahee',
+            fontWeight: 'bold',
+            margin: 'auto'
+          },
+          rowStyle: {
+            color: Colors.WLF_BLACK,
+            fontSize: '15px',
+            fontFamily: 'Muli',
+            margin: 'auto'
+          },
+          columnsButton: true,
+          pageSizeOptions: [5, 10, 20, 50, 100],
+          exportAllData: true,
+          exportButton: true
         }}
       />
     </Styles>

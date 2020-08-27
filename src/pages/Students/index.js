@@ -162,7 +162,6 @@ const Students = () => {
       <Container>
         <ContainerInner>
           <Typography.Header>Student Profiles</Typography.Header>
-          <Typography.BodyText style={{color: Colors.WLF_BLACK}}>Total Number Displayed: {students.length}</Typography.BodyText>
           {loading && 
             <Table title="" data={students} columns={columns} 
             saveData={saveData} addData={addData} deleteData={delData}/>}

@@ -18,9 +18,9 @@ const Teachers = () => {
 
   const fetchRegistrations = async () => {
     try { 
-      const studentData = await API.graphql(graphqlOperation(listTeacherRegistrations));
-      const studentList = studentData.data.listTeacherRegistrations.items;
-      updateRegistrations(studentList);
+      const teacherData = await API.graphql(graphqlOperation(listTeacherRegistrations));
+      const teacherList = teacherData.data.listTeacherRegistrations.items;
+      updateRegistrations(teacherList);
     } catch (error) {
         console.log('error on fetching songs', error);
     }
@@ -28,20 +28,20 @@ const Teachers = () => {
 
   useEffect(() => {
     fetchRegistrations();
-}, []);
+  }, []);
 
   useEffect(() => {
     console.log(registrations.length)
-    if (registrations.length >= 2) {
+    if (registrations.length >= 1) {
       setLoading(true)
     }
   }, [registrations])
 
-  const columns = React.useMemo(
-    () => [{ title: 'id', 
+  const columns = [{
+    title: 'id', 
     field: 'id',
     type: 'ID'
-  },{
+    },{ 
     title: 'TimeStamp', 
     field: 'createdAt' 
     },{ 
@@ -54,20 +54,38 @@ const Teachers = () => {
     title: 'Email', 
     field: 'email' 
     },{ 
-    title: 'GradYear', 
-    field: 'gradYear' 
-    },{ 
     title: 'School', 
     field: 'school' 
     },{ 
-    title: 'Prior Teaching', 
-    field: 'priorTeaching' 
+    title: 'GradYear', 
+    field: 'gradYear' 
+    },{ 
+    title: 'Seminar Title', 
+    field: 'seminarTitle' 
+    },{ 
+    title: 'Seminar Description', 
+    field: 'seminarDesc'
+    },{ 
+    title: 'Number of Sessions', 
+    field: 'numSessions' 
     },{ 
     title: 'Qualifications', 
     field: 'qualifications' 
     },{ 
+    title: 'Prior Teaching', 
+    field: 'priorTeaching' 
+    },{ 
     title: 'Engagement', 
     field: 'engagement' 
+    },{ 
+    title: 'Course Learning Outcomes', 
+    field: 'skills' 
+    },{ 
+    title: 'Previous Waves', 
+    field: 'previousWaves' 
+    },{ 
+    title: 'Questions?', 
+    field: 'questions' 
     },{ 
     title: 'Co-Teacher First Name', 
     field: 'coFirst' 
@@ -80,17 +98,7 @@ const Teachers = () => {
     },{ 
     title: 'Co-Teacher GradYear', 
     field: 'coYear' 
-    },{ 
-    title: 'Previous Waves', 
-    field: 'previousWaves' 
-    },{ 
-    title: 'Number of Sessions', 
-    field: 'numSessions' 
-    },{ 
-    title: 'Seminar Description', 
-    field: 'seminarDesc' 
-    }    
-  ],[])
+    }]
 
   const saveData = (teacherData, fullData) => {
     console.log(teacherData)
@@ -126,25 +134,29 @@ const Teachers = () => {
       }))
   }
 
-  const addData = (registrationData) => {
-    updateRegistrations([...registrations, registrationData]);
+  const addData = (teacherData) => {
+    updateRegistrations([...registrations, teacherData]);
     API.graphql(graphqlOperation(createTeacherRegistration, {
-      input: {
-        id: registrationData.id,
-        city: registrationData.city,
-        state: registrationData.state,
-        country: registrationData.country,
-        school: registrationData.school,
-        first_name: registrationData.first_name,
-        last_name: registrationData.last_name,
-        grade: registrationData.grade,
-        howYouHear: registrationData.howYouHear,
-        numCourses: registrationData.numCourses,
-        parentName: registrationData.parentName,
-        parentEmail: registrationData.parentEmail,
-        registeredEvents: registrationData.registeredEvents,
-        registeredSeminars: registrationData.registeredSeminars,
-      }
+      input: {id: teacherData.id,
+        first_name: teacherData.first_name,
+        last_name: teacherData.last_name,
+        school: teacherData.school,
+        email: teacherData.email,
+        gradYear: teacherData.gradYear,
+        coFirst: teacherData.coFirst,
+        coLast: teacherData.coLast,
+        coEmail: teacherData.coEmail,
+        coSchool: teacherData.coSchool,
+        coYear: teacherData.coYear,
+        seminarTitle: teacherData.seminarTitle,
+        seminarDesc: teacherData.seminarDesc,
+        numSessions: teacherData.numSessions,
+        qualifications: teacherData.qualifications,
+        priorTeaching: teacherData.priorTeaching,
+        engagement: teacherData.engagement,
+        skills: teacherData.skills,
+        previousWaves: teacherData.previousWaves,
+        questions: teacherData.questions}
     }))
   }
 
@@ -183,7 +195,6 @@ const Teachers = () => {
       <Container>
         <ContainerInner>
           <Typography.Header>Instructor Applications</Typography.Header>
-          <Typography.BodyText style={{color:Colors.WLF_BLACK}}>Total Number Displayed: {registrations.length}</Typography.BodyText>
           {loading && 
             <Table title="" data={registrations} columns={columns} 
             saveData={saveData} addData={addData} deleteData={delData}/>}
