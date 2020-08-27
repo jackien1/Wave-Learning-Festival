@@ -60,11 +60,11 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
   <div style={{ flex: 1 }} />
   </div>
-  
+
     {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
       <b>Applications will open before 8/25. </b>
 </Typography.BodyText>*/}
-  
+
   </>)
 }
 
@@ -917,22 +917,6 @@ const Teachers = () => {
           {page === 'thanks' && Thanks({ setPage })}
         </div>
       </Styles.TeacherBackground>
-      <Styles.LogoBackground src={Logo} alt="logo" style={{
-        position: 'absolute',
-        width: 300,
-        height: 300,
-        transform: 'rotate(-35deg)',
-        top: '60%',
-        left: -100
-      }}/>
-      <Styles.LogoBackground src={Logo} alt="logo" style={{
-        position: 'absolute',
-        width: 300,
-        height: 300,
-        transform: 'rotate(-235deg)',
-        top: '20%',
-        right: -150
-      }}/>
       <Footer />
     </div>
   )
