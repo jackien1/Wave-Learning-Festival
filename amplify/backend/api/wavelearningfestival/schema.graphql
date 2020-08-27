@@ -52,7 +52,8 @@ type Student @model {
   school: String!
   first_name: String!
   last_name: String!
-  age: Int!
+  email: String!
+  grade: Int!
   howYouHear: String!
   numCourses: Int!
   parentName: String!

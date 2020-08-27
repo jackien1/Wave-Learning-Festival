@@ -1,187 +1,37 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, forwardRef } from 'react'
 import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography, Form } from '@/styles'
 import { Styles } from './styles'
 
-import { useTable, usePagination } from 'react-table'
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import MaterialTable from 'material-table'
+import { AddBox, ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline, Edit, 
+  FilterList, FirstPage, LastPage, Remove, SaveAlt, Search, ViewColumn} from '@material-ui/icons';
 
-const EditableCell = ({
-  value: initialValue,
-  row: { index },
-  column: { id },
-  updateMyData,
-}) => {
-  const [value, setValue] = React.useState(initialValue)
-
-  const onChange = e => {
-    setValue(e.target.value)
-  }
-
-  const onBlur = () => {
-    updateMyData(index, id, value)
-  }
-
-  React.useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  return <input value={value} onChange={onChange} onBlur={onBlur} />
-}
-
-const defaultColumn = {
-  Cell: EditableCell,
-}
-
-function Table({ columns, data, updateMyData, skipPageReset }) {  
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data,
-      defaultColumn,
-      autoResetPage: !skipPageReset,
-      updateMyData,
-    },
-    usePagination
-  )
-
-  //console.log(page[0].cells[0].render('Cell'))
-  console.log(page)
-
-  return (
-    <>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-      <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
-    </>
-  )
-}
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+};
 
 function App(props) {
   console.log("columns", props.columns)
-  console.log(props.objs)
-
-  const obj_cleaned = () => {
-    var arr = [];
-    console.log(props.objs)
-    console.log(Object.keys(props.objs))
-    console.log(Object.values(props.objs))
-    Object.values(props.objs).forEach((k) => {  
-      arr.push(k)
-    })
-    console.log(arr);
-    return arr;
-  }
-
-  const [data, setData] = React.useState(obj_cleaned)
-  const [originalData] = React.useState(data)
-  const [skipPageReset, setSkipPageReset] = React.useState(false)
-
-  const updateMyData = (rowIndex, columnId, value) => {
-    console.log("UPDATED");
-    setSkipPageReset(true)
-    setData(old =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          }
-        }
-        return row
-      })
-    )
-  }
-
-  const saveData = () => {
-    data.map(row => {
-      props.update(row);
-      })    
-  } 
-
-  React.useEffect(() => {
-    setSkipPageReset(false)
-  }, [data])
-
+  console.log(props.data)
+  
   const downloadData = () => {
     var element = document.createElement('a'); 
     element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(JSON.stringify(props.objs))); //TO CHANGE
@@ -193,19 +43,47 @@ function App(props) {
 
   return (
     <Styles>
-        <div style={{display: "flex"}}>
-        <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-            <b>Download Data</b>
-        </Form.Button>
-        <Form.Button onClick={saveData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18,  }}>
-            <b>Save Data</b>
-        </Form.Button>
-        </div>
-      <Table
+      <div style={{display: "flex"}}>
+      <Form.Button onClick={downloadData} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+          <b>Download Data</b>
+      </Form.Button>
+      </div>
+      <MaterialTable
+        title={props.title}
+        icons={tableIcons}
         columns={props.columns}
-        data={data}
-        updateMyData={updateMyData}
-        skipPageReset={skipPageReset}
+        data={props.data}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                console.log([...props.data, newData]);
+                props.addData(newData);
+                resolve();
+              }, 2000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...props.data];
+                const index = props.data.indexOf(oldData);
+                dataUpdate[index] = newData;
+                console.log("dataUpdate: ", dataUpdate);
+                props.saveData(dataUpdate[index], dataUpdate);
+                resolve();
+              }, 2000);
+            }),
+
+          onRowDelete: (oldData) =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+                const dataUpdate = [...props.data];
+                props.delData(dataUpdate[props.data.indexOf(oldData)], 
+                dataUpdate.splice(props.data.indexOf(oldData), 1));
+              }, 2000);
+            }),
+        }}
       />
     </Styles>
   )

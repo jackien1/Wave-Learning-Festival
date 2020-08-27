@@ -248,7 +248,8 @@ export const createStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -279,7 +280,8 @@ export const updateStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -310,7 +312,8 @@ export const deleteStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName

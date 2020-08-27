@@ -175,7 +175,8 @@ export const getStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -208,7 +209,8 @@ export const listStudents = /* GraphQL */ `
         school
         first_name
         last_name
-        age
+        email
+        grade
         howYouHear
         numCourses
         parentName
