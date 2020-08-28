@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
-import { Container, Sidebar, ListItem, Highlight, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
+import { Container, Sidebar, ListItem, Highlight, CalendarButton, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
 import Navbar from './components/Navbar'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 
@@ -47,7 +47,26 @@ const Dashboard = () => {
           <p>Content</p>
         </ContentContainer>
         <CalendarContainer>
-          <p>Calendar</p>
+          <header>
+            <h2>Upcoming Events</h2>
+            <h4>August 27, 2020</h4>
+          </header>
+          <div>
+             <CalendarButton>Mon<br />24</CalendarButton>
+             <CalendarButton>Tue<br />25</CalendarButton>
+             <CalendarButton>Wed<br />26</CalendarButton>
+             <CalendarButton>Thu<br />27</CalendarButton>
+             <CalendarButton>Fri<br />28</CalendarButton>
+          </div>
+          <div style={{width: "100%"}}>
+            <div style={{width: "50%", height: "100px", float: "left"}}>
+              Left Div
+            </div>
+            <div style={{height: "100px"}}>
+              Right Div
+            </div>
+          </div>
+          <hr />
         </CalendarContainer>
       </Container>
     </div>
