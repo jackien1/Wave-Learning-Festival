@@ -31,6 +31,16 @@ export const ListItem = styled.p`
     background-color: rgba(255, 255, 255, 0.2); 
     cursor: pointer; 
   }
+
+  & p {
+    margin: 0px; 
+    margin-left: 1rem; 
+  }
+`
+
+export const ListIcon = styled.div`
+  display: flex; 
+  align-items: center; 
 `
 
 export const Highlight = styled.img`

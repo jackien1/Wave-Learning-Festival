@@ -1,21 +1,32 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
-import { Container, Sidebar, ListItem, Highlight, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
+import { ListIcon, Container, Sidebar, ListItem, Highlight, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
 import Navbar from './components/Navbar'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 import { Auth } from 'aws-amplify'
+import { FaPowerOff, FaHome } from 'react-icons/fa'
 
 const Dashboard = () => {
+  const [email, userEmail] = useState('')
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: true })
+      window.location.href = '/sign-in'
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
+
   useEffect(() => {
     Auth.currentAuthenticatedUser({
       bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-    }).then(user => console.log(user))
-      .catch(err => console.log(err))
+    }).then(user => userEmail(user.attributes.email))
+      .catch(err => window.location.href = '/')
   }, [])
   return (
     <div>
-      <Navbar/>
+      <Navbar user={email}/>
       <Container>
         <Sidebar>
           <Highlight
@@ -48,6 +59,18 @@ const Dashboard = () => {
           </ListItem>
           <ListItem>
             Profile
+          </ListItem>
+          <ListItem onClick={() => signOut()}>
+            <ListIcon>
+              <FaPowerOff/>
+              <p>Sign out</p>
+            </ListIcon>
+          </ListItem>
+          <ListItem onClick={() => window.location.href = '/'}>
+            <ListIcon>
+              <FaHome/>
+              <p>Return to Home</p>
+            </ListIcon>
           </ListItem>
         </Sidebar>
         <ContentContainer>

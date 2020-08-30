@@ -2,11 +2,12 @@ import React from 'react'
 import { NavbarContainer } from './styles'
 import Logo from '@/components/Navbar/logo.svg'
 
-const Navbar = () => {
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ user }) => {
   return (
     <NavbarContainer>
       <img src={Logo}/>
-      <p>Karly Hou</p>
+      <p>{user}</p>
     </NavbarContainer>
   )
 }
