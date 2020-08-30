@@ -7,6 +7,7 @@ import Logo from './logo.png'
 import firebase from 'firebase'
 import { FirebaseContext } from '@/firebaseContext'
 import { Redirect } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 
 var inputChanged = function (key, setField) {
   var result = (event) => {
@@ -20,18 +21,17 @@ var inputChanged = function (key, setField) {
   return result
 }
 
-var submit = (signInForm, setWrongSubmission) => {
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
-    firebase.auth().signInWithEmailAndPassword(signInForm.username, signInForm.password).then(function (result) {
-      if (result) {
-        console.log(result)
-        window.location.href = '/dashboard'
-      }
-    }).catch(function (error) {
-      setWrongSubmission('Wrong email/password!')
-      throw Error(error)
-    })
-  })
+const submit = async (signInForm, setWrongSubmission) => {
+  try {
+    const user = await Auth.signIn(signInForm.username, signInForm.password)
+    if (user) {
+      console.log(user)
+      window.location.href = '/dashboard'
+    }
+  } catch (error) {
+    setWrongSubmission('Wrong email/password!')
+    throw Error(error)
+  }
 }
 
 const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission) => {
