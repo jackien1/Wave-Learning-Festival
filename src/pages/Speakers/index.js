@@ -21,17 +21,6 @@ import { Typography, Colors } from '@/styles'
 const Speakers = () => {
   const upcomingSpeakers = [
     {
-      name: 'Ruta Sepetys: History in Hiding: The Elusive Power of Historical Fiction',
-      img: Ruta,
-      title: '#1 NYT Bestselling Author of Historical Fiction',
-      date: "Tuesday 8/25 7:00-8:00pm EDT",
-      desc: <p><b>Seminar 2: History in Hiding: The Elusive Power of Historical Fiction </b><br/>What determines how history is preserved and recalled? Why do some parts of history penetrate our collective consciousness while others remain hidden? This seminar will explore unearthing buried history and creative research! Topics will include the power of historical fiction to facilitate progress, create pathways for global dialogue, and give voice to the voiceless. Presentation will be followed by discussion and Q & A. Stay tuned for Ruta's third seminar: Meet the Author!</p>,
-      bio: 'Ruta Sepetys is a #1 New York Times bestselling author of historical fiction published in over sixty countries and forty languages. Sepetys is considered a “crossover” novelist as her books are read by both students and adults worldwide. Winner of the Carnegie Medal, Ruta is renowned for giving voice to underrepresented history and those who experienced it.  Her books have won or been shortlisted for over forty book prizes, are included on over thirty state reading lists, and are currently in development for film and television. www.rutasepetys.com',
-      hasTime: false,
-      age: "6th - 12th Grade",
-      signup: ""
-    },
-    {
       name: 'Ruta Sepetys: Meet the Author: Ruta Sepetys Discusses Her Novels',
       img: Ruta,
       title: '#1 NYT Bestselling Author of Historical Fiction',
@@ -49,7 +38,7 @@ const Speakers = () => {
       date: 'Tuesday 9/1 8:30-9:30pm EDT',
       desc: <p>How do people become famous? Specifically, how do people talking to themselves in their bedrooms blow up into Internet stars? I don't have all the answers to the age-old puzzle of popularity, but here's what I can tell you: <br/><br/> How to start creating or improve your own content! I'll share the top tips I've learned from my four years of video and photo experience, and my insider reflections on the 'influencer industry' as a whole. <br/><br/> How people seem to make an income out of thin air! I'll show you how monetization, sponsorships, affiliate marketing, and other methods work, so you can be an informed consumer or get started on your Internet career. <br/><br/> And maybe, just maybe... how to become famous.</p>,
       bio: "Hello! My name is Jasmine. I'm the creator behind the YouTube channel and Instagram account @studyquill, where I share tips on studying and bullet journaling. In my four years on social media, I've gained 550,000+ subscribers and 300,000+ Instagram followers. I've collaborated with brands like Google Chromebooks, Texas Instruments, and Grammarly, and have been profiled in the Wall Street Journal and National Geographic textbooks. I also published a book about bullet journaling and interned with the marketing team of my favorite stationery company! Proud Ravenclaw and lover of string crafts.",
-      hasTime: true, 
+      hasTime: true,
       age: "9th - 12th Grade",
       signup: "/speaker-sign-up-jasmine"
     },
@@ -62,8 +51,8 @@ const Speakers = () => {
       <br/>So, the recruiter asks you what your salary expectations are. Now what? Stop right there. First person to say a number loses.
       <br/>In this seminar, you'll learn the time-tested techniques to get recruiters or managers to say their numbers or ranges first, so you'll be in better control of the salary negotiation. Find out which questions to ask and how to specifically ask them, so that you can get paid what you're worth. And it doesn't stop there. With these negotiation techniques, you'll learn how to negotiate nearly anything, whether it's working remotely, pay raises, benefits, and more.
       <br/>Come with your questions as there will be plenty of time for Q&A with Cliff.</p>,
-      bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques. 
-        <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator. 
+      bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques.
+        <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator.
         <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
       hasTime: true,
       age: "9th Grade and up",
@@ -76,7 +65,7 @@ const Speakers = () => {
       date: 'Thursday 9/3 5:30-6:30pm EDT',
       desc: "Have you always had an interest that you'd want to showcase through a book? Does publishing a book seem like a daunting task? Well, it doesn't have to be! In this seminar, you'll learn how you can go from writing, editing, and self-publishing your book in as short of a time frame as a month. We'll focus on using the publishing platform Amazon KDP, and leave ample of time for questions to cater to your needs! ",
       bio: 'Iris Fu is a rising freshman at Stanford University, where she plans to study computer science and economics. In high school, she self-published an introductory economics book, created an international video pal program, and had the opportunity to perform flute at Carnegie Hall. This summer, she is working at a blockchain identity startup, running a college admissions Youtube channel (Iris Fu), and seeking cool opportunities like speaking at Wave LF!',
-      hasTime: true, 
+      hasTime: true,
       age: "7th - 12th Grade",
       signup: "/speaker-sign-up-iris"
     },
