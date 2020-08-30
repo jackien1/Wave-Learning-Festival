@@ -17,7 +17,7 @@ export const TeamRow = styled.div`
   }
   @media ${device.laptop} {
     padding: 20px 100px;
-    grid-template-columns: repeat(4, [col-start] minmax(200px, 1fr) [col-end]);
+    grid-template-columns: repeat(5, [col-start] minmax(200px, 1fr) [col-end]);
   }
   `
 
