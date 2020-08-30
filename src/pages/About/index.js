@@ -38,7 +38,7 @@ const About = () => {
   const { db } = useContext(FirebaseContext)
   const [courses, totalCourses] = useState(60)
   const [registrations, totalRegs] = useState(9510)
-  const [countries, totalCountries] = useState(5)
+  const [countries, totalCountries] = useState(16)
 
   const subscribe = () => {
     toggleEmail(false)
@@ -106,7 +106,7 @@ const About = () => {
           else
             return count + 2
         })
-      }, 415)
+      }, 200)
       return () => clearInterval(intervalId)
     }, [])
 
