@@ -10,8 +10,46 @@ import {
   ContainerInner
 } from './styles'
 import { Container } from '@/globalStyles'
+import { Auth } from 'aws-amplify'
 
 const Login = () => {
+  const signIn = async () => {
+    try {
+      const user = await Auth.signIn(email, password)
+      console.log(user)
+    } catch (error) {
+      console.log('error signing in', error)
+    }
+  }
+  const signUp = async () => {
+    try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email
+        }
+      })
+      console.log(user)
+    } catch (error) {
+      console.log('error signing up:', error)
+    }
+  }
+  const confirmSignUp = async () => {
+    try {
+      await Auth.confirmSignUp(email, code)
+    } catch (error) {
+      console.log('error confirming sign up', error)
+    }
+  }
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: true })
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
   return (
     <>
       <Navbar />
