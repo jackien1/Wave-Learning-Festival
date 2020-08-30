@@ -104,7 +104,7 @@ const About = () => {
             return count
           }
           else
-            return count + 5
+            return count + 2
         })
       }, 415)
       return () => clearInterval(intervalId)
