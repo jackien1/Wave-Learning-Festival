@@ -38,7 +38,7 @@ const About = () => {
   const { db } = useContext(FirebaseContext)
   const [courses, totalCourses] = useState(60)
   const [registrations, totalRegs] = useState(9510)
-  const [countries, totalCountries] = useState(5)
+  const [countries, totalCountries] = useState(16)
 
   const subscribe = () => {
     toggleEmail(false)
@@ -99,14 +99,14 @@ const About = () => {
       const intervalId = setInterval(() => {
         totalCountries(count => {
           // NEEDS UPDATE: for dynamic countries count, needs to sync with database.  Manually entered 36 now.
-          if (count === 60) {
+          if (count === 62) {
             clearInterval(intervalId)
             return count
           }
           else
-            return count + 5
+            return count + 2
         })
-      }, 415)
+      }, 200)
       return () => clearInterval(intervalId)
     }, [])
 
@@ -304,7 +304,7 @@ const About = () => {
             <Typography.BodyText
                 style={{ fontSize: 16, color: Colors.WLF_BLACK }}
               >
-                We have students from 60 countries, including the United Arab Emirates, China, India, and Antarctica.
+                We have students from 62 countries and territories, spanning all 6 inhabitable continents.
             </Typography.BodyText>
             </DescItem>
           </Card>
