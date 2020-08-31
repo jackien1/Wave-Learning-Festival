@@ -39,13 +39,13 @@ export const CalendarButton = styled.button`
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: px;
-  margin: 10px 2px;
+  font-size:16 px;
+  margin: 3px;
   cursor: pointer;
   border-radius: 12px;
   transition-duration: 0.4s;
   height:100px;
-  width:calc(height/1.618px);
+  width:50px;
   &:hover{
         background-color: ${Colors.WLF_PURPLE};
         opacity: 0.6;

@@ -52,21 +52,181 @@ const Dashboard = () => {
             <h4>August 27, 2020</h4>
           </header>
           <div>
-             <CalendarButton>Mon<br />24</CalendarButton>
-             <CalendarButton>Tue<br />25</CalendarButton>
-             <CalendarButton>Wed<br />26</CalendarButton>
-             <CalendarButton>Thu<br />27</CalendarButton>
-             <CalendarButton>Fri<br />28</CalendarButton>
+            <CalendarButton>
+              Mon<br />
+              <h3>24</h3>
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_ORANGE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_YELLOW,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+            </CalendarButton>
+            <CalendarButton>
+              Tue<br />
+              <h3>25</h3>
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_ORANGE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_YELLOW,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_TURQOUISE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+            </CalendarButton>
+            <CalendarButton>
+              Wed<br />
+              <h3>26</h3>
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_ORANGE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_YELLOW,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+            </CalendarButton>
+            <CalendarButton>
+              Thu<br />
+              <h3>27</h3>
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_ORANGE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_YELLOW,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+            </CalendarButton>
+            <CalendarButton>
+              Fri<br />
+              <h3>28</h3>
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_ORANGE,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+              <dot style={{
+                height: "5px",
+                width: "5px",
+                backgroundColor: Colors.WLF_YELLOW,
+                borderRadius: "50%",
+                display: "inline-block",
+                margin: "3px"
+              }} />
+            </CalendarButton>
           </div>
           <div style={{width: "100%"}}>
-            <div style={{width: "50%", height: "100px", float: "left"}}>
-              Left Div
+            <div style={{width: "50%", height: "75px", float: "left"}}>
+              <shape style={{
+                borderRadius: "25px",
+                background: Colors.WLF_ORANGE,
+                width: "100px",
+                margin: "auto",
+                opacity: "50%",
+                display: "inline-block",
+                height: "50px"
+              }}>
+                <h2 style={{color: "#FFFFFF", display: "inline-block", marginTop: "3px", marginLeft: "30px"}}>
+                  7:00
+                </h2>
+              </shape>
             </div>
-            <div style={{height: "100px"}}>
-              Right Div
+            <div style={{marginLeft: "50%", height: "75px"}}>
+              <p style={{marginTop: "0px"}}><b>Beep Bop</b></p>
+              <p style={{marginBottom: "0px"}}>Seminar</p>
             </div>
           </div>
-          <hr />
+          <hr style={{opacity: "33%"}}/>
+          <div style={{width: "100%"}}>
+            <div style={{width: "50%", height: "75px", float: "left"}}>
+              <shape style={{
+                borderRadius: "25px",
+                background: Colors.WLF_YELLOW,
+                width: "100px",
+                margin: "auto",
+                opacity: "50%",
+                display: "inline-block",
+                height: "50px"
+              }}>
+                <h2 style={{color: "#FFFFFF", display: "inline-block", marginTop: "3px", marginLeft: "30px"}}>
+                  7:00
+                </h2>
+              </shape>
+            </div>
+            <div style={{marginLeft: "50%", height: "75px"}}>
+              <p style={{marginTop: "0px"}}><b> Intro to Due Process </b></p>
+              <p style={{marginBottom: "0px"}}>Class</p>
+            </div>
+          </div>
+          <hr style={{opacity: "33%"}}/>
+          <div style={{width: "100%"}}>
+            <div style={{width: "50%", height: "75px", float: "left"}}>
+              <shape style={{
+                borderRadius: "25px",
+                background: Colors.WLF_TURQOUISE,
+                width: "100px",
+                margin: "auto",
+                opacity: "50%",
+                display: "inline-block",
+                height: "50px"
+              }}>
+                <h2 style={{color: "#FFFFFF", display: "inline-block", marginTop: "3px", marginLeft: "30px"}}>
+                7:00
+                </h2>
+              </shape>
+            </div>
+            <div style={{marginLeft: "50%", height: "75px"}}>
+              <p style={{marginTop: "0px"}}><b> To Hand and Back </b></p>
+              <p style={{marginBottom: "0px"}}>Class</p>
+            </div>
+          </div>
+          <hr style={{opacity: "33%"}}/>
         </CalendarContainer>
       </Container>
     </div>
