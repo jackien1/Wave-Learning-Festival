@@ -50,11 +50,27 @@ const renderMultiOption = ({key, option, tutorData, setTutorData}) => (
 
 const TutorHome = ({ setPage }) => {
   return (<>
-    <Typography.Header color={Colors.WLF_YELLOW}>
+    <Typography.Header color={Colors.WLF_YELLOW} style={{marginTop:-50, marginBottom: -30}}>
       Tutors
     </Typography.Header>
-    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
-    Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
+      <Form.Button onClick={() => setPage('tutorData')}>
+        <Typography.Header color="white" fontSize="24px">
+          Apply Now!
+        </Typography.Header>
+      </Form.Button>
+    <div style={{ flex: 1 }} />
+    </div>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginTop:30, marginBottom: 10 }}>
+    Do you want to help students around the world who are struggling with the drastic change in their learning environment? Are you excited by the idea of using your expertise in science, math, language, or the humanities to support others? Sign up to be a <b>Wave Tutor</b>! 
+    </Typography.BodyText>
+    <br/>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 10 }}>
+      As millions of students around the world adjust to learning from home, they are in desperate need of tutors who are able to propel them to academic excellence. We are looking for passionate and inspiring volunteers who can help middle and high schoolers with academic subjects. Whether you choose to tutor one subject or three, we want you to be involved and give back. Apply, set up a weekly schedule, and just be open to giving these students whatever hours you have free for the week. Whether you want to guide someone through derivatives or explain the difference between commas and colons, it is all possible as a Wave Tutor.    
+    </Typography.BodyText>
+    <br/>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 10 }}>
+      Tutoring sessions will begin on October 5th, so be sure to sign up today! Applications will be considered on a rolling basis, throughout the semester. We are all so excited to have you on board with us at Wave Learning Festival!
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('tutorData')}>
@@ -62,24 +78,8 @@ const TutorHome = ({ setPage }) => {
           Apply Now!
         </Typography.Header>
       </Form.Button>
-      <div style={{ flex: 1 }} />
-  </div>
-    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-      Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
-    </Typography.BodyText>
-    <div style={{ display: 'flex', flexDirection: 'row'}}>
-      <Form.Button onClick={() => setPage('tutorData')}>
-        <Typography.Header color="white" fontSize="24px">
-          Apply Now!
-        </Typography.Header>
-      </Form.Button>
-  <div style={{ flex: 1 }} />
-  </div>
-
-    {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b>Applications will open before 8/25. </b>
-</Typography.BodyText>*/}
-
+    <div style={{ flex: 1 }} />
+    </div>
   </>)
 }
 
@@ -133,7 +133,7 @@ const TutorDataInput = ({ setPage, tutorData, setTutorData, submit, wrongSubmiss
       Tutor Information
     </Typography.Header>
     <Typography.BodyText color="white">
-    Thank you for your interest in becoming a member of the Wave Tutoring Program! We are excited about your enthusiasm and just want to get to know you a bit more. Please fill out the questions down below!
+      Thank you for your interest in becoming a member of the Wave Tutoring Program! Please fill out the questions below. We are excited to get to know you!
     </Typography.BodyText>
 
     <Typography.Header2 color="white" fontSize="24px">
@@ -196,7 +196,7 @@ const TutorDataInput = ({ setPage, tutorData, setTutorData, submit, wrongSubmiss
       Graduation Year *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      You must be at least a high school junior to apply.
+      You must be at least a high school sophomore to apply.
     </Typography.BodyText>
     <Form.Input
       value={tutorData.gradYear}
@@ -318,6 +318,9 @@ const TutorDataInput = ({ setPage, tutorData, setTutorData, submit, wrongSubmiss
     <Typography.Header2 color="white" fontSize="24px">
       Have you emailed us a copy of your grade report? *
     </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please email a PDF copy of your transcript or grade report (unofficial or official), or any other relevant proof of qualification, to <a href="mailto:wavelf.logistics@gmail.com" style={{color: Colors.WLF_YELLOW}}>wavelf.logistics@gmail.com</a> with the subject line: [First Name Last Name] Wave Tutoring Qualifications.
+    </Typography.BodyText>
     {renderMultiOption({key: "gradeReport", option: "Yes", tutorData, setTutorData})}
 
     <Typography.Header2 color="white" fontSize="24px">
