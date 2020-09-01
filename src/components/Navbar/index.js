@@ -213,22 +213,6 @@ const Navbar = () => {
             onMouseLeave={() => setApplyShow(false)}>
             <Link>Apply</Link>
             {applyShow && (<NavbarDropdown>
-              <Link to="/tutors">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    Tutor
-                </DropdownItem>
-              </Link>
               <Link to="/instructors">
                 <DropdownItem>
                   <IconContext.Provider
@@ -245,6 +229,23 @@ const Navbar = () => {
                     Teach
                 </DropdownItem>
               </Link>
+              <Link to="/tutors">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaUserFriends /></div>
+                  </IconContext.Provider>
+                    Tutor
+                </DropdownItem>
+              </Link>
+              {/*
               <Link to="/join">
                 <DropdownItem>
                   <IconContext.Provider
@@ -261,6 +262,7 @@ const Navbar = () => {
                     Join the Team
                 </DropdownItem>
               </Link>
+              */}
             </NavbarDropdown>
             )}
           </NavItem>
@@ -387,8 +389,13 @@ const Navbar = () => {
             <Link to="/instructors">Apply to Teach</Link>
           </NavItem>
           <NavItem>
+            <Link to="/tutors">Apply to Tutor</Link>
+          </NavItem>
+          {/*
+          <NavItem>
             <Link to="/join">Join the Team</Link>
           </NavItem>
+          */}
           <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
