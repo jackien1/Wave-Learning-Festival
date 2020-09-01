@@ -51,7 +51,7 @@ const renderMultiOption = ({key, option, tutorData, setTutorData}) => (
 const TutorHome = ({ setPage }) => {
   return (<>
     <Typography.Header color={Colors.WLF_YELLOW}>
-      Instructors
+      Tutors
     </Typography.Header>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
     Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
