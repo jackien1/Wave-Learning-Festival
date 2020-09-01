@@ -9,6 +9,8 @@ import Blog from './pages/Blog'
 import Students from './pages/Students'
 import Speakers from './pages/Speakers'
 import Teachers from './pages/Teachers'
+import Tutors from './pages/Tutors'
+
 
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
@@ -30,6 +32,9 @@ function App () {
             </Route>
             <Route path="/instructors">
               <Teachers />
+            </Route>
+            <Route path="/tutors">
+              <Tutors />
             </Route>
             <Route path="/speakers">
               <Speakers />

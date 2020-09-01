@@ -58,14 +58,19 @@ const Navbar = () => {
         <BrandText onClick={() => window.location.href = '/'}src={LogoTextFull} />
         <Brand onClick={() => window.location.href = '/'} src={Logo} />
         <Links>
+          {/*
           <NavItem>
             <Link to="/courses">Courses</Link>
           </NavItem>
           <NavItem>
             <Link to="/speakers">Speakers</Link>
           </NavItem>
+          */}
           <NavItem>
             <Link to="/instructors">Instructors</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/tutors">Tutors</Link>
           </NavItem>
           <NavItem>
             <Link to="/students">Students</Link>
@@ -88,14 +93,19 @@ const Navbar = () => {
           <NavItem>
             <Link to="/">Home</Link>
           </NavItem>
+          {/*
           <NavItem>
             <Link to="/courses">Courses</Link>
           </NavItem>
           <NavItem>
             <Link to="/speakers">Speakers</Link>
           </NavItem>
+          */} 
           <NavItem>
             <Link to="/instructors">Instructors</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/tutors">Tutors</Link>
           </NavItem>
           <NavItem>
             <Link to="/students">Students</Link>
@@ -103,9 +113,11 @@ const Navbar = () => {
           <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
+          {/*}
           <NavItem>
             <Link to="/sign-in">Dashboard</Link>
           </NavItem>
+          */}
         </SideBar>
       </NavbarInner>
     </NavbarContainer>

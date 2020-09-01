@@ -396,3 +396,58 @@ export const listSeminars = /* GraphQL */ `
     }
   }
 `;
+export const getTutorRegistration = /* GraphQL */ `
+  query GetTutorRegistration($id: ID!) {
+    getTutorRegistration(id: $id) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTutorRegistrations = /* GraphQL */ `
+  query ListTutorRegistrations(
+    $filter: ModelTutorRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTutorRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        first_name
+        last_name
+        email
+        school
+        gradYear
+        subjects
+        ageRanges
+        qualifications
+        why
+        experience
+        hours
+        questions
+        othersubjects
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

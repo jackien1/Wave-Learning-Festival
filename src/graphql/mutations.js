@@ -601,3 +601,78 @@ export const deleteSeminar = /* GraphQL */ `
     }
   }
 `;
+export const createTutorRegistration = /* GraphQL */ `
+  mutation CreateTutorRegistration(
+    $input: CreateTutorRegistrationInput!
+    $condition: ModelTutorRegistrationConditionInput
+  ) {
+    createTutorRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTutorRegistration = /* GraphQL */ `
+  mutation UpdateTutorRegistration(
+    $input: UpdateTutorRegistrationInput!
+    $condition: ModelTutorRegistrationConditionInput
+  ) {
+    updateTutorRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTutorRegistration = /* GraphQL */ `
+  mutation DeleteTutorRegistration(
+    $input: DeleteTutorRegistrationInput!
+    $condition: ModelTutorRegistrationConditionInput
+  ) {
+    deleteTutorRegistration(input: $input, condition: $condition) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
