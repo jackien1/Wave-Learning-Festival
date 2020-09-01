@@ -60,7 +60,8 @@ type Student {
   school: String!
   first_name: String!
   last_name: String!
-  age: Int!
+  email: String!
+  grade: Int!
   howYouHear: String!
   numCourses: Int!
   parentName: String!
@@ -130,6 +131,25 @@ type OfficeHours {
   teachers: [Teacher!]!
   targetAudience: [Int]
   subject: String!
+}
+
+type TutorRegistration {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+  school: String!
+  gradYear: String!
+  subjects: [String!]!
+  ageRanges: [String!]!
+  qualifications: String!
+  why: String!
+  experience: String!
+  hours: String!
+  questions: String
+  othersubjects: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 enum ModelSortDirection {
@@ -256,6 +276,8 @@ type Query {
   listBlogPosts(filter: ModelBlogPostFilterInput, limit: Int, nextToken: String): ModelBlogPostConnection
   getSeminar(id: ID!): Seminar
   listSeminars(filter: ModelSeminarFilterInput, limit: Int, nextToken: String): ModelSeminarConnection
+  getTutorRegistration(id: ID!): TutorRegistration
+  listTutorRegistrations(filter: ModelTutorRegistrationFilterInput, limit: Int, nextToken: String): ModelTutorRegistrationConnection
 }
 
 input CreateNewsletterInput {
@@ -302,6 +324,9 @@ type Mutation {
   createSeminar(input: CreateSeminarInput!, condition: ModelSeminarConditionInput): Seminar
   updateSeminar(input: UpdateSeminarInput!, condition: ModelSeminarConditionInput): Seminar
   deleteSeminar(input: DeleteSeminarInput!, condition: ModelSeminarConditionInput): Seminar
+  createTutorRegistration(input: CreateTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
+  updateTutorRegistration(input: UpdateTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
+  deleteTutorRegistration(input: DeleteTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
 }
 
 input ModelNewsletterConditionInput {
@@ -340,6 +365,9 @@ type Subscription {
   onCreateSeminar: Seminar @aws_subscribe(mutations: ["createSeminar"])
   onUpdateSeminar: Seminar @aws_subscribe(mutations: ["updateSeminar"])
   onDeleteSeminar: Seminar @aws_subscribe(mutations: ["deleteSeminar"])
+  onCreateTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["createTutorRegistration"])
+  onUpdateTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["updateTutorRegistration"])
+  onDeleteTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["deleteTutorRegistration"])
 }
 
 type ModelDateConnection {
@@ -564,7 +592,8 @@ input ModelStudentFilterInput {
   school: ModelStringInput
   first_name: ModelStringInput
   last_name: ModelStringInput
-  age: ModelIntInput
+  email: ModelStringInput
+  grade: ModelIntInput
   howYouHear: ModelStringInput
   numCourses: ModelIntInput
   parentName: ModelStringInput
@@ -583,7 +612,8 @@ input CreateStudentInput {
   school: String!
   first_name: String!
   last_name: String!
-  age: Int!
+  email: String!
+  grade: Int!
   howYouHear: String!
   numCourses: Int!
   parentName: String!
@@ -599,7 +629,8 @@ input UpdateStudentInput {
   school: String
   first_name: String
   last_name: String
-  age: Int
+  email: String
+  grade: Int
   howYouHear: String
   numCourses: Int
   parentName: String
@@ -618,7 +649,8 @@ input ModelStudentConditionInput {
   school: ModelStringInput
   first_name: ModelStringInput
   last_name: ModelStringInput
-  age: ModelIntInput
+  email: ModelStringInput
+  grade: ModelIntInput
   howYouHear: ModelStringInput
   numCourses: ModelIntInput
   parentName: ModelStringInput
@@ -844,4 +876,86 @@ input ModelSeminarConditionInput {
   and: [ModelSeminarConditionInput]
   or: [ModelSeminarConditionInput]
   not: ModelSeminarConditionInput
+}
+
+type ModelTutorRegistrationConnection {
+  items: [TutorRegistration]
+  nextToken: String
+}
+
+input ModelTutorRegistrationFilterInput {
+  id: ModelIDInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  email: ModelStringInput
+  school: ModelStringInput
+  gradYear: ModelStringInput
+  subjects: ModelStringInput
+  ageRanges: ModelStringInput
+  qualifications: ModelStringInput
+  why: ModelStringInput
+  experience: ModelStringInput
+  hours: ModelStringInput
+  questions: ModelStringInput
+  othersubjects: ModelStringInput
+  and: [ModelTutorRegistrationFilterInput]
+  or: [ModelTutorRegistrationFilterInput]
+  not: ModelTutorRegistrationFilterInput
+}
+
+input CreateTutorRegistrationInput {
+  id: ID
+  first_name: String!
+  last_name: String!
+  email: String!
+  school: String!
+  gradYear: String!
+  subjects: [String!]!
+  ageRanges: [String!]!
+  qualifications: String!
+  why: String!
+  experience: String!
+  hours: String!
+  questions: String
+  othersubjects: String
+}
+
+input UpdateTutorRegistrationInput {
+  id: ID!
+  first_name: String
+  last_name: String
+  email: String
+  school: String
+  gradYear: String
+  subjects: [String!]
+  ageRanges: [String!]
+  qualifications: String
+  why: String
+  experience: String
+  hours: String
+  questions: String
+  othersubjects: String
+}
+
+input DeleteTutorRegistrationInput {
+  id: ID
+}
+
+input ModelTutorRegistrationConditionInput {
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  email: ModelStringInput
+  school: ModelStringInput
+  gradYear: ModelStringInput
+  subjects: ModelStringInput
+  ageRanges: ModelStringInput
+  qualifications: ModelStringInput
+  why: ModelStringInput
+  experience: ModelStringInput
+  hours: ModelStringInput
+  questions: ModelStringInput
+  othersubjects: ModelStringInput
+  and: [ModelTutorRegistrationConditionInput]
+  or: [ModelTutorRegistrationConditionInput]
+  not: ModelTutorRegistrationConditionInput
 }

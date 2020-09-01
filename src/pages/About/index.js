@@ -38,7 +38,7 @@ const About = () => {
   const { db } = useContext(FirebaseContext)
   const [courses, totalCourses] = useState(60)
   const [registrations, totalRegs] = useState(9510)
-  const [countries, totalCountries] = useState(5)
+  const [countries, totalCountries] = useState(16)
 
   const subscribe = () => {
     toggleEmail(false)
@@ -106,7 +106,7 @@ const About = () => {
           else
             return count + 2
         })
-      }, 415)
+      }, 200)
       return () => clearInterval(intervalId)
     }, [])
 
@@ -165,7 +165,8 @@ const About = () => {
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
                     <li>Instructor applications for Tide 1 are now open! <a href="/instructors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Unearth buried history and creative research with best-selling author Ruta Sepetys on Tuesday 8/25! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Learn how to self-publish a book in a month with Iris Fu on Thursday 9/3! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>
