@@ -6,14 +6,13 @@ export const PartnerContainer = styled.div`
   height: auto;
 
   & img {
-    width: 100%;
     height: auto;
   }
 `
 
 export const PartnersRow = styled.div`
   display: grid;
-  grid-column-gap: 2em;
+  grid-column-gap: 5em;
   grid-row-gap: 2em;
   align-items: center;
   width: 100%;

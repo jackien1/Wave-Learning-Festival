@@ -12,26 +12,30 @@ import tinyTouchofLove from './logos/tinyTouchOfLove.png'
 const partnerData = [
   {
     name: 'MEDLIFE Ontario',
-    logo: MEDLIFEOntario
+    logo: MEDLIFEOntario,
+    width: 275
   },
   {
     name: 'Seeds In The Middle',
-    logo: SeedsInTheMiddle
+    logo: SeedsInTheMiddle,
+    width: 220
   },
   {
     name: 'STEMEY',
-    logo: Stemey
+    logo: Stemey,
+    width: 225
   },
   {
     name: 'tiny Touch of Love',
-    logo: tinyTouchofLove
+    logo: tinyTouchofLove,
+    width: 290
   }
 ]
 
 const partnerIcon = (partner) => {
   return (
     <PartnerContainer>
-      <img src={partner.logo}/>
+      <img src={partner.logo} width={partner.width}/>
     </PartnerContainer>
   )
 }
