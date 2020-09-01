@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import './App.css'
 import About from './pages/About'
 import Teachers from './pages/Teachers'
+import Tutors from './pages/Tutors'
 import Team from './pages/Team'
 import FAQStudents from './pages/FAQ/Students'
 import FAQParents from './pages/FAQ/Parents'
@@ -331,6 +332,9 @@ function App () {
             </Route>
             <Route path="/sign-out">
               <SignOut />
+            </Route>
+            <Route path="/tutors">
+              <Tutors />
             </Route>
             <Route path="/:slug" component={CoursePage} />
 

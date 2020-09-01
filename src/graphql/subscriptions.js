@@ -209,7 +209,8 @@ export const onCreateStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -237,7 +238,8 @@ export const onUpdateStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -265,7 +267,8 @@ export const onDeleteStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -512,6 +515,72 @@ export const onDeleteSeminar = /* GraphQL */ `
       targetAudience
       teachers
       zoomLink
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateTutorRegistration = /* GraphQL */ `
+  subscription OnCreateTutorRegistration {
+    onCreateTutorRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateTutorRegistration = /* GraphQL */ `
+  subscription OnUpdateTutorRegistration {
+    onUpdateTutorRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteTutorRegistration = /* GraphQL */ `
+  subscription OnDeleteTutorRegistration {
+    onDeleteTutorRegistration {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
       createdAt
       updatedAt
     }

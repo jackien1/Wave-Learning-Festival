@@ -197,6 +197,22 @@ const Navbar = () => {
             onMouseLeave={() => setApplyShow(false)}>
             <Link>Apply</Link>
             {applyShow && (<NavbarDropdown>
+              <Link to="/tutors">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaChalkboardTeacher /></div>
+                  </IconContext.Provider>
+                    Tutor
+                </DropdownItem>
+              </Link>
               <Link to="/instructors">
                 <DropdownItem>
                   <IconContext.Provider
