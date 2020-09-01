@@ -85,6 +85,8 @@ import ChangePassword from './pages/ChangePassword'
 import SignIn from "./pages/SignIn"
 import SignOut from "./pages/SignOut"
 import ResetPassword from "./pages/ResetPassword"
+import Partners from "./pages/Partners"
+
 
 import Dashboard from './pages/Dashboard'
 
@@ -277,6 +279,9 @@ function App () {
             </Route>
             <Route path="/mission">
               <Mission />
+            </Route>
+            <Route path="/partners">
+              <Partners />
             </Route>
             <Route path="/join">
               <Join />

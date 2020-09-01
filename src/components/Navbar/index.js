@@ -94,6 +94,22 @@ const Navbar = () => {
                     Meet the Team
                 </DropdownItem>
               </Link>
+              <Link to="/partners">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaUserFriends /></div>
+                  </IconContext.Provider>
+                    Community Partners
+                </DropdownItem>
+              </Link>
             </NavbarDropdown>
             )}
           </NavItem>
@@ -354,6 +370,9 @@ const Navbar = () => {
           </NavItem>
           <NavItem>
             <Link to="/team">Team</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/partners">Community Partners</Link>
           </NavItem>
           <NavItem>
             <Link to="/courses">Courses</Link>
