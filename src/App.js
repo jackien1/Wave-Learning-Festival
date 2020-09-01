@@ -307,11 +307,9 @@ function App () {
             <Route path="/speaker-sign-up-lisa">
               <Speaker4SignUp />
             </Route>
-            */}
             <Route path="/speaker-sign-up-cliff">
               <Speaker5SignUp />
             </Route>
-            {/*
             <Route path="/speaker-sign-up-andrew">
               <Speaker6SignUp />
             </Route>
