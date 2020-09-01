@@ -50,6 +50,9 @@ const Students = () => {
     title: 'Last Name', 
     field: 'last_name' 
     },{ 
+    title: 'Student Email', 
+    field: 'email' 
+    },{ 
     title: 'Grade', 
     field: 'grade' 
     },{ 
@@ -70,10 +73,7 @@ const Students = () => {
     },{ 
     title: 'Parent Email', 
     field: 'parentEmail'
-    },{ 
-    title: 'Parent Email', 
-    field: 'parentEmail'
-    },{ 
+    },{
     title: 'Num Courses', 
     field: 'numCourses',
     },{ 
@@ -89,7 +89,6 @@ const Students = () => {
   ]
 
   const saveData = (studentData, fullData) => {
-    console.log(studentData)
     updateStudents(fullData);
     API.graphql(graphqlOperation(updateStudent, {
       input: {
@@ -100,6 +99,7 @@ const Students = () => {
         school: studentData.school,
         first_name: studentData.first_name,
         last_name: studentData.last_name,
+        email: studentData.email,
         grade: studentData.grade,
         howYouHear: studentData.howYouHear,
         numCourses: studentData.numCourses,
@@ -112,10 +112,9 @@ const Students = () => {
   }
 
   const delData = (studentData, fullData) => {
-    console.log(studentData)
     updateStudents(fullData)
     API.graphql(graphqlOperation(deleteStudent, {
-      input: {id: studentData.id}
+      input: {id: studentData[0].id}
       }))
   }
 
@@ -130,6 +129,7 @@ const Students = () => {
         school: studentData.school,
         first_name: studentData.first_name,
         last_name: studentData.last_name,
+        email: studentData.email,
         grade: studentData.grade,
         howYouHear: studentData.howYouHear,
         numCourses: studentData.numCourses,
@@ -164,7 +164,7 @@ const Students = () => {
           <Typography.Header>Student Profiles</Typography.Header>
           {loading && 
             <Table title="" data={students} columns={columns} 
-            saveData={saveData} addData={addData} deleteData={delData}/>}
+            saveData={saveData} addData={addData} delData={delData}/>}
         </ContainerInner>
       </Container>
     </div>

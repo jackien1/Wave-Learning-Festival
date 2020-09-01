@@ -128,9 +128,9 @@ const Teachers = () => {
   }
 
   const delData = (data, fullData) => {
-    updateRegistrations(fullData)
+    updateRegistrations(fullData);
     API.graphql(graphqlOperation(deleteTeacherRegistration, {
-      input: {id: data.id}
+      input: {id: data[0].id}
       }))
   }
 
@@ -197,7 +197,7 @@ const Teachers = () => {
           <Typography.Header>Instructor Applications</Typography.Header>
           {loading && 
             <Table title="" data={registrations} columns={columns} 
-            saveData={saveData} addData={addData} deleteData={delData}/>}
+            saveData={saveData} addData={addData} delData={delData}/>}
         </ContainerInner>
       </Container>
     </div>

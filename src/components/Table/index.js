@@ -84,8 +84,7 @@ function App(props) {
               setTimeout(() => {
                 resolve();
                 const dataUpdate = [...props.data];
-                props.delData(dataUpdate[props.data.indexOf(oldData)], 
-                dataUpdate.splice(props.data.indexOf(oldData), 1));
+                props.delData(dataUpdate.splice(props.data.indexOf(oldData), 1), dataUpdate);
               }, 2000);
             }),
         }}

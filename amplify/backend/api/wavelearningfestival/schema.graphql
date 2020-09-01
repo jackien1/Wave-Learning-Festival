@@ -53,9 +53,9 @@ type Student @model {
   first_name: String!
   last_name: String!
   email: String!
-  grade: Int!
+  grade: String!
   howYouHear: String!
-  numCourses: Int!
+  numCourses: String!
   parentName: String!
   parentEmail: String!
   registeredEvents: [SpecialEvent]
@@ -113,4 +113,21 @@ type OfficeHours {
   teachers: [Teacher!]!
   targetAudience: [Int]
   subject: String!
+}
+
+type TutorRegistration @model {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  email: String!
+  school: String!
+  gradYear: String!
+  subjects: [String!]!
+  ageRanges: [String!]!
+  qualifications: String!
+  why: String!
+  experience: String!
+  hours: String!
+  questions: String
+  othersubjects: String
 }
