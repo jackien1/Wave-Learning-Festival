@@ -320,7 +320,7 @@ function App () {
               <Blog />
             </Route>
             <Route path="/course-sign-up">
-              <CourseSignUpClosed />
+              <Speakers />
             </Route>
             <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />
