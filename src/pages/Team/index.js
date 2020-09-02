@@ -170,12 +170,6 @@ const teamData = [
     school: 'Northwestern ‘23',
     position: DIRECTOR_MEDIA_DESIGN,
     image: SandraChiu
-  },
-  {
-    name: 'Andy Huynh',
-    school: 'Stanford ‘23',
-    position: COMMUNITY_COORDINATOR,
-    image: AndyHuynh
   }
 ]
 
@@ -282,6 +276,12 @@ const leadsData = [
     position: LEGAL_CO_LEAD,
     image: BhavyaSharma
   },
+  {
+    name: 'Andy Huynh',
+    school: 'Stanford ‘23',
+    position: COMMUNITY_COORDINATOR,
+    image: AndyHuynh
+  }
 ]
 
 function getColor (position) {

@@ -70,7 +70,7 @@ const TutorHome = ({ setPage }) => {
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 10 }}>
-      Tutoring sessions will begin on October 5th, so be sure to sign up today! Applications will be considered on a rolling basis, throughout the semester. We are all so excited to have you on board with us at Wave Learning Festival!
+      Tutoring sessions will begin on October 5th, so be sure to sign up today! The priority deadline is <b>9/15</b>, but applications will be considered on a rolling basis, throughout the entire semester. We are all so excited to have you on board with us at Wave Learning Festival!
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('tutorData')}>
