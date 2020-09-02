@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
-import { Container, Sidebar, ListItem, Highlight, CalendarButton, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
+import { Container, Sidebar, ListItem, Highlight, CalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
 import Navbar from './components/Navbar'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 
@@ -49,7 +49,30 @@ const Dashboard = () => {
         <CalendarContainer>
           <header>
             <h2>Upcoming Events</h2>
-            <h4>August 27, 2020</h4>
+            <div>
+              <h4>August 27, 2020
+              <ArrowButton>
+                <arrow style={{
+                  border: "solid black",
+                  borderWidth: "0 3px 3px 0",
+                  display: "inline-block",
+                  padding: "3px",
+                  transform: "rotate(135deg)",
+                  webkitTransform: "rotate(135deg)"
+                }} />
+              </ArrowButton>
+                <ArrowButton>
+                  <arrow style={{
+                    border: "solid black",
+                    borderWidth: "0 3px 3px 0",
+                    display: "inline-block",
+                    padding: "3px",
+                    transform: "rotate(-45deg)",
+                    webkitTransform: "rotate(-45deg)"
+                  }} />
+                </ArrowButton>
+              </h4>
+            </div>
           </header>
           <div>
             <CalendarButton>
@@ -173,7 +196,7 @@ const Dashboard = () => {
                 height: "50px"
               }}>
                 <h2 style={{color: "#FFFFFF", display: "inline-block", marginTop: "3px", marginLeft: "30px"}}>
-                  7:00
+                  5:00
                 </h2>
               </shape>
             </div>
@@ -195,7 +218,7 @@ const Dashboard = () => {
                 height: "50px"
               }}>
                 <h2 style={{color: "#FFFFFF", display: "inline-block", marginTop: "3px", marginLeft: "30px"}}>
-                  7:00
+                  6:00
                 </h2>
               </shape>
             </div>

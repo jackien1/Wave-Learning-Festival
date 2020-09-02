@@ -47,11 +47,30 @@ export const CalendarButton = styled.button`
   height:100px;
   width:50px;
   &:hover{
-        background-color: ${Colors.WLF_PURPLE};
         opacity: 0.6;
         cursor: pointer;
     }
 `
+
+export const ArrowButton = styled.button`
+  display: inline-block;
+  transition-duration: 0.4s;
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  &:hover{
+        opacity: 0.2;
+        cursor: pointer;
+    }
+`
+
+// export const ButtonDot = styled.shape`
+//   height: "5px",
+//   width: "5px",
+//   borderRadius: "50%",
+//   display: "inline-block",
+//   margin: "3px"
+// `
 
 export const Highlight = styled.img`
   position: absolute;
