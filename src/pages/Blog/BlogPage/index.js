@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
+import { BlogPostInner } from './styles'
 import { Container, ContainerInner } from '../../../globalStyles.js'
 import { Colors, Typography } from '../../../styles'
 import { FirebaseContext } from '../../../firebaseContext'
@@ -53,7 +54,7 @@ const BlogPage = ({ match }) => {
     <div>
       <Navbar/>
       <Container>
-        <ContainerInner>
+        <BlogPostInner>
           <h1 style={{ color: Colors.WLF_PURPLE, textAlign: 'center' }}>{title}</h1>
           <Typography.BodyText style={{ clear: 'right', textAlign: 'center', color: Colors.WLF_BLACK }}>
             <b>Posted on: </b>{date.substring(0, date.indexOf('T'))}
@@ -61,7 +62,7 @@ const BlogPage = ({ match }) => {
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
             <td dangerouslySetInnerHTML={{ __html: contentDetailed }} />
           </Typography.BodyText>
-        </ContainerInner>
+        </BlogPostInner>
       </Container>
       <Footer/>
     </div>
