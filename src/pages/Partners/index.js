@@ -5,6 +5,7 @@ import { Container, ContainerInner } from "@/globalStyles";
 import { Colors, Typography } from "@/styles";
 import { PartnerContainer, PartnersRow } from './styles'
 import MEDLIFEOntario from './logos/MEDLIFEOntarioLogo.jpg'
+import PsychStart from './logos/PsychStartLogo.jpg'
 import SeedsInTheMiddle from './logos/SeedsInTheMiddleLogo.png'
 import Stemey from './logos/STEMEYLogo.png'
 import tinyTouchofLove from './logos/tinyTouchOfLove.png'
@@ -14,6 +15,11 @@ const partnerData = [
     name: 'MEDLIFE Ontario',
     logo: MEDLIFEOntario,
     width: 275
+  },
+  {
+    name: 'PsychStart',
+    logo: PsychStart,
+    width: 200
   },
   {
     name: 'Seeds In The Middle',

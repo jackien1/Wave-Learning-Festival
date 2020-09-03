@@ -6,6 +6,9 @@ export const PartnerContainer = styled.div`
   height: auto;
 
   & img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     height: auto;
   }
 `
