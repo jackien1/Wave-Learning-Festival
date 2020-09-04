@@ -10,6 +10,7 @@ export const StatsContainer = styled.div `
     & h1 {
         font-family: 'Mukta Mahee', sans-serif;
         font-size: 40px;
+        margin-left: 0.43em;
         margin-top: 1em;
         margin-bottom: 0.5em;
         color: ${Colors.WLF_PURPLE};
@@ -19,17 +20,15 @@ export const StatsContainer = styled.div `
         border: 0.5px solid;
         color: lightgray;
     }
-
 `
 
 export const CardContainer = styled.div `
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
     margin-bottom: 2em;
-
 `
 
 export const StatsCard = styled.div `
@@ -40,7 +39,7 @@ export const StatsCard = styled.div `
     height: 218px;
     border-radius: 15px;
     text-align: right;
-    margin-bottom: 1em;
+    margin: 0 0.5em 1em 0.5em;
 
     & img {
         display: block;
@@ -58,11 +57,10 @@ export const StatsCard = styled.div `
         line-height: 193px;
         text-shadow: 0 3px 5px ${Colors.DARK_GRAY};
         color: #ffffff;
-        left: 100px;
+        right: 25px;
         bottom: 35px;
         margin: 0;
         z-index: 1;
-        text-align: right;
     }
 
     & p {
@@ -76,8 +74,6 @@ export const StatsCard = styled.div `
         left: 100px;
         bottom: 30px;
         margin-right: 2em;
-        text-align: right;
         z-index: 1;
     }
-
 `
