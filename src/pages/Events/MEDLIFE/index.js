@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import * as Styles from './styles'
-import TeacherPic from './teacher.jpg'
+import TeacherPic from './TempImg.png'
 import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import { BodyText } from '@/styles/Typography'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
-import { createTeacherRegistration, createNewsletter } from "../../graphql/mutations.js"
+import { createTeacherRegistration, createNewsletter } from "../../../graphql/mutations.js"
 
 
 const TeacherHome = ({ setPage }) => {
@@ -17,12 +17,12 @@ const TeacherHome = ({ setPage }) => {
       Instructors
     </Typography.Header>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
-    Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
+    Welcome! Join us on Zoom to hear from influential leaders currently making an impact through medicine, education, development, technology, and entrepreneurship in communities all around the world. The event will consist of a keynote speaker, and then concurrent breakout rooms of panel discussions with accomplished leaders in education, medicine & healthcare, and technology & entrepreneurship!
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
-          Apply Now!
+          Sign Up Now!
         </Typography.Header>
       </Form.Button>
       <div style={{ flex: 1 }} />
@@ -35,27 +35,45 @@ const TeacherHome = ({ setPage }) => {
         <Styles.TeacherImage src={TeacherPic} />
       </Styles.TestimonialItem>
       <Styles.TestimonialItem style={{ alignItems: 'flex-start' }}>
-        <Typography.Header color={Colors.WLF_YELLOW} fontSize="20px">
-          "I am 100% looking to pursue teaching as a career in the future which is something I never considered before working with Wave Learning Festival. The Wave administration made teaching my course, Introduction to Filmmaking, such a positive experience for me. I started out my class as a college student looking to share a couple of fun tips about filmmaking and I ended my class as an educator passionate about student engagement and educational equity. Thank you a million times to the Wave team!"
-        </Typography.Header>
         <Typography.Header color={Colors.WLF_YELLOW} fontSize="28px">
-          - Morgan, Wave 3 instructor
+        Keynote Speaker: Dr. Zulfiqar A. Bhutta
+        </Typography.Header>
+        <Typography.Header color={Colors.WLF_YELLOW} fontSize="20px">
+        Inaugural Robert Harding Chair in Global Child Health at The Hospital for Sick Children (SickKids), Co-Director of the SickKids Centre for Global Child Health and the Founding Director of the Centre of Excellence in Women and Child Health at the Aga Khan University
         </Typography.Header>
       </Styles.TestimonialItem>
     </Styles.TestimonialBackground>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-    As an Engaged Seminars instructor, you would teach an “engaged” seminar that runs for about 5 weeks. These 5-week sessions are affectionately referred to as Tides!
+    Panel Discussion in Medicine & Healthcare: <br />
+    Dr. Nick Ellis - MEDLIFE, Executive Director and Founder <br />
+    Dr. Angel M Matos Lugo - Global Health Institute, Director
     </Typography.BodyText>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-      In each of our Engaged Seminars, we are looking for an element of interactivity to promote active learning and make each class more of a conversation rather than a lecture. Your class will meet about 1-2 times/week for the duration of those five weeks, either on weekends or after-school hours on weekdays. Seminars can range from meeting every two weeks (3 sessions total) to twice a week (10 sessions total). The long-form structure will give you more time to build on a topic that excites you and allows your students to learn a greater depth of information. We encourage instructors to bring co-instructors (double the ideas, half the work!), though that is optional. Regardless of whether you onboard a co-instructor, you will have support throughout your course planning process—a member of our Seminars team will guide you through teaching in a virtual setting and help with course-planning.
+    Panel Discussion in Education:<br />
+    Benjamin Owens - Silicon Valley Youth, Co-Founder and CEO, Harvard '21<br />
+    Oliver Ye - Silicon Valley Youth, President, Saratoga High '21<br />
+    Karly Hou - Wave Learning Festival, Founder and Chair, Harvard '23
     </Typography.BodyText>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-      Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
+    Panel Discussion in Technology & Entrepreneurship: <br />
+    Omar Farooqui - Coded Minds, Founder and President<br />
+    Carlos Pereira - Livox, Founder and CEO
+    </Typography.BodyText>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
+    Each participant will indicate the panel discussion in which they would like to engage.
+    <br />
+    Date of Event: Saturday, September 26, 2020, 1:00-4:00pm EDT, 10:00-1:00pm PST, 6:00-9:00pm GMT
+    <br />
+    Schedule:
+    <br />
+    1:00 - 2:15 pm EDT: Keynote Speaker, Zulfiqar A. Bhutta
+    <br />
+    2:15 - 4:00 pm EDT: Panel Discussions in Medicine, Education, and Technology
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
-          Apply Now!
+          Sign Up Now!
         </Typography.Header>
       </Form.Button>
   <div style={{ flex: 1 }} />
