@@ -80,7 +80,7 @@ import Mission from './pages/Mission'
 import Blog from './pages/Blog'
 import BlogPage from './pages/Blog/BlogPage'
 import CourseSignUp from './pages/Courses/CourseSignUp'
-import CourseSignUpClosed from './pages/Courses/CourseSignUpClosed'
+import Subscribe from './pages/Courses/CourseSignUpClosed'
 import CoursePage from './pages/Courses/CoursePages'
 import ChangePassword from './pages/ChangePassword'
 import SignIn from "./pages/SignIn"
@@ -324,7 +324,10 @@ function App () {
               <Blog />
             </Route>
             <Route path="/course-sign-up">
-              <CourseSignUpClosed />
+              <Subscribe />
+            </Route>
+            <Route path="/subscribe">
+              <Subscribe />
             </Route>
             <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />

@@ -540,7 +540,8 @@ const Teachers = () => {
           engagement: teacherData.engagement,
           skills: teacherData.skills,
           previousWaves: teacherData.previousWaves,
-          questions: teacherData.questions
+          questions: teacherData.questions, 
+          approved: false
         }
       }));
       setPage('thanks');

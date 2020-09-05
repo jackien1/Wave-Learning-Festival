@@ -146,9 +146,9 @@ const About = () => {
                   <p>Instructors</p>
                 </Button>
               </a>
-              <a href="/course-sign-up" className="sign-up-link">
+              <a href="/subscribe" className="sign-up-link">
                 <Button>
-                  <p>Register!</p>
+                  <p>Subscribe!</p>
                 </Button>
               </a>
             </div>
