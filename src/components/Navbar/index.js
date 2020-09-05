@@ -135,7 +135,7 @@ const Navbar = () => {
                 </DropdownItem>
               </Link>
               */}
-              <Link to="/courses-inprogress">
+              <Link to="/courses-upcoming">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -148,7 +148,7 @@ const Navbar = () => {
                   >
                     <div><FaChalkboardTeacher /></div>
                   </IconContext.Provider>
-                    In Progress
+                    Upcoming
                 </DropdownItem>
               </Link>
               <Link to="/courses-archive">
