@@ -5,6 +5,7 @@ import { BlogPostInner } from './styles'
 import { Container, ContainerInner } from '../../../globalStyles.js'
 import { Colors, Typography } from '../../../styles'
 import { FirebaseContext } from '../../../firebaseContext'
+import ViewCountIcon from '../ViewCountIcon'
 import 'firebase/firestore'
 /**
  * Blog Page creates a new page for an individual blog if there is overflow.
@@ -57,7 +58,7 @@ const BlogPage = ({ match }) => {
         <BlogPostInner>
           <h1 style={{ color: Colors.WLF_PURPLE, textAlign: 'center' }}>{title}</h1>
           <Typography.BodyText style={{ clear: 'right', textAlign: 'center', color: Colors.WLF_BLACK }}>
-            <b>Posted on: </b>{date.substring(0, date.indexOf('T'))}
+            <b>Posted on: </b>{date.substring(0, date.indexOf('T'))} <ViewCountIcon/> 
           </Typography.BodyText>
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
             <td dangerouslySetInnerHTML={{ __html: contentDetailed }} />

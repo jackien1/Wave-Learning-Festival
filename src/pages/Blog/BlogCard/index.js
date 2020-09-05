@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import { BlogImage, Header, Title, Type, Heading } from './styles'
 import { FirebaseContext } from '@/firebaseContext'
 import WaveLogo from '../logo.svg'
+import ViewCountIcon from '../ViewCountIcon'
 
 const BlogCard = ({ doc, color }) => {
   const { db, storage } = useContext(FirebaseContext)
@@ -54,7 +55,7 @@ const BlogCard = ({ doc, color }) => {
         </Heading>
         <Heading left bottom right>
           <Title color={color}>{doc.data().title}</Title>
-          <Type>{doc.data().date.substring(0, doc.data().date.indexOf('T'))}</Type>
+          <Type>{doc.data().date.substring(0, doc.data().date.indexOf('T'))}  <span style = {{float: 'right'}}> <ViewCountIcon/></span> </Type>
         </Heading>
       </Header>
     </div>
