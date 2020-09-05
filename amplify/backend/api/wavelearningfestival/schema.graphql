@@ -42,6 +42,7 @@ type TeacherRegistration @model {
   skills: String!
   previousWaves: String!
   questions: String
+  approved: Boolean!
 }
 
 type Student @model {
@@ -82,6 +83,7 @@ type BlogPost @model {
   date: String!
   image: String!
   title: String!
+  views: [String]
 }
 
 type Seminar @model {
