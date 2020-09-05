@@ -417,6 +417,7 @@ export const getTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -448,6 +449,7 @@ export const listTutorRegistrations = /* GraphQL */ `
         hours
         questions
         othersubjects
+        approved
         createdAt
         updatedAt
       }

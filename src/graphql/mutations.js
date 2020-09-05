@@ -627,6 +627,7 @@ export const createTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -652,6 +653,7 @@ export const updateTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -677,6 +679,7 @@ export const deleteTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }

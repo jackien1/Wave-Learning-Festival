@@ -150,6 +150,7 @@ type TutorRegistration {
   hours: String!
   questions: String
   othersubjects: String
+  approved: Boolean!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -908,6 +909,7 @@ input ModelTutorRegistrationFilterInput {
   hours: ModelStringInput
   questions: ModelStringInput
   othersubjects: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTutorRegistrationFilterInput]
   or: [ModelTutorRegistrationFilterInput]
   not: ModelTutorRegistrationFilterInput
@@ -928,6 +930,7 @@ input CreateTutorRegistrationInput {
   hours: String!
   questions: String
   othersubjects: String
+  approved: Boolean!
 }
 
 input UpdateTutorRegistrationInput {
@@ -945,6 +948,7 @@ input UpdateTutorRegistrationInput {
   hours: String
   questions: String
   othersubjects: String
+  approved: Boolean
 }
 
 input DeleteTutorRegistrationInput {
@@ -965,6 +969,7 @@ input ModelTutorRegistrationConditionInput {
   hours: ModelStringInput
   questions: ModelStringInput
   othersubjects: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTutorRegistrationConditionInput]
   or: [ModelTutorRegistrationConditionInput]
   not: ModelTutorRegistrationConditionInput
