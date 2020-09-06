@@ -16,6 +16,9 @@ const TeacherHome = ({ setPage }) => {
     <Typography.Header color={Colors.WLF_YELLOW}>
       Instructors
     </Typography.Header>
+    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px" style={{marginTop:-10, marginBottom:30}}>
+      <b>**IMPORTANT** If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com!</b>
+  </Typography.BodyText>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
     Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
     </Typography.BodyText>
@@ -27,8 +30,9 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
       <div style={{ flex: 1 }} />
   </div>
-  {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b><br/>Applications will open before 8/25. If you have submitted an application on 8/24, you may need to resubmit if you do not recieve any follow-up. </b>
+  {/*}
+  <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
+      <b><br/>If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com! </b>
   </Typography.BodyText>*/}
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
