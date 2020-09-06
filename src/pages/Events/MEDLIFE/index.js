@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import * as Styles from './styles'
-import TeacherPic from './TempImg.png'
+import HighlightPic from './img/keynote.jpg'
 import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
@@ -11,7 +11,7 @@ import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createTeacherRegistration, createNewsletter } from "../../../graphql/mutations.js"
 
 
-const TeacherHome = ({ setPage }) => {
+const EventHome = ({ setPage }) => {
   return (<>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Instructors
@@ -27,12 +27,20 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
       <div style={{ flex: 1 }} />
   </div>
-  {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b><br/>Applications will open before 8/25. If you have submitted an application on 8/24, you may need to resubmit if you do not recieve any follow-up. </b>
-  </Typography.BodyText>*/}
+  <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
+    Each participant will indicate the panel discussion in which they would like to engage.
+    <br />
+    Date of Event: Saturday, September 26, 2020, 1:00-4:00pm EDT, 10:00-1:00pm PST, 6:00-9:00pm GMT
+    <br />
+    Schedule:
+    <br />
+    1:00 - 2:15 pm EDT: Keynote Speaker, Zulfiqar A. Bhutta
+    <br />
+    2:15 - 4:00 pm EDT: Panel Discussions in Medicine, Education, and Technology
+    </Typography.BodyText>
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
-        <Styles.TeacherImage src={TeacherPic} />
+        <Styles.TeacherImage src={HighlightPic} />
       </Styles.TestimonialItem>
       <Styles.TestimonialItem style={{ alignItems: 'flex-start' }}>
         <Typography.Header color={Colors.WLF_YELLOW} fontSize="28px">
@@ -45,6 +53,13 @@ const TeacherHome = ({ setPage }) => {
     </Styles.TestimonialBackground>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
     Panel Discussion in Medicine & Healthcare: <br />
+    <div className="teacher-container" key={teacher.name}>
+          <p>
+          <img src={WaveLogo} className="img-left"/>
+          <b>Taught by: </b>{teacher.name}<br/>
+          <b>Teacher Bio: </b>{teacher.bio}
+          </p>
+        </div>
     Dr. Nick Ellis - MEDLIFE, Executive Director and Founder <br />
     Dr. Angel M Matos Lugo - Global Health Institute, Director
     </Typography.BodyText>
@@ -59,17 +74,6 @@ const TeacherHome = ({ setPage }) => {
     Omar Farooqui - Coded Minds, Founder and President<br />
     Carlos Pereira - Livox, Founder and CEO
     </Typography.BodyText>
-    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-    Each participant will indicate the panel discussion in which they would like to engage.
-    <br />
-    Date of Event: Saturday, September 26, 2020, 1:00-4:00pm EDT, 10:00-1:00pm PST, 6:00-9:00pm GMT
-    <br />
-    Schedule:
-    <br />
-    1:00 - 2:15 pm EDT: Keynote Speaker, Zulfiqar A. Bhutta
-    <br />
-    2:15 - 4:00 pm EDT: Panel Discussions in Medicine, Education, and Technology
-    </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
@@ -78,11 +82,6 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
   <div style={{ flex: 1 }} />
   </div>
-
-    {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b>Applications will open before 8/25. </b>
-</Typography.BodyText>*/}
-
   </>)
 }
 
@@ -92,14 +91,13 @@ var emailValidated = function(email) {
   return regexEmail.test(String(email.replace(" ", "")));
 }
 
-const TeacherDataInput = () => {
+const EventDataInput = () => {
   return (
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScT61H0wl1PXj3LgLwta2prQ1Wvv3b-WEDdMKwwIMapaYJ0RA/viewform?embedded=true" 
-      width="700" 
+      width="90%" 
       height="520" 
       frameborder="0" 
-      marginheight="0" 
-      marginwidth="0">
+      margin="10px">
       Loading…
     </iframe>
   )
@@ -190,26 +188,6 @@ const Teachers = () => {
     })
   }
 
-  /*
-  API.graphql(graphqlOperation(createStudent, {
-    input: {
-      id: "daniela3",
-    city: "Kirkland",
-    state: "Washington",
-    country: "USA",
-    school: "Harvard",
-    first_name: "Daniela",
-    last_name: "Shuman",
-    age: "18",
-    howYouHear: "woot woot",
-    numCourses: 2,
-    parentName: "Daniela",
-    parentEmail: "Email",
-    }
-  }
-  ))
-  */
-
   var requiredFields = (form) => {
     return form.first_name != "" &&
       form.last_name != "" &&
@@ -265,13 +243,15 @@ const Teachers = () => {
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
-      <Styles.TeacherBackground>
+      {page !== 'teacherData' && <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
-          {page === 'home' && TeacherHome({ setPage })}
-          {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData, submit, wrongSubmission })}
+          {page === 'home' && EventHome({ setPage })}
           {page === 'thanks' && Thanks({ setPage })}
         </div>
-      </Styles.TeacherBackground>
+      </Styles.TeacherBackground>}
+      {page === 'teacherData' &&  <Styles.TeacherBackgroundForm>
+          {EventDataInput({ setPage, teacherData, setTeacherData, submit, wrongSubmission })}
+      </Styles.TeacherBackgroundForm>}
       <Footer />
     </div>
   )
