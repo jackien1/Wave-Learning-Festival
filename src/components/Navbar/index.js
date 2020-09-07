@@ -172,7 +172,7 @@ const Navbar = () => {
           </NavItem>
           <NavItem onMouseEnter={() => setSpeakersShow(true)}
             onMouseLeave={() => setSpeakersShow(false)}>
-            <Link>Speakers</Link>
+            <Link>Events</Link>
             {speakersShow && (<NavbarDropdown>
               <Link to="/speakers">
                 <DropdownItem>
@@ -187,7 +187,23 @@ const Navbar = () => {
                   >
                     <div><FaMicrophoneAlt /></div>
                   </IconContext.Provider>
-                    Upcoming
+                    Speakers
+                </DropdownItem>
+              </Link>
+              <Link to="/event-medlife">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaMicrophoneAlt /></div>
+                  </IconContext.Provider>
+                    MEDLIFE
                 </DropdownItem>
               </Link>
               <Link to="/past-speakers">
