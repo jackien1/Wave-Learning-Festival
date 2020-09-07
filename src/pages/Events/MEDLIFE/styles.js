@@ -99,7 +99,8 @@ export const Speaker = styled.img`
     height: 11em; 
     margin-right: 2em;
     object-fit: cover; 
-    border-radius: 50%; 
+    border-radius: 20%;
+    margin-top: 5px;
     border: 2px solid ${Colors.WLF_YELLOW};
     /* margin-bottom: 1em;  */
     @media ${device.mobileS} {
