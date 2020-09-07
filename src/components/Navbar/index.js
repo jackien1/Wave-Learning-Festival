@@ -29,7 +29,6 @@ const Navbar = () => {
   const [coursesShow, setCoursesShow] = useState(false)
   const [aboutShow, setAboutShow] = useState(false)
   const [faqShow, setFaqShow] = useState(false)
-  const [eventsShow, setEventsShow] = useState(false)
   const [slide, toggleSlide] = useState(false)
   const [accountStatus, setAccountStatus] = useState(null)
   const [calledOnce, setCalledOnce] = useState(false)
@@ -136,7 +135,7 @@ const Navbar = () => {
                 </DropdownItem>
               </Link>
               */}
-              {/*<Link to="/courses-inprogress">
+              <Link to="/courses-upcoming">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -149,9 +148,9 @@ const Navbar = () => {
                   >
                     <div><FaChalkboardTeacher /></div>
                   </IconContext.Provider>
-                    In Progress
+                    Upcoming
                 </DropdownItem>
-              </Link>*/}
+              </Link>
               <Link to="/courses-archive">
                 <DropdownItem>
                   <IconContext.Provider

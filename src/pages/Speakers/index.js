@@ -20,33 +20,7 @@ import { Typography, Colors } from '@/styles'
 
 const Speakers = () => {
   const upcomingSpeakers = [
-    {
-      name: 'Cliff Hsia: How to Negotiate Your Salary to Get Paid More',
-      img: Cliff,
-      title: 'Writer, Marketer, Teacher',
-      date: 'Wednesday 9/2 7:00-8:00pm EDT',
-      desc: <p><b>Seminar 3: How to Negotiate Your Salary to Get Paid More</b>
-      <br/>So, the recruiter asks you what your salary expectations are. Now what? Stop right there. First person to say a number loses.
-      <br/>In this seminar, you'll learn the time-tested techniques to get recruiters or managers to say their numbers or ranges first, so you'll be in better control of the salary negotiation. Find out which questions to ask and how to specifically ask them, so that you can get paid what you're worth. And it doesn't stop there. With these negotiation techniques, you'll learn how to negotiate nearly anything, whether it's working remotely, pay raises, benefits, and more.
-      <br/>Come with your questions as there will be plenty of time for Q&A with Cliff.</p>,
-      bio: <p>Cliff Hsia is a Hawaii-raised, California-based writer, marketer, teacher, traveler, husband, and father. Over the course of his 15+ years marketing career in technology, he has worked for various companies in the Bay Area, including Alibaba, Cisco, Box, and Palo Alto Networks. He's also worked for dozens of companies as a freelance copywriter and editor for startups and big tech giants like Google, Yahoo, and Lyft. Throughout his career, he's learned how to efficiently get more jobs and clients—many at the same time—with a clear and well-written resume, solid interviewing skills, and savvy negotiating techniques.
-        <br/>Check out his writing about family travel and lifestyle design at LiveFamilyTravel.com, HuffPost, TODAY, The Good Men Project, and other media publications. Cliff also works as a private writing and English tutor, a Gates Millennium/APIA Scholar mentor, and a YouTube creator.
-        <br/>Connect with Cliff here: <a href="https://www.facebook.com/clifftutoring">Facebook</a> and <a href="https://youtu.be/tHFGwMGJDIc">YouTube – 6 Years of Travel Around the World</a></p>,
-      hasTime: false,
-      age: "9th Grade and up",
-      signup: ""
-    },
-    {
-      name: 'Iris Fu: How to Self-Publish a Book in a Month',
-      img: Iris,
-      title: "Economics Author, Youtuber, Stanford '24",
-      date: 'Thursday 9/3 5:30-6:30pm EDT',
-      desc: "Have you always had an interest that you'd want to showcase through a book? Does publishing a book seem like a daunting task? Well, it doesn't have to be! In this seminar, you'll learn how you can go from writing, editing, and self-publishing your book in as short of a time frame as a month. We'll focus on using the publishing platform Amazon KDP, and leave ample of time for questions to cater to your needs! ",
-      bio: 'Iris Fu is a rising freshman at Stanford University, where she plans to study computer science and economics. In high school, she self-published an introductory economics book, created an international video pal program, and had the opportunity to perform flute at Carnegie Hall. This summer, she is working at a blockchain identity startup, running a college admissions Youtube channel (Iris Fu), and seeking cool opportunities like speaking at Wave LF!',
-      hasTime: false,
-      age: "7th - 12th Grade",
-      signup: ""
-    },
+    
   ]
 
   const speakers = [

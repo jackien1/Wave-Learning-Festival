@@ -12,8 +12,10 @@ import FAQTeachers from './pages/FAQ/Teachers'
 import Courses from './pages/Courses'
 import CoursesInProgress from './pages/Courses/CoursesInProgress'
 import CoursesArchive from './pages/Courses/CoursesArchive'
+import CoursesUpcoming from './pages/Courses/CoursesUpcoming'
 import Speakers from './pages/Speakers'
 import PastSpeakers from './pages/Speakers/pastspeakers.js'
+import NoSpeakers from './pages/Speakers/NoSpeakers'
 import Speaker1SignUp from './pages/Speakers/SpeakerSignup/speaker1.js'
 import Speaker2SignUp from './pages/Speakers/SpeakerSignup/speaker2.js'
 import Speaker3SignUp from './pages/Speakers/SpeakerSignup/speaker3.js'
@@ -288,7 +290,7 @@ function App () {
               <Join />
             </Route>
             <Route path="/speakers">
-              <Speakers />
+              <NoSpeakers />
             </Route>
             <Route path="/event-medlife">
               <EventMedlife />
@@ -343,6 +345,9 @@ function App () {
             </Route>
             <Route path="/tutors">
               <Tutors />
+            </Route>
+            <Route path="/courses-upcoming">
+              <CoursesUpcoming />
             </Route>
             <Route path="/:slug" component={CoursePage} />
 
