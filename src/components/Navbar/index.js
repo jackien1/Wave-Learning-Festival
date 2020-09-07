@@ -29,7 +29,6 @@ const Navbar = () => {
   const [coursesShow, setCoursesShow] = useState(false)
   const [aboutShow, setAboutShow] = useState(false)
   const [faqShow, setFaqShow] = useState(false)
-  const [eventsShow, setEventsShow] = useState(false)
   const [slide, toggleSlide] = useState(false)
   const [accountStatus, setAccountStatus] = useState(null)
   const [calledOnce, setCalledOnce] = useState(false)
