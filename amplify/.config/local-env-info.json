@@ -1,5 +1,10 @@
 {
+<<<<<<< HEAD
+  "projectPath": "C:\\Users\\Zev\\coding\\WaveLF\\Wave-Learning-Festival",
+  "defaultEditor": "atom",
+=======
   "projectPath": "C:\\Users\\dshum\\Projects\\Wave-Learning-Festival",
   "defaultEditor": "visualstudiocode",
+>>>>>>> development
   "envName": "dev"
 }
