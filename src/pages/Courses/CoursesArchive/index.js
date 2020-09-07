@@ -10,7 +10,7 @@ const CoursesArchive = () => {
   const { db, storage } = useContext(FirebaseContext)
   const [courses, updateCourses] = useState([])
   const [loading, setLoading] = useState(false)
-  const WAVE = 3
+  const WAVE = 5
   const categories = {
     tech: 'Science and Tech',
     aesthetics: 'Aesthetics and Culture',

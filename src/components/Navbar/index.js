@@ -29,7 +29,6 @@ const Navbar = () => {
   const [coursesShow, setCoursesShow] = useState(false)
   const [aboutShow, setAboutShow] = useState(false)
   const [faqShow, setFaqShow] = useState(false)
-  const [eventsShow, setEventsShow] = useState(false)
   const [slide, toggleSlide] = useState(false)
   const [accountStatus, setAccountStatus] = useState(null)
   const [calledOnce, setCalledOnce] = useState(false)
@@ -136,7 +135,7 @@ const Navbar = () => {
                 </DropdownItem>
               </Link>
               */}
-              {/*<Link to="/courses-inprogress">
+              <Link to="/courses-upcoming">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -149,9 +148,9 @@ const Navbar = () => {
                   >
                     <div><FaChalkboardTeacher /></div>
                   </IconContext.Provider>
-                    In Progress
+                    Upcoming
                 </DropdownItem>
-              </Link>*/}
+              </Link>
               <Link to="/courses-archive">
                 <DropdownItem>
                   <IconContext.Provider
@@ -175,7 +174,23 @@ const Navbar = () => {
             onMouseLeave={() => setSpeakersShow(false)}>
             <Link>Events</Link>
             {speakersShow && (<NavbarDropdown>
-              <Link to="/speakers">
+              <Link to="/event-medlife">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaMicrophoneAlt /></div>
+                  </IconContext.Provider>
+                    Wave x MEDLIFE
+                </DropdownItem>
+              </Link>
+	      <Link to="/speakers">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -191,22 +206,7 @@ const Navbar = () => {
                     Speakers
                 </DropdownItem>
               </Link>
-              <Link to="/event-medlife">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaMicrophoneAlt /></div>
-                  </IconContext.Provider>
-                    MEDLIFE
-                </DropdownItem>
-              </Link>
+
               <Link to="/past-speakers">
                 <DropdownItem>
                   <IconContext.Provider
