@@ -9,8 +9,8 @@ import owens from './img/owens.png'
 import ye from './img/ye.png'
 import hou from './img/hou.png'
 import farooqui from './img/farooqui.png'
-import sumathipala from './img/sumathipala.png'
-import pereira from './img/pereira.jpg'
+import sumathipala from './img/sumathipala.jpg'
+import pereira from './img/pereira.png'
 import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
@@ -93,7 +93,7 @@ const SpeakerIcon = (speaker) => {
 
 const EventHome = ({ setPage }) => {
   return (<>
-    <Typography.Header color={Colors.WLF_YELLOW} style={{marginTop:-10}}>
+    <Typography.Header color={Colors.WLF_YELLOW} style={{marginTop:-10, lineHeight:"60px"}}>
       Education, Medicine, Technology: Living the MEDLife
     </Typography.Header>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
@@ -101,7 +101,7 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
-      Date and Time: Saturday, September 26, 1:00-4:00pm EDT, 10:00-1:00pm PST, 6:00-9:00pm GMT 
+      <b>Date and Time: Saturday, September 26, 1:00-4:00pm EDT, 10:00-1:00pm PST, 6:00-9:00pm GMT </b>
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
@@ -124,14 +124,14 @@ const EventHome = ({ setPage }) => {
       <b>1:00 - 2:15 pm EDT:</b> Keynote Speaker, Zulfiqar A. Bhutta
       <br />
       <b>2:15 - 4:00 pm EDT:</b> Panel Discussions in Medicine, Education, and Technology
-      <br/><br/>
+      <br/>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
       About MEDLIFE
     </Typography.Header2>
     <Typography.BodyText color="white" style={{ marginBottom: 30 }}>
       <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home.
-      <br/><br/>
+      <br/>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
       Speaker and Panelist Information
