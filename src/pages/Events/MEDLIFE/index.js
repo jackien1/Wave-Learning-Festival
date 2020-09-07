@@ -20,7 +20,7 @@ import { createTeacherRegistration, createNewsletter } from "../../../graphql/mu
 const keynoteData = [
   {
     name: "Dr. Zulfiqar A. Bhutta",
-    bio: "Inaugural Robert Harding Chair in Global Child Health at The Hospital for Sick Children (SickKids), Co-Director of the SickKids Centre for Global Child Health and the Founding Director of the Centre of Excellence in Women and Child Health at the Aga Khan University. Among the many feathers on his cap, Dr. Bhutta is the Co-Chair of the Maternal and Child Health oversight committee of the World Health Organization (WHO) Eastern Mediterranean Region (EMRO) and the Chairman of The Coalition of Centres in Global Child Health with its secretariat based at SickKids. <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a>",
+    bio: <p>Inaugural Robert Harding Chair in Global Child Health at The Hospital for Sick Children (SickKids), Co-Director of the SickKids Centre for Global Child Health and the Founding Director of the Centre of Excellence in Women and Child Health at the Aga Khan University. Among the many feathers on his cap, Dr. Bhutta is the Co-Chair of the Maternal and Child Health oversight committee of the World Health Organization (WHO) Eastern Mediterranean Region (EMRO) and the Chairman of The Coalition of Centres in Global Child Health with its secretariat based at SickKids. <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
     image: keynote
   }
 ]
@@ -28,12 +28,12 @@ const keynoteData = [
 const medData = [
   {
     name: "Dr. Nick Ellis - MEDLIFE, Executive Director and Founder",
-    bio: "Nick Ellis was inspired to create MEDLIFE when in 2001 in Panama he saw how effectively a grassroots organization could listen to the needs of people living in resource-poor settings, and subsequently enact change. He went on to work in both Peru & Ecuador which furthered his passion for understanding the root causes of poverty and exposed new complexities to the issues communities face. In 2004 he created MEDLIFE with the goal of establishing better and more sustainable access to healthcare, education, and a safe home for resource-poor families through the empowerment of communities and a student-led movement. <a href="https://www.medlifemovement.org/about-us/our-team/">Learn more about Dr. Nick Ellis.</a>",
+    bio: <p>Nick Ellis was inspired to create MEDLIFE when in 2001 in Panama he saw how effectively a grassroots organization could listen to the needs of people living in resource-poor settings, and subsequently enact change. He went on to work in both Peru & Ecuador which furthered his passion for understanding the root causes of poverty and exposed new complexities to the issues communities face. In 2004 he created MEDLIFE with the goal of establishing better and more sustainable access to healthcare, education, and a safe home for resource-poor families through the empowerment of communities and a student-led movement. <a href="https://www.medlifemovement.org/about-us/our-team/">Learn more about Dr. Nick Ellis.</a></p>,
     image: ellis
   },
   {
     name: "Dr. Angel M Matos Lugo - Global Health Institute, Director",
-    bio: "Angel M. Matos Lugo is a Puerto Rican Physician and Educator; passionate about Humanitarian Health and compelled to diminishing health disparities and inequalities across the globe. Dr. Matos served as an attending physician and guided over 100 UMHS students on medical mission trips to Guatemala, Dominican Republic, Costa Rica, and Peru, showcasing his commitment to help low and middle-income communities. Dr. Matos is a member of the Consortium of Universities for Global Health, American Public Health Association, Mexican Society of Public Health, Association of Governing Boards of Universities and Colleges, and the International Association of Medical Science Educators. He serves the Board of Trustees of Albizu University in Miami and Puerto Rico. <a href="https://www.umhs-sk.org/angel-m-matos-lugo">Learn more about Dr. Angel Matos.</a>",
+    bio: <p>Angel M. Matos Lugo is a Puerto Rican Physician and Educator; passionate about Humanitarian Health and compelled to diminishing health disparities and inequalities across the globe. Dr. Matos served as an attending physician and guided over 100 UMHS students on medical mission trips to Guatemala, Dominican Republic, Costa Rica, and Peru, showcasing his commitment to help low and middle-income communities. Dr. Matos is a member of the Consortium of Universities for Global Health, American Public Health Association, Mexican Society of Public Health, Association of Governing Boards of Universities and Colleges, and the International Association of Medical Science Educators. He serves the Board of Trustees of Albizu University in Miami and Puerto Rico. <a href="https://www.umhs-sk.org/angel-m-matos-lugo">Learn more about Dr. Angel Matos.</a></p>,
     image: matoslugo
   }
 ]
@@ -41,17 +41,17 @@ const medData = [
 const edData = [
   {
     name: "Benjamin Owens - Silicon Valley Youth, Co-Founder and CEO",
-    bio: "Ben is a senior at Harvard University, studying computer science, statistics, and economics. Knowing the importance of quality education, Ben co-founded Silicon Valley Youth to help students in underserved communities in the San Francisco Bay Area. <a href="https://www.siliconvalleyyouth.com/team.html">Learn more about Benjamin Owens.</a>",
+    bio: <p>Ben is a senior at Harvard University, studying computer science, statistics, and economics. Knowing the importance of quality education, Ben co-founded Silicon Valley Youth to help students in underserved communities in the San Francisco Bay Area. <a href="https://www.siliconvalleyyouth.com/team.html">Learn more about Benjamin Owens.</a></p>,
     image: owens
   },
   {
     name: "Oliver Ye - Silicon Valley Youth, President",
-    bio: "Oliver is a senior at Saratoga High school, with an interest in business and technology. Oliver joined Silicon Valley Youth at the time of its founding, and has been the President of the organization for the past two years; as President, Oliver has led multiple project collaborations with local school districts like the Ravenswood, Franklin McKinley, and Cupertino districts, planning leadership conferences, donating supplies, and sponsoring writing competitions. <a href="https://www.siliconvalleyyouth.com/index.html">Learn more about Oliver Ye.</a>",
+    bio: <p>Oliver is a senior at Saratoga High school, with an interest in business and technology. Oliver joined Silicon Valley Youth at the time of its founding, and has been the President of the organization for the past two years; as President, Oliver has led multiple project collaborations with local school districts like the Ravenswood, Franklin McKinley, and Cupertino districts, planning leadership conferences, donating supplies, and sponsoring writing competitions. <a href="https://www.siliconvalleyyouth.com/index.html">Learn more about Oliver Ye.</a></p>,
     image: ye
   },
   {
     name: "Karly Hou - Wave Learning Festival, Founder and Chair",
-    bio: "Karly Hou is a sophomore at Harvard studying some combination of CS, math, economics, and government. Prior to Wave, she started the initiative Healthy Kids International, which taught health and leadership workshops to 2000+ elementary schoolers in China. With her future work, she hopes to advance education, public health, ethical technology, and women’s rights. In her spare time, Karly loves painting, photography, learning new languages, singing, powerlifting, and exploring the great outdoors. <a href="https://www.karlyhou.com">Learn more about Karly Hou.</a>",
+    bio: <p>Karly Hou is a sophomore at Harvard studying some combination of CS, math, economics, and government. Prior to Wave, she started the initiative Healthy Kids International, which taught health and leadership workshops to 2000+ elementary schoolers in China. With her future work, she hopes to advance education, public health, ethical technology, and women’s rights. In her spare time, Karly loves painting, photography, learning new languages, singing, powerlifting, and exploring the great outdoors. <a href="https://www.karlyhou.com">Learn more about Karly Hou.</a></p>,
     image: hou
   }
 ]
@@ -59,17 +59,17 @@ const edData = [
 const techData = [
   {
     name: "Omar Farooqui - Coded Minds, Founder and President",
-    bio: "Omar Farooqui is an entrepreneur, investor, and startup enthusiast. He is the Founder & President of Coded Minds. Wanting to disrupt the education industry from the ground up, not just through pedagogy but also price, through his vision of merging public and private education as one. With this mission, he created Coded Minds in 2017. Omar is a careered finance professional in a previous life spanning two decades. His two previous ventures were Green Sands Equity out of San Francisco and previously CapInvest (latterly CI Holdings). He was also on the Mutual Funds Board of Saudi Fransi Capital for several years. His corporate life was split between Algebra Capital, Deutsche Bank & NCB Capital out of Saudi Arabia. <a href="https://www.coded-minds.org/about-us/the-team/">Learn more about Omar Farooqui.</a>",
+    bio: <p>Omar Farooqui is an entrepreneur, investor, and startup enthusiast. He is the Founder & President of Coded Minds. Wanting to disrupt the education industry from the ground up, not just through pedagogy but also price, through his vision of merging public and private education as one. With this mission, he created Coded Minds in 2017. Omar is a careered finance professional in a previous life spanning two decades. His two previous ventures were Green Sands Equity out of San Francisco and previously CapInvest (latterly CI Holdings). He was also on the Mutual Funds Board of Saudi Fransi Capital for several years. His corporate life was split between Algebra Capital, Deutsche Bank & NCB Capital out of Saudi Arabia. <a href="https://www.coded-minds.org/about-us/the-team/">Learn more about Omar Farooqui.</a></p>,
     image: farooqui
   },
   {
     name: "Carlos Pereira - Livox, Founder and CEO",
-    bio: "Brazilian entrepreneur Carlos Pereira, CEO and Founder of Livox, is among the laureates of The Tech for Global Good, a program that recognizes innovators solving the world’s biggest problems. Livox is a software platform that enables non-verbal disabled people to communicate and learn. Carlos’ work has received awards such as The Best Inclusion Software in the World, by the UN; Technological Innovation with the Greatest Impact by Inter-American Development Bank, Social Entrepreneur of 2017 by Schwab Foundation. <a href="https://www.baybrazil.org/carlos-pereira-ceo-founder-livox">Learn more about Carlos Pereira.</a>",
+    bio: <p>Brazilian entrepreneur Carlos Pereira, CEO and Founder of Livox, is among the laureates of The Tech for Global Good, a program that recognizes innovators solving the world’s biggest problems. Livox is a software platform that enables non-verbal disabled people to communicate and learn. Carlos’ work has received awards such as The Best Inclusion Software in the World, by the UN; Technological Innovation with the Greatest Impact by Inter-American Development Bank, Social Entrepreneur of 2017 by Schwab Foundation. <a href="https://www.baybrazil.org/carlos-pereira-ceo-founder-livox">Learn more about Carlos Pereira.</a></p>,
     image: pereira
   },
   {
     name: "Marissa Sumathipala - Global Health Institute, Director",
-    bio: "Marissa Sumathipala is a biotechnology entrepreneur, researcher, and junior at Harvard University. She’s the founder and lead developer of Theraplexus, a biotechnology startup transforming rapid, low-cost drug discovery with artificial intelligence and network science analytics. She's a Davidson Fellow, We are Family Foundation Global Teen Leader, and a recipient of Glamour Magazine's 2020 College Women of the Year. She is a 2018 Presidential Scholar and a 2018 Coca Cola Scholar, honored as one of the country’s most outstanding leaders for exceptional academics, exemplary leadership, and community service. Outside of her studies, she runs the Harvard Figure Skating Club, is an ambassador for the US Figure Skating Association, and runs a digital science publication on campus. <a href="https://www.davidsongifted.org/fellows-scholarship/2018-davidson-fellows/marissa-sumathipala">Learn more about Marissa Sumathipala.</a>",
+    bio: <p>Marissa Sumathipala is a biotechnology entrepreneur, researcher, and junior at Harvard University. She’s the founder and lead developer of Theraplexus, a biotechnology startup transforming rapid, low-cost drug discovery with artificial intelligence and network science analytics. She's a Davidson Fellow, We are Family Foundation Global Teen Leader, and a recipient of Glamour Magazine's 2020 College Women of the Year. She is a 2018 Presidential Scholar and a 2018 Coca Cola Scholar, honored as one of the country’s most outstanding leaders for exceptional academics, exemplary leadership, and community service. Outside of her studies, she runs the Harvard Figure Skating Club, is an ambassador for the US Figure Skating Association, and runs a digital science publication on campus. <a href="https://www.davidsongifted.org/fellows-scholarship/2018-davidson-fellows/marissa-sumathipala">Learn more about Marissa Sumathipala.</a></p>,
     image: sumathipala
   }
 ]
@@ -130,7 +130,7 @@ const EventHome = ({ setPage }) => {
       About MEDLIFE
     </Typography.Header2>
     <Typography.BodyText color="white" style={{ marginBottom: 30 }}>
-      <b>MEDLIFE, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home.
+      <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home.
       <br/><br/>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
