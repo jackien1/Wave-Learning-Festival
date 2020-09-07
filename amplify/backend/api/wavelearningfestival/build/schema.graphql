@@ -48,6 +48,7 @@ type TeacherRegistration {
   skills: String!
   previousWaves: String!
   questions: String
+  approved: Boolean!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -61,9 +62,9 @@ type Student {
   first_name: String!
   last_name: String!
   email: String!
-  grade: Int!
+  grade: String!
   howYouHear: String!
-  numCourses: Int!
+  numCourses: String!
   parentName: String!
   parentEmail: String!
   registeredEvents: [SpecialEvent]
@@ -96,6 +97,7 @@ type BlogPost {
   date: String!
   image: String!
   title: String!
+  views: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -148,6 +150,7 @@ type TutorRegistration {
   hours: String!
   questions: String
   othersubjects: String
+  approved: Boolean!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -492,6 +495,7 @@ input ModelTeacherRegistrationFilterInput {
   skills: ModelStringInput
   previousWaves: ModelStringInput
   questions: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTeacherRegistrationFilterInput]
   or: [ModelTeacherRegistrationFilterInput]
   not: ModelTeacherRegistrationFilterInput
@@ -518,6 +522,7 @@ input CreateTeacherRegistrationInput {
   skills: String!
   previousWaves: String!
   questions: String
+  approved: Boolean!
 }
 
 input UpdateTeacherRegistrationInput {
@@ -541,6 +546,7 @@ input UpdateTeacherRegistrationInput {
   skills: String
   previousWaves: String
   questions: String
+  approved: Boolean
 }
 
 input DeleteTeacherRegistrationInput {
@@ -567,6 +573,7 @@ input ModelTeacherRegistrationConditionInput {
   skills: ModelStringInput
   previousWaves: ModelStringInput
   questions: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTeacherRegistrationConditionInput]
   or: [ModelTeacherRegistrationConditionInput]
   not: ModelTeacherRegistrationConditionInput
@@ -593,9 +600,9 @@ input ModelStudentFilterInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   email: ModelStringInput
-  grade: ModelIntInput
+  grade: ModelStringInput
   howYouHear: ModelStringInput
-  numCourses: ModelIntInput
+  numCourses: ModelStringInput
   parentName: ModelStringInput
   parentEmail: ModelStringInput
   registeredEvents: ModelSpecialEventListInput
@@ -613,9 +620,9 @@ input CreateStudentInput {
   first_name: String!
   last_name: String!
   email: String!
-  grade: Int!
+  grade: String!
   howYouHear: String!
-  numCourses: Int!
+  numCourses: String!
   parentName: String!
   parentEmail: String!
   registeredEvents: [SpecialEvent]
@@ -630,9 +637,9 @@ input UpdateStudentInput {
   first_name: String
   last_name: String
   email: String
-  grade: Int
+  grade: String
   howYouHear: String
-  numCourses: Int
+  numCourses: String
   parentName: String
   parentEmail: String
   registeredEvents: [SpecialEvent]
@@ -650,9 +657,9 @@ input ModelStudentConditionInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   email: ModelStringInput
-  grade: ModelIntInput
+  grade: ModelStringInput
   howYouHear: ModelStringInput
-  numCourses: ModelIntInput
+  numCourses: ModelStringInput
   parentName: ModelStringInput
   parentEmail: ModelStringInput
   registeredEvents: ModelSpecialEventListInput
@@ -757,6 +764,7 @@ input ModelBlogPostFilterInput {
   date: ModelStringInput
   image: ModelStringInput
   title: ModelStringInput
+  views: ModelStringInput
   and: [ModelBlogPostFilterInput]
   or: [ModelBlogPostFilterInput]
   not: ModelBlogPostFilterInput
@@ -768,6 +776,7 @@ input CreateBlogPostInput {
   date: String!
   image: String!
   title: String!
+  views: [String]
 }
 
 input UpdateBlogPostInput {
@@ -776,6 +785,7 @@ input UpdateBlogPostInput {
   date: String
   image: String
   title: String
+  views: [String]
 }
 
 input DeleteBlogPostInput {
@@ -787,6 +797,7 @@ input ModelBlogPostConditionInput {
   date: ModelStringInput
   image: ModelStringInput
   title: ModelStringInput
+  views: ModelStringInput
   and: [ModelBlogPostConditionInput]
   or: [ModelBlogPostConditionInput]
   not: ModelBlogPostConditionInput
@@ -898,6 +909,7 @@ input ModelTutorRegistrationFilterInput {
   hours: ModelStringInput
   questions: ModelStringInput
   othersubjects: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTutorRegistrationFilterInput]
   or: [ModelTutorRegistrationFilterInput]
   not: ModelTutorRegistrationFilterInput
@@ -918,6 +930,7 @@ input CreateTutorRegistrationInput {
   hours: String!
   questions: String
   othersubjects: String
+  approved: Boolean!
 }
 
 input UpdateTutorRegistrationInput {
@@ -935,6 +948,7 @@ input UpdateTutorRegistrationInput {
   hours: String
   questions: String
   othersubjects: String
+  approved: Boolean
 }
 
 input DeleteTutorRegistrationInput {
@@ -955,6 +969,7 @@ input ModelTutorRegistrationConditionInput {
   hours: ModelStringInput
   questions: ModelStringInput
   othersubjects: ModelStringInput
+  approved: ModelBooleanInput
   and: [ModelTutorRegistrationConditionInput]
   or: [ModelTutorRegistrationConditionInput]
   not: ModelTutorRegistrationConditionInput

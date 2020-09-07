@@ -168,6 +168,7 @@ export const createTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -199,6 +200,7 @@ export const updateTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -230,6 +232,7 @@ export const deleteTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -486,6 +489,7 @@ export const createBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -502,6 +506,7 @@ export const updateBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -518,6 +523,7 @@ export const deleteBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -621,6 +627,7 @@ export const createTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -646,6 +653,7 @@ export const updateTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -671,6 +679,7 @@ export const deleteTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }

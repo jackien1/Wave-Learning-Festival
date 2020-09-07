@@ -164,9 +164,9 @@ const About = () => {
                 Announcements:
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
-                    <li>Instructor applications for Tide 1 are open until 9/6! <a href="/instructors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li><b>If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com!</b></li>
+                    <li>The deadline for instructor applications for Tide 1 has been extended to Monday 9/7! <a href="/instructors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Learn how to self-publish a book in a month with Iris Fu on Thursday 9/3! <a href="/speakers" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>

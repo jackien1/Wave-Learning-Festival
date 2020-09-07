@@ -121,6 +121,7 @@ export const getTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -158,6 +159,7 @@ export const listTeacherRegistrations = /* GraphQL */ `
         skills
         previousWaves
         questions
+        approved
         createdAt
         updatedAt
       }
@@ -318,6 +320,7 @@ export const getBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -336,6 +339,7 @@ export const listBlogPosts = /* GraphQL */ `
         date
         image
         title
+        views
         createdAt
         updatedAt
       }
@@ -413,6 +417,7 @@ export const getTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -444,6 +449,7 @@ export const listTutorRegistrations = /* GraphQL */ `
         hours
         questions
         othersubjects
+        approved
         createdAt
         updatedAt
       }

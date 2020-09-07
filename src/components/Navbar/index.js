@@ -29,6 +29,7 @@ const Navbar = () => {
   const [coursesShow, setCoursesShow] = useState(false)
   const [aboutShow, setAboutShow] = useState(false)
   const [faqShow, setFaqShow] = useState(false)
+  const [eventsShow, setEventsShow] = useState(false)
   const [slide, toggleSlide] = useState(false)
   const [accountStatus, setAccountStatus] = useState(null)
   const [calledOnce, setCalledOnce] = useState(false)
@@ -172,9 +173,9 @@ const Navbar = () => {
           </NavItem>
           <NavItem onMouseEnter={() => setSpeakersShow(true)}
             onMouseLeave={() => setSpeakersShow(false)}>
-            <Link>Speakers</Link>
+            <Link>Events</Link>
             {speakersShow && (<NavbarDropdown>
-              <Link to="/speakers">
+              <Link to="/event-medlife">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -187,9 +188,26 @@ const Navbar = () => {
                   >
                     <div><FaMicrophoneAlt /></div>
                   </IconContext.Provider>
-                    Upcoming
+                    Wave x MEDLIFE
                 </DropdownItem>
               </Link>
+	      <Link to="/speakers">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaMicrophoneAlt /></div>
+                  </IconContext.Provider>
+                    Speakers
+                </DropdownItem>
+              </Link>
+
               <Link to="/past-speakers">
                 <DropdownItem>
                   <IconContext.Provider
