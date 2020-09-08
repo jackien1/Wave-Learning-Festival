@@ -89,6 +89,7 @@ import Partners from "./pages/Partners"
 
 
 import Dashboard from './pages/Dashboard'
+import TeacherDashboard from './pages/Dashboard/TeacherDashboard'
 
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
@@ -267,6 +268,9 @@ function App () {
             </Route>
             <Route path="/dashboard">
               <Dashboard />
+            </Route>
+            <Route path="/teacher-dashboard">
+              <TeacherDashboard />
             </Route>
             <Route path="/signup">
               <Signup />

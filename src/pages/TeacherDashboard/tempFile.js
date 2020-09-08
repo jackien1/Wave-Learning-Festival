@@ -419,6 +419,60 @@ const Dashboard = () => {
                   </Form.Button>
                 </Row>
               </Column>
+
+              {/* <Column>
+                <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Class</Typography.Header>
+                <div style={{
+                  backgroundImage: `url(${WavyPurple})`,
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  marginBottom: 5,
+                  paddingBottom: '20px'
+                }}>
+                  <Text>
+                    <br/><br/>
+                    {studentInfo.map((info, index) => {
+                      return (
+                        <Row key={index}>
+                          <ProfileLeft>
+                            <Label>{`${info.label} `}</Label>
+                          </ProfileLeft>
+                          <ProfileRight>
+                            <EditInput
+                              edit={edit}
+                              disabled={!edit}
+                              value={profile[info.state]}
+                              onChange={e => profileDispatch({ type: info.dispatch, content: e.target.value })}/>
+                          </ProfileRight>
+                        </Row>
+                      )
+                    })}
+                    <br/>
+                  </Text>
+                  {edit && <Row style={{ alignItems: 'center' }}>
+                    <Form.Button onClick={() => submit()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
+                      <b style ={{ color: 'white' }}>Submit</b>
+                    </Form.Button>
+                    <Cancel onClick={() => cancel()} style ={{ color: 'white' }}>Cancel</Cancel>
+                  </Row>}
+                </div>
+                <Row>
+                  <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
+                    <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
+                      <b>Sign Out</b>
+                    </Form.Button>
+                  </a>
+                  <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
+                    <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+                      <b>Change Password</b>
+                    </Form.Button>
+                  </a>
+                  <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+                    <b style ={{ color: 'white' }}>Edit Profile</b>
+                  </Form.Button>
+                </Row>
+              </Column> */}
+
               <Column>
                 <div style={{ display: 'flex' }}>
                   <Column style={{ width: '70%' }}>
