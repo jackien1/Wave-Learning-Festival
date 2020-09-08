@@ -124,7 +124,7 @@ const Dashboard = () => {
       genFrag('Parent Email', teacherInfo.first_name, 'PARENTEMAIL', 'parentEmail'),
       genFrag('Age', '100', teacherInfo.first_name, 'age'),
       genFrag('School', teacherInfo.school, 'SCHOOL', 'school'),
-      genFrag('Country', teacherInfo.first_name + ' ' + teacherInfo.last_name, 'COUNTRY', 'country'),
+      genFrag('Country', teacherInfo.country, 'COUNTRY', 'country'),
       genFrag('City', teacherInfo.city, 'CITY', 'city')
     ]
   }
