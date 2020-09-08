@@ -3,65 +3,95 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography, Form } from '@/styles'
-// import { FirebaseContext } from '../../firebaseContext'
 import './styles.css'
 import { Cancel, EditInput, ProfileLeft, ProfileRight, Column, Text, Row, Label, Class, ClassText, Sections } from './styles.js'
 import WavyPurple from '../../About/assets/wavy_purple.svg'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
-import { getTeacher } from "../../../graphql/queries.js"
+import { getTutorRegistration } from "../../../graphql/queries.js"
+import { updateTutorRegistration } from "../../../graphql/mutations.js"
 
 const profileState = {
-  name: '',
-  email: '',
-  parentName: '',
-  parentEmail: '',
-  age: '',
+  firstName: '',
+  lastName: '',
   school: '',
-  country: '',
-  city: ''
+  email: '',
+  gradYear: '',
+  subjects: [],
+  ageRanges: [],
+  qualifications: '',
+  why: '',
+  experience: '',
+  hours: '',
+  questions: '',
+  othersubjects: ''
 }
 
 const profileReducer = (state, action) => {
   switch (action.type) {
-    case 'NAME':
+    case 'FIRSTNAME':
       return ({
         ...state,
-        name: action.content
+        firstName: action.content
       })
-    case 'EMAIL':
+    case 'LASTNAME':
       return ({
         ...state,
-        email: action.content
-      })
-    case 'PARENTNAME':
-      return ({
-        ...state,
-        parentName: action.content
-      })
-    case 'PARENTEMAIL':
-      return ({
-        ...state,
-        parentEmail: action.content
-      })
-    case 'AGE':
-      return ({
-        ...state,
-        age: action.content
+        lastName: action.content
       })
     case 'SCHOOL':
       return ({
         ...state,
         school: action.content
       })
-    case 'COUNTRY':
+    case 'EMAIL':
       return ({
         ...state,
-        country: action.content
+        email: action.content
       })
-    case 'CITY':
+    case 'GRADYEAR':
       return ({
         ...state,
-        city: action.content
+        gradYear: action.content
+      })
+    case 'SUBJECTS':
+      return ({
+        ...state,
+        subjects: action.content
+      })
+    case 'AGERANGES':
+      return ({
+        ...state,
+        ageRanges: action.content
+      })
+    case 'QUALIFICATIONS':
+      return ({
+        ...state,
+        qualifications: action.content
+      })
+    case 'WHY':
+      return ({
+        ...state,
+        why: action.content
+      })
+    case 'EXPERIENCE':
+      return ({
+        ...state,
+        experience: action.content
+      })
+    case 'HOURS':
+      return ({
+        ...state,
+        hours: action.content
+      })
+    case 'QUESTIONS':
+      return ({
+        ...state,
+          questions: action.content
+      })
+    case 'OTHERSUBJECTS':
+      return ({
+        ...state,
+        othersubjects: action.content
       })
     case 'RESET':
       return (action.content)
@@ -80,8 +110,9 @@ const Dashboard = () => {
   const [edit, toggleEdit] = useState(false)
   const [localInfo, setLocalInfo] = useState({})
   const [docID, setDocID] = useState('')
-  // const { db, storage, auth } = useContext(FirebaseContext)
   const [profile, profileDispatch] = useReducer(profileReducer, profileState)
+
+  var id = 'student1';
 
   // const withdraw = (student, course, db) => {
   //   if (window.confirm('Are you sure you want to drop "' + course.courseTitle + '"?')) {
@@ -115,23 +146,23 @@ const Dashboard = () => {
     // if (typeof studentName === 'undefined') {
     //   studentName = student.name_first + ' ' + student.name_last
     // }
-    const teacherInfo = student.data.getTeacher;
-    console.log(teacherInfo);
+    const teacherInfo = student.data.getTutorRegistration;
     return [
-      genFrag('Name', teacherInfo.first_name + teacherInfo.last_name, 'NAME', 'name'),
-      genFrag('Email', teacherInfo.email, 'EMAIL', 'email'),
-      genFrag('Parent Name', teacherInfo.first_name, 'PARENTNAME', 'parentName'),
-      genFrag('Parent Email', teacherInfo.first_name, 'PARENTEMAIL', 'parentEmail'),
-      genFrag('Age', '100', teacherInfo.first_name, 'age'),
+      genFrag('First Name', teacherInfo.first_name, 'FIRSTNAME', 'firstName'),
+      genFrag('Last Name', teacherInfo.last_name, 'LASTNAME', 'lastName'),
       genFrag('School', teacherInfo.school, 'SCHOOL', 'school'),
-      genFrag('Country', teacherInfo.country, 'COUNTRY', 'country'),
-      genFrag('City', teacherInfo.city, 'CITY', 'city')
+      genFrag('Email', teacherInfo.email, 'EMAIL', 'email'),
+      genFrag('Graduation Year', teacherInfo.gradYear, 'GRADYEAR', 'gradYear'),
+      genFrag('Subjects', teacherInfo.subjects, 'SUBJECTS', 'subjects'),
+      genFrag('Age Ranges', teacherInfo.ageRanges, 'AGERANGES', 'ageRanges'),
+      genFrag('Hours', teacherInfo.hours, 'HOURS', 'hours'),
+      genFrag('Other Subjects', teacherInfo.othersubjects, 'OTHERSUBJECTS', 'othersubjects'),
     ]
   }
 
   const updateStudent = async () => {
     try {
-      const teacherData = await API.graphql(graphqlOperation(getTeacher, {id: "student1"}));
+      const teacherData = await API.graphql(graphqlOperation(getTutorRegistration, {id: "student1"}));
       setStudent(teacherData);
     } catch (error) {
         console.log('error on fetching songs', error);
@@ -161,14 +192,19 @@ const Dashboard = () => {
         studentName = student.name_first + ' ' + student.name_last
       }
       setLocalInfo({
-        name: studentName,
-        email: student.email,
-        parentName: student.parentName,
-        parentEmail: student.parentEmail,
-        age: student.age,
+        firstName: student.first_name,
+        lastName: student.last_name,
         school: student.school,
-        country: student.country,
-        city: student.city
+        email: student.email,
+        gradYear: student.gradYear,
+        subjects: student.subjects,
+        ageRanges: student.ageRanges,
+        qualifications: student.qualifications,
+        why: student.why,
+        experience: student.experience,
+        hours: student.hours,
+        questions: student.questions,
+        othersubjects: student.othersubjects
       })
       studentInfo.forEach(label => {
         profileDispatch({ type: label.dispatch, content: label.data })
@@ -182,63 +218,22 @@ const Dashboard = () => {
   }
 
   const submit = () => {
-    console.log(localInfo.name);
-    // if (localInfo.name !== profile.name ||
-    //        localInfo.email !== profile.email ||
-    //        localInfo.parentName !== profile.parentName ||
-    //         localInfo.parentEmail !== profile.parentEmail) {
-    //   const editRef = db.collection('editAssignments').where('studentId', '==', student.id)
-    //   editRef.get().then(snapshot => {
-    //     if (!snapshot.empty) {
-    //       // db.collection('editAssignments').doc(snapshot.docs[0].id).update({
-    //       //   name: profile.name,
-    //       //   email: profile.email,
-    //       //   parentName: profile.parentName,
-    //       //   parentEmail: profile.parentEmail,
-    //       //   studentId: student.id,
-    //       //   userId: student.userID,
-    //       //   courses: coursesDisplayed
-    //       // })
-    //       console.log('lol');
-    //     } else {
-    //       // db.collection('editAssignments').add({
-    //       //   name: profile.name,
-    //       //   email: profile.email,
-    //       //   parentName: profile.parentName,
-    //       //   parentEmail: profile.parentEmail,
-    //       //   studentId: student.id,
-    //       //   userId: student.userID,
-    //       //   courses: coursesDisplayed
-    //       // })
-    //       console.log('yeet');
-    //     }
-    //   })
-    // }
-    const name = profile.name.split(' ')
-    // db.collection('StudentRegistrations').doc(docID).update({
-    //   name_first: name[0],
-    //   name_last: name[1],
-    //   email: profile.email,
-    //   parentEmail: student.parentEmail,
-    //   parentName: profile.parentName,
-    //   age: profile.age,
-    //   school: profile.school,
-    //   country: profile.country,
-    //   city: profile.city
-    // })
-
-    // if (localInfo.email !== profile.email) {
-    //   auth.onAuthStateChanged(function (user) {
-    //     if (user) {
-    //       user.updateEmail(profile.email).then(() => {
-    //
-    //       }).catch(e => {
-    //         throw e
-    //       })
-    //     } else {
-    //     }
-    //   })
-    // }
+    API.graphql(graphqlOperation(updateTutorRegistration, {
+    input: {id: id,
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      school: profile.school,
+      email: profile.email,
+      gradYear: profile.gradYear,
+      subjects: [],
+      ageRanges: [],
+      qualifications: '',
+      why: '',
+      experience: '',
+      hours: '',
+      questions: '',
+      othersubjects: ''
+    }}))
 
     setLocalInfo(profile)
     toggleEdit(false)
@@ -362,9 +357,11 @@ const Dashboard = () => {
                       <b>Change Password</b>
                     </Form.Button>
                   </a>
-                  <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                    <b style ={{ color: 'white' }}>Edit Profile</b>
-                  </Form.Button>
+                  {!edit && 
+                    <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+                      <b style ={{ color: 'white' }}>Edit Profile</b>
+                    </Form.Button>
+                  }
                 </Row>
               </Column>
             </Sections>
