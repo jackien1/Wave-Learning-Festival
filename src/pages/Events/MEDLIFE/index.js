@@ -69,7 +69,7 @@ const techData = [
     image: pereira
   },
   {
-    name: "Marissa Sumathipala - Global Health Institute, Director",
+    name: "Marissa Sumathipala - Theraplexus, Founder",
     bio: <p>Marissa Sumathipala is a biotechnology entrepreneur, researcher, and junior at Harvard University. She’s the founder and lead developer of Theraplexus, a biotechnology startup transforming rapid, low-cost drug discovery with artificial intelligence and network science analytics. She's a Davidson Fellow, We are Family Foundation Global Teen Leader, and a recipient of Glamour Magazine's 2020 College Women of the Year. She is a 2018 Presidential Scholar and a 2018 Coca Cola Scholar, honored as one of the country’s most outstanding leaders for exceptional academics, exemplary leadership, and community service. Outside of her studies, she runs the Harvard Figure Skating Club, is an ambassador for the US Figure Skating Association, and runs a digital science publication on campus. <a href="https://www.davidsongifted.org/fellows-scholarship/2018-davidson-fellows/marissa-sumathipala">Learn more about Marissa Sumathipala.</a></p>,
     image: sumathipala
   }
@@ -131,7 +131,7 @@ const EventHome = ({ setPage }) => {
       About MEDLIFE
     </Typography.Header2>
     <Typography.BodyText color="white" style={{ marginBottom: 30 }}>
-      <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home.
+      <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home. <a href="https://www.medlifemovement.org/">Learn more about MEDLIFE.</a>
       <br/>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
