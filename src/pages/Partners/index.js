@@ -9,6 +9,7 @@ import MEDLIFEOntario from './logos/MEDLIFEOntarioLogo.jpg'
 import PsychStart from './logos/PsychStartLogo.jpg'
 import SeedsInTheMiddle from './logos/SeedsInTheMiddleLogo.png'
 import Stemey from './logos/STEMEYLogo.png'
+import LearnWithLeaders from './logos/LWLlogo.png'
 import tinyTouchofLove from './logos/tinyTouchOfLove.png'
 
 const partnerData = [
@@ -35,6 +36,12 @@ const partnerData = [
     logo: Stemey,
     width: 225,
     link: 'http://www.stemenrichmentyouth.com/'
+  },
+  {
+    name: 'Learn with Leaders',
+    logo: LearnWithLeaders,
+    width: 230,
+    link: 'https://learnwithleaders.com/'
   },
   {
     name: 'tiny Touch of Love',
