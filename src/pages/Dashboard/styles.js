@@ -32,6 +32,45 @@ export const ListItem = styled.p`
     cursor: pointer;
   }
 `
+export const CalendarButton = styled.button`
+  background-color: ${Colors.WLF_PURPLE};
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size:16 px;
+  margin: 3px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  height:100px;
+  width:50px;
+  &:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
+`
+
+export const ArrowButton = styled.button`
+  display: inline-block;
+  transition-duration: 0.4s;
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  &:hover{
+        opacity: 0.2;
+        cursor: pointer;
+    }
+`
+
+// export const ButtonDot = styled.shape`
+//   height: "5px",
+//   width: "5px",
+//   borderRadius: "50%",
+//   display: "inline-block",
+//   margin: "3px"
+// `
 
 export const Highlight = styled.img`
   position: absolute;
@@ -43,6 +82,7 @@ export const ContentContainer = styled.div`
   justify-content: center;
   left: 250px;
   width: calc(100% - 600px);
+  padding: 2rem;
   min-height: 100vh;
 `
 
