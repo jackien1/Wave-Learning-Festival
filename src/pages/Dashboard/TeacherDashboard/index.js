@@ -17,7 +17,8 @@ import { updateTeacher } from "../../../graphql/mutations.js"
 
 const profileState = {
   // Personal Data
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   school: '',
   gradYear: '',
@@ -39,11 +40,16 @@ const profileState = {
 
 const profileReducer = (state, action) => {
   switch (action.type) {
-    case 'NAME':
+    case 'FIRSTNAME':
       return ({
         ...state,
-        name: action.content
+        firstName: action.content
       })
+    case 'LASTNAME':
+      return ({
+        ...state,
+        lastName: action.content
+      })      
     case 'EMAIL':
       return ({
         ...state,
@@ -99,18 +105,17 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const [isError, setError] = useState(false)
   const [user, setUser] = useState(null)
-  // const [student, setStudent] = useState(null)
   const [theError, setTheError] = useState(null)
-  // const [courses, setCourses] = useState([])
   const [coursesDisplayed, setCoursesDisplayed] = useState([])
   const [wave, setWave] = useState('5')
   const [edit, toggleEdit] = useState(false)
   const [localInfo, setLocalInfo] = useState({})
   const [docID, setDocID] = useState('')
-  // const { db, storage, auth } = useContext(FirebaseContext)
   const [profile, profileDispatch] = useReducer(profileReducer, profileState)
-  const [teacher, setTeacher] = useState(null)
+  const [teacher, setTeacher] = useState([])
   const [seminar, setSeminar] = useState(null)
+  
+  var id = 'student1';
 
   const genFrag = function (label, data, dispatch, state) {
     return {
@@ -123,26 +128,13 @@ const Dashboard = () => {
 
   const generateTeacherInfo = function (teacher) {
     return [
-      genFrag('Name', teacher.data.getTeacher.first_name, 'NAME', 'name'),
+      genFrag('First Name', teacher.data.getTeacher.first_name, 'FIRSTNAME', 'firstName'),
+      genFrag('Last Name', teacher.data.getTeacher.last_name, 'LASTNAME', 'lastName'),
       genFrag('Email', teacher.data.getTeacher.email, 'EMAIL', 'email'),
       genFrag('School', teacher.data.getTeacher.school, 'SCHOOL', 'school'),
-      genFrag('GradYear', teacher.data.getTeacher.gradYear, 'GRADYEAR', 'gradyear'),
+      genFrag('Grad Year', teacher.data.getTeacher.gradYear, 'GRADYEAR', 'gradYear'),
       genFrag('Country', teacher.data.getTeacher.country, 'COUNTRY', 'country'),
       genFrag('City', teacher.data.getTeacher.city, 'CITY', 'city')
-
-      // genFrag('Name', teacher.first_name, 'NAME', 'name'),
-      // genFrag('Email', teacher.email, 'EMAIL', 'email'),
-      // genFrag('School', teacher.school, 'SCHOOL', 'school'),
-      // genFrag('GradYear', teacher.gradYear, 'GRADYEAR', 'gradyear'),
-      // genFrag('Country', teacher.country, 'COUNTRY', 'country'),
-      // genFrag('City', teacher.city, 'CITY', 'city')
-
-      // genFrag('Name', 'Swathi', 'NAME', 'name'),
-      // genFrag('Email', 'swathin@live.com', 'EMAIL', 'email'),
-      // genFrag('School', 'Eastlake High School', 'SCHOOL', 'school'),
-      // genFrag('GradYear', '2021', 'GRADYEAR', 'gradyear'),
-      // genFrag('Country', 'USA', 'COUNTRY', 'country'),
-      // genFrag('City', 'Sammamish', 'CITY', 'city')
     ]
   }
 
@@ -162,7 +154,7 @@ const Dashboard = () => {
     ]
   }
 
- const updateTeacher = async () => {
+ const getTeacherData = async () => {
     try { 
       const teacherData = await API.graphql(graphqlOperation(getTeacher, {id: "student1"}));      
     setTeacher(teacherData);
@@ -172,95 +164,18 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    updateTeacher();
+    getTeacherData();
   }, []);
 
-
-
-  // useEffect(() => {
-  //   if (db && auth) {
-  //     console.log("call " + calledOnce);
-  //     auth.onAuthStateChanged(function (theUser) {
-  //       if (theUser) {
-  //         console.log(result.user.uid);
-
-  //         setUser(theUser)
-  //         db.collection('StudentRegistrations').where('userID', '==', theUser.uid).get().then(function (snapshot) {
-  //           var students = []
-  //           snapshot.forEach(function (snap) {
-  //             students.push(snap)
-  //           })
-  //           if (students.length > 0) {
-  //             var coursesResult = []
-  //             setDocID(students[0].id)
-  //             setStudent(students[0].data())
-  //             var theStudent = students[0].data()
-  //             db.collection('courseAssignments').where('studentID', '==', theStudent.id).get().then(function (assignments) {
-  //               var currentlyCounted = 0
-  //               var courseData = []
-  //               assignments.forEach(function (snap) {
-  //                 courseData.push({ data: snap.data(), id: snap.id })
-  //               })
-  //               var numCourses = courseData.length
-  //               if (numCourses >= 0) {
-  //                 setLoading(false)
-  //               }
-  //               var currentNum = 0
-  //               courseData.forEach((course, i) => {
-  //                 const current = course
-  //                 const courseId = current.data.courseID
-  //                 db.collection('fl_content').where('id', '==', courseId).get().then(function (snapshot) {
-  //                   var isWaitlisted = current.data.waitlisted
-  //                   currentNum++
-  //                   var courses = []
-  //                   snapshot.forEach(function (snap) {
-  //                     courses.push(snap)
-  //                   })
-  //                   var toPush = courses[0].data()
-  //                   db.doc(toPush.picture[0].path).get().then(function (picture) {
-  //                     storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
-  //                       .then(function (url) {
-  //                         toPush.waitlisted = isWaitlisted
-  //                         toPush.imageUrl = url
-  //                         toPush.assignmentID = current.id
-  //                         coursesResult.push(toPush)
-  //                         if (numCourses == currentNum) {
-  //                           setCourses(coursesResult)
-  //                           setCoursesDisplayed(coursesResult.filter(course => {
-  //                             for (let i = 0; i < courses.length; i++) {
-  //                               if (course.wave.includes(wave)) {
-  //                                 return true
-  //                               }
-  //                             }
-  //                             return false
-  //                           }))
-  //                           setLoading(false)
-  //                         }
-  //                       })
-  //                   })
-  //                 })
-  //               })
-  //             })
-  //           }
-  //         })
-  //       } else {
-  //         window.location.href = '/sign-in'
-  //       }
-  //     })
-  //   }
-  // }, [db, storage, auth])
 
   useEffect(() => {  }, [wave])
 
   useEffect(() => {
     if (teacher) {
       var teacherInfo = generateTeacherInfo(teacher)
-      var teacherName = teacher.name
-      if (typeof teacherName === 'undefined') {
-        teacherName = teacher.name_first + ' ' + teacher.name_last
-      }
       setLocalInfo({
-        name: teacherName,
+        firstName: teacher.first_name,
+        lastName: teacher.last_name,
         email: teacher.email,
         school: teacher.school,
         gradYear: teacher.gradYear,
@@ -295,11 +210,12 @@ const Dashboard = () => {
   }
 
   const submit = () => {
+    console.log(profile);
     API.graphql(graphqlOperation(updateTeacher, {
-      input: {id: profile.id,
-        first_name: profile.first_name,
-        last_name: profile.last_name,
-        school: profile.school,
+      input: {id: id,
+        first_name: profile.firstName,
+        last_name: profile.lastName,
+        school: profile.school
       }}))
 
     setLocalInfo(profile)
@@ -369,7 +285,7 @@ const Dashboard = () => {
     1 */
   ]
 
-  const openProfile = function (evt, cityName) {
+  const openProfile = function (evt, page) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -379,7 +295,7 @@ const Dashboard = () => {
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(page).style.display = "block";
     evt.currentTarget.className += " active";
   }
 
@@ -402,17 +318,15 @@ const Dashboard = () => {
               <div class = "tab" style = {{
                 paddingBottom: '10px'
               }}>
-                <button className= "tablinks"> 
-                {/* onClick ={openProfile(event, 'TeacherProfile')}> */}
+                <button className= "tablinks" onClick ={openProfile(event, 'TeacherProfile')}>
                   <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>                
                 </button>
-                <button className = "tablinks">
-                   {/* onClick ={openProfile(event, 'TideProfile')}> */}
+                <button className = "tablinks" onClick ={openProfile(event, 'TideProfile')}>
                   <Typography.Header style={{ color: Colors.WLF_TURQOUISE }}>My Tide</Typography.Header>                  
                 </button>            
               </div>
 
-              <div id = "TeacherProfile">
+              <div id = "TeacherProfile" className = "tabcontent">
                 <br></br>
                   <div style={{
                     backgroundImage: `url(${WavyPurple})`,
@@ -465,7 +379,7 @@ const Dashboard = () => {
                   </Row>
               </div>
 
-              <div id = "CourseProfile">
+              <div id = "CourseProfile" className = "tabcontent">
                   <div style={{
                     backgroundImage: `url(${WavyTurquoise})`,
                     backgroundSize: 'cover',
