@@ -23,6 +23,7 @@ import Speaker4SignUp from './pages/Speakers/SpeakerSignup/speaker4.js'
 import Speaker5SignUp from './pages/Speakers/SpeakerSignup/speaker5.js'
 import Speaker6SignUp from './pages/Speakers/SpeakerSignup/speaker6.js'
 import EventMedlife from './pages/Events/MEDLIFE'
+import EventViolence from './pages/Events/Violence'
 
 /*
 // wave 1
@@ -294,6 +295,9 @@ function App () {
             </Route>
             <Route path="/event-medlife">
               <EventMedlife />
+            </Route>
+            <Route path="/event-violence">
+              <EventViolence />
             </Route>
             <Route path="/past-speakers">
               <PastSpeakers />
