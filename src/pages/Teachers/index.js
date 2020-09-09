@@ -16,12 +16,11 @@ const TeacherHome = ({ setPage }) => {
     <Typography.Header color={Colors.WLF_YELLOW}>
       Instructors
     </Typography.Header>
-    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px" style={{marginTop:-10, marginBottom:30}}>
-      <b>**IMPORTANT** If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com!</b>
-  </Typography.BodyText>
+    
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
     Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
     </Typography.BodyText>
+    {/*
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
@@ -29,11 +28,11 @@ const TeacherHome = ({ setPage }) => {
         </Typography.Header>
       </Form.Button>
       <div style={{ flex: 1 }} />
-  </div>
-  {/*}
-  <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b><br/>If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com! </b>
-  </Typography.BodyText>*/}
+    </div>
+    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
+        <b><br/>If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com! </b>
+    </Typography.BodyText>
+    */}
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
         <Styles.TeacherImage src={TeacherPic} />
@@ -56,18 +55,25 @@ const TeacherHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
       Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
     </Typography.BodyText>
+
+    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px" style={{marginTop:-10, marginBottom:30}}>
+      <b>Applications for Tide 1 have now closed. Follow us on social media to be notified when Tide 2 instructor applications open!</b>
+    </Typography.BodyText>
+
+    {/*
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
           Apply Now!
         </Typography.Header>
       </Form.Button>
-  <div style={{ flex: 1 }} />
-  </div>
+    <div style={{ flex: 1 }} />
+    </div>
+    * /}
 
     {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
       <b>Applications will open before 8/25. </b>
-</Typography.BodyText>*/}
+    </Typography.BodyText>*/}
 
   </>)
 }
