@@ -413,6 +413,12 @@ const Navbar = () => {
             <Link to="/courses">Courses</Link>
           </NavItem>
           <NavItem>
+            <Link to="/event-medlife">Wave x MEDLIFE</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/event-violence">SilenceisViolence</Link>
+          </NavItem>
+          <NavItem>
             <Link to="/speakers">Speakers</Link>
           </NavItem>
           <NavItem>
