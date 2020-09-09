@@ -125,7 +125,7 @@ const About = () => {
               <Typography.BodyText>
                 Join Wave Learning Festival and experience
                 not-at-all-ordinary programming, hosted by student leaders
-                across the nation!
+                across the nation! Student registration opens 9/15!
               </Typography.BodyText>
             </SubHeaderContainer>
             <div
