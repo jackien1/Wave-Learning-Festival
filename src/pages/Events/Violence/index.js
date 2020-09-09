@@ -18,68 +18,61 @@ import { FirebaseContext } from '@/firebaseContext'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createTeacherRegistration, createNewsletter } from "../../../graphql/mutations.js"
 
-const keynoteData = [
+const speakersData = [
   {
-    name: "Dr. Zulfiqar A. Bhutta",
-    bio: <p>Inaugural Robert Harding Chair in Global Child Health at The Hospital for Sick Children (SickKids), Co-Director of the SickKids Centre for Global Child Health and the Founding Director of the Centre of Excellence in Women and Child Health at the Aga Khan University. Among the many feathers on his cap, Dr. Bhutta is the Co-Chair of the Maternal and Child Health oversight committee of the World Health Organization (WHO) Eastern Mediterranean Region (EMRO) and the Chairman of The Coalition of Centres in Global Child Health with its secretariat based at SickKids. <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    name: "10:00 AM EST: Jessica Barquist",
+    pos: <p>Director of Policy and Organizing at the <i>Vermont Network Against Domestic and Sexual Violence</i></p>,
+    bio: <p>A desire to create a world in which all people thrive led her to a focus on systemic change through public policy and community organizing. Prior to joining the Vermont Network, she was the Field Director on a statewide early childhood campaign. As an organizer and advocate, Jessica’s mission is to empower others to use their voices for positive social change.
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
     image: keynote
-  }
+  },
+  {
+    name: "11:30 EST: Antonia Drew-Vann",
+    pos: <p>Antonia Drew-Vann is the founder of Asha Family Services. Asha remains the first and only recognized culturally specific domestic violence program in Wisconsin for African Americans.</p>,
+    bio: <p>Vann has also worked with the US Health Resources and Services Administration to train domestic violence workers across the country to better serve African American women. <b>Her work has earned her White House invitations under three separate administrations!</b>
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    image: keynote
+  },
+  {
+    name: "1:00 PM EST: Esperanza Castillo",
+    pos: <p>North Carolina Coalition Against Domestic Violence</p>,
+    bio: <p>Esperanza Castillo is the Latinx and Immigration Services Coordinator for the North Carolina Coalition against Domestic Violence. She first connected with interpersonal violence prevention in college, volunteering as a peer educator and bilingual hotline advocate for her local domestic violence agency. Esperanza continued to work with survivors and their families as Latinx Services Director at Compass Center in Chapel Hill, where she supported staff, community partners, and dozens of dedicated volunteers in strengthening Orange County’s response to immigrant survivors.
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    image: keynote
+  },
+  {
+    name: "2:00 EST: Cibonay Jimenez",
+    pos: <p>California Partnership to End Violence</p>,
+    bio: <p>Cibonay Jimenez  has over 20 years of professional experience in the Domestic Violence and Sexual Assault. Her passion for this work derives from her rich history and experience as a DV/SA survivor and Native Chicana woman. She previously held the position of Chief Program Officer at WEAVE, one of the largest Domestic Violence/Sexual Assault Agencies in the US. Before WEAVE, she held the position of the Community Services Director at the Sacramento Native American Health Center for 8 years and managed prevention, intervention, treatment, and aftercare programs for domestic violence, sexual assault, health disparities, mental health, among others.
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    image: keynote
+  },
+  {
+    name: "3:00 EST: Olivia Bass",
+    pos: <p>North Carolina Coalition Against Domestic Violence</p>,
+    bio: <p>Olivia earned her Bachelor’s degree in psychology and her Master's in Social Work with a concentration in social innovation and entrepreneurship at the University of North Carolina at Chapel Hill. She discovered her passion about violence prevention during her undergraduate career. She first started volunteering at the local rape crisis center supporting prevention education for adolescents and their families. This passion evolved to focusing in a career of social work by providing direct client services, support group facilitation, crisis management, and support to local bar staff about alcohol-facilitated sexual assault, and sexual health and relationship education. <br />
+    Olivia manages the Nia program which focuses on the cultural values, tropes, and worries that often act as barriers that prevent Black IPV survivors from seeking formal assistance. With the support of community advocates and community-based organizations, Olivia will raise awareness about IPV and available resources and services for ABC survivors, and will provide referral services and support to this population.
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    image: keynote
+  },
+  {
+    name: "4:00 EST: Natasha Tretheway",
+    pos: <p>US Poet Laureate (2012-2014) and Pulitzer Prize Poet <i>(Her recordings of her poetry—sent to us—will be played in the conference.)</i></p>,
+    bio: <p>Poet Natasha Tretheway won the 2007 Pulitzer Prize in poetry and was appointed United States Poet Laureate in 2012 and 2013. Tretheway has received fellowships from the Guggenheim Foundation, the Rockefeller Foundation, the National Endowment for the Arts, and Harvard's Radcliffe Institute. She is currently the Board of Trustees Professor of English at Northwestern University.<br />
+    Her most recent work, “Memorial Drive: A Daughter’s Memoir,” released this summer, was an “instant” New York Times Bestseller. Her memoir documents her experience as a domestic violence survivor. When she was 19, Tretheway’s stepfather murdered her mother in the street in Atlanta, Georgia. The New Yorker reviewed, “Trethewey’s writing mines the cavernous isolation, brutality, and resilience of African-American history, tracing its subterranean echoes to today.”
+    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
+    image: keynote
+  },
 ]
 
-const medData = [
-  {
-    name: "Dr. Nick Ellis - MEDLIFE, Executive Director and Founder",
-    bio: <p>Nick Ellis was inspired to create MEDLIFE when in 2001 in Panama he saw how effectively a grassroots organization could listen to the needs of people living in resource-poor settings, and subsequently enact change. He went on to work in both Peru & Ecuador which furthered his passion for understanding the root causes of poverty and exposed new complexities to the issues communities face. In 2004 he created MEDLIFE with the goal of establishing better and more sustainable access to healthcare, education, and a safe home for resource-poor families through the empowerment of communities and a student-led movement. <a href="https://www.medlifemovement.org/about-us/our-team/">Learn more about Dr. Nick Ellis.</a></p>,
-    image: ellis
-  },
-  {
-    name: "Dr. Angel M Matos Lugo - Global Health Institute, Director",
-    bio: <p>Angel M. Matos Lugo is a Puerto Rican Physician and Educator; passionate about Humanitarian Health and compelled to diminishing health disparities and inequalities across the globe. Dr. Matos served as an attending physician and guided over 100 UMHS students on medical mission trips to Guatemala, Dominican Republic, Costa Rica, and Peru, showcasing his commitment to help low and middle-income communities. Dr. Matos is a member of the Consortium of Universities for Global Health, American Public Health Association, Mexican Society of Public Health, Association of Governing Boards of Universities and Colleges, and the International Association of Medical Science Educators. He serves the Board of Trustees of Albizu University in Miami and Puerto Rico. <a href="https://www.umhs-sk.org/angel-m-matos-lugo">Learn more about Dr. Angel Matos.</a></p>,
-    image: matoslugo
-  }
-]
 
-const edData = [
-  {
-    name: "Benjamin Owens - Silicon Valley Youth, Co-Founder and CEO",
-    bio: <p>Ben is a senior at Harvard University, studying computer science, statistics, and economics. Knowing the importance of quality education, Ben co-founded Silicon Valley Youth to help students in underserved communities in the San Francisco Bay Area. <a href="https://www.siliconvalleyyouth.com/team.html">Learn more about Benjamin Owens.</a></p>,
-    image: owens
-  },
-  {
-    name: "Oliver Ye - Silicon Valley Youth, President",
-    bio: <p>Oliver is a senior at Saratoga High school, with an interest in business and technology. Oliver joined Silicon Valley Youth at the time of its founding, and has been the President of the organization for the past two years; as President, Oliver has led multiple project collaborations with local school districts like the Ravenswood, Franklin McKinley, and Cupertino districts, planning leadership conferences, donating supplies, and sponsoring writing competitions. <a href="https://www.siliconvalleyyouth.com/index.html">Learn more about Oliver Ye.</a></p>,
-    image: ye
-  },
-  {
-    name: "Karly Hou - Wave Learning Festival, Founder and Chair",
-    bio: <p>Karly Hou is a sophomore at Harvard studying some combination of CS, math, economics, and government. Prior to Wave, she started the initiative Healthy Kids International, which taught health and leadership workshops to 2000+ elementary schoolers in China. With her future work, she hopes to advance education, public health, ethical technology, and women’s rights. In her spare time, Karly loves painting, photography, learning new languages, singing, powerlifting, and exploring the great outdoors. <a href="https://www.karlyhou.com">Learn more about Karly Hou.</a></p>,
-    image: hou
-  }
-]
-
-const techData = [
-  {
-    name: "Omar Farooqui - Coded Minds, Founder and President",
-    bio: <p>Omar Farooqui is an entrepreneur, investor, and startup enthusiast. He is the Founder & President of Coded Minds. Wanting to disrupt the education industry from the ground up, not just through pedagogy but also price, through his vision of merging public and private education as one. With this mission, he created Coded Minds in 2017. Omar is a careered finance professional in a previous life spanning two decades. His two previous ventures were Green Sands Equity out of San Francisco and previously CapInvest (latterly CI Holdings). He was also on the Mutual Funds Board of Saudi Fransi Capital for several years. His corporate life was split between Algebra Capital, Deutsche Bank & NCB Capital out of Saudi Arabia. <a href="https://www.coded-minds.org/about-us/the-team/">Learn more about Omar Farooqui.</a></p>,
-    image: farooqui
-  },
-  {
-    name: "Carlos Pereira - Livox, Founder and CEO",
-    bio: <p>Brazilian entrepreneur Carlos Pereira, CEO and Founder of Livox, is among the laureates of The Tech for Global Good, a program that recognizes innovators solving the world’s biggest problems. Livox is a software platform that enables non-verbal disabled people to communicate and learn. Carlos’ work has received awards such as The Best Inclusion Software in the World, by the UN; Technological Innovation with the Greatest Impact by Inter-American Development Bank, Social Entrepreneur of 2017 by Schwab Foundation. <a href="https://www.baybrazil.org/carlos-pereira-ceo-founder-livox">Learn more about Carlos Pereira.</a></p>,
-    image: pereira
-  },
-  {
-    name: "Marissa Sumathipala - Theraplexus, Founder",
-    bio: <p>Marissa Sumathipala is a biotechnology entrepreneur, researcher, and junior at Harvard University. She’s the founder and lead developer of Theraplexus, a biotechnology startup transforming rapid, low-cost drug discovery with artificial intelligence and network science analytics. She's a Davidson Fellow, We are Family Foundation Global Teen Leader, and a recipient of Glamour Magazine's 2020 College Women of the Year. She is a 2018 Presidential Scholar and a 2018 Coca Cola Scholar, honored as one of the country’s most outstanding leaders for exceptional academics, exemplary leadership, and community service. Outside of her studies, she runs the Harvard Figure Skating Club, is an ambassador for the US Figure Skating Association, and runs a digital science publication on campus. <a href="https://www.davidsongifted.org/fellows-scholarship/2018-davidson-fellows/marissa-sumathipala">Learn more about Marissa Sumathipala.</a></p>,
-    image: sumathipala
-  }
-]
 
 const SpeakerIcon = (speaker) => {
   if (speaker.name === 'blank') return <div />
   return (
     <Styles.SpeakerContainer>
         <Styles.Header>{speaker.name}</Styles.Header>
+        <Styles.Details>{speaker.pos}</Styles.Details>
         <Styles.SpeakerContainerInner>
           <Styles.ImageContainer>
             <Styles.Speaker src={speaker.image}/>
@@ -139,24 +132,9 @@ const EventHome = ({ setPage }) => {
     </Typography.Header2>
 
     <Typography.Header2 fontSize="20px" color="white" style={{marginBottom:-10}}>
-      <b>Keynote Speaker</b>
+      <b>Speaker Bios & Tentative Schedule</b>
     </Typography.Header2>
-    {keynoteData.map((speaker) => { return SpeakerIcon(speaker) })}
-    <br/>
-    <Typography.Header2 fontSize="20px" color="white" style={{marginBottom:-10}}>
-      <b>Panel Discussion in Medicine & Healthcare</b>
-    </Typography.Header2>
-    {medData.map((speaker) => { return SpeakerIcon(speaker) })}
-    <br/>
-    <Typography.Header2 fontSize="20px" color="white" style={{marginBottom:-10}}>
-      <b>Panel Discussion in Education</b>
-    </Typography.Header2>
-    {edData.map((speaker) => { return SpeakerIcon(speaker) })}
-    <br/>
-    <Typography.Header2 fontSize="20px" color="white" style={{marginBottom:-10}}>
-      <b>Panel Discussion in Technology & Entrepreneurship</b>
-    </Typography.Header2>
-    {techData.map((speaker) => { return SpeakerIcon(speaker) })}
+    {speakersData.map((speaker) => { return SpeakerIcon(speaker) })}
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
