@@ -16,10 +16,15 @@ const TeacherHome = ({ setPage }) => {
     <Typography.Header color={Colors.WLF_YELLOW}>
       Instructors
     </Typography.Header>
+
+    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px" style={{marginTop:-10, marginBottom:30}}>
+      <b>Applications for Tide 1 have now closed. If you would like to teach in Tide 2, from November 9th to December 11th, please apply below!</b>
+    </Typography.BodyText>
     
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: -10 }}>
     Are you interested in teaching a topic you love to motivated students around the world? Apply to be an instructor at Wave Learning Festival!  Wave instructors have taught classes from “Counting Infinities” to “Hip-Hop and Social Activism”, and so much more.
     </Typography.BodyText>
+
     {/*
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
@@ -29,9 +34,6 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
       <div style={{ flex: 1 }} />
     </div>
-    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-        <b><br/>If you have applied to teach or tutor with Wave and have not yet received a confirmation email, please re-apply and email wavelf.logistics@gmail.com! </b>
-    </Typography.BodyText>
     */}
     <Styles.TestimonialBackground>
       <Styles.TestimonialItem>
@@ -53,14 +55,9 @@ const TeacherHome = ({ setPage }) => {
       In each of our Engaged Seminars, we are looking for an element of interactivity to promote active learning and make each class more of a conversation rather than a lecture. Your class will meet about 1-2 times/week for the duration of those five weeks, either on weekends or after-school hours on weekdays. Seminars can range from meeting every two weeks (3 sessions total) to twice a week (10 sessions total). The long-form structure will give you more time to build on a topic that excites you and allows your students to learn a greater depth of information. We encourage instructors to bring co-instructors (double the ideas, half the work!), though that is optional. Regardless of whether you onboard a co-instructor, you will have support throughout your course planning process—a member of our Seminars team will guide you through teaching in a virtual setting and help with course-planning.
     </Typography.BodyText>
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
-      Tide 1 will start on Monday, October 5th and end on Friday, November 6th. We hope to see you here with Wave Learning Festival!
+      Tide 2 will start on Monday, November 9th, and end on Friday, December 11th. We hope to see you here with Wave Learning Festival!
     </Typography.BodyText>
 
-    <Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px" style={{marginTop:-10, marginBottom:30}}>
-      <b>Applications for Tide 1 have now closed. Follow us on social media to be notified when Tide 2 instructor applications open!</b>
-    </Typography.BodyText>
-
-    {/*
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="24px">
@@ -69,11 +66,6 @@ const TeacherHome = ({ setPage }) => {
       </Form.Button>
     <div style={{ flex: 1 }} />
     </div>
-    * /}
-
-    {/*<Typography.BodyText color={Colors.WLF_YELLOW} fontSize="20px">
-      <b>Applications will open before 8/25. </b>
-    </Typography.BodyText>*/}
 
   </>)
 }
@@ -404,11 +396,11 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
 const Thanks = ({ setPage }) => (
   <>
     <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
-    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews within a couple weeks. If you have any questions/concerns, please email us at wavelearningfestival@gmail.com.</Typography.Header2>
+    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews closer to the start of Tide 2. If you have any questions/concerns, please email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_YELLOW}}>wavelearningfestival@gmail.com</a>.</Typography.Header2>
     <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Form.Button onClick={() => setPage('home')}>
         <Typography.Header color="white" fontSize="24px">
-          Back to Teacher Page
+          Back to Instructor Page
         </Typography.Header>
       </Form.Button>
     </div>
