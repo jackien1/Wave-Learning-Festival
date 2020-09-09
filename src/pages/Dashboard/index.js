@@ -3,6 +3,7 @@ import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
 import { Container, Sidebar, ListItem, Highlight, CalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
 import Navbar from './components/Navbar'
+import StatsCards from './components/Statistics'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 
 const Dashboard = () => {
@@ -44,7 +45,7 @@ const Dashboard = () => {
           </ListItem>
         </Sidebar>
         <ContentContainer>
-          <p>Content</p>
+          <StatsCards/>
         </ContentContainer>
         <CalendarContainer>
           <header>
