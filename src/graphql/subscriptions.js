@@ -595,3 +595,57 @@ export const onDeleteTutorRegistration = /* GraphQL */ `
     }
   }
 `;
+export const onCreateEventRegistration = /* GraphQL */ `
+  subscription OnCreateEventRegistration {
+    onCreateEventRegistration {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateEventRegistration = /* GraphQL */ `
+  subscription OnUpdateEventRegistration {
+    onUpdateEventRegistration {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteEventRegistration = /* GraphQL */ `
+  subscription OnDeleteEventRegistration {
+    onDeleteEventRegistration {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;

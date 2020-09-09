@@ -190,6 +190,22 @@ const Navbar = () => {
                     Wave x MEDLIFE
                 </DropdownItem>
               </Link>
+              <Link to="/event-violence">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaMicrophoneAlt /></div>
+                  </IconContext.Provider>
+                    SilenceisViolence
+                </DropdownItem>
+              </Link>
 	      <Link to="/speakers">
                 <DropdownItem>
                   <IconContext.Provider
