@@ -125,7 +125,7 @@ const About = () => {
               <Typography.BodyText>
                 Join Wave Learning Festival and experience
                 not-at-all-ordinary programming, hosted by student leaders
-                across the nation! Student registration opens 9/15!
+                across the nation!
               </Typography.BodyText>
             </SubHeaderContainer>
             <div
@@ -136,9 +136,9 @@ const About = () => {
                 flexWrap: 'wrap'
               }}
             >
-              <a href="/courses" className="sign-up-link">
+              <a href="/seminars-upcoming" className="sign-up-link">
                 <Button>
-                  <p>Courses</p>
+                  <p>Seminars</p>
                 </Button>
               </a>
               <a href="/instructors" className="sign-up-link">
@@ -165,6 +165,8 @@ const About = () => {
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
                     <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Student registration for Tide 1, our seminars program, opens 9/15! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    {/* <li>Student registration for our new tutoring program opens 10/5! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li> */}
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>

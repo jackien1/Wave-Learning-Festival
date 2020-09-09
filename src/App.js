@@ -350,7 +350,7 @@ function App () {
             <Route path="/tutors">
               <Tutors />
             </Route>
-            <Route path="/courses-upcoming">
+            <Route path="/seminars-upcoming">
               <CoursesUpcoming />
             </Route>
             <Route path="/:slug" component={CoursePage} />
