@@ -114,6 +114,7 @@ const Dashboard = () => {
   const [profile, profileDispatch] = useReducer(profileReducer, profileState)
   const [teacher, setTeacher] = useState([])
   const [seminar, setSeminar] = useState(null)
+  const [tab, setTab] = useState('course');
   
   var id = 'student1';
 
@@ -318,15 +319,15 @@ const Dashboard = () => {
               <div class = "tab" style = {{
                 paddingBottom: '10px'
               }}>
-                <button className= "tablinks" onClick ={openProfile(event, 'TeacherProfile')}>
+                <button className= "tablinks" onClick ={() => setTab('teacher')}>
                   <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>                
                 </button>
-                <button className = "tablinks" onClick ={openProfile(event, 'TideProfile')}>
+                <button className = "tablinks" onClick ={() => setTab('course')}>
                   <Typography.Header style={{ color: Colors.WLF_TURQOUISE }}>My Tide</Typography.Header>                  
                 </button>            
               </div>
 
-              <div id = "TeacherProfile" className = "tabcontent">
+              {tab === 'teacher' && <div id = "TeacherProfile" className = "tabcontent">
                 <br></br>
                   <div style={{
                     backgroundImage: `url(${WavyPurple})`,
@@ -377,9 +378,9 @@ const Dashboard = () => {
                       <b style ={{ color: 'white' }}>Edit Profile</b>
                     </Form.Button>
                   </Row>
-              </div>
+              </div>}
 
-              <div id = "CourseProfile" className = "tabcontent">
+              {tab === 'course' && <div id = "CourseProfile" className = "tabcontent">
                   <div style={{
                     backgroundImage: `url(${WavyTurquoise})`,
                     backgroundSize: 'cover',
@@ -429,7 +430,7 @@ const Dashboard = () => {
                       <b style ={{ color: 'white' }}>Edit Profile</b>
                     </Form.Button>
                   </Row>
-              </div>
+              </div>}
 
           </ContainerInner>
         </Container>
