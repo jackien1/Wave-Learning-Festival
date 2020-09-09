@@ -48,7 +48,7 @@ type TeacherRegistration {
   skills: String!
   previousWaves: String!
   questions: String
-  approved: Boolean!
+  approved: Boolean
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -150,7 +150,22 @@ type TutorRegistration {
   hours: String!
   questions: String
   othersubjects: String
-  approved: Boolean!
+  approved: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type EventRegistration {
+  id: ID!
+  studentID: String
+  eventID: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  notes: String
+  questions: String
+  extra: String
+  howYouHear: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -281,6 +296,8 @@ type Query {
   listSeminars(filter: ModelSeminarFilterInput, limit: Int, nextToken: String): ModelSeminarConnection
   getTutorRegistration(id: ID!): TutorRegistration
   listTutorRegistrations(filter: ModelTutorRegistrationFilterInput, limit: Int, nextToken: String): ModelTutorRegistrationConnection
+  getEventRegistration(id: ID!): EventRegistration
+  listEventRegistrations(filter: ModelEventRegistrationFilterInput, limit: Int, nextToken: String): ModelEventRegistrationConnection
 }
 
 input CreateNewsletterInput {
@@ -330,6 +347,9 @@ type Mutation {
   createTutorRegistration(input: CreateTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
   updateTutorRegistration(input: UpdateTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
   deleteTutorRegistration(input: DeleteTutorRegistrationInput!, condition: ModelTutorRegistrationConditionInput): TutorRegistration
+  createEventRegistration(input: CreateEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
+  updateEventRegistration(input: UpdateEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
+  deleteEventRegistration(input: DeleteEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
 }
 
 input ModelNewsletterConditionInput {
@@ -371,6 +391,9 @@ type Subscription {
   onCreateTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["createTutorRegistration"])
   onUpdateTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["updateTutorRegistration"])
   onDeleteTutorRegistration: TutorRegistration @aws_subscribe(mutations: ["deleteTutorRegistration"])
+  onCreateEventRegistration: EventRegistration @aws_subscribe(mutations: ["createEventRegistration"])
+  onUpdateEventRegistration: EventRegistration @aws_subscribe(mutations: ["updateEventRegistration"])
+  onDeleteEventRegistration: EventRegistration @aws_subscribe(mutations: ["deleteEventRegistration"])
 }
 
 type ModelDateConnection {
@@ -522,7 +545,7 @@ input CreateTeacherRegistrationInput {
   skills: String!
   previousWaves: String!
   questions: String
-  approved: Boolean!
+  approved: Boolean
 }
 
 input UpdateTeacherRegistrationInput {
@@ -930,7 +953,7 @@ input CreateTutorRegistrationInput {
   hours: String!
   questions: String
   othersubjects: String
-  approved: Boolean!
+  approved: Boolean
 }
 
 input UpdateTutorRegistrationInput {
@@ -973,4 +996,70 @@ input ModelTutorRegistrationConditionInput {
   and: [ModelTutorRegistrationConditionInput]
   or: [ModelTutorRegistrationConditionInput]
   not: ModelTutorRegistrationConditionInput
+}
+
+type ModelEventRegistrationConnection {
+  items: [EventRegistration]
+  nextToken: String
+}
+
+input ModelEventRegistrationFilterInput {
+  id: ModelIDInput
+  studentID: ModelStringInput
+  eventID: ModelStringInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  email: ModelStringInput
+  notes: ModelStringInput
+  questions: ModelStringInput
+  extra: ModelStringInput
+  howYouHear: ModelStringInput
+  and: [ModelEventRegistrationFilterInput]
+  or: [ModelEventRegistrationFilterInput]
+  not: ModelEventRegistrationFilterInput
+}
+
+input CreateEventRegistrationInput {
+  id: ID
+  studentID: String
+  eventID: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  notes: String
+  questions: String
+  extra: String
+  howYouHear: [String]
+}
+
+input UpdateEventRegistrationInput {
+  id: ID!
+  studentID: String
+  eventID: String
+  first_name: String
+  last_name: String
+  email: String
+  notes: String
+  questions: String
+  extra: String
+  howYouHear: [String]
+}
+
+input DeleteEventRegistrationInput {
+  id: ID
+}
+
+input ModelEventRegistrationConditionInput {
+  studentID: ModelStringInput
+  eventID: ModelStringInput
+  first_name: ModelStringInput
+  last_name: ModelStringInput
+  email: ModelStringInput
+  notes: ModelStringInput
+  questions: ModelStringInput
+  extra: ModelStringInput
+  howYouHear: ModelStringInput
+  and: [ModelEventRegistrationConditionInput]
+  or: [ModelEventRegistrationConditionInput]
+  not: ModelEventRegistrationConditionInput
 }

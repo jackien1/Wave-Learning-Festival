@@ -457,3 +457,50 @@ export const listTutorRegistrations = /* GraphQL */ `
     }
   }
 `;
+export const getEventRegistration = /* GraphQL */ `
+  query GetEventRegistration($id: ID!) {
+    getEventRegistration(id: $id) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEventRegistrations = /* GraphQL */ `
+  query ListEventRegistrations(
+    $filter: ModelEventRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        studentID
+        eventID
+        first_name
+        last_name
+        email
+        notes
+        questions
+        extra
+        howYouHear
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

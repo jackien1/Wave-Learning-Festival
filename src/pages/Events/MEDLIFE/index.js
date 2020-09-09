@@ -11,6 +11,7 @@ import hou from './img/hou.png'
 import farooqui from './img/farooqui.png'
 import sumathipala from './img/sumathipala.jpg'
 import pereira from './img/pereira.png'
+import waveXmedlife from './img/wlf_x_medlife.png'
 import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
@@ -68,7 +69,7 @@ const techData = [
     image: pereira
   },
   {
-    name: "Marissa Sumathipala - Global Health Institute, Director",
+    name: "Marissa Sumathipala - Theraplexus, Founder",
     bio: <p>Marissa Sumathipala is a biotechnology entrepreneur, researcher, and junior at Harvard University. She’s the founder and lead developer of Theraplexus, a biotechnology startup transforming rapid, low-cost drug discovery with artificial intelligence and network science analytics. She's a Davidson Fellow, We are Family Foundation Global Teen Leader, and a recipient of Glamour Magazine's 2020 College Women of the Year. She is a 2018 Presidential Scholar and a 2018 Coca Cola Scholar, honored as one of the country’s most outstanding leaders for exceptional academics, exemplary leadership, and community service. Outside of her studies, she runs the Harvard Figure Skating Club, is an ambassador for the US Figure Skating Association, and runs a digital science publication on campus. <a href="https://www.davidsongifted.org/fellows-scholarship/2018-davidson-fellows/marissa-sumathipala">Learn more about Marissa Sumathipala.</a></p>,
     image: sumathipala
   }
@@ -97,7 +98,7 @@ const EventHome = ({ setPage }) => {
       Education, Medicine, Technology: Living the MEDLife
     </Typography.Header>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
-      Our very first Wave Special Event features nine influential leaders making impact through education, medicine, and technology in vulnerable communities all around the world. A collaboration with MEDLIFE Ontario, this event will consist of a keynote speaker, and then concurrent breakout rooms of interactive panel discussions with accomplished leaders in each theme!  
+      Our very first Wave Special Event features nine influential leaders making impact through education, medicine, and technology in vulnerable communities all around the world. A collaboration with MEDLIFE Ontario, this event will consist of a keynote speaker, and then concurrent breakout rooms of interactive panel discussions with accomplished leaders in each theme!
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
@@ -105,7 +106,7 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
-      To hear how these pioneers are pushing the forefront of development in their fields today, register at the link below!  
+      To hear how these pioneers are pushing the forefront of development in their fields today, register at the link below!
     </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
@@ -130,13 +131,13 @@ const EventHome = ({ setPage }) => {
       About MEDLIFE
     </Typography.Header2>
     <Typography.BodyText color="white" style={{ marginBottom: 30 }}>
-      <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home.
+      <b>MEDLIFE</b>, which stands for Medicine, Education, and Development for Low Income Families Everywhere, is an international non-profit aimed at empowering people in their fight for equal access to healthcare, education, and a safe home. <a href="https://www.medlifemovement.org/">Learn more about MEDLIFE.</a>
       <br/>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
       Speaker and Panelist Information
     </Typography.Header2>
-    
+
     <Typography.Header2 fontSize="20px" color="white" style={{marginBottom:-10}}>
       <b>Keynote Speaker</b>
     </Typography.Header2>
@@ -176,10 +177,10 @@ var emailValidated = function(email) {
 
 const EventDataInput = () => {
   return (
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScT61H0wl1PXj3LgLwta2prQ1Wvv3b-WEDdMKwwIMapaYJ0RA/viewform?embedded=true" 
-      width="90%" 
-      height="520" 
-      frameborder="0" 
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScT61H0wl1PXj3LgLwta2prQ1Wvv3b-WEDdMKwwIMapaYJ0RA/viewform?embedded=true"
+      width="90%"
+      height="520"
+      frameborder="0"
       margin="10px">
       Loading…
     </iframe>
@@ -326,6 +327,9 @@ const Teachers = () => {
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <img src={waveXmedlife} style={{maxWidth: 700, margin: 'auto'}}/>
+      </div>
       {page !== 'teacherData' && <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
           {page === 'home' && EventHome({ setPage })}

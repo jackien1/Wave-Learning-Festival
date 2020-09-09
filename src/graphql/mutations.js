@@ -685,3 +685,66 @@ export const deleteTutorRegistration = /* GraphQL */ `
     }
   }
 `;
+export const createEventRegistration = /* GraphQL */ `
+  mutation CreateEventRegistration(
+    $input: CreateEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    createEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEventRegistration = /* GraphQL */ `
+  mutation UpdateEventRegistration(
+    $input: UpdateEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    updateEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEventRegistration = /* GraphQL */ `
+  mutation DeleteEventRegistration(
+    $input: DeleteEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    deleteEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
