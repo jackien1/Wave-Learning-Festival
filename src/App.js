@@ -5,6 +5,7 @@ import './App.css'
 import About from './pages/About'
 import Teachers from './pages/Teachers'
 import Tutors from './pages/Tutors'
+import Tutoring from './pages/Tutoring'
 import Team from './pages/Team'
 import FAQStudents from './pages/FAQ/Students'
 import FAQParents from './pages/FAQ/Parents'
@@ -350,7 +351,10 @@ function App () {
             <Route path="/tutors">
               <Tutors />
             </Route>
-            <Route path="/courses-upcoming">
+            <Route path="/tutoring">
+              <Tutoring />
+            </Route>
+            <Route path="/seminars-upcoming">
               <CoursesUpcoming />
             </Route>
             <Route path="/:slug" component={CoursePage} />
