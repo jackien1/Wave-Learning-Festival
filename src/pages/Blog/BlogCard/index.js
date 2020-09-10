@@ -7,11 +7,13 @@ import ViewCountIcon from '../ViewCountIcon'
 const BlogCard = ({ doc, color }) => {
   const { db, storage } = useContext(FirebaseContext)
   const [image, setImage] = useState('')
+  const [views, setViews] = useState(0)
   const [padding, setPadding] = useState(false)
 
   useEffect(() => {
     if (db && storage) {
       console.log(doc.data())
+      setViews(doc.data().views)
       if (doc.data().image.length) {
         db.doc(doc.data().image[0].path).get()
           .then(function (headshot) {
@@ -55,7 +57,7 @@ const BlogCard = ({ doc, color }) => {
         </Heading>
         <Heading left bottom right>
           <Title color={color}>{doc.data().title}</Title>
-          <Type>{doc.data().date.substring(0, doc.data().date.indexOf('T'))}  <span style = {{float: 'right'}}> <ViewCountIcon/></span> </Type>
+          <Type>{doc.data().date.substring(0, doc.data().date.indexOf('T'))}  <span style = {{float: 'right'}}> <ViewCountIcon views = {views}/></span> </Type>
         </Heading>
       </Header>
     </div>
