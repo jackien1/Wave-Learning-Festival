@@ -5,6 +5,7 @@ import './App.css'
 import About from './pages/About'
 import Teachers from './pages/Teachers'
 import Tutors from './pages/Tutors'
+import Tutoring from './pages/Tutoring'
 import Team from './pages/Team'
 import FAQStudents from './pages/FAQ/Students'
 import FAQParents from './pages/FAQ/Parents'
@@ -349,6 +350,9 @@ function App () {
             </Route>
             <Route path="/tutors">
               <Tutors />
+            </Route>
+            <Route path="/tutoring">
+              <Tutoring />
             </Route>
             <Route path="/seminars-upcoming">
               <CoursesUpcoming />

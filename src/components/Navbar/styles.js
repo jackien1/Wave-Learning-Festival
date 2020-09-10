@@ -37,7 +37,7 @@ export const NavbarInner = styled.div`
 
   @media ${device.laptop} {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1050px;
   }
   display: flex;
   align-items: center;
