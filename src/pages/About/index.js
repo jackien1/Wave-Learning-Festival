@@ -166,7 +166,7 @@ const About = () => {
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
                     <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Student registration for Tide 1, our seminars program, opens 9/15! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    {/* <li>Student registration for our new tutoring program opens 10/5! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li> */}
+                    <li>Student registration for our new tutoring program opens 10/5! <a href="/tutoring" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
               </Typography.Header>
