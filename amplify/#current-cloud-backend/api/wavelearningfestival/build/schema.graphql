@@ -162,6 +162,10 @@ type EventRegistration {
   first_name: String!
   last_name: String!
   email: String!
+  country: String
+  city: String
+  state: String
+  school: String
   notes: String
   questions: String
   extra: String
@@ -1010,6 +1014,10 @@ input ModelEventRegistrationFilterInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   email: ModelStringInput
+  country: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  school: ModelStringInput
   notes: ModelStringInput
   questions: ModelStringInput
   extra: ModelStringInput
@@ -1026,6 +1034,10 @@ input CreateEventRegistrationInput {
   first_name: String!
   last_name: String!
   email: String!
+  country: String
+  city: String
+  state: String
+  school: String
   notes: String
   questions: String
   extra: String
@@ -1039,6 +1051,10 @@ input UpdateEventRegistrationInput {
   first_name: String
   last_name: String
   email: String
+  country: String
+  city: String
+  state: String
+  school: String
   notes: String
   questions: String
   extra: String
@@ -1055,6 +1071,10 @@ input ModelEventRegistrationConditionInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   email: ModelStringInput
+  country: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  school: ModelStringInput
   notes: ModelStringInput
   questions: ModelStringInput
   extra: ModelStringInput

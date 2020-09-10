@@ -604,6 +604,10 @@ export const onCreateEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
@@ -622,6 +626,10 @@ export const onUpdateEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
@@ -640,6 +648,10 @@ export const onDeleteEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra

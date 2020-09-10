@@ -11,6 +11,7 @@ import logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createEventRegistration, createNewsletter } from "../../../graphql/mutations.js"
+import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
 
 const speakersData = [
   {
@@ -186,7 +187,7 @@ const renderMultiOption = ({key, option, teacherData: data, setTeacherData: setD
 const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongSubmission }) => {
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
-      Instructor Information
+      Silence is Violence RSVP
     </Typography.Header>
 
     <Typography.Header2 color="white" fontSize="24px">
@@ -230,6 +231,53 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
         }))
       }}
     />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      School *
+    </Typography.Header2>
+    <Form.Input
+      value={teacherData.email}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          school: value
+        }))
+      }}
+    />
+
+<Typography.Header2 color="white" fontSize="24px">
+      Country / País *
+    </Typography.Header2>
+    <Form.Dropdown
+      onChange={inputChanged("country", setStudentData)}
+    >
+      {COUNTRIES.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+
+    <Typography.Header2 color="white" fontSize="24px">
+      City *
+    </Typography.Header2>
+    <Form.Input
+      value={studentData.city}
+      onChange={inputChanged("city", setStudentData)}
+    />
+
+    {studentData.country === UNITED_STATES && <>
+        <Typography.Header2 color="white" fontSize="24px">
+          State *
+        </Typography.Header2>
+        <Form.Dropdown
+          onChange={inputChanged("state", setStudentData)}
+        >
+          {STATES.map((value) => (
+            renderOption({option: value})
+          ))}
+        </Form.Dropdown>
+        </>
+    }
 
     <Typography.Header2 color="white" fontSize="24px">
     What are your interests or goals for the conference?
