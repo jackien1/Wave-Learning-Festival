@@ -24,7 +24,7 @@ import LogoTextFull from './logo with type (1).svg'
 import { FirebaseContext } from '@/firebaseContext'
 
 const Navbar = () => {
-  const [applyShow, setApplyShow] = useState(false)
+  const [tutorShow, setTutorShow] = useState(false)
   const [speakersShow, setSpeakersShow] = useState(false)
   const [coursesShow, setCoursesShow] = useState(false)
   const [aboutShow, setAboutShow] = useState(false)
@@ -110,12 +110,30 @@ const Navbar = () => {
                     Community Partners
                 </DropdownItem>
               </Link>
+              {/*
+              <Link to="/join">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaUserFriends /></div>
+                  </IconContext.Provider>
+                    Join the Team
+                </DropdownItem>
+              </Link>
+              */}
             </NavbarDropdown>
             )}
           </NavItem>
           <NavItem onMouseEnter={() => setCoursesShow(true)}
             onMouseLeave={() => setCoursesShow(false)}>
-            <Link>Courses</Link>
+            <Link>Seminars</Link>
             {coursesShow && (<NavbarDropdown>
               {/*
               <Link to="/courses">
@@ -135,7 +153,7 @@ const Navbar = () => {
                 </DropdownItem>
               </Link>
               */}
-              <Link to="/courses-upcoming">
+              <Link to="/seminars-upcoming">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -146,9 +164,9 @@ const Navbar = () => {
                       }
                     }}
                   >
-                    <div><FaChalkboardTeacher /></div>
+                    <div><FaUserFriends /></div>
                   </IconContext.Provider>
-                    Upcoming
+                    Tide 1
                 </DropdownItem>
               </Link>
               <Link to="/courses-archive">
@@ -162,9 +180,64 @@ const Navbar = () => {
                       }
                     }}
                   >
+                    <div><FaUserFriends /></div>
+                  </IconContext.Provider>
+                    Past Waves
+                </DropdownItem>
+              </Link>
+              <Link to="/instructors">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
                     <div><FaChalkboardTeacher /></div>
                   </IconContext.Provider>
-                    Past
+                    Apply to Teach
+                </DropdownItem>
+              </Link>
+            </NavbarDropdown>
+            )}
+          </NavItem>
+          <NavItem onMouseEnter={() => setTutorShow(true)}
+            onMouseLeave={() => setTutorShow(false)}>
+            <Link>Tutoring</Link>
+            {tutorShow && (<NavbarDropdown>
+              <Link to="/tutoring">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaUserFriends /></div>
+                  </IconContext.Provider>
+                    Tutoring
+                </DropdownItem>
+              </Link>
+              <Link to="/tutors">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaChalkboardTeacher /></div>
+                  </IconContext.Provider>
+                    Apply to Tutor
                 </DropdownItem>
               </Link>
             </NavbarDropdown>
@@ -206,7 +279,7 @@ const Navbar = () => {
                     SilenceisViolence
                 </DropdownItem>
               </Link>
-	      <Link to="/speakers">
+	            <Link to="/speakers">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -239,63 +312,6 @@ const Navbar = () => {
                     Past
                 </DropdownItem>
               </Link>
-            </NavbarDropdown>
-            )}
-          </NavItem>
-          <NavItem onMouseEnter={() => setApplyShow(true)}
-            onMouseLeave={() => setApplyShow(false)}>
-            <Link>Apply</Link>
-            {applyShow && (<NavbarDropdown>
-              <Link to="/instructors">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaChalkboardTeacher /></div>
-                  </IconContext.Provider>
-                    Teach
-                </DropdownItem>
-              </Link>
-              <Link to="/tutors">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaUserFriends /></div>
-                  </IconContext.Provider>
-                    Tutor
-                </DropdownItem>
-              </Link>
-              {/*
-              <Link to="/join">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaUserFriends /></div>
-                  </IconContext.Provider>
-                    Join the Team
-                </DropdownItem>
-              </Link>
-              */}
             </NavbarDropdown>
             )}
           </NavItem>
@@ -409,8 +425,16 @@ const Navbar = () => {
           <NavItem>
             <Link to="/partners">Community Partners</Link>
           </NavItem>
+          {/*
           <NavItem>
-            <Link to="/courses">Courses</Link>
+            <Link to="/join">Join the Team</Link>
+          </NavItem>
+          */}
+          <NavItem>
+            <Link to="/seminars-upcoming">Seminars</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/tutoring">Tutoring</Link>
           </NavItem>
           <NavItem>
             <Link to="/event-medlife">Wave x MEDLIFE</Link>
@@ -425,17 +449,6 @@ const Navbar = () => {
             <Link to="/past-speakers">Past Speakers</Link>
           </NavItem>
           <NavItem>
-            <Link to="/instructors">Apply to Teach</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/tutors">Apply to Tutor</Link>
-          </NavItem>
-          {/*
-          <NavItem>
-            <Link to="/join">Join the Team</Link>
-          </NavItem>
-          */}
-          <NavItem>
             <Link to="/blog">Blog</Link>
           </NavItem>
           <NavItem>
@@ -445,11 +458,9 @@ const Navbar = () => {
             <Link to="/faq-parents">Parents FAQ</Link>
           </NavItem>
           <NavItem>
-            <Link to="/faq-instructors">Instructors FAQ</Link>
+            <Link to="/donate">Donate</Link>
           </NavItem>
           <NavItem>
-            <Link to="/donate">Donate</Link>
-          </NavItem><NavItem>
             <Link to="/sign-in">Dashboard</Link>
           </NavItem>
         </SideBar>
