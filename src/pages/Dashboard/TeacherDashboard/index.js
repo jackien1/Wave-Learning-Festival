@@ -14,6 +14,10 @@ import { getSeminar, listSeminar } from "../../../graphql/queries.js"
 import { updateTeacher } from "../../../graphql/mutations.js"
 import { updateSeminar } from "../../../graphql/mutations.js"
 
+import CourseCard from '../../../components/CourseCard'
+import { MediumContainer } from '@/pages/About/styles'
+import { IconContainer } from '@/components/Chip/styles'
+
 
 
 const profileState = {
@@ -25,14 +29,18 @@ const profileState = {
   gradYear: '',
   country: '',
   city: '',
+}
+
+const seminarProfileState = {
   // Course Data - refer to AWS GraphQL Schema for types
   couTitle:'',
-  couMaxSize:'',
+  couMaxSize:0,
   couPrereqs:'',
   couDescrip: '',
-  couCategory:'', // make a dropdown
+  couCategory:[], // make a dropdown
   couSyllabus:'',
-  couTargAud:'',
+  couTargAud:[],
+  updatedAt: ''
   // Class-Specific Data
   /* would have each date + 
   Jackie's enrollment data */
@@ -75,7 +83,11 @@ const profileReducer = (state, action) => {
         ...state,
         city: action.content
       })
-  // COURSE DATA
+    }
+  }
+
+  const seminarProfileReducer = (state, action) => {
+    switch (action.type) {
       case 'COUTITLE':
         return ({
           ...state,
@@ -106,6 +118,11 @@ const profileReducer = (state, action) => {
         ...state,
         targetAudience: action.content
       })
+      case 'UPDATEDAT':
+      return ({
+        ...state,
+        updatedAt: action.content
+      })      
     case 'RESET':
       return (action.content)
   }
@@ -119,9 +136,12 @@ const Dashboard = () => {
   const [coursesDisplayed, setCoursesDisplayed] = useState([])
   const [wave, setWave] = useState('5')
   const [edit, toggleEdit] = useState(false)
-  const [localInfo, setLocalInfo] = useState({})
+  const [editSeminar, toggleEditSeminar] = useState(false)
+  const [localTeacherInfo, setLocalTeacherInfo] = useState({})
+  const [localSeminarInfo, setLocalSeminarInfo] = useState({})
   const [docID, setDocID] = useState('')
   const [profile, profileDispatch] = useReducer(profileReducer, profileState)
+  const [seminarProfile, seminarProfileDispatch] = useReducer(seminarProfileReducer, seminarProfileState)
   const [teacher, setTeacher] = useState(null)
   const [seminar, setSeminar] = useState(null)
   const [tab, setTab] = useState('course');
@@ -152,10 +172,11 @@ const Dashboard = () => {
 
   const generateSeminarInfo = function (seminar) {
     return [
-      genFrag('CouTitle', seminar.data.getSeminar.courseTitle, 'COUTITLE', 'title'),
-      genFrag('CouMaxSize', seminar.data.getSeminar.maxClassSize, 'COUMAXSIZE', 'maxSize'),
-      genFrag('CouPreReqs', seminar.data.getSeminar.prereqs, 'COUPREREQS', 'prereqs'),
-      genFrag('CouDescrip', seminar.data.getSeminar.courseDescription, 'COUDESCRIP', 'description')
+      genFrag('Title', seminar.data.getSeminar.courseTitle, 'COUTITLE', 'courseTitle'),
+      genFrag('Max Size', seminar.data.getSeminar.maxClassSize, 'COUMAXSIZE', 'maxClassSize'),
+      genFrag('Prerequisites', seminar.data.getSeminar.prereqs, 'COUPREREQS', 'prereqs'),
+      genFrag('Description', seminar.data.getSeminar.courseDescription, 'COUDESCRIP', 'courseDescription'),
+      genFrag('Last Updated At', seminar.data.getSeminar.updatedAt, 'UPDATEDAT', 'updatedAt')      
     ]
   }
 
@@ -171,13 +192,13 @@ const Dashboard = () => {
 
   const getSeminarData = async () => {
     try { 
-      const seminarData = await API.graphql(graphqlOperation(getSeminar, {id: seminarId}));      
+      const seminarData = await API.graphql(graphqlOperation(getSeminar, {id: seminarId}));
+      console.log(seminarData);      
     setSeminar(seminarData);
     } catch (error) {
         console.log('error on fetching data', error);
     }
   }
-
 
   useEffect(() => {
     getTeacherData();
@@ -193,7 +214,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (teacher) {
       var teacherInfo = generateTeacherInfo(teacher)
-      setLocalInfo({
+      setLocalTeacherInfo({
         firstName: teacher.first_name,
         lastName: teacher.last_name,
         email: teacher.email,
@@ -211,21 +232,27 @@ const Dashboard = () => {
   useEffect(() => {
     if (seminar) {
       var seminarInfo = generateSeminarInfo(seminar)
-      setLocalInfo({
-        title: seminar.courseTitle,
-        maxSize: seminar.maxClassSize,
+      setLocalSeminarInfo({
+        courseTitle: seminar.courseTitle,
+        maxClassSize: seminar.maxClassSize,
         prereqs: seminar.prereqs,
-        description: seminar.courseDescription
+        courseDescription: seminar.courseDescription,
+        updatedAt: seminar.updatedAt
       })
       seminarInfo.forEach(label => {
-        profileDispatch({ type: label.dispatch, content: label.data })
+        seminarProfileDispatch({ type: label.dispatch, content: label.data })
       })
     }
   }, [seminar])
 
-  const cancel = () => {
-    profileDispatch({ type: 'RESET', content: localInfo })
+  const cancelTeacher = () => {
+    profileDispatch({ type: 'RESET', content: localTeacherInfo })
     toggleEdit(false)
+  }
+
+  const cancelSeminar = () => {
+    seminarProfileDispatch({ type: 'RESET', content: localSeminarInfo })
+    toggleEditSeminar(false)
   }
 
   const submitTeacher = () => {
@@ -236,17 +263,21 @@ const Dashboard = () => {
         last_name: profile.lastName,
         school: profile.school
       }}))
+    setLocalTeacherInfo(profile)
+    toggleEdit(false)
   }
 
   const submitSeminar = () => {
-    console.log(profile);
+    console.log(seminarProfile);
     API.graphql(graphqlOperation(updateSeminar, {
       input: {id: seminarId,
-        courseTitle: profile.title,
-        maxClassSize: profile.maxSize,
-        prereqs: profile.preReqs,
-        courseDescription: profile.description
+        courseTitle: seminarProfile.courseTitle,
+        maxClassSize: seminarProfile.maxClassSize,
+        prereqs: seminarProfile.prereqs,
+        courseDescription: seminarProfile.courseDescription
       }}))
+    setLocalSeminarInfo(seminarProfile)
+    toggleEditSeminar(false)
   }
 
   if (isError) {
@@ -312,20 +343,6 @@ const Dashboard = () => {
     1 */
   ]
 
-  // const openProfile = function (evt, page) {
-  //   var i, tabcontent, tablinks;
-  //   tabcontent = document.getElementsByClassName("tabcontent");
-  //   for (i = 0; i < tabcontent.length; i++) {
-  //     tabcontent[i].style.display = "none";
-  //   }
-  //   tablinks = document.getElementsByClassName("tablinks");
-  //   for (i = 0; i < tablinks.length; i++) {
-  //     tablinks[i].className = tablinks[i].className.replace(" active", "");
-  //   }
-  //   document.getElementById(page).style.display = "block";
-  //   evt.currentTarget.className += " active";
-  // }
-
   const openTeacherProfilePage = () => {
     document.getElementById("teacherProfilePage").style.display = "block";
     document.getElementById("seminarProfilePage").style.display = "none";
@@ -336,35 +353,61 @@ const Dashboard = () => {
     document.getElementById("seminarProfilePage").style.display = "block";
   }
 
-  if (teacher) {
+  if (teacher && seminar) {
     var teacherInfo = generateTeacherInfo(teacher);
     var seminarInfo = generateSeminarInfo(seminar);
     return (<>
       <div>
         <Navbar/>
         <Container>
-        <ContainerInner>
+          <ContainerInner>
           <Typography.Header style={{ color: Colors.WLF_PURPLE }}>
             Instructor Dashboard
           </Typography.Header>
-        </ContainerInner>
-        </Container>
+          <br></br>
+          <CourseCard
+            title = {seminar.data.getSeminar.courseTitle}
+            teachers = {seminar.data.getSeminar.teachers}
+            color = {Colors.WLF_ORANGE}
+            description = {seminar.data.getSeminar.courseDescription}
+            classDates = {seminar.data.getSeminar.classDates}
+            time = {seminar.data.getSeminar.courseTimes}
+            targetAudience = {seminar.data.getSeminar.targetAudience}
+            classDays = {seminar.data.getSeminar.classDays}
+            courseId = {seminarId}
+          />
+          </ContainerInner>
+        </Container>   
         
         <Container>
           <ContainerInner>
               <div class = "tab" style = {{
                 paddingBottom: '10px'
               }}>
-                <button className= "toggle-btn" onClick ={() => openTeacherProfilePage()}>
-                  <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>                
-                </button>
-                <button className = "toggle-btn" onClick ={() => openSeminarProfilePage()}>
+                <button className = "tablinks" onClick ={() => openSeminarProfilePage()}>
                   <Typography.Header style={{ color: Colors.WLF_TURQOUISE }}>My Tide</Typography.Header>                  
-                </button>            
+                </button>  
+                <button className= "tablinks" onClick ={() => openTeacherProfilePage()}>
+                  <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>                
+                </button>          
               </div>
 
-              {/* {tab === 'teacher' && <div id = "TeacherProfile" className = "tabcontent"> */}
-              <div id = "teacherProfilePage">
+              <div>
+                <Row>
+                <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
+                      <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
+                        <b>Sign Out</b>
+                      </Form.Button>
+                    </a>
+                    <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
+                      <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+                        <b>Change Password</b>
+                      </Form.Button>
+                </a>
+                </Row>
+              </div>              
+
+              <div id = "teacherProfilePage" className = "tabcontent" style={{ display: 'none' }}>
                 <br></br>
                   <div style={{
                     backgroundImage: `url(${WavyPurple})`,
@@ -395,30 +438,19 @@ const Dashboard = () => {
                     </Text>
                     {edit && <Row style={{ alignItems: 'center' }}>
                       <Form.Button onClick={() => submitTeacher()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
-                        <b style ={{ color: 'white' }}>Submit Changes to Teacher</b>
+                        <b style ={{ color: 'white' }}>Submit</b>
                       </Form.Button>
-                      <Cancel onClick={() => cancel()} style ={{ color: 'white' }}>Cancel</Cancel>
+                      <Cancel onClick={() => cancelTeacher()} style ={{ color: 'white' }}>Cancel</Cancel>
                     </Row>}
                   </div>
                   <Row>
-                    <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
-                      <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
-                        <b>Sign Out</b>
-                      </Form.Button>
-                    </a>
-                    <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
-                      <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                        <b>Change Password</b>
-                      </Form.Button>
-                    </a>
                     <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
                       <b style ={{ color: 'white' }}>Edit Teacher Profile</b>
                     </Form.Button>
                   </Row>
-              </div>}
+              </div>
 
-              {/* {tab === 'course' && <div id = "CourseProfile" className = "tabcontent"> */}
-              <div id = "seminarProfilePage">
+              <div id = "seminarProfilePage" className = "tabcontent" >
                   <div style={{
                     backgroundImage: `url(${WavyTurquoise})`,
                     backgroundSize: 'cover',
@@ -436,42 +468,32 @@ const Dashboard = () => {
                             </ProfileLeft>
                             <ProfileRight>
                               <EditInput
-                                edit={edit}
-                                disabled={!edit}
-                                value={profile[info.state]}
-                                onChange={e => profileDispatch({ type: info.dispatch, content: e.target.value })}/>
+                                edit={editSeminar}
+                                disabled={!editSeminar}
+                                value={seminarProfile[info.state]}
+                                onChange={e => seminarProfileDispatch({ type: info.dispatch, content: e.target.value })}/>
                             </ProfileRight>
                           </Row>
                         )
                       })}
                       <br/>
                     </Text>
-                    {edit && <Row style={{ alignItems: 'center' }}>
+                    {editSeminar && <Row style={{ alignItems: 'center' }}>
                       <Form.Button onClick={() => submitSeminar()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
-                        <b style ={{ color: 'white' }}>Submit Changes to Seminar</b>
+                        <b style ={{ color: 'white' }}>Submit</b>
                       </Form.Button>
-                      <Cancel onClick={() => cancel()} style ={{ color: 'white' }}>Cancel</Cancel>
+                      <Cancel onClick={() => cancelSeminar()} style ={{ color: 'white' }}>Cancel</Cancel>
                     </Row>}
                   </div>
                   <Row>
-                    <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
-                      <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
-                        <b>Sign Out</b>
-                      </Form.Button>
-                    </a>
-                    <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
-                      <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                        <b>Change Password</b>
-                      </Form.Button>
-                    </a>
-                    <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
+                    <Form.Button onClick={() => toggleEditSeminar(!editSeminar)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
                       <b style ={{ color: 'white' }}>Edit Seminar Profile</b>
                     </Form.Button>
                   </Row>
-              </div>}
-
-          </ContainerInner>
+              </div>
+          </ContainerInner>        
         </Container>
+        
         <Footer/>
       </div>
     </>)
