@@ -42,7 +42,7 @@ const FAQInstructors = () => {
       <Navbar />
       <Container>
         <ContainerInner>
-          <Typography.Header color={Colors.WLF_PURPLE} style={{marginTop: '-45px'}}>
+          <Typography.Header color={Colors.WLF_PURPLE} style={{marginTop: '-10px'}}>
             FAQ - Instructors
           </Typography.Header>
           {

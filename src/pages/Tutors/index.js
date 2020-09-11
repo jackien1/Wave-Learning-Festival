@@ -72,8 +72,8 @@ const TutorHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 10 }}>
       Tutoring sessions will begin on October 5th, so be sure to sign up today! The priority deadline is <b>9/15</b>, but applications will be considered on a rolling basis, throughout the entire semester. We are all so excited to have you on board with us at Wave Learning Festival!
     </Typography.BodyText>
-    <Typography.BodyText color="black" fontSize="20px" style={{ marginBottom: 10 }}>
-      Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_PURPLE}}>wavelearningfestival@gmail.com</a> or check out our FAQs page for tutors <a href="/faq-tutors" color={Colors.WLF_YELLOW}>here</a>!
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 10 }}>
+      Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_YELLOW}}>wavelearningfestival@gmail.com</a> or check out our FAQs page for tutors <a href="/faq-tutors" color={Colors.WLF_YELLOW}>here</a>!
     </Typography.BodyText>
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('tutorData')}>

@@ -309,7 +309,7 @@ const Navbar = () => {
                           <FaUserAlt />
                         </div>
                       </IconContext.Provider>
-                      Student FAQs
+                      Students
                     </DropdownItem>
                   </Link>
                   <Link to="/faq-parents">
@@ -327,7 +327,7 @@ const Navbar = () => {
                           <FaUserFriends />
                         </div>
                       </IconContext.Provider>
-                      Parent FAQs
+                      Parents
                     </DropdownItem>
                   </Link>
                   <Link to="/faq-instructors">
@@ -345,7 +345,7 @@ const Navbar = () => {
                           <FaChalkboardTeacher />
                         </div>
                       </IconContext.Provider>
-                      Instructor FAQs
+                      Instructors
                     </DropdownItem>
                   </Link>
                   <Link to="/faq-tutors">
@@ -363,7 +363,7 @@ const Navbar = () => {
                           <FaChalkboardTeacher />
                         </div>
                       </IconContext.Provider>
-                      Tutor FAQs
+                      Tutors
                     </DropdownItem>
                   </Link>
                 </NavbarDropdown>
