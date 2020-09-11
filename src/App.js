@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import logo from './logo.svg'
+import firebase from 'firebase'
 import './App.css'
 import About from './pages/About'
 import Teachers from './pages/Teachers'
+import Tutors from './pages/Tutors'
+import Tutoring from './pages/Tutoring'
 import Team from './pages/Team'
 import FAQStudents from './pages/FAQ/Students'
 import FAQParents from './pages/FAQ/Parents'
@@ -10,7 +13,20 @@ import FAQTeachers from './pages/FAQ/Teachers'
 import Courses from './pages/Courses'
 import CoursesInProgress from './pages/Courses/CoursesInProgress'
 import CoursesArchive from './pages/Courses/CoursesArchive'
+import CoursesUpcoming from './pages/Courses/CoursesUpcoming'
+import Speakers from './pages/Speakers'
+import PastSpeakers from './pages/Speakers/pastspeakers.js'
+import NoSpeakers from './pages/Speakers/NoSpeakers'
+import Speaker1SignUp from './pages/Speakers/SpeakerSignup/speaker1.js'
+import Speaker2SignUp from './pages/Speakers/SpeakerSignup/speaker2.js'
+import Speaker3SignUp from './pages/Speakers/SpeakerSignup/speaker3.js'
+import Speaker4SignUp from './pages/Speakers/SpeakerSignup/speaker4.js'
+import Speaker5SignUp from './pages/Speakers/SpeakerSignup/speaker5.js'
+import Speaker6SignUp from './pages/Speakers/SpeakerSignup/speaker6.js'
+import EventMedlife from './pages/Events/MEDLIFE'
+import EventViolence from './pages/Events/Violence'
 
+/*
 // wave 1
 import CourseLearnPython from './pages/Courses_W1/CoursePages/LearnPython'
 import CourseHowCancerWorks from './pages/Courses_W1/CoursePages/HowCancerWorks'
@@ -53,6 +69,7 @@ import CourseSignLanguage2 from './pages/Courses_W2/CoursePages/AmericanSignLang
 import CourseAIHealthcare from './pages/Courses_W2/CoursePages/AIHealthcare'
 import CourseMakingAsian from './pages/Courses_W2/CoursePages/MakingAsian'
 import CoursePublicSpeaking from './pages/Courses_W2/CoursePages/PublicSpeaking'
+*/
 
 import TermsAndConditions from './pages/Terms/TermsConditions'
 import PrivacyPolicy from './pages/Terms/PrivacyPolicy'
@@ -67,17 +84,26 @@ import Mission from './pages/Mission'
 import Blog from './pages/Blog'
 import BlogPage from './pages/Blog/BlogPage'
 import CourseSignUp from './pages/Courses/CourseSignUp'
+import Subscribe from './pages/Courses/CourseSignUpClosed'
 import CoursePage from './pages/Courses/CoursePages'
+import ChangePassword from './pages/ChangePassword'
+import SignIn from "./pages/SignIn"
+import SignOut from "./pages/SignOut"
+import ResetPassword from "./pages/ResetPassword"
+import Partners from "./pages/Partners"
+
+
+import Dashboard from './pages/Dashboard'
+
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
-
 function App () {
   return (
     <FirebaseProvider>
       <Router>
         <div>
           <Switch>
-            <Route path="/teachers">
+            <Route path="/instructors">
               <Teachers />
             </Route>
             <Route path="/team">
@@ -89,7 +115,7 @@ function App () {
             <Route path="/faq-parents">
               <FAQParents />
             </Route>
-            <Route path="/faq-teachers">
+            <Route path="/faq-instructors">
               <FAQTeachers />
             </Route>
             <Route path="/courses">
@@ -105,7 +131,7 @@ function App () {
               <Join />
             </Route>
 
-            {/* wave 1 */}
+{/*
             <Route path="/course-learn-python">
               <CourseLearnPython />
             </Route>
@@ -149,7 +175,6 @@ function App () {
               <CourseSignLanguage />
             </Route>
 
-            {/* wave 2 */}
             <Route path="/course-coding-activities">
               <CourseCodingActivities/>
             </Route>
@@ -228,6 +253,7 @@ function App () {
             <Route path="/course-public-speaking">
               <CoursePublicSpeaking/>
             </Route>
+            */}
 
             <Route path="/terms-conditions">
               <TermsAndConditions />
@@ -244,6 +270,9 @@ function App () {
             <Route path="/login">
               <Login />
             </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
             <Route path="/signup">
               <Signup />
             </Route>
@@ -256,17 +285,80 @@ function App () {
             <Route path="/mission">
               <Mission />
             </Route>
+            <Route path="/partners">
+              <Partners />
+            </Route>
             <Route path="/join">
               <Join />
+            </Route>
+            <Route path="/speakers">
+              <NoSpeakers />
+            </Route>
+            <Route path="/event-medlife">
+              <EventMedlife />
+            </Route>
+            <Route path="/event-violence">
+              <EventViolence />
+            </Route>
+            <Route path="/past-speakers">
+              <PastSpeakers />
+            </Route>
+            {/*
+            <Route path="/speaker-sign-up-jasmine">
+              <Speaker1SignUp />
+            </Route>
+            <Route path="/speaker-sign-up-iris">
+              <Speaker2SignUp />
+            </Route>
+            <Route path="/speaker-sign-up-ruta3">
+              <Speaker3SignUp />
+            </Route>
+            <Route path="/speaker-sign-up-lisa">
+              <Speaker4SignUp />
+            </Route>
+            <Route path="/speaker-sign-up-cliff">
+              <Speaker5SignUp />
+            </Route>
+            <Route path="/speaker-sign-up-andrew">
+              <Speaker6SignUp />
+            </Route>
+            */}
+            <Route path="/reset-password">
+              <ResetPassword />
             </Route>
             <Route path="/blog/:blogSlug" component={BlogPage} />
             <Route path="/blog">
               <Blog />
             </Route>
             <Route path="/course-sign-up">
+              <Subscribe />
+            </Route>
+            <Route path="/subscribe">
+              <Subscribe />
+            </Route>
+            <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />
             </Route>
+            <Route path="/change-password">
+              <ChangePassword />
+            </Route>
+            <Route path="/sign-in">
+              <SignIn />
+            </Route>
+            <Route path="/sign-out">
+              <SignOut />
+            </Route>
+            <Route path="/tutors">
+              <Tutors />
+            </Route>
+            <Route path="/tutoring">
+              <Tutoring />
+            </Route>
+            <Route path="/seminars-upcoming">
+              <CoursesUpcoming />
+            </Route>
             <Route path="/:slug" component={CoursePage} />
+
             <Route path="/">
               <About />
             </Route>

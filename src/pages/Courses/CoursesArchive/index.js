@@ -10,13 +10,13 @@ const CoursesArchive = () => {
   const { db, storage } = useContext(FirebaseContext)
   const [courses, updateCourses] = useState([])
   const [loading, setLoading] = useState(false)
-  const WAVE = 3
+  const WAVE = 5
   const categories = {
     tech: 'Science and Tech',
     aesthetics: 'Aesthetics and Culture',
     history: 'History, Society, and Individuals'
   }
-  const waves = ['1', '2']
+  const waves = ['1', '2', '3', '4', '5']
   const colors = [Colors.WLF_ORANGE, Colors.WLF_PURPLE, Colors.WLF_TURQOUISE, Colors.WLF_YELLOW]
 
   useEffect(() => {

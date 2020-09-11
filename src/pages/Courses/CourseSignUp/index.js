@@ -109,25 +109,48 @@ const renderOption = ({option}) => (
   <option value={option}>{option}</option>
 )
 
-var fitsRequirements = function(studentData) {
-  var result = studentData.name_first != "" &&
-    studentData.name_last != "" &&
-    studentData.email != "" &&
-    studentData.parentName != "" &&
-    studentData.parentEmail != "" &&
-    studentData.numCourses != "" &&
-    studentData.firstCourse != "" &&
-    studentData.termsConditions != "" &&
-    studentData.notInterested != "" &&
-    studentData.pastCourses &&
-    studentData.futureWaves != "" &&
-    studentData.age != "" &&
-    studentData.country != "" &&
-    studentData.city != "" &&
-    studentData.school != "" &&
-    studentData.studentAgreement != "" &&
-    studentData.howYouHear != "";
-  return result;
+var fitsRequirements = function(studentData, wrongSubmission, setWrongSubmission) {
+  var checkChangeSubmission = function(newMessage) {
+    if (newMessage !== wrongSubmission) {
+      setWrongSubmission(newMessage);
+    }
+  }
+
+  let checkKeys = ["name_first", "name_last", "email", "parentName", "parentEmail",
+                   "numCourses", "firstCourse", "termsConditions", "notInterested",
+                   "pastCourses", "futureWaves", "age", "country", "city", "school",
+                   "studentAgreement", "howYouHear"];
+  for (let key in checkKeys) {
+    if (!studentData[checkKeys[key]]) {
+      checkChangeSubmission("Please fill out the required fields.");
+      return false;
+    }
+  }
+
+  if (!(emailValidated(studentData.email) && emailValidated(studentData.parentEmail))) {
+    checkChangeSubmission("Please input valid email addresses.");
+    return false;
+  }
+
+  let courseKeys = ["firstCourse", "secondCourse", "thirdCourse", "fourthCourse",
+                    "fifthCourse", "sixthCourse", "seventhCourse", "eigthCourse"];
+  let courses = [];
+
+  for (let key in courseKeys) {
+    let option = studentData[courseKeys[key]];
+    if (!option) {
+      break;
+    }
+    if (courses.includes(option)) {
+      checkChangeSubmission("Please choose unique courses for the options.");
+      return false;
+    } else {
+      courses.push(option);
+    }
+  }
+
+  checkChangeSubmission("");
+  return true;
 };
 
 var emailValidated = function(email) {
@@ -136,16 +159,60 @@ var emailValidated = function(email) {
   return regexEmail.test(String(email.replace(" ", "")));
 }
 
-var submit = function(db, studentData, setErrorMessage, setPage) {
-  var submission = {...studentData};
-  db.collection("StudentRegistrations").where("email", "==", submission.email).get().then(function(snapshot) {
+var isEmailDuplicated = function(db, email) {
+  //Is in our database already for current wave?
+  var ls = [];
+  db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
+    snapshot.forEach(function(snap) {
+      ls.push(snap)
+    })
+  })
+  if (ls.length > 0) {
+    return true;
+  }
+  return false;
+}
+
+var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMessage, setPage, setWrongSubmission) {
+  db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
     var ls = [];
     snapshot.forEach(function(snap) {
       ls.push(snap.data());
     });
     if (ls.length > 0) {
-      db.collection("StudentRegistrations").doc(ls[0].id).update(submission).then(function() {
-        setPage("emailTaken");
+      setWrongSubmission("You have already registered for Wave 5 courses based on your student email. If you want to change your response, please email wavelearningfestival@gmail.com.")
+    }
+    else {
+      target.parentNode.removeChild(target);
+      submit(db, studentData, setErrorMessage, setPage);
+    }
+  })
+}
+
+var submit = function(db, studentData, setErrorMessage, setPage) {
+  var submission = {...studentData};
+  db.collection("StudentRegistrations").where("email", "==", submission.email).where("wave4", "==", true).get().then(function(snapshot) {
+    //If they have registered for wave4 and not wave5
+    var ls = [];
+    snapshot.forEach(function(snap) {
+      ls.push(snap.data());
+    });
+    if (ls.length > 0) {
+      db.collection("StudentRegistrations").doc(ls[0].id).update({
+        futureWaves: submission.futureWaves,
+        numCourses: submission.numCourses,
+        firstCourse: submission.firstCourse,
+        secondCourse: submission.secondCourse,
+        thirdCourse: submission.thirdCourse,
+        fourthCourse: submission.fourthCourse,
+        fifthCourse: submission.fifthCourse,
+        sixthCourse: submission.sixthCourse,
+        seventhCourse: submission.seventhCourse,
+        eigthCourse: submission.eigthCourse,
+        questions: submission.questions, 
+        wave5: true
+      }).then(function() {
+        setPage("complete");
         console.log(ls[0].id);
       });
     } else {
@@ -165,6 +232,7 @@ var PAST_COURSES_OPTIONS = [
   "Yes, in Wave 1!",
   "Yes, in Wave 2!",
   "Yes, in Wave 3!",
+  "Yes, in Wave 4!",
   "No"
 ];
 
@@ -208,6 +276,7 @@ var YES = ["Yes"];
 const Home = (db, setPage, studentData, setStudentData, wrongSubmission, setWrongSubmission, setErrorMessage) => {
   return (
     <>
+    <br/>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Course Signup
     </Typography.Header>
@@ -483,18 +552,8 @@ const Home = (db, setPage, studentData, setStudentData, wrongSubmission, setWron
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <Form.Button onClick={(event) => {
-        if (fitsRequirements(studentData)) {
-          if (emailValidated(studentData.email) &&
-              emailValidated(studentData.parentEmail)) {
-              event.target.parentNode.removeChild(event.target);
-              submit(db, studentData, setErrorMessage, setPage);
-          } else {
-            setWrongSubmission("Please input a valid email address.")
-          }
-        } else {
-          setWrongSubmission("Please fill out the required fields.")
-        }
-      }} enabled={fitsRequirements(studentData)}>
+          checkDuplicationSubmit(db, studentData.email, event.target, studentData, setErrorMessage, setPage, setWrongSubmission)
+        }} enabled={fitsRequirements(studentData, wrongSubmission, setWrongSubmission)} >
         <Typography.Header color="white" fontSize="24px">
           Submit
         </Typography.Header>
@@ -514,9 +573,18 @@ const Complete = () => {
   return (
     <div>
     <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
-    <Typography.BodyText color="white">
-      You and/or your parent should recieve a confirmation email shortly. <br/>
-      Click <a href="/">here</a> to go back to the homepage.
+    <Typography.BodyText color="white" style={{fontSize: 21}}>
+      You and/or your parent should receive a confirmation email shortly. <br/><br/>
+      We never want financial ability to prevent anyone from being able to learn. In order for us to provide accessible educational resources to students across the world, we need your help! <br/><br/>
+      If you have the means, please donate to help Wave better serve our students. (We recommend $5 per course, but any amount is greatly appreciated!)
+      <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'left', marginTop:-10, fontSize:24}}>
+        <Form.Button style={{textAlign: 'center', alignItems: 'center', marginRight:20 }}>
+          <a href="/" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Home</b></a>
+        </Form.Button> 
+        <Form.Button style={{textAlign: 'center', alignItems: 'center' }}>
+          <a href="/donate" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Donate</b></a>
+        </Form.Button>
+      </div>
     </Typography.BodyText>
     </div>
   );
@@ -537,12 +605,7 @@ const Error = (errorMessage) => {
 const EmailTaken = () => {
   return (<>
     <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
-    <Typography.BodyText color="white"> 
-      Note: your email address has already been registered this wave, 
-      so we updated your registration to match the response you just submitted.
-    </Typography.BodyText>
     <Typography.BodyText color="white">
-      You and/or your parent should recieve a confirmation email shortly. <br/>
       Click <a href="/">here</a> to go back to the homepage.
     </Typography.BodyText>
     </>
@@ -581,7 +644,9 @@ const CourseSignUp = () => {
     notInterested: "",
     howYouHear: [],
     otherhowYouHear: "",
-    questions: ""
+    questions: "",
+    wave4: false,
+    wave5: true
   })
 
   const {db} = useContext(FirebaseContext);

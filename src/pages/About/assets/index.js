@@ -19,5 +19,10 @@ import DailyPenn from './daily-pennsylvanian.svg'
 import Pasdena from './pasdena-independent.png'
 import Monrovia from './monrovia.jpg'
 import Arcadia from './arcadia-weekly.jpg'
+import KTVU from './ktvu.png'
+import TodayShow from './today-show.png'
+import Blob1 from './blob_1.svg'
+import Blob2 from './blob_2.svg'
+import Blob3 from './blob_3.svg'
 
-export { Arcadia, Monrovia, Pasdena, DailyPenn, NBC, HarvardCrimson, Swing, Highlight1, Highlight2, Highlight3, Highlight4, Beach, FerrisWheel, Icon1, Icon2, Icon3, WhyWave, WavyOrange, WavyPurple, WavyTurquoise, WavyWhite }
+export {TodayShow, KTVU, Arcadia, Monrovia, Pasdena, DailyPenn, NBC, HarvardCrimson, Swing, Highlight1, Highlight2, Highlight3, Blob1, Blob2, Blob3, Highlight4, Beach, FerrisWheel, Icon1, Icon2, Icon3, WhyWave, WavyOrange, WavyPurple, WavyTurquoise, WavyWhite }
