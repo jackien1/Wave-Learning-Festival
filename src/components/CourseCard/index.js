@@ -118,7 +118,7 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
             {classDates && <Heading><HeaderP>Class Dates: </HeaderP> <p> {classDates}</p></Heading>}
             {classDays && <Heading><HeaderP>Class Days: </HeaderP> <p> {classDays}</p></Heading>}
             {time && <Heading><HeaderP>Class Time ({classTime.includes('EDT') ? 'EDT' : timezoneCode}): </HeaderP><p> {classTime}</p></Heading>}
-            <Button onClick={() => window.open(`/${courseId}`, '_blank')} color = {color}>Learn More</Button>
+            {!archive && <Button onClick={() => window.open(`/${courseId}`, '_blank')} color = {color}>Learn More</Button>}
           </CourseInfo>
         </CardExpanded>
       </AnimateHeight>

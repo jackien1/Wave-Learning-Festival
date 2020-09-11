@@ -9,7 +9,7 @@ import { Button, Header, Title, Heading } from './styles'
 import 'firebase/firestore'
 
 import WaveLogo from '../Blog/wave-learning-logo.png'
-import ProgressBar from './ProgressBars/w4_progressbar-01.png'
+import ProgressBar from './ProgressBars/wlf_progressbar-04.png'
 
 import Filter from '../../components/Filter'
 import CourseCard from '../../components/CourseCard'
@@ -71,85 +71,87 @@ const Courses = () => {
   }
 
   /* Set Current Wave */
-  const WAVE = '4'
+  const WAVE = '5'
 
   useEffect(() => {
     if (db) {
       db.collection('fl_content').onSnapshot(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           if (doc.data().schema === 'coursePage' && doc.data().wave === WAVE) {
-            console.log(doc.data())
-            db.doc(doc.data().picture[0].path).onSnapshot(function (picture) {
-              if (picture.exists) {
-                storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
-                  .then(function (url) {
-                    const teachers = []
-                    if (doc.data().teachers.teacher1Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher1Name,
-                        school: doc.data().teachers.teacher1School
-                      })
-                    }
-                    if (doc.data().teachers.teacher2Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher2Name,
-                        school: doc.data().teachers.teacher2School
-                      })
-                    }
-                    if (doc.data().teachers.teacher3Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher3Name,
-                        school: doc.data().teachers.teacher3School
-                      })
-                    }
-                    if (doc.data().teachers.teacher4Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher4Name,
-                        school: doc.data().teachers.teacher4School
-                      })
-                    }
-                    if (doc.data().teachers.teacher5Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher5Name,
-                        school: doc.data().teachers.teacher5School
-                      })
-                    }
-                    if (doc.data().teachers.teacher6Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher6Name,
-                        school: doc.data().teachers.teacher6School
-                      })
-                    }
-                    if (doc.data().teachers.teacher7Name) {
-                      teachers.push({
-                        name: doc.data().teachers.teacher7Name,
-                        school: doc.data().teachers.teacher7School
-                      })
-                    }
-                    const course = {
-                      title: doc.data().courseTitle,
-                      category: doc.data().courseCategory,
-                      targetGrades: doc.data().targetAudienceGrades,
-                      image: url,
-                      teachers,
-                      description: doc.data().courseDescription,
-                      teacher1Name: doc.data().teachers.teacher1Name,
-                      teacher2Name: doc.data().teachers.teacher2Name,
-                      teacher3Name: doc.data().teachers.teacher3Name,
-                      teacher1School: doc.data().teachers.teacher1School,
-                      teacher2School: doc.data().teachers.teacher2School,
-                      teacher3School: doc.data().teachers.teache3School,
-                      id: doc.data().id,
-                      classDates: doc.data().classDates,
-                      time: doc.data().classTime,
-                      targetAudience: doc.data().targetAudience,
-                      classDays: doc.data().classDays
-                    }
-                    updateCourses(courses => [...courses, course])
-                    setFilteredCourses(filteredCourses => [...filteredCourses, course])
-                  })
-              }
-            })
+            var pic = doc.data().picture[0]
+            if (pic) {
+              db.doc(pic.path).onSnapshot(function (picture) {
+                if (picture.exists) {
+                  storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
+                    .then(function (url) {
+                      const teachers = []
+                      if (doc.data().teachers.teacher1Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher1Name,
+                          school: doc.data().teachers.teacher1School
+                        })
+                      }
+                      if (doc.data().teachers.teacher2Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher2Name,
+                          school: doc.data().teachers.teacher2School
+                        })
+                      }
+                      if (doc.data().teachers.teacher3Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher3Name,
+                          school: doc.data().teachers.teacher3School
+                        })
+                      }
+                      if (doc.data().teachers.teacher4Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher4Name,
+                          school: doc.data().teachers.teacher4School
+                        })
+                      }
+                      if (doc.data().teachers.teacher5Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher5Name,
+                          school: doc.data().teachers.teacher5School
+                        })
+                      }
+                      if (doc.data().teachers.teacher6Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher6Name,
+                          school: doc.data().teachers.teacher6School
+                        })
+                      }
+                      if (doc.data().teachers.teacher7Name) {
+                        teachers.push({
+                          name: doc.data().teachers.teacher7Name,
+                          school: doc.data().teachers.teacher7School
+                        })
+                      }
+                      const course = {
+                        title: doc.data().courseTitle,
+                        category: doc.data().courseCategory,
+                        targetGrades: doc.data().targetAudienceGrades,
+                        image: url,
+                        teachers,
+                        description: doc.data().courseDescription,
+                        teacher1Name: doc.data().teachers.teacher1Name,
+                        teacher2Name: doc.data().teachers.teacher2Name,
+                        teacher3Name: doc.data().teachers.teacher3Name,
+                        teacher1School: doc.data().teachers.teacher1School,
+                        teacher2School: doc.data().teachers.teacher2School,
+                        teacher3School: doc.data().teachers.teache3School,
+                        id: doc.data().id,
+                        classDates: doc.data().classDates,
+                        time: doc.data().classTime,
+                        targetAudience: doc.data().targetAudience,
+                        classDays: doc.data().classDays
+                      }
+                      updateCourses(courses => [...courses, course])
+                      setFilteredCourses(filteredCourses => [...filteredCourses, course])
+                    })
+                }
+              })
+            }
           }
         })
       })
@@ -158,6 +160,7 @@ const Courses = () => {
   }, [db, storage])
 
   useEffect(() => {
+    console.log(courses.length)
     if (filteredItems.length === 0) {
       setFilteredCourses(courses)
     } else {
@@ -206,7 +209,7 @@ const Courses = () => {
           </div>
 
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
-            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Four running from <strong>July 27th to August 14th</strong>. Our
+            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Five running from <strong>August 17th to August 30th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
             you. Feel free to send any

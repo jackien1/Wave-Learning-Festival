@@ -129,6 +129,47 @@ const sr = (from, to, email) => {
     return str_range(from, to, email)
 }
 
+const getAccount = (lower) => {
+    let account 
+    if(!isNaN(lower.charAt(0))){
+        account = accounts[2]
+    } else if(sr('a', 'an', lower)){
+        account = accounts[0]
+    } else if(sr('an', 'caro', lower)){
+        account = accounts[1]
+    } else if(sr('caro', 'co', lower)){
+        account = accounts[3]
+    } else if(sr('co', 'ek', lower)){
+        account = accounts[4]
+    } else if(sr('ek', 'gr', lower)){
+        account = accounts[5]
+    } else if(sr('gr', 'iri', lower)){
+        account = accounts[6]
+    } else if(sr('iri', 'josh', lower)){
+        account = accounts[7]
+    } else if(sr('josh', 'kt', lower)){
+        account = accounts[8]
+    } else if(sr('kt', 'lt', lower)){
+        account = accounts[9]
+    } else if(sr('lt', 'maya', lower)){
+        account = accounts[10]
+    } else if(sr('maya', 'no', lower)){
+        account = accounts[11]
+    } else if(sr('no', 'raq', lower)){
+        account = accounts[12]
+    } else if(sr('raq', 'sar', lower)){
+        account = accounts[13]
+    } else if(sr('sar', 'sunh', lower)){
+        account = accounts[14]
+    } else if(sr('sunh', 'ul', lower)){
+        account = accounts[15]
+    } else if(sr('ul', 'xiao', lower)){
+        account = accounts[16]
+    } else if(sr('xiao', 'zzzzz', lower)){
+        account = accounts[17]
+    }
+    return account;
+}
 // const gmailEmail = functions.config().gmail.email
 // const gmailPassword = functions.config().gmail.password
 
@@ -139,47 +180,11 @@ exports.sendEmailConfirmation =
         
         const newValue = snap.data()
         const email = newValue.email
-        const name = newValue.name_first + newValue.name_last
+        const name = newValue.name
         let lower = email.toLowerCase()
-        let account
+        let account = getAccount(lower)
 
-        if(!isNaN(lower.charAt(0))){
-            account = accounts[2]
-        } else if(sr('a', 'an', lower)){
-            account = accounts[0]
-        } else if(sr('an', 'caro', lower)){
-            account = accounts[1]
-        } else if(sr('caro', 'co', lower)){
-            account = accounts[3]
-        } else if(sr('co', 'ek', lower)){
-            account = accounts[4]
-        } else if(sr('ek', 'gr', lower)){
-            account = accounts[5]
-        } else if(sr('gr', 'iri', lower)){
-            account = accounts[6]
-        } else if(sr('iri', 'josh', lower)){
-            account = accounts[7]
-        } else if(sr('josh', 'kt', lower)){
-            account = accounts[8]
-        } else if(sr('kt', 'lt', lower)){
-            account = accounts[9]
-        } else if(sr('lt', 'maya', lower)){
-            account = accounts[10]
-        } else if(sr('maya', 'no', lower)){
-            account = accounts[11]
-        } else if(sr('no', 'raq', lower)){
-            account = accounts[12]
-        } else if(sr('raq', 'sar', lower)){
-            account = accounts[13]
-        } else if(sr('sar', 'sunh', lower)){
-            account = accounts[14]
-        } else if(sr('sunh', 'ul', lower)){
-            account = accounts[15]
-        } else if(sr('ul', 'xiao', lower)){
-            account = accounts[16]
-        } else if(sr('xiao', 'zzzzz', lower)){
-            account = accounts[17]
-        }
+       
         const { first, last, user, pass } = account
         const mailTransport = nodemailer.createTransport({
             service: 'gmail',
@@ -219,55 +224,16 @@ Wave Learning Festival
     }
 )
 
-exports.sendEmailConfirmationStudent = 
-    functions.firestore.document('StudentRegistrations/{docid}').onCreate(
+exports.sendEmailConfirmationSpeakers = 
+    functions.firestore.document('SpeakerRegistrations/{docid}').onCreate(
     async (snap, context) => {
         
         const newValue = snap.data()
         const email = newValue.email
-        const name = newValue.name_first + " " + newValue.name_last
-        const parentName = newValue.parentName;
-        const parentEmail = newValue.parentEmail;
+        const name = newValue.name_first + ' ' + newValue.name_last
         let lower = email.toLowerCase()
-        let account
+        let account = getAccount(lower)
 
-        if(!isNaN(lower.charAt(0))){
-            account = accounts[2]
-        } else if(sr('a', 'an', lower)){
-            account = accounts[0]
-        } else if(sr('an', 'caro', lower)){
-            account = accounts[1]
-        } else if(sr('caro', 'co', lower)){
-            account = accounts[3]
-        } else if(sr('co', 'ek', lower)){
-            account = accounts[4]
-        } else if(sr('ek', 'gr', lower)){
-            account = accounts[5]
-        } else if(sr('gr', 'iri', lower)){
-            account = accounts[6]
-        } else if(sr('iri', 'josh', lower)){
-            account = accounts[7]
-        } else if(sr('josh', 'kt', lower)){
-            account = accounts[8]
-        } else if(sr('kt', 'lt', lower)){
-            account = accounts[9]
-        } else if(sr('lt', 'maya', lower)){
-            account = accounts[10]
-        } else if(sr('maya', 'no', lower)){
-            account = accounts[11]
-        } else if(sr('no', 'raq', lower)){
-            account = accounts[12]
-        } else if(sr('raq', 'sar', lower)){
-            account = accounts[13]
-        } else if(sr('sar', 'sunh', lower)){
-            account = accounts[14]
-        } else if(sr('sunh', 'ul', lower)){
-            account = accounts[15]
-        } else if(sr('ul', 'xiao', lower)){
-            account = accounts[16]
-        } else if(sr('xiao', 'zzzzz', lower)){
-            account = accounts[17]
-        }
         const { first, last, user, pass } = account
         const mailTransport = nodemailer.createTransport({
             service: 'gmail',
@@ -284,15 +250,62 @@ exports.sendEmailConfirmationStudent =
             to: email,
         }
 
-        mailOptions.subject = "Wave Learning Festival: Thank you for Registering for Wave 4!"
+        mailOptions.subject = "Wave Learning Festival: Thank you for signing up for our speakers!"
+        mailOptions.text = 
+            `Hi ${name}!
+Thank you for registering for our special speakers!
+Because there is limited space available in these speaker events, you will find out a day before the event whether you have secured a spot. Please let us know if you have any questions!
+
+Best,            
+${first} ${last}
+Wave Learning Festival
+            `
+        try {
+            await mailTransport.sendMail(mailOptions)
+            console.log(`New subscription email sent`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+exports.sendEmailConfirmationStudent = 
+    functions.firestore.document('StudentRegistrations/{docid}').onCreate(
+    async (snap, context) => {
+        
+        const newValue = snap.data()
+        const email = newValue.email
+        const name = newValue.name_first + " " + newValue.name_last
+        const parentName = newValue.parentName;
+        const parentEmail = newValue.parentEmail;
+        let lower = email.toLowerCase()
+        let account = getAccount(lower)
+        
+        const { first, last, user, pass } = account
+        const mailTransport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user, 
+                pass
+            }
+        })
+
+        console.log(email)
+        console.log(user)
+        const mailOptions = {
+            from: `${first} from WaveLF <${user}>`,
+            to: email,
+        }
+
+        mailOptions.subject = "Wave Learning Festival: Thank you for Registering for Wave 5!"
         mailOptions.text = `
 Dear ${name},
-Thank you for registering for Wave 4 of Wave Learning Festival--we’re so excited for you to join us!
+Thank you for registering for Wave 5 of Wave Learning Festival--we’re so excited for you to join us!
 \nBecause we’re a new and growing non-profit, our email account isn’t always recognized by spam filters. 
 To make sure you get all of our updates, please add my email as a contact. In Gmail, you can do this 
 by hovering over my icon in this email and clicking "Add to Contacts". In other email services, you can 
 click on contacts and add my email manually. Please let us know if there are any problems!
-\nRegistration for Wave 4 continues until Monday, 7/20. You will be notified of your course acceptances and waitlists on Friday, 7/24. 
+\nRegistration for Wave 5 continues until Wednesday, 8/12. You will be notified of your course acceptances and waitlists on Friday, 8/14. 
 \nThanks so much! If you have any questions, just reply and let me know! We’re excited to have you on board.
 
 Best,
@@ -305,15 +318,15 @@ const mailOptionsParent = {
     to: parentEmail,
 }
 
-mailOptionsParent.subject = "Wave Learning Festival: Thank you for Registering your Student for Wave 4!"
+mailOptionsParent.subject = "Wave Learning Festival: Thank you for Registering your Student for Wave 5!"
 mailOptionsParent.text = `
 Dear ${parentName},
-Thank you for registering for Wave 4 of Wave Learning Festival--we’re so excited for your student to join us!
+Thank you for registering for Wave 5 of Wave Learning Festival--we’re so excited for your student to join us!
 \nBecause we’re a new and growing non-profit, our email account isn’t always recognized by spam filters. 
 To make sure you get all of our updates, please add my email as a contact. In Gmail, you can do this 
 by hovering over my icon in this email and clicking "Add to Contacts". In other email services, you can 
 click on contacts and add my email manually. Please let us know if there are any problems!
-\nRegistration for Wave 4 continues until Monday, 7/20. You will be notified of your course acceptances and waitlists on Wednesday, 7/22. 
+\nRegistration for Wave 5 continues until Wednesday, 8/12. You will be notified of your course acceptances and waitlists on Friday, 8/14.
 \nThanks so much! If you have any questions, just reply and let me know! We’re excited to have you on board.
 
 Best,

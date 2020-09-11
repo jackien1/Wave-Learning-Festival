@@ -34,6 +34,7 @@ export const School = styled.p`
     font-family: 'Muli', sans-serif;
     font-weight: 700;
     margin: 4px;
+    text-align: center;
 `
 
 export const Position = styled.h1`

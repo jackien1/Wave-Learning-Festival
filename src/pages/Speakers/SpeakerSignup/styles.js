@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import WavyTeachers from "./wavy_teachers.svg";
-import { device } from "@/theme";
+import styled from 'styled-components'
+import WavyTeachers from './wavy_teachers.svg'
+import { device } from '@/theme'
 
 export const SignupBackground = styled.div`
   display: flex;

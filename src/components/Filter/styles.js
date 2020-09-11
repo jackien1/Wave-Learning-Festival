@@ -3,7 +3,6 @@ import { Colors } from '@/styles'
 export const Container = styled.div`
     width: 100%; 
     margin-bottom: 2rem; 
-    text-align: left; 
 `
 
 export const ContainerInner = styled.div`
@@ -102,4 +101,9 @@ export const CheckboxContainer = styled.div`
 
 export const CheckboxColumn = styled.div`
   margin-right: 1.5em; 
+`
+
+export const OptionsContainer = styled.div`
+  display: flex; 
+  flex-wrap: wrap; 
 `

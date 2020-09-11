@@ -11,6 +11,7 @@ import {
   FaInstagram,
   FaTwitter,
   FaLinkedin,
+  FaYoutubeSquare,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { Colors, Typography } from "@/styles";
@@ -118,6 +119,23 @@ const Footer = () => {
             >
               <div>
                 <FaLinkedin />
+              </div>
+            </IconContext.Provider>
+          </Icon>
+          <Icon onClick={() =>
+            window.open(
+              "https://www.youtube.com/channel/UCmCVCL3MzjS6uTkQMG9111w",
+              "_blank"
+            )}>
+            <IconContext.Provider
+              value={{
+                color: "white",
+                size: "2em",
+                style: { verticalAlign: "middle" },
+              }}
+            >
+              <div>
+                <FaYoutubeSquare />
               </div>
             </IconContext.Provider>
           </Icon>

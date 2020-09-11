@@ -12,19 +12,22 @@ import {
   MediumContainer,
   SubHeaderContainer,
   DescItem,
-  DescImage,
   Input,
   NewsLetter,
   Error,
   Popup,
   FeaturedImage,
   FeaturedLink,
-  ContainerInner
+  ContainerInner,
+  Announcements,
+  Card,
 } from './styles'
-import { Colors, Typography } from '@/styles'
+import { Colors, Typography, Form } from '@/styles'
 import './styles.css'
 import * as Assets from './assets'
 import { FirebaseContext } from '@/firebaseContext'
+import { MdFormatAlignCenter } from 'react-icons/md'
+import { TiSortAlphabeticallyOutline } from 'react-icons/ti'
 
 const About = () => {
   const [name, updateName] = useState('')
@@ -33,6 +36,9 @@ const About = () => {
   const [emailError, toggleEmail] = useState(false)
   const [subscribed, toggleSubscribed] = useState(false)
   const { db } = useContext(FirebaseContext)
+  const [courses, totalCourses] = useState(60)
+  const [registrations, totalRegs] = useState(9510)
+  const [countries, totalCountries] = useState(16)
 
   const subscribe = () => {
     toggleEmail(false)
@@ -49,6 +55,7 @@ const About = () => {
     }
 
     if (db && valid) {
+      const name_split = name.split(' ')
       db.collection('Newsletter')
         .add({
           name,
@@ -57,6 +64,52 @@ const About = () => {
         .then(toggleSubscribed(true))
     }
   }
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        totalCourses(count => {
+          // NEEDS UPDATE: for dynamic courses count, needs to sync with database.  Manually entered 123 now.
+          if (count === 300) {
+            clearInterval(intervalId)
+            return count
+          }
+          else
+            return count + 10
+        })
+      }, 215)
+      return () => clearInterval(intervalId)
+    }, [])
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        totalRegs(count => {
+          // NEEDS UPDATE: for dynamic registrations count, needs to sync with database.  Manually entered 8765 now.
+          if (count === 10000) {
+            clearInterval(intervalId)
+            return count
+          }
+          else
+            return count + 10
+        })
+      }, 125)
+      return () => clearInterval(intervalId)
+    }, [])
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        totalCountries(count => {
+          // NEEDS UPDATE: for dynamic countries count, needs to sync with database.  Manually entered 36 now.
+          if (count === 62) {
+            clearInterval(intervalId)
+            return count
+          }
+          else
+            return count + 2
+        })
+      }, 200)
+      return () => clearInterval(intervalId)
+    }, [])
+
 
   return (
     <MetaContainer>
@@ -70,35 +123,54 @@ const About = () => {
             </Typography.Header>
             <SubHeaderContainer>
               <Typography.BodyText>
-                Join the Wave Learning Festival for a summer of
+                Join Wave Learning Festival and experience
                 not-at-all-ordinary programming, hosted by student leaders
-                across the nation.
+                across the nation!
               </Typography.BodyText>
             </SubHeaderContainer>
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginTop: '50px',
+                marginTop: '20px',
                 flexWrap: 'wrap'
               }}
             >
-              <a href="/courses" className="sign-up-link">
+              <a href="/seminars-upcoming" className="sign-up-link">
                 <Button>
-                  <p>Courses</p>
+                  <p>Seminars</p>
                 </Button>
               </a>
-              <a href="/teachers" className="sign-up-link">
+              <a href="/tutoring" className="sign-up-link">
                 <Button>
-                  <p>Teachers</p>
+                  <p>Tutoring</p>
                 </Button>
               </a>
-              <a href="/course-sign-up" className="sign-up-link">
+              <a href="/subscribe" className="sign-up-link">
                 <Button>
-                  <p>Register Now!</p>
+                  <p>Subscribe!</p>
                 </Button>
               </a>
             </div>
+            <Announcements>
+              <Typography.Header
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  color: Colors.WLF_YELLOW,
+                  fontSize: 23
+                }}
+              >
+                Announcements:
+                <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
+                  <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
+                    <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Student registration for Tide 1, our seminars program, opens Tuesday, 9/15! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Our new Wave Tutoring program will begin on Monday, 10/5! <a href="/tutoring" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                  </ul>
+                </Typography.BodyText>
+              </Typography.Header>
+            </Announcements>
           </div>
           <HeaderImage src={Assets.Swing} />
         </AboutDescription>
@@ -112,163 +184,6 @@ const About = () => {
           backgroundImage: `url(${Assets.WavyPurple})`,
           backgroundSize: 'cover',
           paddingBottom: 100
-        }}
-      >
-        <MediumContainer>
-          <MediumImage src={Assets.Beach} />
-          <div style={{ gridColumn: 'span 2', alignSelf: 'center' }}>
-            <Highlight
-              src={Assets.Highlight2}
-              style={{
-                width: 160,
-                height: 60
-              }}
-            />
-            <Typography.Header
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                color: 'white',
-                fontSize: 28,
-                marginBottom: 30
-              }}
-            >
-              Our Mission: Smash Summer Boredom
-            </Typography.Header>
-            <Typography.BodyText
-              style={{ color: 'white', fontSize: 18, fontWeight: '100' }}
-            >
-              We believe that summer should be a time for creativity,
-              exploration, and academic excitement outside the classroom. So
-              while traditional summer programs are on halt, Wave Learning
-              Festival is bringing all the magic and engagement of a summer camp
-              right to your home. We hope to provide students resources that
-              help make this time as productive and engaging as possible.
-            </Typography.BodyText>
-          </div>
-        </MediumContainer>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          position: 'relative',
-          width: '100%',
-          minHeight: '85vh',
-          backgroundImage: `url(${Assets.WavyOrange})`,
-          backgroundSize: 'cover',
-          marginTop: -100,
-          paddingBottom: 100
-        }}
-      >
-        <MediumContainer>
-          <div style={{ gridColumn: 'span 2', alignSelf: 'center' }}>
-            <Highlight
-              src={Assets.Highlight3}
-              style={{
-                width: 160,
-                height: 35,
-                marginTop: 10
-              }}
-            />
-            <Typography.Header
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                color: 'white',
-                fontSize: 28,
-                marginBottom: 30
-              }}
-            >
-              A Festival Unlike Any Other
-            </Typography.Header>
-            <Typography.BodyText
-              style={{ color: 'white', fontSize: 18, fontWeight: '100' }}
-            >
-              During the Wave Learning Festival, tune into seminars designed for
-              middle schoolers and high schoolers covering every topic
-              imaginable, especially those not found in a classroom. Learn how
-              to code your own games, cook up some French Cuisine, or pick up
-              some digital painting skills. The possibilities are endless!
-            </Typography.BodyText>
-          </div>
-          <MediumImage src={Assets.FerrisWheel} />
-        </MediumContainer>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          position: 'relative',
-          width: '100%',
-          minHeight: '85vh',
-          backgroundImage: `url(${Assets.WavyWhite})`,
-          backgroundSize: 'cover',
-          marginTop: -100,
-          paddingBottom: 100
-        }}
-      >
-        <br />
-        <br />
-        <MediumContainer>
-          <DescItem>
-            <DescImage src={Assets.Icon1} />
-            <Typography.Header
-              style={{ fontSize: 20, color: Colors.WLF_BLACK }}
-            >
-              Never the Same
-            </Typography.Header>
-            <Typography.BodyText
-              style={{ fontSize: 16, color: Colors.WLF_BLACK }}
-            >
-              Choose from over <b>100</b> different seminars covering everything from
-              STEM to performing arts. Love trying new things? New waves of
-              classes and seminar leaders get released every 3 weeks.
-            </Typography.BodyText>
-          </DescItem>
-          <DescItem>
-            <DescImage src={Assets.Icon2} />
-            <Typography.Header
-              style={{ fontSize: 20, color: Colors.WLF_BLACK }}
-            >
-              Exclusive Seminar Leaders
-            </Typography.Header>
-            <Typography.BodyText
-              style={{ fontSize: 16, color: Colors.WLF_BLACK }}
-            >
-              Seminars are hosted by talented college students across campuses
-              such as Harvard, Stanford, MIT, and so many more. Our seminar
-              leaders love teaching and want to introduce you to their favorite
-              passion projects and subjects!
-            </Typography.BodyText>
-          </DescItem>
-          <DescItem>
-            <DescImage src={Assets.Icon3} />
-            <Typography.Header
-              style={{ fontSize: 20, color: Colors.WLF_BLACK }}
-            >
-              Have a Great Summer
-            </Typography.Header>
-            <Typography.BodyText
-              style={{ fontSize: 16, color: Colors.WLF_BLACK }}
-            >
-              Stay connected with peers who share your intellectual interests,
-              and participate in an open, welcoming environment -- all while
-              doing this remotely and free of charge.
-            </Typography.BodyText>
-          </DescItem>
-        </MediumContainer>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          position: 'relative',
-          width: '100%',
-          minHeight: '65vh',
-          backgroundImage: `url(${Assets.WavyTurquoise})`,
-          backgroundSize: 'cover',
-          marginTop: -100
         }}
       >
         <MediumContainer>
@@ -310,7 +225,150 @@ const About = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          backgroundColor: Colors.WLF_PURPLE,
+          alignSelf: 'center',
+          position: 'relative',
+          width: '100%',
+          minHeight: '90vh',
+          backgroundImage: `url(${Assets.WavyWhite})`,
+          backgroundSize: 'cover',
+          marginTop: -100,
+          paddingBottom: 100
+        }}
+      >
+        <br />
+        <br />
+        <MediumContainer>
+          <Card>
+            <DescItem>
+            <Highlight
+                src={Assets.Blob1}
+                style={{width: 250, height: 128, marginTop: 20}}
+            />
+            <Typography.Header
+                style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 68, marginBottom: 20, marginTop: 30 }}
+              >
+                {registrations}+
+            </Typography.Header>
+            <Typography.Header
+                style={{ fontSize: 22, color: Colors.WLF_BLACK }}
+              >
+                Registrations
+            </Typography.Header>
+            <Typography.BodyText
+                style={{ fontSize: 16, color: Colors.WLF_BLACK }}
+              >
+                Wave has served over 10000 students from all over the world.
+            </Typography.BodyText>
+            </DescItem>
+          </Card>
+          <Card>
+            <DescItem>
+            <Highlight
+                src={Assets.Blob2}
+                style={{width: 250, height: 118, marginBottom: 10, marginTop: 20}}
+            />
+            <Typography.Header
+                style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20 }}
+              >
+              {courses}+
+            </Typography.Header>
+            <Typography.Header
+                style={{ fontSize: 22, color: Colors.WLF_BLACK }}
+              >
+              Courses
+            </Typography.Header>
+            <Typography.BodyText
+                style={{ fontSize: 16, color: Colors.WLF_BLACK }}
+              >
+                We've provided over 300 different classes and seminars covering everything from math and physics
+                to art history and public transportation systems.
+            </Typography.BodyText>
+            </DescItem>
+          </Card>
+          <Card>
+            <DescItem>
+            <Highlight
+                src={Assets.Blob3}
+                style={{width: 250, height: 118, marginTop: 20}}
+            />
+            <Typography.Header
+                style={{position: 'relative', zIndex: 2,color: 'white', fontSize: 80, marginBottom: 10, marginTop: 20}}
+              >
+                {countries}
+            </Typography.Header>
+            <Typography.Header
+                style={{ fontSize: 22, color: Colors.WLF_BLACK }}
+              >
+                Countries
+            </Typography.Header>
+            <Typography.BodyText
+                style={{ fontSize: 16, color: Colors.WLF_BLACK }}
+              >
+                We have students from 62 countries and territories, spanning all 6 inhabitable continents.
+            </Typography.BodyText>
+            </DescItem>
+          </Card>
+        </MediumContainer>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'relative',
+          width: '100%',
+          minHeight: '85vh',
+          backgroundImage: `url(${Assets.WavyOrange})`,
+          backgroundSize: 'cover',
+          marginTop: -100,
+          paddingBottom: 100
+        }}
+      >
+        <MediumContainer>
+          <div style={{ gridColumn: 'span 2', alignSelf: 'center' }}>
+            <Highlight
+              src={Assets.Highlight3}
+              style={{
+                width: 160,
+                height: 35,
+                marginTop: 10
+              }}
+            />
+            <Typography.Header
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                color: 'white',
+                fontSize: 28,
+                marginBottom: 30
+              }}
+            >
+              A Festival Unlike Any Other
+            </Typography.Header>
+            <Typography.BodyText
+              style={{ color: 'white', fontSize: 18, fontWeight: '100' }}
+            >
+              During the Wave Learning Festival, tune into seminars designed for
+              middle schoolers and high schoolers covering every topic
+              imaginable, especially on those not found in a classroom. Learn how
+              to code your own games, cook up some French Cuisine, or pick up
+              some digital painting skills. The possibilities are endless!
+              <br></br> <br></br>
+              WLF is run by students from Harvard, Stanford, UPenn, and other peer
+              institutions, divided into seven different teams. "Waves" of seminars
+              and classes run for 2-3 weeks. Course registration opens a few weeks
+              before classes start and students are notified of their enrollment
+              a few days before classes! All students will be placed in at least
+              one course of their choice.
+            </Typography.BodyText>
+          </div>
+          <MediumImage src={Assets.FerrisWheel} />
+        </MediumContainer>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          backgroundColor: Colors.WLF_TURQOUISE,
           width: '100%'
         }}
         id="updates"
@@ -320,10 +378,10 @@ const About = () => {
             style={{ color: 'white', fontSize: 28, marginBottom: 30 }}
           >
             {' '}
-            Sign up here to get alerted and be the first to register for Wave 4!
-            <Popup subscribed = {true}><p>Registration is currently open from July 10 - July 20 --enter your email and we will alert you as soon as courses open! Once you've subscribed, click <a href="http://www.wavelf.org/courses">here</a> to see the courses we plan to offer!</p></Popup>
+            Sign up here to receive email alerts and be the first to get involved with our fall initiatives!
+            {/*<Popup subscribed = {true}><p>Registration for our fall iniatives will begin around September!</p></Popup>
             {subscribed && <Popup subscribed={subscribed}><p>Thank you for subscribing! Please follow the directions sent to your email to ensure you receive our updates. Furthermore, click on "Courses" at the top of our webpage to check out the courses we'll be offering!</p>
-            </Popup>}
+            </Popup>} */}
           </Typography.Header>
           <NewsLetter>
             <Input
@@ -344,7 +402,7 @@ const About = () => {
               onClick={() => subscribe()}
               style={{ marginTop: 40 }}
             >
-              <p>{subscribed ? 'Subscribed!' : 'Subscribe'}</p>
+              <p>{subscribed ? 'Submitted!' : 'Submit'}</p>
             </Button>
           </NewsLetter>
         </MediumContainer>
@@ -364,13 +422,13 @@ const About = () => {
         </Typography.Header>
         <ContainerInner>
           <FeaturedImage onClick={() => window.open('https://www.nbcbayarea.com/news/coronavirus/local-college-student-creates-online-learning-center-for-kids-people-from-31-countries-sign-on/2324327/', '_blank')} width={25} src={Assets.NBC}/>
-          <FeaturedImage onClick={() => window.open('https://www.thecrimson.com/article/2020/5/21/harvard-coronavirus-altered-summer-plans/', '_blank')} width={15} src={Assets.HarvardCrimson}/>
-          <FeaturedImage onClick={() => window.open('https://www.thedp.com/article/2020/06/penn-students-create-online-learning-platforms-cornavirus-wave-festival-inventxyz', '_blank')} width={25} src={Assets.DailyPenn}/>
+          <FeaturedImage onClick={() => window.open('https://www.today.com/parents/19-online-activities-keep-kids-entertained-all-summer-t187359', '_blank')} width={30} src={Assets.TodayShow}/>
+          <FeaturedImage onClick={() => window.open('https://www.ktvu.com/news/harvard-student-develops-wave-learning-festival-offers-free-online-courses', '_blank')} width={23} src={Assets.KTVU}/>
+          <FeaturedImage onClick={() => window.open('https://www.thedp.com/article/2020/06/penn-students-create-online-learning-platforms-cornavirus-wave-festival-inventxyz', '_blank')} width={35} src={Assets.DailyPenn}/>
+          <FeaturedImage onClick={() => window.open('https://www.thecrimson.com/article/2020/5/21/harvard-coronavirus-altered-summer-plans/', '_blank')} width={13} src={Assets.HarvardCrimson}/>
           <FeaturedImage onClick={() => window.open('https://www.pasadenaindependent.com/education/wave-learning-festival-teaches-kids-globally/', '_blank')} width={27} src={Assets.Pasdena}/>
           <FeaturedImage onClick={() => window.open('https://www.monroviaweekly.com/education/wave-learning-festival-teaches-kids-globally/', '_blank')} width={27} src={Assets.Monrovia}/>
           <FeaturedImage onClick={() => window.open('https://www.arcadiaweekly.com/education/wave-learning-festival-teaches-kids-globally/', '_blank')} width={27} src={Assets.Arcadia}/>
-          <FeaturedImage onClick={() => window.open('https://www.arcadiaweekly.com/education/wave-learning-festival-teaches-kids-globally/', '_blank')} width={27} src={Assets.KTVU}/>
-
         </ContainerInner>
       </div>
       <div style={{
@@ -384,7 +442,7 @@ const About = () => {
         <Typography.Header
           style={{ color: 'white', fontSize: 28, marginBottom: 20, marginTop: 20 }}
         >
-            We are accepting Donations!
+            We are accepting donations!
         </Typography.Header>
         <a href="/donate" className="sign-up-link">
           <Button

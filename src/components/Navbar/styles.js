@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { device } from '@/theme'
-import { WLF_PURPLE } from '@/styles/Colors'
+import styled from "styled-components";
+import { device } from "@/theme";
+import { WLF_PURPLE } from "@/styles/Colors";
 
 export const NavbarContainer = styled.header`
   font-family: "Mukta Mahee", sans-serif;
@@ -21,7 +21,7 @@ export const NavbarContainer = styled.header`
   @media ${device.tabletL} {
   }
 
-`
+`;
 
 export const NavbarInner = styled.div`
   width: 100%;
@@ -37,12 +37,12 @@ export const NavbarInner = styled.div`
 
   @media ${device.laptop} {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1050px;
   }
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 export const BrandText = styled.img`
   @media ${device.mobileS} {
@@ -54,11 +54,8 @@ export const BrandText = styled.img`
     display: block;
   }
   height: auto;
-
-  &:hover{
-    cursor: pointer; 
-  }
-`
+  cursor: pointer;
+`;
 
 export const Brand = styled.img`
   @media ${device.mobileS} {
@@ -69,10 +66,8 @@ export const Brand = styled.img`
   }
   width: 3.5em;
   height: auto;
-  &:hover{
-    cursor: pointer; 
-  }
-`
+  cursor: pointer;
+`;
 
 export const Links = styled.div`
   @media ${device.mobileS} {
@@ -95,19 +90,22 @@ export const Links = styled.div`
   & a:visited {
     color: black;
   }
-`
+`;
 
 export const Button = styled.button`
-  padding: 15px 40px 15px 40px;
-
+  font-family: "Mukta Mahee", sans-serif;
+  padding: 10px 25px 10px 25px;
   border-radius: 40px;
   border: none;
-  background-color: #6e00ff;
-  margin-left: 15px;
+  background-color: ${WLF_PURPLE};
   color: #eeeeee !important;
   font-weight: 600;
   font-size: 16px;
   transition: 0.2s;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: 0.2s;
+  border-bottom: white;
 
   & a {
     margin: 0px;
@@ -116,12 +114,13 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
     opacity: 0.8;
+    border-bottom: white;
   }
 
   &:focus {
     outline: none;
   }
-`
+`;
 
 export const Hamburger = styled.div`
   cursor: pointer;
@@ -140,8 +139,8 @@ export const Hamburger = styled.div`
   width: 30px;
   height: 30px;
 
-  transform: ${(props) => (props.slide ? 'translateX(-40vw)' : null)};
-`
+  transform: ${(props) => (props.slide ? "translateX(-40vw)" : null)};
+`;
 
 export const Bar = styled.p`
   border-radius: 25px;
@@ -149,16 +148,16 @@ export const Bar = styled.p`
   background-color: #50B0A0;
   margin: 6px 0;
   transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
-  width: ${(props) => 30 - props.num * 7 + 'px'};
+  width: ${(props) => 30 - props.num * 7 + "px"};
 
   /* width: 30px;  */
   transform: ${(props) =>
-    props.rotate1 ? 'translateY(9px) rotate(-45deg)' : null};
-  transform: ${(props) => (props.rotate2 ? 'rotate(45deg)' : null)};
+    props.rotate1 ? "translateY(9px) rotate(-45deg)" : null};
+  transform: ${(props) => (props.rotate2 ? "rotate(45deg)" : null)};
   transform: ${(props) =>
-    props.rotate3 ? 'translateY(-9px) rotate(45deg)' : null};
-  width: ${(props) => (props.slide ? '30px' : 30 - props.num * 7 + 'px')};
-`
+    props.rotate3 ? "translateY(-9px) rotate(45deg)" : null};
+  width: ${(props) => (props.slide ? "30px" : 30 - props.num * 7 + "px")};
+`;
 
 export const SideBar = styled.div`
     position: fixed;
@@ -189,6 +188,9 @@ export const SideBar = styled.div`
     }
 `
 
+
+
+
 export const NavbarDropdown = styled.div`
     position: absolute;
     left: -50px;
@@ -207,13 +209,13 @@ export const NavbarDropdown = styled.div`
   & p {
     /* margin-bottom: 15px; */
   }
-`
+`;
 
 export const NavItem = styled.p`
   position: relative;
   margin: 0px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
   transition: 0.2s;
   width: fit-content;
   border-bottom: 2px solid white;
@@ -226,7 +228,7 @@ export const NavItem = styled.p`
   &:hover a {
     color: rgba(31, 45, 61, 1);
   }
-`
+`;
 export const Triangle = styled.div`
   position: absolute;
   bottom: -10px;
@@ -236,7 +238,7 @@ export const Triangle = styled.div`
   border-right: 10px solid transparent;
   border-bottom: 10px solid #ffffff;
   box-shadow: 0 0 1.25rem rgba(31, 45, 61, 0.08);
-`
+`;
 
 export const DropdownItem = styled.p`
   margin: 0px;
@@ -252,9 +254,9 @@ export const DropdownItem = styled.p`
     cursor: pointer;
     background-color: #eee;
   }
-`
+`;
 
 export const SidebarDropdown = styled.div`
   height: 0px;
   transition: 0.2s;
-`
+`;

@@ -11,39 +11,36 @@ const FAQStudents = () => {
       <Container>
         <ContainerInner>
           <Typography.Header style={{ color: Colors.WLF_PURPLE }}>
-            FAQ - Teachers
+            FAQ - Instructors
+          </Typography.Header>
+          <br />
+          <Typography.Header style={{ color: Colors.WLF_BLACK, fontSize: 28 }}>
+            Engaged Seminars
           </Typography.Header>
           <br />
           <Typography.Header2 style={{ color: Colors.WLF_BLACK, fontSize: 20 }}>
             When will classes start?
           </Typography.Header2>
           <Typography.BodyText>
-            Here is the current class schedule for waves 1-5: <br /><br />
-            Wave One: 5/25 - 6/5 <br />
-            Wave Two: 6/15 - 6/26 <br />
-            Wave Three: 7/6 - 7/24 <br />
-            Wave Four: 7/27 - 8/14 <br />
-            Wave Five: 8/17 - 8/28 <br />
+            Tide 1 will start on Monday, October 5th and end on Friday, November 6th!
           </Typography.BodyText>
           <br />
           <Typography.Header2 style={{ color: Colors.WLF_BLACK, fontSize: 20 }}>
             How long will my teaching session be?
           </Typography.Header2>
           <Typography.BodyText>
-            That will be up to you, as the teacher of a session. You may choose
-            between a one-day seminar, a one-week seminar, or a two-week
-            seminar. You can also decide how long you would like to teach per
-            day, and how many days a week you would like to teach.
+            That will be up to you, as the instructor. Seminars can range from meeting every two weeks (3 sessions total) to twice a week (10 sessions total) for five weeks. 
+            The long-form structure will give you more time to build on a topic that excites you and allows your students to learn a greater depth of information. 
           </Typography.BodyText>
           <br />
           <Typography.Header2 style={{ color: Colors.WLF_BLACK, fontSize: 20 }}>
             Will I be getting any support when planning my course curriculum?
           </Typography.Header2>
           <Typography.BodyText>
-            Yes. You will be planning your course with the help of Wave Learning
-            Festival’s Logistics team. Together, you will build and structure
-            your class programming to make sure your class is successful when
-            you teach it. Our team will also be in contact throughout the
+            Yes! You will be planning your course with the help of Wave Learning
+            Festival’s Engaged Seminars team. Together, you will build and structure
+            your class programming to make sure your class is a success. 
+            Our team will also be in contact throughout the
             duration of your seminar, should you have any questions or request
             any additional support.
           </Typography.BodyText>
@@ -53,8 +50,8 @@ const FAQStudents = () => {
           </Typography.Header2>
           <Typography.BodyText>
             Yes, you will apply with a topic and description for your course.
-            However, you will not need to have your full course curriculum
-            fleshed out before you apply. If you are having a hard time deciding
+            However, you do not need to have your full course curriculum
+            finalized before you apply. If you are having a hard time deciding
             between classes you’d like to teach or would like some inspiration,
             contact{" "}
             <a href="mailto: wavelearningfestival@gmail.com">
@@ -66,18 +63,16 @@ const FAQStudents = () => {
           <Typography.Header2 style={{ color: Colors.WLF_BLACK, fontSize: 20 }}>
             Is it possible to co-teach with another person?
           </Typography.Header2>
-          <br />
           <Typography.BodyText>
             Yes! In fact, we encourage it—double the ideas and half the work is
-            awesome for everyone involved. When filling out the Teacher
-            Registration Form, add your co-teacher’s name and contact
-            information. You only have to submit one form per pair.
+            awesome for everyone involved. When filling out the Instructor
+            Application form, make sure you add your co-teacher’s name and contact
+            information. You only need to submit one form per pair.
           </Typography.BodyText>
           <br />
           <Typography.Header2 style={{ color: Colors.WLF_BLACK, fontSize: 20 }}>
             What should I teach?
           </Typography.Header2>
-          <br />
           <Typography.BodyText>
             All topics are valid, whether traditional or a bit eccentric!
             Whatever you choose to teach, our priority is to keep classes fun
@@ -101,12 +96,12 @@ const FAQStudents = () => {
             Do I have to assign homework? Do I have to proctor exams?
           </Typography.Header2>
           <Typography.BodyText>
-            Absolutely not! As a teacher, you will have control over the amount
+            Absolutely not! As an instructor, you will have control over the amount
             of interactive work you would like to assign. There won’t be any
             official system in which to assign feedback for student work.
             However, if you would like to have a platform on which to give
             feedback, you will have the chance to coordinate with WLF’s
-            Logistics team and come up with a solution that works with the
+            Engaged Seminars team and come up with a solution that works with the
             structure of your course.
           </Typography.BodyText>
           <br />

@@ -2,6 +2,18 @@ import styled from 'styled-components'
 import { Colors } from '@/styles'
 import { device } from '@/theme'
 
+export const Info = styled.div`
+    flex-grow: 4; 
+    flex-basis: 0; 
+`
+
+export const ImageContainer = styled.div`
+    flex-grow: 4; 
+    flex-basis: 0; 
+    display: flex; 
+    justify-content: center; 
+`
+
 export const SpeakerContainer = styled.div`
     position: relative; 
     width: 100%; 
@@ -9,12 +21,10 @@ export const SpeakerContainer = styled.div`
     padding: 2em;  
      box-shadow: 0 0 1.25rem rgba(31, 45, 61, 0.15); 
     border-radius: 10px; 
-
     h1 {
         margin: 0px; 
         color: ${Colors.WLF_TURQOUISE};
     }
-
     p {
         margin-top: 0px; 
     }
@@ -25,9 +35,7 @@ export const SpeakerContainerInner = styled.div`
     @media ${device.mobileS} {
         flex-direction: column;
         align-items: center; 
-
     }
-
     @media ${device.tablet} {
         flex-direction: row; 
         justify-content: space-evenly;
@@ -55,12 +63,11 @@ export const Button = styled.button`
     border-radius: 25px; 
     font-family: 'Muli', sans-serif;
     font-weight: 700; 
-    transition: 0.2s; 
-
+    transition: 0.2s;
+    margin: 3px;
     &:focus{
         outline: none;
     }
-
     &:hover{
         cursor: pointer; 
         opacity: 0.8; 
