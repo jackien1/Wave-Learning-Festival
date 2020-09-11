@@ -2,6 +2,33 @@ import styled from 'styled-components'
 import { device } from '@/theme'
 import { Colors } from '@/styles'
 
+export const InfoContainer = styled.div`
+  width: 100%; 
+  z-index: 5; 
+`
+
+export const InfoContainerInner = styled.div`
+  width: 100%; 
+  padding: 2rem; 
+  height: 100vh; 
+  box-shadow: 0 0 1.25rem rgba(31,45,61,0.1);
+  background-color: white; 
+  z-index: 5; 
+`
+
+export const Container = styled.div`
+  width: 100%;
+  padding-top: 75px;
+  display: flex;
+  z-index: 5;
+  margin-bottom: 4rem; 
+`
+
+export const ContainerInner = styled.div`
+  width: 100%; 
+  padding: 5rem; 
+`
+
 export const Column = styled.div` 
     height: 100%;  
     padding-left: 5px;
