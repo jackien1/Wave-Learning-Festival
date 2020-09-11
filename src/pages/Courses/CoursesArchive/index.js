@@ -16,7 +16,7 @@ const CoursesArchive = () => {
     aesthetics: 'Aesthetics and Culture',
     history: 'History, Society, and Individuals'
   }
-  const waves = ['1', '2', '3', '4', '5']
+  const waves = ['5', '4', '3', '2', '1']
   const colors = [Colors.WLF_ORANGE, Colors.WLF_PURPLE, Colors.WLF_TURQOUISE, Colors.WLF_YELLOW]
 
   useEffect(() => {

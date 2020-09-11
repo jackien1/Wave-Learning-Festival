@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Container, ContainerInner } from "@/globalStyles";
+import { Container } from "@/globalStyles";
+import { Sidebar, ListItem, Highlight, ContainerInner } from "../styles";
 import { Form, Colors, Typography } from "@/styles";
 import FAQCard from '../FAQCard'
-
+import highlight from '../BLOB_YELLOW.svg';
 
 const seminarsFAQ = [
   {
@@ -73,31 +74,47 @@ const Tutoring = ({ setPage }) => (<>
 
 const FAQStudents = () => {
   const [page, setPage] = useState('home')
+  const [showAll, toggleShowAll] = useState(true)
+  const [showSeminars, toggleShowSeminars] = useState(false)
+  const [showTutoring, toggleShowTutoring] = useState(false)
+  
   return (
     <div>
       <Navbar />
       <Container>
+        <Sidebar>
+          <ListItem onClick={() => {
+            toggleShowAll(true); 
+            toggleShowSeminars(false); 
+            toggleShowTutoring(false); 
+            setPage('home');
+          }}>
+            All Student FAQs
+          </ListItem>
+          {showAll ? <Highlight src={highlight} style={{width: '205px', height: '50px', marginLeft:'-1em', opacity:1}}/> : <Highlight src={highlight} style={{opacity:0}}/>}
+          <ListItem onClick={() => {
+            toggleShowAll(false); 
+            toggleShowSeminars(true); 
+            toggleShowTutoring(false); 
+            setPage('seminars');
+          }}>            
+            Seminars
+          </ListItem>
+          {showSeminars ? <Highlight src={highlight} style={{width: '110px', height: '50px', opacity:1}}/> : <Highlight src={highlight} style={{opacity:0}}/>}
+          <ListItem onClick={() => {
+            toggleShowAll(false); 
+            toggleShowSeminars(false); 
+            toggleShowTutoring(true); 
+            setPage('tutoring');
+          }}>                   
+            Tutoring
+          </ListItem>
+          {showTutoring ? <Highlight src={highlight} style={{width: '105px', height: '50px', opacity:1}}/> : <Highlight src={highlight} style={{opacity:0}}/>}
+        </Sidebar>
         <ContainerInner>
-          <Typography.Header color={Colors.WLF_PURPLE}>
+          <Typography.Header color={Colors.WLF_PURPLE} style={{marginTop: '-45px'}}>
             FAQ - Students
           </Typography.Header>
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Form.Button onClick={() => setPage('home')}>
-              <Typography.Header color="white" fontSize="24px">
-                Home
-              </Typography.Header>
-            </Form.Button>
-            <Form.Button onClick={() => setPage('seminars')}>
-              <Typography.Header color="white" fontSize="24px">
-                Seminars
-              </Typography.Header>
-            </Form.Button>
-            <Form.Button onClick={() => setPage('tutoring')}>
-              <Typography.Header color="white" fontSize="24px">
-                Tutoring
-              </Typography.Header>
-            </Form.Button>
-          </div>
           {page === 'home' && Home({ setPage })}
           {page === 'seminars' && Seminars({ setPage })}
           {page === 'tutoring' && Tutoring({ setPage })}
