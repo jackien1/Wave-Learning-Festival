@@ -247,7 +247,7 @@ const Navbar = () => {
             onMouseLeave={() => setSpeakersShow(false)}>
             <Link>Events</Link>
             {speakersShow && (<NavbarDropdown>
-              <Link to="/event-medlife">
+	            <Link to="/events">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
@@ -260,39 +260,7 @@ const Navbar = () => {
                   >
                     <div><FaMicrophoneAlt /></div>
                   </IconContext.Provider>
-                    Wave x MEDLIFE
-                </DropdownItem>
-              </Link>
-              <Link to="/event-violence">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaMicrophoneAlt /></div>
-                  </IconContext.Provider>
-                    SilenceisViolence
-                </DropdownItem>
-              </Link>
-	            <Link to="/speakers">
-                <DropdownItem>
-                  <IconContext.Provider
-                    value={{
-                      color: WLF_PURPLE,
-                      style: {
-                        verticalAlign: 'middle',
-                        marginRight: '10px'
-                      }
-                    }}
-                  >
-                    <div><FaMicrophoneAlt /></div>
-                  </IconContext.Provider>
-                    Speakers
+                    Upcoming
                 </DropdownItem>
               </Link>
 
@@ -437,13 +405,7 @@ const Navbar = () => {
             <Link to="/tutoring">Tutoring</Link>
           </NavItem>
           <NavItem>
-            <Link to="/event-medlife">Wave x MEDLIFE</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/event-violence">SilenceisViolence</Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/speakers">Speakers</Link>
+            <Link to="/events">Upcoming Events</Link>
           </NavItem>
           <NavItem>
             <Link to="/past-speakers">Past Speakers</Link>
