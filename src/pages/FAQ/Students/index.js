@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Container, ContainerInner } from "@/globalStyles";
-import { Colors, Typography } from "@/styles";
+import { Form, Colors, Typography } from "@/styles";
 import FAQCard from '../FAQCard'
 
 
@@ -27,7 +27,52 @@ const tutoringFAQ = [
   }
 ]
 
+const Home = ({ setPage }) => (<>
+  <Typography.Header2 color="black" fontSize="24px">
+    Seminars
+  </Typography.Header2>
+  {
+    seminarsFAQ.map(faq => {
+      return <FAQCard question={faq.question} answer={faq.answer}/>
+    })
+  }
+  <Typography.Header2 color="black" fontSize="24px">
+    Tutoring
+  </Typography.Header2>
+  {
+    tutoringFAQ.map(faq => {
+      return <FAQCard question={faq.question} answer={faq.answer}/>
+    })
+  }
+  </>
+)
+
+const Seminars = ({ setPage }) => (<>
+  <Typography.Header2 color="black" fontSize="24px">
+    Seminars
+  </Typography.Header2>
+  {
+    seminarsFAQ.map(faq => {
+    return <FAQCard question={faq.question} answer={faq.answer}/>
+    })
+  }
+  </>
+)
+
+const Tutoring = ({ setPage }) => (<>
+  <Typography.Header2 color="black" fontSize="24px">
+    Tutoring
+  </Typography.Header2>
+  {
+    tutoringFAQ.map(faq => {
+    return <FAQCard question={faq.question} answer={faq.answer}/>
+    })
+  }
+  </>
+)
+
 const FAQStudents = () => {
+  const [page, setPage] = useState('home')
   return (
     <div>
       <Navbar />
@@ -36,7 +81,27 @@ const FAQStudents = () => {
           <Typography.Header color={Colors.WLF_PURPLE}>
             FAQ - Students
           </Typography.Header>
-          <Typography.Header2 color="black" fontSize="24px">
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Form.Button onClick={() => setPage('home')}>
+              <Typography.Header color="white" fontSize="24px">
+                Home
+              </Typography.Header>
+            </Form.Button>
+            <Form.Button onClick={() => setPage('seminars')}>
+              <Typography.Header color="white" fontSize="24px">
+                Seminars
+              </Typography.Header>
+            </Form.Button>
+            <Form.Button onClick={() => setPage('tutoring')}>
+              <Typography.Header color="white" fontSize="24px">
+                Tutoring
+              </Typography.Header>
+            </Form.Button>
+          </div>
+          {page === 'home' && Home({ setPage })}
+          {page === 'seminars' && Seminars({ setPage })}
+          {page === 'tutoring' && Tutoring({ setPage })}
+          {/* <Typography.Header2 color="black" fontSize="24px">
             Seminars
           </Typography.Header2>
           {
@@ -44,11 +109,14 @@ const FAQStudents = () => {
               return <FAQCard question={faq.question} answer={faq.answer}/>
             })
           }
+          <Typography.Header2 color="black" fontSize="24px">
+            Tutoring
+          </Typography.Header2>
           {
             tutoringFAQ.map(faq => {
               return <FAQCard question={faq.question} answer={faq.answer}/>
             })
-          }
+          } */}
         </ContainerInner>
       </Container>
 
