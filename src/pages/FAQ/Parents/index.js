@@ -27,28 +27,28 @@ const seminarsFAQ = [
     question: "How is Tide different from Wave summer sessions?",
     answer: "Tides will meet over a longer period of time (5 weeks) but less frequently than our summer Waves, allowing students to build on a topic and explore it in greater depth."
   },{
-    question: "How many seminars can I be enrolled in?",
+    question: "How many seminars can my child be enrolled in?",
     answer: "For our upcoming Tide sessions, you can indicate whether you want to be enrolled in 1 or 2 seminars on the registration form. You can rank up to 5 different seminars, and we will try our best to accommodate your preferences. If you are enrolled in a seminar off the waitlist, you may end up enrolled in more than 2 courses."
   },{
-    question: "Can I be waitlisted in a seminar?",
+    question: "Can my child be waitlisted in a seminar?",
     answer: "There are multiple reasons you could be waitlisted in a seminar: (1) the seminar has reached its maximum seminar size, (2) you have been enrolled in other seminars higher in priority on your registration form, (3) the seminar has a strict grade level restriction, and you are outside that grade range, and (4) the waitlisted seminar conflicts in seminar time with a higher priority seminar that you are already enrolled in. "
   },{
-    question: "What do I need in order to take a seminar?",
+    question: "What does my child need in order to take a seminar?",
     answer: "Seminars will be held live over Zoom. We are also working to expand our platform to accommodate students who live in inconvenient time zones or lack access to stable Wi-Fi. Wave will be posting recordings to our YouTube channel for students with time conflicts."
   },{
-    question: "I'm outside the target grade range. Can I still register for the seminar?",
+    question: "If my child is outside the target grade range, can my child still register for the seminar?",
     answer: <p>Yes! Each seminar has a target grade range that reflects the seminar’s difficulty. You are welcome to register for any seminar you’d like; however, it’s important to consider the difficulty of a seminar as you select your favorite options. Additionally, some seminars have <i>restricted grade ranges</i>, meaning you may not register for the seminar if you are outside of the range.</p>
   },{
     question: "Will there be homework?",
     answer: "It depends on the seminar! Instructors decide whether or not they’d like to assign homework, but any assigned homework will be optional."
   },{
-    question: "Can I start a seminar in the middle of a session?",
+    question: "Can my child start a seminar in the middle of a session?",
     answer: "Unfortunately no, but you can learn about the seminars we are offering during the current session to start planning which topics you’re interested in exploring for future sessions!"
   },{
-    question: "Will my instructor be able to help me if I am struggling with the coursework?",
+    question: "Will the instructor be able to help if my child is struggling with the coursework?",
     answer: "Yes! We use a platform called Ed that allows you to discuss topics with your Tidemates and instructors, either publicly or privately."
   },{
-    question: "How do I drop a seminar?",
+    question: "How can my child drop a seminar?",
     answer: "On your student dashboard, you should see a list of seminars you registered for. Underneath each seminar is an option to withdraw your registration."
   },{
     question: "Can I request a seminar?",
@@ -62,7 +62,7 @@ const seminarsFAQ = [
       <li>offer events facilitating career development and college preparation (visit <a href="/events" color={Colors.WLF_PURPLE}>Events</a> to learn more)</li>
     </ul></p>
   },{
-    question: "How will my student's privacy and safety be protected?",
+    question: "How will my child's privacy and safety be protected?",
     answer: "We will CC parents in all email communications we send to students, and teachers will never meet one-on-one with any student or directly message any student under 18 years old without explicit consent from the parent. We will not distribute student or parent emails to outside parties under any circumstance without explicit consent from the student and parent. All of our teachers have been thoroughly vetted."  
   },{
     question: "How can I support Wave Learning Festival?",
