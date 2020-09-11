@@ -17,7 +17,7 @@ import {
 import { WLF_PURPLE } from '@/styles/Colors'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { IconContext } from 'react-icons'
-import { FaUserAlt, FaChalkboardTeacher, FaUserFriends, FaMicrophone, FaMicrophoneAlt, FaMicrophoneAltSlash } from 'react-icons/fa'
+import { FaUserAlt, FaChalkboardTeacher, FaGlobeAsia, FaUserFriends, FaMicrophone, FaMicrophoneAlt, FaMicrophoneAltSlash } from 'react-icons/fa'
 import Logo from './logo.svg'
 import LogoText from './logoText.png'
 import LogoTextFull from './logo with type (1).svg'
@@ -108,6 +108,22 @@ const Navbar = () => {
                     <div><FaUserFriends /></div>
                   </IconContext.Provider>
                     Community Partners
+                </DropdownItem>
+              </Link>
+              <Link to="/impact">
+                <DropdownItem>
+                  <IconContext.Provider
+                    value={{
+                      color: WLF_PURPLE,
+                      style: {
+                        verticalAlign: 'middle',
+                        marginRight: '10px'
+                      }
+                    }}
+                  >
+                    <div><FaGlobeAsia /></div>
+                  </IconContext.Provider>
+                    Impact
                 </DropdownItem>
               </Link>
             </NavbarDropdown>
@@ -386,6 +402,9 @@ const Navbar = () => {
           </NavItem>
           <NavItem>
             <Link to="/mission">Mission and Values</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/impact">Impact</Link>
           </NavItem>
           <NavItem>
             <Link to="/team">Team</Link>

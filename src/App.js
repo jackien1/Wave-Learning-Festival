@@ -89,6 +89,7 @@ import SignIn from "./pages/SignIn"
 import SignOut from "./pages/SignOut"
 import ResetPassword from "./pages/ResetPassword"
 import Partners from "./pages/Partners"
+import Impact from "./pages/Impact"
 
 
 import Dashboard from './pages/Dashboard'
@@ -127,6 +128,9 @@ function App () {
             </Route>
             <Route path="/join">
               <Join />
+            </Route>
+            <Route path="/impact">
+              <Impact />
             </Route>
 
 {/*

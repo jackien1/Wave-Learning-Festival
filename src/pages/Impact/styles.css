@@ -1,0 +1,10 @@
+.sign-up-link
+{
+  text-decoration: none;
+}
+
+#play-button:hover{
+  filter: brightness(120%);
+  cursor: pointer;
+}
+
