@@ -309,7 +309,7 @@ const Navbar = () => {
                           <FaUserAlt />
                         </div>
                       </IconContext.Provider>
-                      Students
+                      Student FAQs
                     </DropdownItem>
                   </Link>
                   <Link to="/faq-parents">
@@ -327,7 +327,7 @@ const Navbar = () => {
                           <FaUserFriends />
                         </div>
                       </IconContext.Provider>
-                      Parents
+                      Parent FAQs
                     </DropdownItem>
                   </Link>
                   <Link to="/faq-instructors">
@@ -345,7 +345,25 @@ const Navbar = () => {
                           <FaChalkboardTeacher />
                         </div>
                       </IconContext.Provider>
-                      Instructors
+                      Instructor FAQs
+                    </DropdownItem>
+                  </Link>
+                  <Link to="/faq-tutors">
+                    <DropdownItem>
+                      <IconContext.Provider
+                        value={{
+                          color: WLF_PURPLE,
+                          style: {
+                            verticalAlign: 'middle',
+                            marginRight: '10px'
+                          }
+                        }}
+                      >
+                        <div>
+                          <FaChalkboardTeacher />
+                        </div>
+                      </IconContext.Provider>
+                      Tutor FAQs
                     </DropdownItem>
                   </Link>
                 </NavbarDropdown>
