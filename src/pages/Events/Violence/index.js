@@ -82,8 +82,8 @@ const EventHome = ({ setPage }) => {
     </Typography.Header>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
       In America, 1 in 3 women will face domestic violence. Everyday, 5136 requests for help will go unanswered. 
-      <br/>Coalition to End Abuse is a youth-run nonprofit addressing gender-based violence and local level policy. Wave has partnered with Coalition to End Abuse to educate the youth on effective policy solutions. End the silence on violence with us by attending the Sept 19 educational speaker series.     
-      <br/>The ‘Silence is Violence’ Conference, features influential leaders making an impact in gender-based violence and public policy in the US. The event will consist of stories from White House recognized activists, shelter workers, Pulitzer Prize winner and former United States Poet Laureate, Natasha Tretheway, and more. 
+      <br/><br/>Coalition to End Abuse is a youth-run nonprofit addressing gender-based violence and local level policy. Wave has partnered with Coalition to End Abuse to educate the youth on effective policy solutions. End the silence on violence with us by attending the Sept 19 educational speaker series.     
+      <br/><br/>The ‘Silence is Violence’ Conference, features influential leaders making an impact in gender-based violence and public policy in the US. The event will consist of stories from White House recognized activists, shelter workers, Pulitzer Prize winner and former United States Poet Laureate, Natasha Tretheway, and more. 
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
@@ -108,9 +108,9 @@ const EventHome = ({ setPage }) => {
     </Typography.Header2>
     <Typography.BodyText color="white" style={{ marginBottom: 30 }}>
       Hosted by <b>Coalition to End Abuse</b>
-      <br/>Conference Website: <a href="www.silenceisviolence2020.com">www.silenceisviolence2020.com</a>
+      <br/>Conference Website: <a href="www.silenceisviolence2020.com" color={Colors.WLF_YELLOW}>www.silenceisviolence2020.com</a>
       <br/>Social Media: @coalitiontoendabuse on Instagram, Facebook, Linkedin
-      <br/>Coalition to End Abuse Website: <a href="www.endabusenow.org">www.endabusenow.org</a>
+      <br/>Coalition to End Abuse Website: <a href="www.endabusenow.org" color={Colors.WLF_YELLOW}>www.endabusenow.org</a>
     </Typography.BodyText>
     <Typography.Header2 color={Colors.WLF_YELLOW} fontSize="24px">
       Speaker and Panelist Information
@@ -131,6 +131,10 @@ const EventHome = ({ setPage }) => {
     </div>
   </>)
 }
+
+const renderOption = ({ option }) => (
+  <option value={option}>{option}</option>
+)
 
 var emailValidated = function(email) {
   //Based on thouroughly tested regex
@@ -236,7 +240,7 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
       School *
     </Typography.Header2>
     <Form.Input
-      value={teacherData.email}
+      value={teacherData.school}
       onChange={event => {
         const value = event.target.value
         setTeacherData(prevData => ({
@@ -250,7 +254,15 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
       Country / País *
     </Typography.Header2>
     <Form.Dropdown
-      onChange={inputChanged("country", setStudentData)}
+      value={teacherData.country}
+      // onChange={inputChanged("country", setTeacherData)}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          country: value
+        }))
+      }}
     >
       {COUNTRIES.map((value) => (
         renderOption({option: value})
@@ -261,16 +273,31 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
       City *
     </Typography.Header2>
     <Form.Input
-      value={studentData.city}
-      onChange={inputChanged("city", setStudentData)}
+      value={teacherData.city}
+      // onChange={inputChanged("city", setTeacherData)}
+      onChange={event => {
+        const value = event.target.value
+        setTeacherData(prevData => ({
+          ...prevData,
+          city: value
+        }))
+      }}
     />
 
-    {studentData.country === UNITED_STATES && <>
+    {teacherData.country === UNITED_STATES && <>
         <Typography.Header2 color="white" fontSize="24px">
           State *
         </Typography.Header2>
         <Form.Dropdown
-          onChange={inputChanged("state", setStudentData)}
+          value={teacherData.state}
+          onChange={event => {
+            const value = event.target.value
+            setTeacherData(prevData => ({
+              ...prevData,
+              state: value
+            }))
+          }}
+          // onChange={inputChanged("state", setTeacherData)}
         >
           {STATES.map((value) => (
             renderOption({option: value})
@@ -347,20 +374,20 @@ const TeacherDataInput = ({ setPage, teacherData, setTeacherData, submit, wrongS
     </Typography.BodyText>
 
     {wrongSubmission &&
-    <Typography.BodyText color="white">
-      {wrongSubmission}
+    <Typography.BodyText color={Colors.WLF_YELLOW}>
+      <b>{wrongSubmission}</b>
     </Typography.BodyText>}
   </div>)
 }
 
 const Thanks = ({ setPage }) => (
   <>
-    <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
-    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews within a couple weeks. If you have any questions/concerns, please email us at wavelearningfestival@gmail.com.</Typography.Header2>
+    <Typography.Header color={Colors.WLF_YELLOW}>Thank you for registering!</Typography.Header>
+    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out with more details closer to the date of the event. If you have any questions/concerns, please email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_YELLOW}}>wavelearningfestival@gmail.com</a>.</Typography.Header2>
     <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Form.Button onClick={() => setPage('home')}>
         <Typography.Header color="white" fontSize="24px">
-          Back to Teacher Page
+          Back to Event Page
         </Typography.Header>
       </Form.Button>
     </div>
@@ -374,35 +401,45 @@ const Teachers = () => {
     first_name: "",
     last_name: "",
     email: "",
+    school: "",
+    country: "",
+    city: "",
+    state: "",
     notes: "",
     extra: "",
     questions: "",
     howYouHear: [""]
   })
   
-  const resetData = () => {
-    setTeacherData({
-      first_name: "",
-      last_name: "",
-      email: "",
-      notes: "",
-      extra: "",
-      questions: "",
-      howYouHear: [""]
-    })
-  }
+  // const resetData = () => {
+  //   setTeacherData({
+  //     first_name: "",
+  //     last_name: "",
+  //     email: "",
+  //     notes: "",
+  //     extra: "",
+  //     questions: "",
+  //     howYouHear: [""]
+  //   })
+  // }
 
   var requiredFields = (form) => {
     return form.first_name != "" &&
       form.last_name != "" &&
-      form.email != ""
+      form.email != "" &&
+      form.school != "" &&
+      form.country != "" &&
+      form.city != ""
   }
 
   const submit = () => {
     console.log(teacherData);
     var email = teacherData.email.toLowerCase();
+    var extra = teacherData.extra.toLowerCase();
     if (!emailValidated(email)) {
       setWrongSubmission("Invalid email.");
+    } else if (extra != "" && !emailValidated(extra)) {
+      setWrongSubmission("Invalid email for invited friend.")
     } else if (!requiredFields(teacherData)) {
       setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
     } else {
@@ -412,6 +449,10 @@ const Teachers = () => {
           last_name: teacherData.last_name,
           email: email,
           eventID: "SilenceIsViolence",
+          school: teacherData.school,
+          country: teacherData.country,
+          city: teacherData.city,
+          state: teacherData.state,
           notes: teacherData.notes,
           extra: teacherData.extra,
           questions: teacherData.questions, 
