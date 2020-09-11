@@ -23,8 +23,11 @@ const CoursesUpcoming = () => {
           <Typography.BodyText color="black" fontSize="20px" style={{marginBottom: 20}}>
             These seminars provide a comprehensive introduction to topics that students may be simply interested in or want to learn in depth. They run for five weeks, ranging from 3 to 10 sessions total, allowing students to cover a greater depth of information over that time. Wave students are free to pursue these for the love of learning - not for grades.
           </Typography.BodyText>
-          <Typography.BodyText color="black" fontSize="20px">
+          <Typography.BodyText color="black" fontSize="20px" style={{marginBottom: 20}}>
             Now more than ever, Wave values the importance of providing free, equitable learning resources to everyone. <b>Tide 1 will run from October 5th to November 6th. Student registration will open on September 15th!</b> In the meantime, click <a href="/subscribe">here</a> to subscribe to our newsletter. We hope to see you here with Wave Learning Festival!
+          </Typography.BodyText>
+          <Typography.BodyText color="black" fontSize="20px">
+            Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_PURPLE}}>wavelearningfestival@gmail.com</a> or check out our FAQs page for <a href="/faq-students" color={Colors.WLF_PURPLE}>students</a> or for <a href="/faq-parents" color={Colors.WLF_PURPLE}>parents</a>!
           </Typography.BodyText>
         </ContainerInner>
       </Container>

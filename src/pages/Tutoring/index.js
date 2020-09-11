@@ -25,9 +25,9 @@ const Tutoring = () => {
           <Typography.BodyText color="black" fontSize="20px" style={{marginBottom: 20}}>
             Whether it’s understanding derivatives, learning how to greet someone in French, or figuring out the charge of chlorine ion, our tutors are excited to be right there with your student and walk them through these educational challenges. All of us here at Wave Learning Festival are thrilled to help your child in whatever ways we can!
           </Typography.BodyText>
-          {/* <Typography.BodyText color="black" fontSize="20px">
-            Have any questions? Email us at wavelearningfestival@gmail.com or take a look at our tutoring FAQs page here.
-          </Typography.BodyText> */}
+          <Typography.BodyText color="black" fontSize="20px">
+            Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_PURPLE}}>wavelearningfestival@gmail.com</a> or take a look at our tutoring FAQs page for <a href="/faq-students" color={Colors.WLF_PURPLE}>students</a> or for <a href="/faq-parents" color={Colors.WLF_PURPLE}>parents</a>!
+          </Typography.BodyText>
         </ContainerInner>
       </Container>
       <Footer/>
