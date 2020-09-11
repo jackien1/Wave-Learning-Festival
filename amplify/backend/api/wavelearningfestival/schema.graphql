@@ -142,6 +142,10 @@ type EventRegistration @model {
   first_name: String!
   last_name: String!
   email: String!
+  country: String
+  city: String
+  state: String
+  school: String
   notes: String
   questions: String
   extra: String

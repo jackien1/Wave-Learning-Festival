@@ -466,6 +466,10 @@ export const getEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
@@ -493,6 +497,10 @@ export const listEventRegistrations = /* GraphQL */ `
         first_name
         last_name
         email
+        country
+        city
+        state
+        school
         notes
         questions
         extra

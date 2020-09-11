@@ -697,6 +697,10 @@ export const createEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
@@ -718,6 +722,10 @@ export const updateEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
@@ -739,6 +747,10 @@ export const deleteEventRegistration = /* GraphQL */ `
       first_name
       last_name
       email
+      country
+      city
+      state
+      school
       notes
       questions
       extra
