@@ -17,19 +17,17 @@ const Calendar = () => {
         <h2>Upcoming Events</h2>
         <div>
           <h4>{selDate.toDateString()}
-          <ArrowButton>
+          <ArrowButton onClick={() => setThisDate(addDays(date, -7))}>
             <Arrow style={{
               transform: "rotate(135deg)",
               webkitTransform: "rotate(135deg)"
-            }}
-            onClick={() => setThisDate(addDays(date, -7))} />
+            }} />
           </ArrowButton>
-            <ArrowButton>
+            <ArrowButton onClick={() => setThisDate(addDays(date, 7))}>
               <Arrow style={{
                 transform: "rotate(-45deg)",
                 webkitTransform: "rotate(-45deg)"
-              }}
-              onClick={() => setThisDate(addDays(date, 7))}/>
+              }}/>
             </ArrowButton>
           </h4>
         </div>
