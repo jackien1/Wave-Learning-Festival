@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import {Colors} from '@/styles'
-import { device } from '../../theme'
-
+import { Colors } from '@/styles'
+import { device } from '@/theme'
 
 export const Header = styled.div`
     width: 100%; 
@@ -41,7 +40,6 @@ export const Category = styled.div`
     display: flex; 
     align-items: center; 
 `
-
 
 export const ListContainer = styled.div`
     width: 100%; 
@@ -172,7 +170,7 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
-`;
+`
 
 export const HeadingCompressed = styled.div`
     flex-grow: 3; 

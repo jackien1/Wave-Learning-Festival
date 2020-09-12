@@ -5,6 +5,8 @@ import { Colors, Typography, Form } from '@/styles'
 // import { FirebaseContext } from '../../firebaseContext'
 import CourseInfo from './components/CourseInfo'
 import Selector from './components/Selector'
+import ClassDetails from './components/ClassDetails'
+import InstructorDetails from './components/InstructorDetails'
 import './styles.css'
 import { InfoContainerInner, InfoContainer, Container, ContainerInner, Cancel, EditInput, ProfileLeft, ProfileRight, Column, Text, Row, Label, Class, ClassText, Sections } from './styles.js'
 import WavyPurple from '../../About/assets/wavy_purple.svg'
@@ -26,7 +28,8 @@ const profileState = {
   school: '',
   gradYear: '',
   country: '',
-  city: ''
+  city: '',
+  bio: ''
 }
 
 const seminarProfileState = {
@@ -81,6 +84,14 @@ const profileReducer = (state, action) => {
         ...state,
         city: action.content
       })
+
+    case 'BIO':
+      return ({
+        ...state,
+        bio: action.content
+      })
+    case 'RESET':
+      return (action.content)
   }
 }
 
@@ -127,22 +138,19 @@ const seminarProfileReducer = (state, action) => {
 }
 
 const Dashboard = () => {
+  const [tab, setTab] = useState(true)
   const [loading, setLoading] = useState(true)
   const [isError, setError] = useState(false)
   const [user, setUser] = useState(null)
-  const [theError, setTheError] = useState(null)
-  const [coursesDisplayed, setCoursesDisplayed] = useState([])
-  const [wave, setWave] = useState('5')
   const [edit, toggleEdit] = useState(false)
   const [editSeminar, toggleEditSeminar] = useState(false)
   const [localTeacherInfo, setLocalTeacherInfo] = useState({})
   const [localSeminarInfo, setLocalSeminarInfo] = useState({})
-  const [docID, setDocID] = useState('')
   const [profile, profileDispatch] = useReducer(profileReducer, profileState)
   const [seminarProfile, seminarProfileDispatch] = useReducer(seminarProfileReducer, seminarProfileState)
   const [teacher, setTeacher] = useState(null)
   const [seminar, setSeminar] = useState(null)
-  const [tab, setTab] = useState('course')
+  // const [tab, setTab] = useState('course')
 
   var teacherId = 'student1'
   var seminarId = 'seminar1'
@@ -164,7 +172,9 @@ const Dashboard = () => {
       genFrag('School', teacher.data.getTeacher.school, 'SCHOOL', 'school'),
       genFrag('Grad Year', teacher.data.getTeacher.gradYear, 'GRADYEAR', 'gradYear'),
       genFrag('Country', teacher.data.getTeacher.country, 'COUNTRY', 'country'),
-      genFrag('City', teacher.data.getTeacher.city, 'CITY', 'city')
+      genFrag('City', teacher.data.getTeacher.city, 'CITY', 'city'),
+      genFrag('Bio', teacher.data.getTeacher.bio, 'BIO', 'bio')
+
     ]
   }
 
@@ -206,21 +216,23 @@ const Dashboard = () => {
     getSeminarData()
   }, [])
 
-  useEffect(() => { }, [wave])
-
   useEffect(() => {
     if (teacher) {
       var teacherInfo = generateTeacherInfo(teacher)
+      console.log(teacher)
       setLocalTeacherInfo({
-        firstName: teacher.first_name,
-        lastName: teacher.last_name,
-        email: teacher.email,
-        school: teacher.school,
-        gradYear: teacher.gradYear,
-        country: teacher.country,
-        city: teacher.city
+        firstName: teacher.data.getTeacher.first_name,
+        lastName: teacher.data.getTeacher.last_name,
+        email: teacher.data.getTeacher.email,
+        school: teacher.data.getTeacher.school,
+        gradYear: teacher.data.getTeacher.gradYear,
+        country: teacher.data.getTeacher.country,
+        city: teacher.data.getTeacher.city,
+        bio: teacher.data.getTeacher.bio
       })
       teacherInfo.forEach(label => {
+        console.log(label)
+
         profileDispatch({ type: label.dispatch, content: label.data })
       })
     }
@@ -229,12 +241,14 @@ const Dashboard = () => {
   useEffect(() => {
     if (seminar) {
       var seminarInfo = generateSeminarInfo(seminar)
+      console.log(seminar)
       setLocalSeminarInfo({
-        courseTitle: seminar.courseTitle,
-        maxClassSize: seminar.maxClassSize,
-        prereqs: seminar.prereqs,
-        courseDescription: seminar.courseDescription,
-        updatedAt: seminar.updatedAt
+        courseTitle: seminar.data.getSeminar.courseTitle,
+        maxClassSize: seminar.data.getSeminar.maxClassSize,
+        prereqs: seminar.data.getSeminar.prereqs,
+        targetAudience: seminar.data.getSeminar.targetAudience,
+        courseDescription: seminar.data.getSeminar.courseDescription,
+        updatedAt: seminar.data.getSeminar.updatedAt
       })
       seminarInfo.forEach(label => {
         seminarProfileDispatch({ type: label.dispatch, content: label.data })
@@ -244,12 +258,10 @@ const Dashboard = () => {
 
   const cancelTeacher = () => {
     profileDispatch({ type: 'RESET', content: localTeacherInfo })
-    toggleEdit(false)
   }
 
   const cancelSeminar = () => {
     seminarProfileDispatch({ type: 'RESET', content: localSeminarInfo })
-    toggleEditSeminar(false)
   }
 
   const submitTeacher = () => {
@@ -259,7 +271,8 @@ const Dashboard = () => {
         id: teacherId,
         first_name: profile.firstName,
         last_name: profile.lastName,
-        school: profile.school
+        school: profile.school,
+        bio: profile.bio
       }
     }))
     setLocalTeacherInfo(profile)
@@ -281,69 +294,6 @@ const Dashboard = () => {
     toggleEditSeminar(false)
   }
 
-  if (isError) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Error. Code: {theError.code}</p>
-            <p>Error Message: {theError.message}</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  if (false) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Loading database...</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  if (false) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Not signed in.</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  const inputChanged = function (setWave) {
-    var result = (event) => {
-      var value = event.target.value
-      setWave(prevData => {
-        var result = { ...prevData }
-        result = value
-        return result
-      })
-    }
-    return result
-  }
-
-  const WAVE_OPTIONS = [
-    5,
-    4/*,
-    3,
-    2,
-    1 */
-  ]
-
   const openTeacherProfilePage = () => {
     document.getElementById('teacherProfilePage').style.display = 'block'
     document.getElementById('seminarProfilePage').style.display = 'none'
@@ -364,7 +314,7 @@ const Dashboard = () => {
           <ContainerInner>
 
             <CourseInfo
-              title = {seminar.data.getSeminar.courseTitle}
+              title = {seminarProfile.courseTitle}
               teachers = {seminar.data.getSeminar.teachers}
               color = {Colors.WLF_ORANGE}
               description = {seminar.data.getSeminar.courseDescription}
@@ -377,125 +327,33 @@ const Dashboard = () => {
           </ContainerInner>
         </Container>
         <InfoContainer >
-          <Selector></Selector>
+          <Selector setTab={setTab}/>
 
           <InfoContainerInner>
+            {tab && <ClassDetails
+              cancelSeminar = {cancelSeminar}
+              submitSeminar = {submitSeminar}
+              seminarProfileDispatch = {seminarProfileDispatch}
+              maxClassSize = {seminarProfile.maxClassSize}
+              title = {seminarProfile.courseTitle}
+              description = {seminarProfile.courseDescription}
+              targetAudience = {seminarProfile.targetAudience}
+              prereqs = {seminarProfile.prereqs}
+              courseId = {seminarId}/>}
+
+            {!tab && <InstructorDetails
+              cancelTeacher = {cancelTeacher}
+              submitTeacher = {submitTeacher}
+              profileDispatch = {profileDispatch}
+              bio = {profile.bio}
+              school = {profile.school}
+              first = {profile.firstName}
+              last = {profile.lastName}
+
+            />}
 
           </InfoContainerInner>
         </InfoContainer>
-        {/* <div className = "tab" style = {{
-              paddingBottom: '10px'
-            }}>
-              <button className = "tablinks" onClick ={() => openSeminarProfilePage()}>
-                <Typography.Header style={{ color: Colors.WLF_TURQOUISE }}>My Tide</Typography.Header>
-              </button>
-              <button className= "tablinks" onClick ={() => openTeacherProfilePage()}>
-                <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>
-              </button>
-            </div>
-
-            <div>
-              <Row>
-                <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
-                  <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
-                    <b>Sign Out</b>
-                  </Form.Button>
-                </a>
-                <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
-                  <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                    <b>Change Password</b>
-                  </Form.Button>
-                </a>
-              </Row>
-            </div>
-
-            <div id = "teacherProfilePage" className = "tabcontent" style={{ display: 'none' }}>
-              <br></br>
-              <div style={{
-                backgroundImage: `url(${WavyPurple})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                marginBottom: 5,
-                paddingBottom: '20px'
-              }}>
-                <Text>
-                  <br/><br/>
-                  {teacherInfo.map((info, index) => {
-                    return (
-                      <Row key={index}>
-                        <ProfileLeft>
-                          <Label>{`${info.label} `}</Label>
-                        </ProfileLeft>
-                        <ProfileRight>
-                          <EditInput
-                            edit={edit}
-                            disabled={!edit}
-                            value={profile[info.state]}
-                            onChange={e => profileDispatch({ type: info.dispatch, content: e.target.value })}/>
-                        </ProfileRight>
-                      </Row>
-                    )
-                  })}
-                  <br/>
-                </Text>
-                {edit && <Row style={{ alignItems: 'center' }}>
-                  <Form.Button onClick={() => submitTeacher()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
-                    <b style ={{ color: 'white' }}>Submit</b>
-                  </Form.Button>
-                  <Cancel onClick={() => cancelTeacher()} style ={{ color: 'white' }}>Cancel</Cancel>
-                </Row>}
-              </div>
-              <Row>
-                <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                  <b style ={{ color: 'white' }}>Edit Teacher Profile</b>
-                </Form.Button>
-              </Row>
-            </div>
-
-            <div id = "seminarProfilePage" className = "tabcontent" >
-              <div style={{
-                backgroundImage: `url(${WavyTurquoise})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                marginBottom: 5,
-                paddingBottom: '20px'
-              }}>
-                <Text>
-                  <br/><br/>
-                  {seminarInfo.map((info, index) => {
-                    return (
-                      <Row key={index}>
-                        <ProfileLeft>
-                          <Label>{`${info.label} `}</Label>
-                        </ProfileLeft>
-                        <ProfileRight>
-                          <EditInput
-                            edit={editSeminar}
-                            disabled={!editSeminar}
-                            value={seminarProfile[info.state]}
-                            onChange={e => seminarProfileDispatch({ type: info.dispatch, content: e.target.value })}/>
-                        </ProfileRight>
-                      </Row>
-                    )
-                  })}
-                  <br/>
-                </Text>
-                {editSeminar && <Row style={{ alignItems: 'center' }}>
-                  <Form.Button onClick={() => submitSeminar()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
-                    <b style ={{ color: 'white' }}>Submit</b>
-                  </Form.Button>
-                  <Cancel onClick={() => cancelSeminar()} style ={{ color: 'white' }}>Cancel</Cancel>
-                </Row>}
-              </div>
-              <Row>
-                <Form.Button onClick={() => toggleEditSeminar(!editSeminar)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                  <b style ={{ color: 'white' }}>Edit Seminar Profile</b>
-                </Form.Button>
-              </Row>
-            </div>
-          </ContainerInner>
-        </Container> */}
-
       </div>
     </>)
   }

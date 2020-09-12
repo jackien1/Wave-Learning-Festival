@@ -1,13 +1,13 @@
 import React from 'react'
 import { Item, Bar } from './styles'
 import { Colors } from '@/styles'
-const Selector = () => {
+const Selector = ({ setTab }) => {
   return (
     <Bar>
-      <Item color={Colors.WLF_PURPLE}>
+      <Item onClick={() => setTab(true)} color={Colors.WLF_PURPLE}>
         <p>Class Details</p>
       </Item>
-      <Item color={Colors.WLF_TURQOUISE}>
+      <Item onClick={() => setTab(false)} color={Colors.WLF_TURQOUISE}>
         <p>Instructor Details</p>
       </Item>
     </Bar>

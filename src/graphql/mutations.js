@@ -107,6 +107,10 @@ export const createTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -122,6 +126,10 @@ export const updateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -137,6 +145,10 @@ export const deleteTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -168,6 +180,7 @@ export const createTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -199,6 +212,7 @@ export const updateTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -230,6 +244,7 @@ export const deleteTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -486,6 +501,7 @@ export const createBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -502,6 +518,7 @@ export const updateBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -518,6 +535,7 @@ export const deleteBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -621,6 +639,7 @@ export const createTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -646,6 +665,7 @@ export const updateTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -671,6 +691,82 @@ export const deleteTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEventRegistration = /* GraphQL */ `
+  mutation CreateEventRegistration(
+    $input: CreateEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    createEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      country
+      city
+      state
+      school
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateEventRegistration = /* GraphQL */ `
+  mutation UpdateEventRegistration(
+    $input: UpdateEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    updateEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      country
+      city
+      state
+      school
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteEventRegistration = /* GraphQL */ `
+  mutation DeleteEventRegistration(
+    $input: DeleteEventRegistrationInput!
+    $condition: ModelEventRegistrationConditionInput
+  ) {
+    deleteEventRegistration(input: $input, condition: $condition) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      country
+      city
+      state
+      school
+      notes
+      questions
+      extra
+      howYouHear
       createdAt
       updatedAt
     }

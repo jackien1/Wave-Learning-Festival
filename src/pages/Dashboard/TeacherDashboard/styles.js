@@ -10,10 +10,10 @@ export const InfoContainer = styled.div`
 export const InfoContainerInner = styled.div`
   width: 100%; 
   padding: 2rem; 
-  height: 100vh; 
-  box-shadow: 0 0 1.25rem rgba(31,45,61,0.1);
+  box-shadow: 0 0 1.25rem rgba(31,45,61,0.3);
   background-color: white; 
   z-index: 5; 
+  min-height: 100vh; 
 `
 
 export const Container = styled.div`

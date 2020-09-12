@@ -29,3 +29,13 @@ export const Right = styled.div`
 export const Details = styled.p`
     color: #868686;
 `
+
+export const Cancel = styled.b`
+  transition: 0.2s; 
+  margin-left: 2rem; 
+
+  &:hover{
+    text-decoration: underline; 
+    cursor: pointer; 
+  }
+`
