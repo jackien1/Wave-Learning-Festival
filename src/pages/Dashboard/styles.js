@@ -81,9 +81,10 @@ export const Highlight = styled.img`
 `
 export const ContentContainer = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
   left: 250px;
-width: calc(100% - 600px);
-
+  width: calc(100% - 600px);
   padding: 2rem;
   min-height: 100vh;
 `
