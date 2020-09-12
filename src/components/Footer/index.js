@@ -46,6 +46,9 @@ const Footer = () => {
               Privacy Policy
             </a>
           </Typography.BodyText>
+          <Typography.BodyText style={{fontWeight: "300", fontSize: 12}}>
+            Wave Learning Festival is a registered 501(c)3 nonprofit organization.
+          </Typography.BodyText>
           <Typography.BodyText style={{ fontWeight: "200", fontSize: 10 }}>
             <span>&#169;</span> Wave Learning Festival 2020
           </Typography.BodyText>

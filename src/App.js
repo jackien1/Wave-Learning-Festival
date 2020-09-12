@@ -9,7 +9,8 @@ import Tutoring from './pages/Tutoring'
 import Team from './pages/Team'
 import FAQStudents from './pages/FAQ/Students'
 import FAQParents from './pages/FAQ/Parents'
-import FAQTeachers from './pages/FAQ/Teachers'
+import FAQInstructors from './pages/FAQ/Instructors'
+import FAQTutors from './pages/FAQ/Tutors'
 import Courses from './pages/Courses'
 import CoursesInProgress from './pages/Courses/CoursesInProgress'
 import CoursesArchive from './pages/Courses/CoursesArchive'
@@ -117,7 +118,10 @@ function App () {
               <FAQParents />
             </Route>
             <Route path="/faq-instructors">
-              <FAQTeachers />
+              <FAQInstructors />
+            </Route>
+            <Route path="/faq-tutors">
+              <FAQTutors />
             </Route>
             <Route path="/courses">
               <Courses />

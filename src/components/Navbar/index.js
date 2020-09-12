@@ -348,6 +348,24 @@ const Navbar = () => {
                       Instructors
                     </DropdownItem>
                   </Link>
+                  <Link to="/faq-tutors">
+                    <DropdownItem>
+                      <IconContext.Provider
+                        value={{
+                          color: WLF_PURPLE,
+                          style: {
+                            verticalAlign: 'middle',
+                            marginRight: '10px'
+                          }
+                        }}
+                      >
+                        <div>
+                          <FaChalkboardTeacher />
+                        </div>
+                      </IconContext.Provider>
+                      Tutors
+                    </DropdownItem>
+                  </Link>
                 </NavbarDropdown>
               </>
             )}

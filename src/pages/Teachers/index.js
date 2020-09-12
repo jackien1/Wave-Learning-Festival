@@ -57,6 +57,9 @@ const TeacherHome = ({ setPage }) => {
     <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
       Tide 2 will start on Monday, November 9th, and end on Friday, December 11th. We hope to see you here with Wave Learning Festival!
     </Typography.BodyText>
+    <Typography.BodyText color="white" fontSize="20px" style={{ marginBottom: 30 }}>
+      Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_YELLOW}}>wavelearningfestival@gmail.com</a> or check out our FAQs page for instructors <a href="/faq-instructors" color={Colors.WLF_YELLOW}>here</a>!
+    </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
       <Form.Button onClick={() => setPage('teacherData')}>
