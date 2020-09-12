@@ -13,14 +13,24 @@ import { updateTeacherRegistration, deleteTeacherRegistration, createTeacherRegi
 import Table from '../../components/Table'
 
 const Teachers = () => {
+  const tideDates = ["1970-08-29T06:19:27.193Z", "2020-09-10T10:00:00.000Z", "2050-01-01T00:00:00.000Z"];
+
   const [loading, setLoading] = useState(false)
   const [registrations, updateRegistrations] = useState([])
+  const [currentTide, setCurrentTide] = useState("1");
 
   const fetchRegistrations = async () => {
     try {
       const teacherData = await API.graphql(graphqlOperation(listTeacherRegistrations));
       const teacherList = teacherData.data.listTeacherRegistrations.items;
-      updateRegistrations(teacherList);
+      var actualTeacherList = [];
+      for (var i = 0; i < teacherList.length; i++) {
+        if (teacherList[i].createdAt < getBefore() && teacherList[i].createdAt > getAfter()) {
+          actualTeacherList.push(teacherList[i]);
+        }
+      }
+      console.log("actual: " + actualTeacherList);
+      updateRegistrations(actualTeacherList);
     } catch (error) {
         console.log('error on fetching songs', error);
     }
@@ -28,7 +38,7 @@ const Teachers = () => {
 
   useEffect(() => {
     fetchRegistrations();
-  }, []);
+  }, [currentTide]);
 
   useEffect(() => {
     console.log(registrations.length)
@@ -160,6 +170,18 @@ const Teachers = () => {
     }))
   }
 
+  const getAfter = () => {
+    var result = tideDates[parseInt(currentTide) - 1];
+    console.log("after: " + result);
+    return result;
+  }
+
+  const getBefore = () => {
+    var result = tideDates[parseInt(currentTide)];
+    console.log("before: " + result);
+    return result;
+  }
+
   if (!loading) {
     return (
       <>
@@ -194,8 +216,8 @@ const Teachers = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <select onchange={(e) => {
-            console.log(e.target.value);
+          <select onChange={(e) => {
+            setCurrentTide(e.target.value);
           }}>
             <option value="1">Tide 1</option>
             <option value="2">Tide 2</option>
