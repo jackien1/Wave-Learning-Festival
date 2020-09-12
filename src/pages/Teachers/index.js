@@ -17,7 +17,7 @@ const Teachers = () => {
   const [registrations, updateRegistrations] = useState([])
 
   const fetchRegistrations = async () => {
-    try { 
+    try {
       const teacherData = await API.graphql(graphqlOperation(listTeacherRegistrations));
       const teacherList = teacherData.data.listTeacherRegistrations.items;
       updateRegistrations(teacherList);
@@ -38,66 +38,66 @@ const Teachers = () => {
   }, [registrations])
 
   const columns = [{
-    title: 'id', 
+    title: 'id',
     field: 'id',
     type: 'ID'
-    },{ 
-    title: 'TimeStamp', 
-    field: 'createdAt' 
-    },{ 
-    title: 'First Name', 
-    field: 'first_name' 
-    },{ 
-    title: 'Last Name', 
-    field: 'last_name' 
-    },{ 
-    title: 'Email', 
-    field: 'email' 
-    },{ 
-    title: 'School', 
-    field: 'school' 
-    },{ 
-    title: 'GradYear', 
-    field: 'gradYear' 
-    },{ 
-    title: 'Seminar Title', 
-    field: 'seminarTitle' 
-    },{ 
-    title: 'Seminar Description', 
+    },{
+    title: 'TimeStamp',
+    field: 'createdAt'
+    },{
+    title: 'First Name',
+    field: 'first_name'
+    },{
+    title: 'Last Name',
+    field: 'last_name'
+    },{
+    title: 'Email',
+    field: 'email'
+    },{
+    title: 'School',
+    field: 'school'
+    },{
+    title: 'GradYear',
+    field: 'gradYear'
+    },{
+    title: 'Seminar Title',
+    field: 'seminarTitle'
+    },{
+    title: 'Seminar Description',
     field: 'seminarDesc'
-    },{ 
-    title: 'Number of Sessions', 
-    field: 'numSessions' 
-    },{ 
-    title: 'Qualifications', 
-    field: 'qualifications' 
-    },{ 
-    title: 'Prior Teaching', 
-    field: 'priorTeaching' 
-    },{ 
-    title: 'Engagement', 
-    field: 'engagement' 
-    },{ 
-    title: 'Course Learning Outcomes', 
-    field: 'skills' 
-    },{ 
-    title: 'Previous Waves', 
-    field: 'previousWaves' 
-    },{ 
-    title: 'Questions?', 
-    field: 'questions' 
-    },{ 
-    title: 'Co-Teacher First Name', 
-    field: 'coFirst' 
-    },{ 
-    title: 'Co-Teacher Last Name', 
-    field: 'coLast' 
-    },{ 
-    title: 'Co-Teacher School', 
-    field: 'coSchool' 
-    },{ 
-    title: 'Co-Teacher GradYear', 
-    field: 'coYear' 
+    },{
+    title: 'Number of Sessions',
+    field: 'numSessions'
+    },{
+    title: 'Qualifications',
+    field: 'qualifications'
+    },{
+    title: 'Prior Teaching',
+    field: 'priorTeaching'
+    },{
+    title: 'Engagement',
+    field: 'engagement'
+    },{
+    title: 'Course Learning Outcomes',
+    field: 'skills'
+    },{
+    title: 'Previous Waves',
+    field: 'previousWaves'
+    },{
+    title: 'Questions?',
+    field: 'questions'
+    },{
+    title: 'Co-Teacher First Name',
+    field: 'coFirst'
+    },{
+    title: 'Co-Teacher Last Name',
+    field: 'coLast'
+    },{
+    title: 'Co-Teacher School',
+    field: 'coSchool'
+    },{
+    title: 'Co-Teacher GradYear',
+    field: 'coYear'
     }]
 
   const saveData = (teacherData, fullData) => {
@@ -194,9 +194,15 @@ const Teachers = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
+          <select onchange={(e) => {
+            console.log(e.target.value);
+          }}>
+            <option value="1">Tide 1</option>
+            <option value="2">Tide 2</option>
+          </select>
           <Typography.Header>Instructor Applications</Typography.Header>
-          {loading && 
-            <Table title="" data={registrations} columns={columns} 
+          {loading &&
+            <Table title="" data={registrations} columns={columns}
             saveData={saveData} addData={addData} delData={delData}/>}
         </ContainerInner>
       </Container>

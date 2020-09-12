@@ -42,7 +42,7 @@ type TeacherRegistration @model {
   skills: String!
   previousWaves: String!
   questions: String
-  approved: Boolean!
+  approved: Boolean
 }
 
 type Student @model {
@@ -132,4 +132,22 @@ type TutorRegistration @model {
   hours: String!
   questions: String
   othersubjects: String
+  approved: Boolean
+}
+
+type EventRegistration @model {
+  id: ID!
+  studentID: String
+  eventID: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  country: String
+  city: String
+  state: String
+  school: String
+  notes: String
+  questions: String
+  extra: String
+  howYouHear: [String]
 }
