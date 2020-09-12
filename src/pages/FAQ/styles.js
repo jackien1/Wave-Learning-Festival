@@ -25,15 +25,11 @@ export const Highlight = styled.img`
 `
 
 export const ListItem = styled.h2`
-//   color: rgba(31, 45, 61, 0.5);
   color: ${Colors.WLF_PURPLE};
   position: absolute;
   text-align: center;
   font-weight: 200;
   padding: 1rem;
-//   padding-left: 2rem;
-//   padding-top: 1rem;
-//   padding-bottom: 1rem;
   margin: auto;
   font-size: 20px;
   transition: 0.2s;
@@ -47,7 +43,7 @@ export const ListItem = styled.h2`
 export const ContainerInner = styled.div`
 margin-bottom: 5vh;
 position: relative;
-padding: 2rem;
+padding: 1rem;
 
 @media ${device.mobileS} {
     flex-direction: column;
@@ -74,5 +70,4 @@ padding: 2rem;
     max-width: 900px;
     width: 100%;
 }
-
 `

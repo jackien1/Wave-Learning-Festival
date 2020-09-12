@@ -118,27 +118,7 @@ const tutoringFAQ = [
   },
 ]
 
-const Home = ({ setPage }) => (<>
-  <Typography.Header2 color="black" fontSize="28px">
-    Seminars
-  </Typography.Header2>
-  {
-    seminarsFAQ.map(faq => {
-      return <FAQCard question={faq.question} answer={faq.answer}/>
-    })
-  }
-  <Typography.Header2 color="black" fontSize="28px">
-    Tutoring
-  </Typography.Header2>
-  {
-    tutoringFAQ.map(faq => {
-      return <FAQCard question={faq.question} answer={faq.answer}/>
-    })
-  }
-  </>
-)
-
-const Seminars = ({ setPage }) => (<>
+const Seminars = () => (<>
   <Typography.Header2 color="black" fontSize="28px">
     Seminars
   </Typography.Header2>
@@ -150,7 +130,7 @@ const Seminars = ({ setPage }) => (<>
   </>
 )
 
-const Tutoring = ({ setPage }) => (<>
+const Tutoring = () => (<>
   <Typography.Header2 color="black" fontSize="28px">
     Tutoring
   </Typography.Header2>
@@ -159,6 +139,14 @@ const Tutoring = ({ setPage }) => (<>
     return <FAQCard question={faq.question} answer={faq.answer}/>
     })
   }
+  </>
+)
+
+const Home = () => (<>
+  <div style={{display: 'inline-flex', marginTop: '-20px'}}>
+    <ContainerInner width='50%'> { Seminars()} </ContainerInner>
+    <ContainerInner width='50%'> { Tutoring()} </ContainerInner>
+  </div>
   </>
 )
 
