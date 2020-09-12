@@ -11,11 +11,15 @@ import {
 } from './styles'
 import { Container } from '@/globalStyles'
 import { Auth } from 'aws-amplify'
+var AWS = require("aws-sdk");
 
 const Login = () => {
   const [password, updatePassword] = useState('')
   const [email, updateEmail] = useState('')
   const [code, updateCode] = useState('')
+
+  AWS.config.update({region:'us-west-2'});
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'});
 
   const signIn = async () => {
     try {
@@ -35,6 +39,10 @@ const Login = () => {
         }
       })
       console.log(user)
+      cognitoidentityserviceprovider.adminAddUserToGroup({GroupName: "Students", UserPoolId: "wavelearningfestivalfac48596_userpool_fac48596-dev", Username: user.username}, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+      });
     } catch (error) {
       console.log('error signing up:', error)
     }
