@@ -17,6 +17,7 @@ export const ContainerInner1 = styled.div`
 `
 
 export const CourseImage = styled.img`
+    margin-right: 4rem; 
     & img {
         width: 100%; 
         height: auto; 
@@ -28,7 +29,7 @@ export const CourseImage = styled.img`
         width: 100%; 
     }
     @media ${device.tablet} {
-        width: 30%; 
+        width: 20%; 
     }
 `
 
