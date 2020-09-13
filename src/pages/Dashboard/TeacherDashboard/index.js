@@ -195,7 +195,6 @@ const Dashboard = () => {
   const getSeminarData = async (id) => {
     try {
       const seminarData = await API.graphql(graphqlOperation(getSeminar, { id }))
-      console.log(seminarData)
       setSeminar(seminarData)
     } catch (error) {
       console.log('error on fetching data', error)
@@ -213,7 +212,6 @@ const Dashboard = () => {
   useEffect(() => {
     if (teacher) {
       var teacherInfo = generateTeacherInfo(teacher)
-      console.log(teacher)
       setLocalTeacherInfo({
         firstName: teacher.data.getTeacher.first_name,
         lastName: teacher.data.getTeacher.last_name,
@@ -233,7 +231,6 @@ const Dashboard = () => {
   useEffect(() => {
     if (seminar) {
       var seminarInfo = generateSeminarInfo(seminar)
-      console.log(seminar)
       setLocalSeminarInfo({
         courseTitle: seminar.data.getSeminar.courseTitle,
         maxClassSize: seminar.data.getSeminar.maxClassSize,
@@ -257,7 +254,6 @@ const Dashboard = () => {
   }
 
   const submitTeacher = () => {
-    console.log(profile)
     API.graphql(graphqlOperation(updateTeacher, {
       input: {
         id: teacherId,
@@ -272,7 +268,6 @@ const Dashboard = () => {
   }
 
   const submitSeminar = () => {
-    console.log(seminarProfile)
     API.graphql(graphqlOperation(updateSeminar, {
       input: {
         id: seminarId,
