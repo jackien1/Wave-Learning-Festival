@@ -107,6 +107,11 @@ export const createTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      seminarId
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -122,6 +127,11 @@ export const updateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      seminarId
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -137,6 +147,11 @@ export const deleteTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      seminarId
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }

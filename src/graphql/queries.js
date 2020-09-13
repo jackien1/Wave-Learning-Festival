@@ -74,6 +74,11 @@ export const getTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      seminarId
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -91,6 +96,11 @@ export const listTeachers = /* GraphQL */ `
         first_name
         last_name
         school
+        bio
+        seminarId
+        gradYear
+        country
+        city
         createdAt
         updatedAt
       }
