@@ -26,7 +26,7 @@ const submit = async (signInForm, setWrongSubmission, isStudent) => {
     const user = await Auth.signIn(signInForm.username, signInForm.password)
     if (user) {
       console.log(user)
-      // isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
+      isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
     }
   } catch (error) {
     setWrongSubmission('Wrong email/password!')
