@@ -1,24 +1,18 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import Navbar from './components/Navbar'
 import Footer from '@/components/Footer'
-import { Colors, Typography, Form } from '@/styles'
-// import { FirebaseContext } from '../../firebaseContext'
+import { Colors } from '@/styles'
 import CourseInfo from './components/CourseInfo'
 import Selector from './components/Selector'
 import ClassDetails from './components/ClassDetails'
 import InstructorDetails from './components/InstructorDetails'
 import './styles.css'
-import { InfoContainerInner, InfoContainer, Container, ContainerInner, Cancel, EditInput, ProfileLeft, ProfileRight, Column, Text, Row, Label, Class, ClassText, Sections } from './styles.js'
-import WavyPurple from '../../About/assets/wavy_purple.svg'
-import WavyTurquoise from '../../About/assets/wavy_turquoise.svg'
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { getTeacher, listTeachers, getSeminar, listSeminar } from '../../../graphql/queries.js'
+import { InfoContainerInner, InfoContainer, Container, ContainerInner } from './styles.js'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
+
+import { getTeacher, getSeminar } from '../../../graphql/queries.js'
 
 import { updateTeacher, updateSeminar } from '../../../graphql/mutations.js'
-
-import CourseCard from '../../../components/CourseCard'
-import { MediumContainer } from '@/pages/About/styles'
-import { IconContainer } from '@/components/Chip/styles'
 
 const profileState = {
   // Personal Data
@@ -150,10 +144,9 @@ const Dashboard = () => {
   const [seminarProfile, seminarProfileDispatch] = useReducer(seminarProfileReducer, seminarProfileState)
   const [teacher, setTeacher] = useState(null)
   const [seminar, setSeminar] = useState(null)
+  const [teacherId, setTeacherId] = useState('')
+  const [seminarId, setSeminarId] = useState('')
   // const [tab, setTab] = useState('course')
-
-  var teacherId = 'student1'
-  var seminarId = 'seminar1'
 
   const genFrag = function (label, data, dispatch, state) {
     return {
@@ -188,19 +181,20 @@ const Dashboard = () => {
     ]
   }
 
-  const getTeacherData = async () => {
+  const getTeacherData = async (username) => {
     try {
-      const teacherData = await API.graphql(graphqlOperation(getTeacher, { id: teacherId }))
+      const teacherData = await API.graphql(graphqlOperation(getTeacher, { id: username }))
       setTeacher(teacherData)
-      console.log(teacherData)
+      setSeminarId(teacherData.data.getTeacher.seminarId)
+      getSeminarData(teacherData.data.getTeacher.seminarId)
     } catch (error) {
       console.log('error on fetching data', error)
     }
   }
 
-  const getSeminarData = async () => {
+  const getSeminarData = async (id) => {
     try {
-      const seminarData = await API.graphql(graphqlOperation(getSeminar, { id: seminarId }))
+      const seminarData = await API.graphql(graphqlOperation(getSeminar, { id }))
       console.log(seminarData)
       setSeminar(seminarData)
     } catch (error) {
@@ -209,11 +203,11 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    getTeacherData()
-  }, [])
-
-  useEffect(() => {
-    getSeminarData()
+    Auth.currentUserInfo()
+      .then(user => {
+        setTeacherId(user.username)
+        getTeacherData(user.username)
+      })
   }, [])
 
   useEffect(() => {
@@ -231,8 +225,6 @@ const Dashboard = () => {
         bio: teacher.data.getTeacher.bio
       })
       teacherInfo.forEach(label => {
-        console.log(label)
-
         profileDispatch({ type: label.dispatch, content: label.data })
       })
     }
@@ -294,30 +286,20 @@ const Dashboard = () => {
     toggleEditSeminar(false)
   }
 
-  const openTeacherProfilePage = () => {
-    document.getElementById('teacherProfilePage').style.display = 'block'
-    document.getElementById('seminarProfilePage').style.display = 'none'
-  }
-
-  const openSeminarProfilePage = () => {
-    document.getElementById('teacherProfilePage').style.display = 'none'
-    document.getElementById('seminarProfilePage').style.display = 'block'
-  }
-
   if (teacher && seminar) {
-    var teacherInfo = generateTeacherInfo(teacher)
-    var seminarInfo = generateSeminarInfo(seminar)
     return (<>
       <div>
-        <Navbar style={{ zIndex: 10 }}/>
+        <Navbar style={{ zIndex: 10 }}
+          first = {profile.firstName}
+          last = {profile.lastName}/>
         <Container>
           <ContainerInner>
 
             <CourseInfo
               title = {seminarProfile.courseTitle}
+              zoom = {seminar.data.getSeminar.zoomLink}
+              ed = {seminar.data.getSeminar.edLink}
               teachers = {seminar.data.getSeminar.teachers}
-              color = {Colors.WLF_ORANGE}
-              description = {seminar.data.getSeminar.courseDescription}
               classDates = {seminar.data.getSeminar.classDates}
               time = {seminar.data.getSeminar.courseTimes}
               targetAudience = {seminar.data.getSeminar.targetAudience}
@@ -363,11 +345,9 @@ const Dashboard = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <p>Failed...</p>
+          <p>Loading...</p>
         </ContainerInner>
       </Container>
-
-      <Footer/>
     </>)
 }
 

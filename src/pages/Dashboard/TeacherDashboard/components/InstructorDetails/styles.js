@@ -10,7 +10,7 @@ export const ProfileImage = styled.img`
     border: 5px solid ${Colors.WLF_ORANGE};
 `
 export const ImageContainer = styled.div`
-    width: 100%; 
+    width: 1000px; 
     text-align: center; 
     margin-right: 4rem; 
 

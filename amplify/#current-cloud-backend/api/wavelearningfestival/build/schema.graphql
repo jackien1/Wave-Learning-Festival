@@ -24,6 +24,7 @@ type Teacher {
   last_name: String!
   school: String!
   bio: String!
+  seminarId: String!
   gradYear: String
   country: String
   city: String
@@ -469,6 +470,7 @@ input ModelTeacherFilterInput {
   last_name: ModelStringInput
   school: ModelStringInput
   bio: ModelStringInput
+  seminarId: ModelStringInput
   gradYear: ModelStringInput
   country: ModelStringInput
   city: ModelStringInput
@@ -483,6 +485,7 @@ input CreateTeacherInput {
   last_name: String!
   school: String!
   bio: String!
+  seminarId: String!
   gradYear: String
   country: String
   city: String
@@ -494,6 +497,7 @@ input UpdateTeacherInput {
   last_name: String
   school: String
   bio: String
+  seminarId: String
   gradYear: String
   country: String
   city: String
@@ -508,6 +512,7 @@ input ModelTeacherConditionInput {
   last_name: ModelStringInput
   school: ModelStringInput
   bio: ModelStringInput
+  seminarId: ModelStringInput
   gradYear: ModelStringInput
   country: ModelStringInput
   city: ModelStringInput

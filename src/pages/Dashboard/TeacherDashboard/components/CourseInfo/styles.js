@@ -26,7 +26,8 @@ export const Right = styled.div`
     }
 `
 
-export const Details = styled.p`
+export const Details = styled.a`
+    display: block; 
     color: #868686;
 `
 

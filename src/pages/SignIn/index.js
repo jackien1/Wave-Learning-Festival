@@ -7,6 +7,7 @@ import Logo from './logo.png'
 import firebase from 'firebase'
 import { FirebaseContext } from '@/firebaseContext'
 import { Redirect } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 
 var inputChanged = function (key, setField) {
   var result = (event) => {
@@ -20,18 +21,17 @@ var inputChanged = function (key, setField) {
   return result
 }
 
-var submit = (signInForm, setWrongSubmission) => {
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
-    firebase.auth().signInWithEmailAndPassword(signInForm.username, signInForm.password).then(function (result) {
-      if (result) {
-        console.log(result)
-        window.location.href = '/dashboard'
-      }
-    }).catch(function (error) {
-      setWrongSubmission('Wrong email/password!')
-      throw Error(error)
-    })
-  })
+const submit = async (signInForm, setWrongSubmission, isStudent) => {
+  try {
+    const user = await Auth.signIn(signInForm.username, signInForm.password)
+    if (user) {
+      console.log(user)
+      isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
+    }
+  } catch (error) {
+    setWrongSubmission('Wrong email/password!')
+    throw Error(error)
+  }
 }
 
 const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission) => {
@@ -65,12 +65,19 @@ const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission
       />
       <a id="forgot-password" href="/reset-password">Forgot password?</a>
 
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <div style={{ width: 'auto', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Form.Button onClick={(event) => {
-          submit(signInForm, setWrongSubmission)
+          submit(signInForm, setWrongSubmission, true)
         }}>
           <Typography.Header color="white" fontSize="24px">
-          Submit
+          Login as Student
+          </Typography.Header>
+        </Form.Button>
+        <Form.Button onClick={(event) => {
+          submit(signInForm, setWrongSubmission, false)
+        }}>
+          <Typography.Header color="white" fontSize="24px">
+          Login as Teacher
           </Typography.Header>
         </Form.Button>
       </div>

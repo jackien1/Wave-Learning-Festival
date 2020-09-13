@@ -2,11 +2,11 @@ import React from 'react'
 import { NavbarContainer } from './styles'
 import Logo from '@/components/Navbar/logo.svg'
 
-const Navbar = () => {
+const Navbar = ({ first, last }) => {
   return (
     <NavbarContainer>
       <img src={Logo}/>
-      <p>Karly Hou</p>
+      <p>{first} {last}</p>
     </NavbarContainer>
   )
 }

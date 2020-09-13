@@ -87,6 +87,7 @@ export const onCreateTeacher = /* GraphQL */ `
       last_name
       school
       bio
+      seminarId
       gradYear
       country
       city
@@ -103,6 +104,7 @@ export const onUpdateTeacher = /* GraphQL */ `
       last_name
       school
       bio
+      seminarId
       gradYear
       country
       city
@@ -119,6 +121,7 @@ export const onDeleteTeacher = /* GraphQL */ `
       last_name
       school
       bio
+      seminarId
       gradYear
       country
       city

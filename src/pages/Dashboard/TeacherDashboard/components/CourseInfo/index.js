@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Left, Right, Details } from './styles'
 
-const CourseInfo = ({ title, teachers, description, classDates, time, targetAudience, classDays, courseId }) => {
+const CourseInfo = ({ title, zoom, ed, teachers, description, classDates, time, targetAudience, classDays, courseId }) => {
   return (
     <Container>
       <Left>
@@ -12,8 +12,8 @@ const CourseInfo = ({ title, teachers, description, classDates, time, targetAudi
       </Left>
       <Right>
         <p style={{ marginTop: '1rem' }}>Links</p>
-        <Details>zoom</Details>
-        <Details>ed</Details>
+        <Details href={zoom}>{zoom}</Details>
+        <Details href={ed}>{ed}</Details>
       </Right>
     </Container>
   )
