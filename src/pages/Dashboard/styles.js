@@ -83,7 +83,7 @@ export const ContentContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  left: 250px;
+  left: 186px;
   width: calc(100% - 600px);
   padding: 2rem;
   min-height: 100vh;
