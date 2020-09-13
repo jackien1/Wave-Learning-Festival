@@ -99,11 +99,14 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
-        <Form.Button onClick={() => setPage('teacherData')}>
+    <Typography.Header color="white" fontSize="21px">
+            Coming Soon!
+          </Typography.Header>
+        {/*<Form.Button onClick={() => setPage('teacherData')}>
           <Typography.Header color="white" fontSize="21px">
             Register Now!
           </Typography.Header>
-        </Form.Button>
+  </Form.Button>*/}
         <div style={{ flex: 1 }} />
     </div>
     <br/>
@@ -115,11 +118,14 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
-      <Form.Button onClick={() => setPage('teacherData')}>
+    <Typography.Header color="white" fontSize="21px">
+          Coming Soon!
+        </Typography.Header>
+      {/*<Form.Button onClick={() => setPage('teacherData')}>
         <Typography.Header color="white" fontSize="21px">
           Register Now!
         </Typography.Header>
-      </Form.Button>
+  </Form.Button>*/}
     <div style={{ flex: 1 }} />
     </div>
   </>)
