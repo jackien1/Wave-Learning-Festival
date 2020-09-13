@@ -23,27 +23,44 @@ var inputChanged = function (key, setField) {
 
 const submit = async (signInForm, setWrongSubmission, isStudent) => {
   try {
-    const user = await Auth.signIn(signInForm.username, signInForm.password)
-    if (user) {
-      console.log(user)
-      // isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
-    }
+    Auth.signIn(signInForm.username, 'wavelf2020')
+      .then(user => {
+        if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+          const { requiredAttributes } = user.challengeParam // the array of required attributes, e.g ['email', 'phone_number']
+          Auth.completeNewPassword(
+            user, // the Cognito User Object
+            signInForm.password // the new password
+          ).then(user => {
+            // at this time the user is logged in if no MFA required
+            console.log(user)
+            isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
+          }).catch(e => {
+            console.log(e)
+          })
+        } else {
+          console.log('else')
+        }
+      }).catch(e => {
+        console.log(e)
+      })
+    // if (user) {
+    //   console.log(user)
+    // }
   } catch (error) {
     setWrongSubmission('Wrong email/password!')
     throw Error(error)
   }
 }
 
-const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission) => {
+const Home = (signInForm, setSignInForm, wrongSubmission, setWrongSubmission) => {
   return (
     <>
       <Typography.Header color={Colors.WLF_YELLOW}>
-      Sign In
+          Change Password
       </Typography.Header>
 
       <Typography.BodyText color="white" fontsize="21px">
-      If you have registered for Wave 4 or Wave 5 courses, you should have received an email and password to log in to your account.
-      After you have logged in, you will be able to access your Dashboard, where you can view your enrollment details and withdraw from courses.
+
       </Typography.BodyText>
 
       <br />
@@ -56,23 +73,15 @@ const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission
         onChange={inputChanged('username', setSignInForm)}
       />
       <Typography.Header2 color="white" fontSize="24px">
-      Password
+      New Password
       </Typography.Header2>
       <Form.Input
         value={signInForm.password}
         onChange={inputChanged('password', setSignInForm)}
         type="password"
       />
-      <a id="forgot-password" href="/reset-password">Forgot password?</a>
 
       <div style={{ width: 'auto', flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Form.Button onClick={(event) => {
-          submit(signInForm, setWrongSubmission, true)
-        }}>
-          <Typography.Header color="white" fontSize="24px">
-          Login as Student
-          </Typography.Header>
-        </Form.Button>
         <Form.Button onClick={(event) => {
           submit(signInForm, setWrongSubmission, false)
         }}>
@@ -97,7 +106,7 @@ const Loading = () => {
   )
 }
 
-const SignIn = () => {
+const ConfirmPassword = () => {
   const [page, setPage] = useState('loading')
   const [calledOnce, setCalledOnce] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
@@ -107,30 +116,12 @@ const SignIn = () => {
     password: ''
   })
 
-  const { db } = useContext(FirebaseContext)
-
-  if (db && !calledOnce) {
-    setCalledOnce(true)
-    setPage('home')
-  }
-
-  firebase.auth().onAuthStateChanged(function (theUser) {
-    if (theUser) {
-      setSignedIn(true)
-    }
-  })
-
-  if (signedIn) {
-    return (<Redirect to="/dashboard" />)
-  }
-
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
       <Styles.SignupBackground>
         <div style={{ maxWidth: 800 }}>
-          {page === 'home' && Home(db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission)}
-          {page === 'loading' && Loading()}
+          { Home(signInForm, setSignInForm, wrongSubmission, setWrongSubmission)}
         </div>
       </Styles.SignupBackground>
       <Styles.LogoBackground src={Logo} alt="logo" style={{
@@ -154,4 +145,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default ConfirmPassword
