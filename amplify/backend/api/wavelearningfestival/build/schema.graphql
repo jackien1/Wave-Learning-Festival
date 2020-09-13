@@ -23,6 +23,11 @@ type Teacher {
   first_name: String!
   last_name: String!
   school: String!
+  bio: String!
+  seminarId: String!
+  gradYear: String
+  country: String
+  city: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -464,6 +469,11 @@ input ModelTeacherFilterInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   school: ModelStringInput
+  bio: ModelStringInput
+  seminarId: ModelStringInput
+  gradYear: ModelStringInput
+  country: ModelStringInput
+  city: ModelStringInput
   and: [ModelTeacherFilterInput]
   or: [ModelTeacherFilterInput]
   not: ModelTeacherFilterInput
@@ -474,6 +484,11 @@ input CreateTeacherInput {
   first_name: String!
   last_name: String!
   school: String!
+  bio: String!
+  seminarId: String!
+  gradYear: String
+  country: String
+  city: String
 }
 
 input UpdateTeacherInput {
@@ -481,6 +496,11 @@ input UpdateTeacherInput {
   first_name: String
   last_name: String
   school: String
+  bio: String
+  seminarId: String
+  gradYear: String
+  country: String
+  city: String
 }
 
 input DeleteTeacherInput {
@@ -491,6 +511,11 @@ input ModelTeacherConditionInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   school: ModelStringInput
+  bio: ModelStringInput
+  seminarId: ModelStringInput
+  gradYear: ModelStringInput
+  country: ModelStringInput
+  city: ModelStringInput
   and: [ModelTeacherConditionInput]
   or: [ModelTeacherConditionInput]
   not: ModelTeacherConditionInput

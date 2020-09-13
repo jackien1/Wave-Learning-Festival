@@ -19,6 +19,11 @@ type Teacher @model {
   first_name: String!
   last_name: String!
   school: String!
+  bio: String!
+  seminarId: String!
+  gradYear: String
+  country: String
+  city: String
 }
 
 type TeacherRegistration @model {
