@@ -13,6 +13,7 @@ import Courses from './pages/Courses'
 import CoursesInProgress from './pages/Courses/CoursesInProgress'
 import CoursesArchive from './pages/Courses/CoursesArchive'
 import Speakers from './pages/Speakers'
+import ConfirmPassword from './pages/ConfirmPassword'
 import PastSpeakers from './pages/Speakers/pastspeakers.js'
 import Speaker1SignUp from './pages/Speakers/SpeakerSignup/speaker1.js'
 import Speaker2SignUp from './pages/Speakers/SpeakerSignup/speaker2.js'
@@ -82,11 +83,10 @@ import CourseSignUp from './pages/Courses/CourseSignUp'
 import Subscribe from './pages/Courses/CourseSignUpClosed'
 import CoursePage from './pages/Courses/CoursePages'
 import ChangePassword from './pages/ChangePassword'
-import SignIn from "./pages/SignIn"
-import SignOut from "./pages/SignOut"
-import ResetPassword from "./pages/ResetPassword"
-import Partners from "./pages/Partners"
-
+import SignIn from './pages/SignIn'
+import SignOut from './pages/SignOut'
+import ResetPassword from './pages/ResetPassword'
+import Partners from './pages/Partners'
 
 import Dashboard from './pages/Dashboard'
 import TeacherDashboard from './pages/Dashboard/TeacherDashboard'
@@ -126,8 +126,11 @@ function App () {
             <Route path="/join">
               <Join />
             </Route>
+            <Route path="/confirm-password">
+              <ConfirmPassword/>
+            </Route>
 
-{/*
+            {/*
             <Route path="/course-learn-python">
               <CourseLearnPython />
             </Route>
