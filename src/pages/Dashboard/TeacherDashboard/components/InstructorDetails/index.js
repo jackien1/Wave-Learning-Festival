@@ -17,10 +17,14 @@ const InstructorDetails = ({ school, first, last, profileDispatch, cancelTeacher
     <Container>
       {edit &&
         <ContainerInner1>
+          <p>First Name</p>
           <Input placeholder="Instructor First Name" value={first} onChange = {e => profileDispatch({ type: 'FIRSTNAME', content: e.target.value })}/>
+          <p>Last Name</p>
           <Input placeholder="Instructor Last Name" value={last} onChange = {e => profileDispatch({ type: 'LASTNAME', content: e.target.value })}/>
           <Green2>Add a profile picture</Green2>
+          <p>Education</p>
           <Input placeholder="Education (i.e. Harvard '23)" value={school} onChange = {e => profileDispatch({ type: 'SCHOOL', content: e.target.value })}/>
+          <p>Teacher Bio</p>
           <EditDescription placeholder="Bio" value={bio} onChange = {e => profileDispatch({ type: 'BIO', content: e.target.value })}/>
           <Purple>Add another teacher</Purple>
           <Button onClick={() => submit()}>Save Changes</Button>

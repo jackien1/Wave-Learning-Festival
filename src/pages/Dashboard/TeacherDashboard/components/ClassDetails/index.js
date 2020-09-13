@@ -16,11 +16,15 @@ const ClassDetails = ({ cancelSeminar, submitSeminar, seminarProfileDispatch, im
     <Container>
       {edit &&
         <ContainerInner1>
+          <p>Course Title</p>
           <Input placeholder="Course Title" value={title} onChange = {e => seminarProfileDispatch({ type: 'COUTITLE', content: e.target.value })}/>
+          <p>Prerequisites</p>
           <Input placeholder="Prerequisites" value={prereqs} onChange = {e => seminarProfileDispatch({ type: 'COUPREREQS', content: e.target.value })}/>
+          <p>Max Class Size</p>
           <Input placeholder="Max Class Size" value={maxClassSize} onChange = {e => seminarProfileDispatch({ type: 'COUMAXSIZE', content: e.target.value })}/>
           <Red>Attach Course Picture</Red>
           <Green2>Attach Course Syllabus</Green2>
+          <p>Class Description</p>
           <EditDescription placeholder="Class Description" value={description} onChange = {e => seminarProfileDispatch({ type: 'COUDESCRIP', content: e.target.value })}/>
           <Button onClick={() => submit()}>Save Changes</Button>
           <Cancel onClick={() => cancel()} style ={{ }}>Cancel</Cancel>
