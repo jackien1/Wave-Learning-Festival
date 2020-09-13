@@ -9,6 +9,12 @@ import { Typography, Colors } from '@/styles'
 const Speakers = () => {
   const speakers = [
     {
+      name: 'STEMtober',
+      date: 'Saturday, September 19, 10:00am-5:00pm EDT, 7:00am-2:00pm PST',
+      desc: 'We have recently partnered with STEMEY to host a virtual series of speaker seminars every Saturday of October, which we are calling STEMtober. We are hoping to inspire students who have limited contact with STEM to explore the field further, as well as provide guidance to passionate students seeking to become more involved in STEM. We are looking for experienced STEM professionals to speak.',
+      signup: "/event-stemey"
+    },
+    {
       name: 'Silence is Violence Conference',
       date: 'Saturday, September 19, 10:00am-5:00pm EDT, 7:00am-2:00pm PST',
       desc: 'The ‘Silence is Violence’ Conference features influential leaders making an impact in gender-based violence and public policy in the US. The event will consist of stories from White House recognized activists, shelter workers, Pulitzer Prize winner and former United States Poet Laureate, Natasha Tretheway, and more. Learn more and register now by clicking the button below!',
