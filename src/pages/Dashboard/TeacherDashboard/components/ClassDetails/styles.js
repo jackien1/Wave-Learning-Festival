@@ -16,7 +16,7 @@ export const ContainerInner1 = styled.div`
     padding: 0 4em; 
 `
 
-export const CourseImage = styled.div`
+export const CourseImage = styled.img`
     & img {
         width: 100%; 
         height: auto; 

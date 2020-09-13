@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Cancel, EditDescription, Input, Green, Red, Green2, Container, ContainerInner, ContainerInner1, CourseImage, Information, Description, Heading, Button } from './styles'
-
+import Logo from '../../../logo.png'
 const ClassDetails = ({ cancelSeminar, submitSeminar, seminarProfileDispatch, img, prereqs, title, maxClassSize, teachers, color, description, classDates, time, targgetAudience, classDays, courseId }) => {
   const [edit, toggleEdit] = useState(false)
   const cancel = () => {
@@ -27,7 +27,8 @@ const ClassDetails = ({ cancelSeminar, submitSeminar, seminarProfileDispatch, im
         </ContainerInner1>}
       {!edit && <div>
         <ContainerInner>
-          <CourseImage src={img}/>
+          {img && <CourseImage src={img}/>}
+          {!img && <CourseImage src={Logo}/>}
 
           <Information>
             <Heading>
