@@ -12,14 +12,14 @@
             "AmplifyAppId": "d3jlx3tyqn40aw"
         },
         "categories": {
+            "auth": {
+                "wavelearningfestivalfac48596": {}
+            },
             "hosting": {
                 "amplifyhosting": {
                     "appId": "d3jlx3tyqn40aw",
                     "type": "cicd"
                 }
-            },
-            "auth": {
-                "wavelearningfestivalfac48596": {}
             }
         }
     }

@@ -191,11 +191,9 @@ export const getStudent = /* GraphQL */ `
       last_name
       email
       grade
-      howYouHear
-      numCourses
-      parentName
+      parent_first
+      parent_last
       parentEmail
-      registeredEvents
       orgs
       createdAt
       updatedAt
@@ -219,63 +217,10 @@ export const listStudents = /* GraphQL */ `
         last_name
         email
         grade
-        howYouHear
-        numCourses
-        parentName
+        parent_first
+        parent_last
         parentEmail
-        registeredEvents
         orgs
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getSeminarRegistrations = /* GraphQL */ `
-  query GetSeminarRegistrations($id: ID!) {
-    getSeminarRegistrations(id: $id) {
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listSeminarRegistrationss = /* GraphQL */ `
-  query ListSeminarRegistrationss(
-    $filter: ModelSeminarRegistrationsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSeminarRegistrationss(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        email
-        numSeminars
-        sem1
-        sem2
-        sem3
-        sem4
-        sem5
-        reason1
-        reason2
-        reason3
-        reason4
-        reason5
         createdAt
         updatedAt
       }
@@ -563,6 +508,148 @@ export const listEventRegistrations = /* GraphQL */ `
         questions
         extra
         howYouHear
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSeminarRegistration = /* GraphQL */ `
+  query GetSeminarRegistration($id: ID!) {
+    getSeminarRegistration(id: $id) {
+      id
+      email
+      numSeminars
+      sem1 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem2 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem3 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem4 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem5 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      howYouHear
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSeminarRegistrations = /* GraphQL */ `
+  query ListSeminarRegistrations(
+    $filter: ModelSeminarRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSeminarRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        numSeminars
+        reason1
+        reason2
+        reason3
+        reason4
+        reason5
+        howYouHear
+        pastCourses
         createdAt
         updatedAt
       }

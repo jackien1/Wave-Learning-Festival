@@ -16,14 +16,15 @@ type Date @model {
 
 type Teacher @model {
   id: ID!
-  first_name: String!
-  last_name: String!
-  school: String!
-  bio: String!
-  seminarId: String!
-  gradYear: String
-  country: String
-  city: String
+	first_name: String!
+	last_name: String!
+	school: String!
+	gradYear: String
+	email: String
+	country: String
+	city: String
+	bio: String
+	seminarId: String
 }
 
 type TeacherRegistration @model {
@@ -60,12 +61,10 @@ type Student @model {
   last_name: String!
   email: String!
   grade: String!
-  howYouHear: String!
-  numCourses: String!
-  parentName: String!
+  parent_first: String!
+  parent_last: String!
   parentEmail: String!
-  registeredEvents: [SpecialEvent]
-  registeredSeminars: [SeminarAssignments]
+  orgs: [String]
 }
 
 type EventAssignments @model {
@@ -155,4 +154,22 @@ type EventRegistration @model {
   questions: String
   extra: String
   howYouHear: [String]
+}
+
+type SeminarRegistration @model {
+  id: ID!
+  email: String!
+  numSeminars: Int!
+  sem1: Seminar!
+  sem2: Seminar
+  sem3: Seminar
+  sem4: Seminar
+  sem5: Seminar
+  reason1: String!
+  reason2: String
+  reason3: String
+  reason4: String
+  reason5: String
+  howYouHear: [String!]!
+  pastCourses: [String!]!
 }

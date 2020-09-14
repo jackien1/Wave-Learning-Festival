@@ -23,11 +23,12 @@ type Teacher {
   first_name: String!
   last_name: String!
   school: String!
-  bio: String!
-  seminarId: String!
   gradYear: String
+  email: String
   country: String
   city: String
+  bio: String
+  seminarId: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -68,12 +69,10 @@ type Student {
   last_name: String!
   email: String!
   grade: String!
-  howYouHear: String!
-  numCourses: String!
-  parentName: String!
+  parent_first: String!
+  parent_last: String!
   parentEmail: String!
-  registeredEvents: [SpecialEvent]
-  registeredSeminars: [SeminarAssignments]
+  orgs: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -175,6 +174,26 @@ type EventRegistration {
   questions: String
   extra: String
   howYouHear: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type SeminarRegistration {
+  id: ID!
+  email: String!
+  numSeminars: Int!
+  sem1: Seminar!
+  sem2: Seminar
+  sem3: Seminar
+  sem4: Seminar
+  sem5: Seminar
+  reason1: String!
+  reason2: String
+  reason3: String
+  reason4: String
+  reason5: String
+  howYouHear: [String!]!
+  pastCourses: [String!]!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -307,6 +326,8 @@ type Query {
   listTutorRegistrations(filter: ModelTutorRegistrationFilterInput, limit: Int, nextToken: String): ModelTutorRegistrationConnection
   getEventRegistration(id: ID!): EventRegistration
   listEventRegistrations(filter: ModelEventRegistrationFilterInput, limit: Int, nextToken: String): ModelEventRegistrationConnection
+  getSeminarRegistration(id: ID!): SeminarRegistration
+  listSeminarRegistrations(filter: ModelSeminarRegistrationFilterInput, limit: Int, nextToken: String): ModelSeminarRegistrationConnection
 }
 
 input CreateNewsletterInput {
@@ -359,6 +380,9 @@ type Mutation {
   createEventRegistration(input: CreateEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
   updateEventRegistration(input: UpdateEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
   deleteEventRegistration(input: DeleteEventRegistrationInput!, condition: ModelEventRegistrationConditionInput): EventRegistration
+  createSeminarRegistration(input: CreateSeminarRegistrationInput!, condition: ModelSeminarRegistrationConditionInput): SeminarRegistration
+  updateSeminarRegistration(input: UpdateSeminarRegistrationInput!, condition: ModelSeminarRegistrationConditionInput): SeminarRegistration
+  deleteSeminarRegistration(input: DeleteSeminarRegistrationInput!, condition: ModelSeminarRegistrationConditionInput): SeminarRegistration
 }
 
 input ModelNewsletterConditionInput {
@@ -403,6 +427,9 @@ type Subscription {
   onCreateEventRegistration: EventRegistration @aws_subscribe(mutations: ["createEventRegistration"])
   onUpdateEventRegistration: EventRegistration @aws_subscribe(mutations: ["updateEventRegistration"])
   onDeleteEventRegistration: EventRegistration @aws_subscribe(mutations: ["deleteEventRegistration"])
+  onCreateSeminarRegistration: SeminarRegistration @aws_subscribe(mutations: ["createSeminarRegistration"])
+  onUpdateSeminarRegistration: SeminarRegistration @aws_subscribe(mutations: ["updateSeminarRegistration"])
+  onDeleteSeminarRegistration: SeminarRegistration @aws_subscribe(mutations: ["deleteSeminarRegistration"])
 }
 
 type ModelDateConnection {
@@ -469,11 +496,12 @@ input ModelTeacherFilterInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   school: ModelStringInput
-  bio: ModelStringInput
-  seminarId: ModelStringInput
   gradYear: ModelStringInput
+  email: ModelStringInput
   country: ModelStringInput
   city: ModelStringInput
+  bio: ModelStringInput
+  seminarId: ModelStringInput
   and: [ModelTeacherFilterInput]
   or: [ModelTeacherFilterInput]
   not: ModelTeacherFilterInput
@@ -484,11 +512,12 @@ input CreateTeacherInput {
   first_name: String!
   last_name: String!
   school: String!
-  bio: String!
-  seminarId: String!
   gradYear: String
+  email: String
   country: String
   city: String
+  bio: String
+  seminarId: String
 }
 
 input UpdateTeacherInput {
@@ -496,11 +525,12 @@ input UpdateTeacherInput {
   first_name: String
   last_name: String
   school: String
-  bio: String
-  seminarId: String
   gradYear: String
+  email: String
   country: String
   city: String
+  bio: String
+  seminarId: String
 }
 
 input DeleteTeacherInput {
@@ -511,11 +541,12 @@ input ModelTeacherConditionInput {
   first_name: ModelStringInput
   last_name: ModelStringInput
   school: ModelStringInput
-  bio: ModelStringInput
-  seminarId: ModelStringInput
   gradYear: ModelStringInput
+  email: ModelStringInput
   country: ModelStringInput
   city: ModelStringInput
+  bio: ModelStringInput
+  seminarId: ModelStringInput
   and: [ModelTeacherConditionInput]
   or: [ModelTeacherConditionInput]
   not: ModelTeacherConditionInput
@@ -636,13 +667,6 @@ type ModelStudentConnection {
   nextToken: String
 }
 
-input ModelSpecialEventListInput {
-  eq: [SpecialEvent]
-  ne: [SpecialEvent]
-  contains: SpecialEvent
-  notContains: SpecialEvent
-}
-
 input ModelStudentFilterInput {
   id: ModelIDInput
   city: ModelStringInput
@@ -653,11 +677,10 @@ input ModelStudentFilterInput {
   last_name: ModelStringInput
   email: ModelStringInput
   grade: ModelStringInput
-  howYouHear: ModelStringInput
-  numCourses: ModelStringInput
-  parentName: ModelStringInput
+  parent_first: ModelStringInput
+  parent_last: ModelStringInput
   parentEmail: ModelStringInput
-  registeredEvents: ModelSpecialEventListInput
+  orgs: ModelStringInput
   and: [ModelStudentFilterInput]
   or: [ModelStudentFilterInput]
   not: ModelStudentFilterInput
@@ -673,11 +696,10 @@ input CreateStudentInput {
   last_name: String!
   email: String!
   grade: String!
-  howYouHear: String!
-  numCourses: String!
-  parentName: String!
+  parent_first: String!
+  parent_last: String!
   parentEmail: String!
-  registeredEvents: [SpecialEvent]
+  orgs: [String]
 }
 
 input UpdateStudentInput {
@@ -690,11 +712,10 @@ input UpdateStudentInput {
   last_name: String
   email: String
   grade: String
-  howYouHear: String
-  numCourses: String
-  parentName: String
+  parent_first: String
+  parent_last: String
   parentEmail: String
-  registeredEvents: [SpecialEvent]
+  orgs: [String]
 }
 
 input DeleteStudentInput {
@@ -710,11 +731,10 @@ input ModelStudentConditionInput {
   last_name: ModelStringInput
   email: ModelStringInput
   grade: ModelStringInput
-  howYouHear: ModelStringInput
-  numCourses: ModelStringInput
-  parentName: ModelStringInput
+  parent_first: ModelStringInput
+  parent_last: ModelStringInput
   parentEmail: ModelStringInput
-  registeredEvents: ModelSpecialEventListInput
+  orgs: ModelStringInput
   and: [ModelStudentConditionInput]
   or: [ModelStudentConditionInput]
   not: ModelStudentConditionInput
@@ -1107,4 +1127,70 @@ input ModelEventRegistrationConditionInput {
   and: [ModelEventRegistrationConditionInput]
   or: [ModelEventRegistrationConditionInput]
   not: ModelEventRegistrationConditionInput
+}
+
+type ModelSeminarRegistrationConnection {
+  items: [SeminarRegistration]
+  nextToken: String
+}
+
+input ModelSeminarRegistrationFilterInput {
+  id: ModelIDInput
+  email: ModelStringInput
+  numSeminars: ModelIntInput
+  reason1: ModelStringInput
+  reason2: ModelStringInput
+  reason3: ModelStringInput
+  reason4: ModelStringInput
+  reason5: ModelStringInput
+  howYouHear: ModelStringInput
+  pastCourses: ModelStringInput
+  and: [ModelSeminarRegistrationFilterInput]
+  or: [ModelSeminarRegistrationFilterInput]
+  not: ModelSeminarRegistrationFilterInput
+}
+
+input CreateSeminarRegistrationInput {
+  id: ID
+  email: String!
+  numSeminars: Int!
+  reason1: String!
+  reason2: String
+  reason3: String
+  reason4: String
+  reason5: String
+  howYouHear: [String!]!
+  pastCourses: [String!]!
+}
+
+input UpdateSeminarRegistrationInput {
+  id: ID!
+  email: String
+  numSeminars: Int
+  reason1: String
+  reason2: String
+  reason3: String
+  reason4: String
+  reason5: String
+  howYouHear: [String!]
+  pastCourses: [String!]
+}
+
+input DeleteSeminarRegistrationInput {
+  id: ID
+}
+
+input ModelSeminarRegistrationConditionInput {
+  email: ModelStringInput
+  numSeminars: ModelIntInput
+  reason1: ModelStringInput
+  reason2: ModelStringInput
+  reason3: ModelStringInput
+  reason4: ModelStringInput
+  reason5: ModelStringInput
+  howYouHear: ModelStringInput
+  pastCourses: ModelStringInput
+  and: [ModelSeminarRegistrationConditionInput]
+  or: [ModelSeminarRegistrationConditionInput]
+  not: ModelSeminarRegistrationConditionInput
 }

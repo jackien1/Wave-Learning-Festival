@@ -232,11 +232,9 @@ export const onCreateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      howYouHear
-      numCourses
-      parentName
+      parent_first
+      parent_last
       parentEmail
-      registeredEvents
       orgs
       createdAt
       updatedAt
@@ -255,11 +253,9 @@ export const onUpdateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      howYouHear
-      numCourses
-      parentName
+      parent_first
+      parent_last
       parentEmail
-      registeredEvents
       orgs
       createdAt
       updatedAt
@@ -278,72 +274,10 @@ export const onDeleteStudent = /* GraphQL */ `
       last_name
       email
       grade
-      howYouHear
-      numCourses
-      parentName
+      parent_first
+      parent_last
       parentEmail
-      registeredEvents
       orgs
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSeminarRegistrations = /* GraphQL */ `
-  subscription OnCreateSeminarRegistrations {
-    onCreateSeminarRegistrations {
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSeminarRegistrations = /* GraphQL */ `
-  subscription OnUpdateSeminarRegistrations {
-    onUpdateSeminarRegistrations {
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSeminarRegistrations = /* GraphQL */ `
-  subscription OnDeleteSeminarRegistrations {
-    onDeleteSeminarRegistrations {
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
       createdAt
       updatedAt
     }
@@ -716,6 +650,345 @@ export const onDeleteEventRegistration = /* GraphQL */ `
       questions
       extra
       howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSeminarRegistration = /* GraphQL */ `
+  subscription OnCreateSeminarRegistration {
+    onCreateSeminarRegistration {
+      id
+      email
+      numSeminars
+      sem1 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem2 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem3 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem4 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem5 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      howYouHear
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSeminarRegistration = /* GraphQL */ `
+  subscription OnUpdateSeminarRegistration {
+    onUpdateSeminarRegistration {
+      id
+      email
+      numSeminars
+      sem1 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem2 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem3 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem4 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem5 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      howYouHear
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSeminarRegistration = /* GraphQL */ `
+  subscription OnDeleteSeminarRegistration {
+    onDeleteSeminarRegistration {
+      id
+      email
+      numSeminars
+      sem1 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem2 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem3 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem4 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      sem5 {
+        id
+        classTimes
+        classDays
+        classDates
+        courseCategory
+        courseDescription
+        courseTitle
+        edLink
+        maxClassSize
+        picture
+        prereqs
+        syllabus
+        targetAudience
+        teachers
+        zoomLink
+        createdAt
+        updatedAt
+      }
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      howYouHear
+      pastCourses
       createdAt
       updatedAt
     }
