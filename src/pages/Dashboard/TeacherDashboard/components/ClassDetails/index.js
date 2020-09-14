@@ -58,7 +58,6 @@ const ClassDetails = ({ cancelSeminar, submitSeminar, seminarProfileDispatch, im
             {description}
           </Description>
           <Button onClick={() => toggleEdit(!edit)}>{edit ? 'Save Changes' : 'Edit'}</Button>
-
         </ContainerInner1></div>}
 
     </Container>
