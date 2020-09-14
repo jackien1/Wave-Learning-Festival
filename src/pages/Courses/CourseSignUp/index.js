@@ -3,10 +3,11 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import * as Styles from './styles'
 import { Colors, Typography, Form } from '@/styles'
+import { Container, ContainerInner } from '@/globalStyles'
 import Logo from './logo.png'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
-import { createStudent, createStudentRegistration } from "../../graphql/mutations.js"
-import { listSeminars } from "../../graphql/mutations.js"
+import { createStudent, createSeminarRegistration } from "../../../graphql/mutations.js"
+import { listSeminars } from "../../../graphql/queries.js"
 import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
 
 
@@ -14,9 +15,9 @@ const renderOption = ({option}) => (
   <option value={option}>{option}</option>
 )
 
-const renderSingleOption = ({other, key, option, data, setData}) => (
+const renderSingleOption = ({other, key, option, studentData, setStudentData}) => (
   <Form.RadioInputBackground onClick={() => {
-    setData(prevData => {
+    setStudentData(prevData => {
       var result = {
       ...prevData,
       };
@@ -25,16 +26,16 @@ const renderSingleOption = ({other, key, option, data, setData}) => (
     }
   );
   }}>
-    <Form.RadioInputButton many={true} selected={data[key] == option}/>
+    <Form.RadioInputButton many={true} selected={studentData[key] == option}/>
     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
       <Typography.BodyText color="white">{option}</Typography.BodyText>
       <div style={{height: 40}}>
         {option === "Other" &&
           <Form.Input
-            value={data["other" + key]}
+            value={studentData["other" + key]}
             onChange={event => {
               const value = event.target.value;
-              setData(prevData => {
+              setStudentData(prevData => {
                 var result = {
                   ...prevData
                 };
@@ -49,31 +50,70 @@ const renderSingleOption = ({other, key, option, data, setData}) => (
   </Form.RadioInputBackground>
 );
 
-const renderMultiOption = ({key, option, data, setData}) => (
+const renderMultiOptionStudent = ({key, option, studentData, setStudentData}) => (
   <Form.RadioInputBackground onClick={() => {
-    const newData = data[key];
+    const newData = studentData[key];
     const ix = newData.indexOf(option);
     if (ix >= 0) {
       newData.splice(ix,1);
     } else {
       newData.push(option);
     }
-    setData(prevData => {
+    setStudentData(prevData => {
       var result = {...prevData};
       result[key] = newData;
       return result;
   });
   }}>
-    <Form.RadioInputButton many={true} selected={data[key].indexOf(option) >= 0}/>
+    <Form.RadioInputButton many={true} selected={studentData[key].indexOf(option) >= 0}/>
     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
       <Typography.BodyText color="white">{option}</Typography.BodyText>
       <div style={{height: 40}}>
         {option === "Other" &&
           <Form.Input
-            value={data["other" + key]}
+            value={studentData["other" + key]}
             onChange={event => {
               const value = event.target.value;
-              setData(prevData => {
+              setStudentData(prevData => {
+                var result = {
+                  ...prevData
+                };
+                result["other" + key] = value;
+                return result;
+              });
+            }}
+          />
+        }
+      </div>
+    </div>
+  </Form.RadioInputBackground>
+);
+
+const renderMultiOptionSeminar = ({key, option, seminarData, setSeminarData}) => (
+  <Form.RadioInputBackground onClick={() => {
+    const newData = seminarData[key];
+    const ix = newData.indexOf(option);
+    if (ix >= 0) {
+      newData.splice(ix,1);
+    } else {
+      newData.push(option);
+    }
+    setSeminarData(prevData => {
+      var result = {...prevData};
+      result[key] = newData;
+      return result;
+  });
+  }}>
+    <Form.RadioInputButton many={true} selected={seminarData[key].indexOf(option) >= 0}/>
+    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
+      <Typography.BodyText color="white">{option}</Typography.BodyText>
+      <div style={{height: 40}}>
+        {option === "Other" &&
+          <Form.Input
+            value={seminarData["other" + key]}
+            onChange={event => {
+              const value = event.target.value;
+              setSeminarData(prevData => {
                 var result = {
                   ...prevData
                 };
@@ -89,36 +129,36 @@ const renderMultiOption = ({key, option, data, setData}) => (
 );
 
 // NEED TO UPDATE THIS!! (checks if student alrdy has account)
-var isEmailDuplicated = function(db, email) {
-  //Is in our database already for current wave?
-  var ls = [];
-  db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
-    snapshot.forEach(function(snap) {
-      ls.push(snap)
-    })
-  })
-  if (ls.length > 0) {
-    return true;
-  }
-  return false;
-}
+// var isEmailDuplicated = function(db, email) {
+//   //Is in our database already for current wave?
+//   var ls = [];
+//   db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
+//     snapshot.forEach(function(snap) {
+//       ls.push(snap)
+//     })
+//   })
+//   if (ls.length > 0) {
+//     return true;
+//   }
+//   return false;
+// }
 
 // NEED TO UPDATE THIS!! (check if student has already registered for Tide 1)
-var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMessage, setPage, setWrongSubmission) {
-  db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
-    var ls = [];
-    snapshot.forEach(function(snap) {
-      ls.push(snap.data());
-    });
-    if (ls.length > 0) {
-      setWrongSubmission("You have already registered for Wave 5 courses based on your student email. If you want to change your response, please email wavelearningfestival@gmail.com.")
-    }
-    else {
-      target.parentNode.removeChild(target);
-      submit(db, studentData, setErrorMessage, setPage);
-    }
-  })
-}
+// var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMessage, setPage, setWrongSubmission) {
+//   db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
+//     var ls = [];
+//     snapshot.forEach(function(snap) {
+//       ls.push(snap.data());
+//     });
+//     if (ls.length > 0) {
+//       setWrongSubmission("You have already registered for Wave 5 courses based on your student email. If you want to change your response, please email wavelearningfestival@gmail.com.")
+//     }
+//     else {
+//       target.parentNode.removeChild(target);
+//       submit(db, studentData, setErrorMessage, setPage);
+//     }
+//   })
+// }
 
 var emailValidated = function(email) {
   //Based on thouroughly tested regex
@@ -126,24 +166,34 @@ var emailValidated = function(email) {
   return regexEmail.test(String(email.replace(" ", "")));
 }
 
-var GRADE_OPTIONS = ['< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
+var GRADE_OPTIONS = ["", '< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
+
+var ORGS = ["test1", "test2", "None of the above"];
 
 var YES = ["Yes"];
+
+var PAST_COURSES_OPTIONS = [
+  "Yes, in Wave 1!",
+  "Yes, in Wave 2!",
+  "Yes, in Wave 3!",
+  "Yes, in Wave 4!",
+  "Yes, in Wave 5!",
+  "No"
+];
 
 var NUM_SEMINARS = ["", "1", "2"];
 
 const fetchSeminars = async () => {
   try { 
     const semData = await API.graphql(graphqlOperation(listSeminars));
-    const semList = semData.data.listTutorRegistrations.items;
+    const semList = semData.data.listSeminars.items;
     console.log(semList);
     return semList;
   } catch (error) {
       console.log('error on fetching songs', error);
   }
 }
-var SEMINARS_LIST = [""];
-SEMINARS_LIST = {...fetchSeminars()};
+var SEMINARS_LIST = ["", fetchSeminars()];
 
 var WAYS_TO_HEAR = [
   "From my school (teacher/principal/superintendent)",
@@ -157,7 +207,7 @@ var WAYS_TO_HEAR = [
   "Other"
 ];
 
-const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongSubmission }) => {
+const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wrongSubmission }) => {
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Student Information
@@ -382,7 +432,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongS
       Are you a member of any of these organizations?
     </Typography.Header2>
     {ORGS.map((value) => (
-      renderMultiOption({key: "orgs", option: value, studentData, setStudentData})
+      renderMultiOptionStudent({key: "orgs", option: value, studentData, setStudentData})
     ))}
 
 
@@ -436,7 +486,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       Have you taken courses with us before? *
     </Typography.Header2>
     {PAST_COURSES_OPTIONS.map((value) => (
-      renderMultiOption({key: "pastCourses", option: value, seminarData, setSeminarData})
+      renderMultiOptionSeminar({key: "pastCourses", option: value, seminarData, setSeminarData})
     ))}
 
     <Typography.Header2 color="white" fontSize="24px">
@@ -454,7 +504,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
           numSeminars: value
         }))
       }}>
-      {NUM_COURSES.map((value) => (
+      {NUM_SEMINARS.map((value) => (
         renderOption({option: value})
       ))}
     </Form.Dropdown>
@@ -463,12 +513,44 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       What is your first choice seminar? *
     </Typography.Header2>
     <Form.Dropdown
-      onChange={inputChanged("firstCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
+      value={seminarData.sem1}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          sem1: value
+        }))
+      }}>
+      {SEMINARS_LIST.map((value) => (
         renderOption({option: value})
       ))}
     </Form.Dropdown>
+      
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you interested in taking your first choice seminar? *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your response to 3-5 sentences.
+    </Typography.BodyText>
+    <Form.BigInput
+      value={seminarData.reason1}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          reason1: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      How did you hear about us? *
+    </Typography.Header2>
+    {WAYS_TO_HEAR.map((value) => (
+      renderMultiOptionSeminar({key: "howYouHear", option: value, seminarData, setSeminarData})
+    ))}
+
+    {/* REPEAT FOR ALL SEMINARS */}
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <Form.Button onClick={(event) => { submit() }}>
@@ -521,13 +603,13 @@ const SeminarSignUp = () => {
     country: "",
     state: "",
     city: "",
-    orgs: "",
+    orgs: [],
     studentAgreement: "",
     termsConditions: ""
   })
   const [seminarData, setSeminarData] = useState({
     email: "",
-    pastCourses: "",
+    pastCourses: [],
     numSeminars: "",
     sem1: "",
     reason1: "",
@@ -539,7 +621,7 @@ const SeminarSignUp = () => {
     reason4: "",
     sem5: "",
     reason5: "",
-    howYouHear: ""
+    howYouHear: []
   })
 
   var requiredStudentFields = (form) => {
@@ -611,36 +693,36 @@ const SeminarSignUp = () => {
     } else {
       API.graphql(graphqlOperation(createStudent, {
         input: {
-          first_name: tutorData.first_name,
-          last_name: tutorData.last_name,
-          email: tutorData.email,
-          school: tutorData.school,
-          gradYear: tutorData.gradYear,
-          subjects: tutorData.subjects,
-          ageRanges: tutorData.ageRanges,
-          qualifications: tutorData.qualifications,
-          why: tutorData.why,
-          experience: tutorData.experience,
-          hours: tutorData.hours,
-          questions: tutorData.questions,
-          othersubjects: tutorData.othersubjects
+          first_name: studentData.first_name,
+          last_name: studentData.last_name,
+          email: studentData.email,
+          parent_first: studentData.parent_first,
+          parent_last: studentData.parent_last,
+          parentEmail: studentData.parentEmail,
+          grade: studentData.grade,
+          school: studentData.school,
+          country: studentData.country,
+          state: studentData.state,
+          city: studentData.city,
+          orgs: studentData.orgs
         }
       }));
-      API.graphql(graphqlOperation(createStudent, {
+      API.graphql(graphqlOperation(createSeminarRegistration, {
         input: {
-          first_name: tutorData.first_name,
-          last_name: tutorData.last_name,
-          email: tutorData.email,
-          school: tutorData.school,
-          gradYear: tutorData.gradYear,
-          subjects: tutorData.subjects,
-          ageRanges: tutorData.ageRanges,
-          qualifications: tutorData.qualifications,
-          why: tutorData.why,
-          experience: tutorData.experience,
-          hours: tutorData.hours,
-          questions: tutorData.questions,
-          othersubjects: tutorData.othersubjects
+          email: studentData.email,
+          pastCourses: seminarData.pastCourses,
+          numSeminars: seminarData.numSeminars,
+          sem1: seminarData.sem1,
+          sem2: seminarData.sem2,
+          sem3: seminarData.sem3,
+          sem4: seminarData.sem4,
+          sem5: seminarData.sem5,
+          reason1: seminarData.reason1,
+          reason2: seminarData.reason2,
+          reason3: seminarData.reason3,
+          reason4: seminarData.reason4,
+          reason5: seminarData.reason5,
+          howYouHear: seminarData.howYouHear
         }
       }));
       setPage('thanks');
@@ -651,13 +733,22 @@ const SeminarSignUp = () => {
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
-      <Styles.TeacherBackground>
+      {/* <Container>
+        <ContainerInner> */}
+          <Styles.SignupBackground>
+            {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, nextPage, wrongSubmission })}
+            {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission })}
+            {page === 'thanks' && Thanks({ setPage })}
+          </Styles.SignupBackground>
+        {/* </ContainerInner>
+      </Container> */}
+      {/* <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
           {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, submit, wrongSubmission })}
           {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission })}
           {page === 'thanks' && Thanks({ setPage })}
         </div>
-      </Styles.TeacherBackground>
+      </Styles.TeacherBackground> */}
       <Footer />
     </div>
   )
