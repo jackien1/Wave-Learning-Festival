@@ -182,11 +182,11 @@ type SeminarRegistration {
   id: ID!
   email: String!
   numSeminars: Int!
-  sem1: Seminar!
-  sem2: Seminar
-  sem3: Seminar
-  sem4: Seminar
-  sem5: Seminar
+  sem1: ID!
+  sem2: ID
+  sem3: ID
+  sem4: ID
+  sem5: ID
   reason1: String!
   reason2: String
   reason3: String
@@ -1138,6 +1138,11 @@ input ModelSeminarRegistrationFilterInput {
   id: ModelIDInput
   email: ModelStringInput
   numSeminars: ModelIntInput
+  sem1: ModelIDInput
+  sem2: ModelIDInput
+  sem3: ModelIDInput
+  sem4: ModelIDInput
+  sem5: ModelIDInput
   reason1: ModelStringInput
   reason2: ModelStringInput
   reason3: ModelStringInput
@@ -1154,6 +1159,11 @@ input CreateSeminarRegistrationInput {
   id: ID
   email: String!
   numSeminars: Int!
+  sem1: ID!
+  sem2: ID
+  sem3: ID
+  sem4: ID
+  sem5: ID
   reason1: String!
   reason2: String
   reason3: String
@@ -1167,6 +1177,11 @@ input UpdateSeminarRegistrationInput {
   id: ID!
   email: String
   numSeminars: Int
+  sem1: ID
+  sem2: ID
+  sem3: ID
+  sem4: ID
+  sem5: ID
   reason1: String
   reason2: String
   reason3: String
@@ -1183,6 +1198,11 @@ input DeleteSeminarRegistrationInput {
 input ModelSeminarRegistrationConditionInput {
   email: ModelStringInput
   numSeminars: ModelIntInput
+  sem1: ModelIDInput
+  sem2: ModelIDInput
+  sem3: ModelIDInput
+  sem4: ModelIDInput
+  sem5: ModelIDInput
   reason1: ModelStringInput
   reason2: ModelStringInput
   reason3: ModelStringInput

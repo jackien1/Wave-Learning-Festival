@@ -521,101 +521,11 @@ export const getSeminarRegistration = /* GraphQL */ `
       id
       email
       numSeminars
-      sem1 {
-        id
-        classTimes
-        classDays
-        classDates
-        courseCategory
-        courseDescription
-        courseTitle
-        edLink
-        maxClassSize
-        picture
-        prereqs
-        syllabus
-        targetAudience
-        teachers
-        zoomLink
-        createdAt
-        updatedAt
-      }
-      sem2 {
-        id
-        classTimes
-        classDays
-        classDates
-        courseCategory
-        courseDescription
-        courseTitle
-        edLink
-        maxClassSize
-        picture
-        prereqs
-        syllabus
-        targetAudience
-        teachers
-        zoomLink
-        createdAt
-        updatedAt
-      }
-      sem3 {
-        id
-        classTimes
-        classDays
-        classDates
-        courseCategory
-        courseDescription
-        courseTitle
-        edLink
-        maxClassSize
-        picture
-        prereqs
-        syllabus
-        targetAudience
-        teachers
-        zoomLink
-        createdAt
-        updatedAt
-      }
-      sem4 {
-        id
-        classTimes
-        classDays
-        classDates
-        courseCategory
-        courseDescription
-        courseTitle
-        edLink
-        maxClassSize
-        picture
-        prereqs
-        syllabus
-        targetAudience
-        teachers
-        zoomLink
-        createdAt
-        updatedAt
-      }
-      sem5 {
-        id
-        classTimes
-        classDays
-        classDates
-        courseCategory
-        courseDescription
-        courseTitle
-        edLink
-        maxClassSize
-        picture
-        prereqs
-        syllabus
-        targetAudience
-        teachers
-        zoomLink
-        createdAt
-        updatedAt
-      }
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
       reason1
       reason2
       reason3
@@ -643,6 +553,11 @@ export const listSeminarRegistrations = /* GraphQL */ `
         id
         email
         numSeminars
+        sem1
+        sem2
+        sem3
+        sem4
+        sem5
         reason1
         reason2
         reason3

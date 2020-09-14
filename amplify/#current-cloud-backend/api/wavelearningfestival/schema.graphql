@@ -160,11 +160,11 @@ type SeminarRegistration @model {
   id: ID!
   email: String!
   numSeminars: Int!
-  sem1: Seminar!
-  sem2: Seminar
-  sem3: Seminar
-  sem4: Seminar
-  sem5: Seminar
+  sem1: ID!
+  sem2: ID
+  sem3: ID
+  sem4: ID
+  sem5: ID
   reason1: String!
   reason2: String
   reason3: String
