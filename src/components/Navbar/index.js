@@ -73,7 +73,7 @@ const Navbar = () => {
             <Link to="/instructors">Instructors</Link>
           </NavItem>
           <NavItem>
-            <Link to="/instructor-applications">Instructor Apps</Link>
+            <Link to="/instructor-apps">Instructor Apps</Link>
           </NavItem>
           <NavItem>
             <Link to="/tutors">Tutor Apps</Link>
