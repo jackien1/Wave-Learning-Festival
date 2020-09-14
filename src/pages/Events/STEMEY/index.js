@@ -2,60 +2,12 @@ import React, { useState, useContext } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import * as Styles from './styles'
-import jessica from './img/jessica.png'
-import antonia from './img/antonia.png'
-import cibonay from './img/Cardonay.png'
-import natasha from './img/natasha.jpg'
 import { Colors, Typography, Form } from '@/styles'
 import logo from './logo.png'
 import { FirebaseContext } from '@/firebaseContext'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createEventRegistration, createNewsletter } from "../../../graphql/mutations.js"
 import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
-
-const speakersData = [
-  {
-    name: "10:00 AM EST: Jessica Barquist",
-    pos: <p>Director of Policy and Organizing at the <i>Vermont Network Against Domestic and Sexual Violence</i></p>,
-    bio: <p>A desire to create a world in which all people thrive led her to a focus on systemic change through public policy and community organizing. Prior to joining the Vermont Network, she was the Field Director on a statewide early childhood campaign. As an organizer and advocate, Jessica’s mission is to empower others to use their voices for positive social change.</p>,
-    image: jessica
-  },
-  {
-    name: "11:30 EST: Antonia Drew-Vann",
-    pos: <p>Antonia Drew-Vann is the founder of Asha Family Services. Asha remains the first and only recognized culturally specific domestic violence program in Wisconsin for African Americans.</p>,
-    bio: <p>Vann has also worked with the US Health Resources and Services Administration to train domestic violence workers across the country to better serve African American women. <b>Her work has earned her White House invitations under three separate administrations!</b></p>,
-    image: antonia
-  },
-  /*{
-    name: "1:00 PM EST: Esperanza Castillo",
-    pos: <p>North Carolina Coalition Against Domestic Violence</p>,
-    bio: <p>Esperanza Castillo is the Latinx and Immigration Services Coordinator for the North Carolina Coalition against Domestic Violence. She first connected with interpersonal violence prevention in college, volunteering as a peer educator and bilingual hotline advocate for her local domestic violence agency. Esperanza continued to work with survivors and their families as Latinx Services Director at Compass Center in Chapel Hill, where she supported staff, community partners, and dozens of dedicated volunteers in strengthening Orange County’s response to immigrant survivors.
-    <a href="http://www.sickkids.ca/AboutSickKids/Directory/People/B/Zulfiqar-Bhutta.html">Learn more about Dr. Zulfiqar Bhutta.</a></p>,
-    image: keynote
-  },*/
-  {
-    name: "2:00 EST: Cibonay Jimenez",
-    pos: <p>California Partnership to End Violence</p>,
-    bio: <p>Cibonay Jimenez  has over 20 years of professional experience in the Domestic Violence and Sexual Assault. Her passion for this work derives from her rich history and experience as a DV/SA survivor and Native Chicana woman. She previously held the position of Chief Program Officer at WEAVE, one of the largest Domestic Violence/Sexual Assault Agencies in the US. Before WEAVE, she held the position of the Community Services Director at the Sacramento Native American Health Center for 8 years and managed prevention, intervention, treatment, and aftercare programs for domestic violence, sexual assault, health disparities, mental health, among others.</p>,
-    image: cibonay
-  },
-  {
-    name: "3:00 EST: Olivia Bass",
-    pos: <p>North Carolina Coalition Against Domestic Violence</p>,
-    bio: <p>Olivia earned her Bachelor’s degree in psychology and her Master's in Social Work with a concentration in social innovation and entrepreneurship at the University of North Carolina at Chapel Hill. She discovered her passion about violence prevention during her undergraduate career. She first started volunteering at the local rape crisis center supporting prevention education for adolescents and their families. This passion evolved to focusing in a career of social work by providing direct client services, support group facilitation, crisis management, and support to local bar staff about alcohol-facilitated sexual assault, and sexual health and relationship education. <br />
-    Olivia manages the Nia program which focuses on the cultural values, tropes, and worries that often act as barriers that prevent Black IPV survivors from seeking formal assistance. With the support of community advocates and community-based organizations, Olivia will raise awareness about IPV and available resources and services for ABC survivors, and will provide referral services and support to this population.</p>,
-    image: logo
-  },
-  {
-    name: "4:00 EST: Natasha Tretheway",
-    pos: <p>US Poet Laureate (2012-2014) and Pulitzer Prize Poet <i>(Her recordings of her poetry—sent to us—will be played in the conference.)</i></p>,
-    bio: <p>Poet Natasha Tretheway won the 2007 Pulitzer Prize in poetry and was appointed United States Poet Laureate in 2012 and 2013. Tretheway has received fellowships from the Guggenheim Foundation, the Rockefeller Foundation, the National Endowment for the Arts, and Harvard's Radcliffe Institute. She is currently the Board of Trustees Professor of English at Northwestern University.<br />
-    Her most recent work, “Memorial Drive: A Daughter’s Memoir,” released this summer, was an “instant” New York Times Bestseller. Her memoir documents her experience as a domestic violence survivor. When she was 19, Tretheway’s stepfather murdered her mother in the street in Atlanta, Georgia. The New Yorker reviewed, “Trethewey’s writing mines the cavernous isolation, brutality, and resilience of African-American history, tracing its subterranean echoes to today.”</p>,
-    image: natasha
-  },
-]
-
-
 
 const SpeakerIcon = (speaker) => {
   if (speaker.name === 'blank') return <div />
@@ -81,8 +33,9 @@ const EventHome = ({ setPage }) => {
     STEMtober
     </Typography.Header>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
-    We have recently partnered with STEMEY to host a virtual series of speaker seminars every Saturday of October, which we are calling STEMtober. We are hoping to inspire students who have limited contact with STEM to explore the field further, as well as provide guidance to passionate students seeking to become more involved in STEM. We are looking for experienced STEM professionals to speak.
-    <br/>We are planning on hosting a speaker series for. The talks are from accomplished professors and professionals who would give you an insight into their experience in STEM, what inspired them to pursue that field of study, and any advice they may have for students hoping to pursue their profession. 
+    We have partnered with STEMEY to host a virtual series of speaker seminars every Saturday of October, and thus we present to you STEMtober! We are hoping to inspire students who have limited contact with STEM to explore the field further, as well as provide guidance to passionate students seeking to become more involved in STEM. 
+    <br/>
+    <br/>We are hosting speaker events that would deal with topics from computational genomics to creating an app to help thousands of people! The talks are from accomplished professors and professionals who will give you an insight into their experience in STEM, what inspired them to pursue that field of study, and any advice they may have for students hoping to pursue their profession. 
     </Typography.BodyText>
     <br/>
     <Typography.BodyText color="white" style={{ marginBottom: -10 }}>
@@ -99,14 +52,11 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
-    <Typography.Header color="white" fontSize="21px">
-            Coming Soon!
-          </Typography.Header>
-        {/*<Form.Button onClick={() => setPage('teacherData')}>
+      <Form.Button onClick={() => setPage('googleForm')}>
           <Typography.Header color="white" fontSize="21px">
-            Register Now!
+           Interest Form
           </Typography.Header>
-  </Form.Button>*/}
+  </Form.Button>
         <div style={{ flex: 1 }} />
     </div>
     <br/>
@@ -118,14 +68,11 @@ const EventHome = ({ setPage }) => {
     </Typography.BodyText>
 
     <div style={{ display: 'flex', flexDirection: 'row'}}>
-    <Typography.Header color="white" fontSize="21px">
-          Coming Soon!
-        </Typography.Header>
-      {/*<Form.Button onClick={() => setPage('teacherData')}>
-        <Typography.Header color="white" fontSize="21px">
-          Register Now!
-        </Typography.Header>
-  </Form.Button>*/}
+    <Form.Button onClick={() => setPage('googleForm')}>
+          <Typography.Header color="white" fontSize="21px">
+           Interest Form
+          </Typography.Header>
+  </Form.Button>
     <div style={{ flex: 1 }} />
     </div>
   </>)
@@ -365,6 +312,17 @@ const Thanks = ({ setPage }) => (
   </>
 )
 
+const InterestForm = () => {
+  return (
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSctUf_QwnzYLFq4uNaMKs7287UMlICCvhH5kMDhn1BmUGGv1w/viewform?embedded=true"
+      width="90%"
+      height="520"
+      frameborder="0"
+      margin="10px">
+      Loading…
+    </iframe>)
+}
+
 const Teachers = () => {
   const [page, setPage] = useState('home')
   const [wrongSubmission, setWrongSubmission] = useState("")
@@ -438,13 +396,16 @@ const Teachers = () => {
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
-      <Styles.TeacherBackground>
+      {page !== 'googleForm' && <Styles.TeacherBackground>
         <div style={{ maxWidth: 800 }}>
           {page === 'home' && EventHome({ setPage })}
           {page === 'teacherData' && TeacherDataInput({ setPage, teacherData, setTeacherData, submit, wrongSubmission })}
           {page === 'thanks' && Thanks({ setPage })}
         </div>
-      </Styles.TeacherBackground>
+      </Styles.TeacherBackground>}
+      {page === 'googleForm' &&  <Styles.TeacherBackgroundForm>
+          {InterestForm({ setPage })}
+      </Styles.TeacherBackgroundForm>}
       <Footer />
     </div>
   )
