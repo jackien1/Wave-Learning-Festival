@@ -1,78 +1,21 @@
-import React, {useState, useContext} from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Colors, Typography, Form } from "@/styles";
-import * as Styles from "./styles";
-import Logo from "./logo.png"
-import firebase from 'firebase'
-import { FirebaseContext } from "@/firebaseContext";
-import { COUNTRIES, UNITED_STATES, STATES, COURSE_LIST } from "./countries";
+import React, { useState, useContext } from 'react'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import * as Styles from './styles'
+import { Colors, Typography, Form } from '@/styles'
+import Logo from './logo.png'
+import { FirebaseContext } from '@/firebaseContext'
+import { BodyText } from '@/styles/Typography'
+import Amplify, { API, graphqlOperation } from "aws-amplify"
+import { createStudent, createStudentRegistration } from "../../graphql/mutations.js"
 
-var changeKey = function(prevData, key, value) {
-  var result = prevData;
-  result[key] = value;
-  console.log(result);
-  return result;
-}
+const renderOption = ({option}) => (
+  <option value={option}>{option}</option>
+)
 
-var inputChanged = function(key, setStudentData) {
-
-  var result = (event) => {
-    var value = event.target.value;
-    if (key == "name_first" || key == "name_last") {
-      value = value.substring(0, 1).toUpperCase() + value.substring(1);
-    }
-    setStudentData(prevData => {
-      var result = {...prevData};
-      result[key] = value;
-      return result;
-    });
-  };
-  return result;
-};
-
-const renderMultiOption = ({key, option, studentData, setStudentData}) => (
+const renderSingleOption = ({other, key, option, data, setData}) => (
   <Form.RadioInputBackground onClick={() => {
-    const newData = studentData[key];
-    const ix = newData.indexOf(option);
-    if (ix >= 0) {
-      newData.splice(ix,1);
-    } else {
-      newData.push(option);
-    }
-    setStudentData(prevData => {
-      var result = {...prevData};
-      result[key] = newData;
-      return result;
-  });
-  }}>
-    <Form.RadioInputButton many={true} selected={studentData[key].indexOf(option) >= 0}/>
-    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
-      <Typography.BodyText color="white">{option}</Typography.BodyText>
-      <div style={{height: 40}}>
-        {option === "Other" &&
-          <Form.Input
-            value={studentData["other" + key]}
-            onChange={event => {
-              const value = event.target.value;
-              setStudentData(prevData => {
-                var result = {
-                  ...prevData
-                };
-                result["other" + key] = value;
-                return result;
-              });
-            }}
-          />
-        }
-      </div>
-    </div>
-  </Form.RadioInputBackground>
-);
-
-const renderSingleOption = ({other, key, option, studentData, setStudentData}) => (
-  <Form.RadioInputBackground onClick={() => {
-    setStudentData(prevData => {
+    setData(prevData => {
       var result = {
       ...prevData,
       };
@@ -81,16 +24,16 @@ const renderSingleOption = ({other, key, option, studentData, setStudentData}) =
     }
   );
   }}>
-    <Form.RadioInputButton many={true} selected={studentData[key] == option}/>
+    <Form.RadioInputButton many={true} selected={data[key] == option}/>
     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
       <Typography.BodyText color="white">{option}</Typography.BodyText>
       <div style={{height: 40}}>
         {option === "Other" &&
           <Form.Input
-            value={studentData["other" + key]}
+            value={data["other" + key]}
             onChange={event => {
               const value = event.target.value;
-              setStudentData(prevData => {
+              setData(prevData => {
                 var result = {
                   ...prevData
                 };
@@ -105,60 +48,46 @@ const renderSingleOption = ({other, key, option, studentData, setStudentData}) =
   </Form.RadioInputBackground>
 );
 
-const renderOption = ({option}) => (
-  <option value={option}>{option}</option>
-)
-
-var fitsRequirements = function(studentData, wrongSubmission, setWrongSubmission) {
-  var checkChangeSubmission = function(newMessage) {
-    if (newMessage !== wrongSubmission) {
-      setWrongSubmission(newMessage);
-    }
-  }
-
-  let checkKeys = ["name_first", "name_last", "email", "parentName", "parentEmail",
-                   "numCourses", "firstCourse", "termsConditions", "notInterested",
-                   "pastCourses", "futureWaves", "age", "country", "city", "school",
-                   "studentAgreement", "howYouHear"];
-  for (let key in checkKeys) {
-    if (!studentData[checkKeys[key]]) {
-      checkChangeSubmission("Please fill out the required fields.");
-      return false;
-    }
-  }
-
-  if (!(emailValidated(studentData.email) && emailValidated(studentData.parentEmail))) {
-    checkChangeSubmission("Please input valid email addresses.");
-    return false;
-  }
-
-  let courseKeys = ["firstCourse", "secondCourse", "thirdCourse", "fourthCourse",
-                    "fifthCourse", "sixthCourse", "seventhCourse", "eigthCourse"];
-  let courses = [];
-
-  for (let key in courseKeys) {
-    let option = studentData[courseKeys[key]];
-    if (!option) {
-      break;
-    }
-    if (courses.includes(option)) {
-      checkChangeSubmission("Please choose unique courses for the options.");
-      return false;
+const renderMultiOption = ({key, option, data, setData}) => (
+  <Form.RadioInputBackground onClick={() => {
+    const newData = data[key];
+    const ix = newData.indexOf(option);
+    if (ix >= 0) {
+      newData.splice(ix,1);
     } else {
-      courses.push(option);
+      newData.push(option);
     }
-  }
+    setData(prevData => {
+      var result = {...prevData};
+      result[key] = newData;
+      return result;
+  });
+  }}>
+    <Form.RadioInputButton many={true} selected={data[key].indexOf(option) >= 0}/>
+    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',}}>
+      <Typography.BodyText color="white">{option}</Typography.BodyText>
+      <div style={{height: 40}}>
+        {option === "Other" &&
+          <Form.Input
+            value={data["other" + key]}
+            onChange={event => {
+              const value = event.target.value;
+              setData(prevData => {
+                var result = {
+                  ...prevData
+                };
+                result["other" + key] = value;
+                return result;
+              });
+            }}
+          />
+        }
+      </div>
+    </div>
+  </Form.RadioInputBackground>
+);
 
-  checkChangeSubmission("");
-  return true;
-};
-
-var emailValidated = function(email) {
-  //Based on thouroughly tested regex
-  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regexEmail.test(String(email.replace(" ", "")));
-}
-
+// NEED TO UPDATE THIS!! (checks if student alrdy has account)
 var isEmailDuplicated = function(db, email) {
   //Is in our database already for current wave?
   var ls = [];
@@ -173,6 +102,7 @@ var isEmailDuplicated = function(db, email) {
   return false;
 }
 
+// NEED TO UPDATE THIS!! (check if student has already registered for Tide 1)
 var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMessage, setPage, setWrongSubmission) {
   db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
     var ls = [];
@@ -189,73 +119,15 @@ var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMe
   })
 }
 
-var submit = function(db, studentData, setErrorMessage, setPage) {
-  var submission = {...studentData};
-  db.collection("StudentRegistrations").where("email", "==", submission.email).where("wave4", "==", true).get().then(function(snapshot) {
-    //If they have registered for wave4 and not wave5
-    var ls = [];
-    snapshot.forEach(function(snap) {
-      ls.push(snap.data());
-    });
-    if (ls.length > 0) {
-      db.collection("StudentRegistrations").doc(ls[0].id).update({
-        futureWaves: submission.futureWaves,
-        numCourses: submission.numCourses,
-        firstCourse: submission.firstCourse,
-        secondCourse: submission.secondCourse,
-        thirdCourse: submission.thirdCourse,
-        fourthCourse: submission.fourthCourse,
-        fifthCourse: submission.fifthCourse,
-        sixthCourse: submission.sixthCourse,
-        seventhCourse: submission.seventhCourse,
-        eigthCourse: submission.eigthCourse,
-        questions: submission.questions, 
-        wave5: true
-      }).then(function() {
-        setPage("complete");
-        console.log(ls[0].id);
-      });
-    } else {
-      db.collection("StudentRegistrations").add(submission).then(function(ref) {
-        firebase.auth().createUserWithEmailAndPassword(submission.email, ref.id).then(function() {
-          setPage("complete");
-        }).catch(function(error) {
-          setPage("complete");
-        });
-        db.collection("StudentRegistrations").doc(ref.id).update({id: ref.id});
-      });
-    }
-  });
-};
+var emailValidated = function(email) {
+  //Based on thouroughly tested regex
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regexEmail.test(String(email.replace(" ", "")));
+}
 
-var PAST_COURSES_OPTIONS = [
-  "Yes, in Wave 1!",
-  "Yes, in Wave 2!",
-  "Yes, in Wave 3!",
-  "Yes, in Wave 4!",
-  "No"
-];
+var GRADE_OPTIONS = ['< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
 
-var YES_NO = [
-  "Yes!",
-  "No"
-];
-
-var AGE_OPTIONS = [
-  "",
-  "Under 10",
-  "10",
-  "11",
-  "12",
-  "13",
-  "14",
-  "15",
-  "16",
-  "17",
-  "18",
-  "19",
-  "20",
-];
+var YES = ["Yes"];
 
 var WAYS_TO_HEAR = [
   "From a school/principal/superintendent",
@@ -267,115 +139,191 @@ var WAYS_TO_HEAR = [
   "From your company (please enter in \"Other\")",
   "From a teacher",
   "Other"
-]
+];
 
-var NUM_COURSES = ["", "1", "2", "3"];
-
-var YES = ["Yes"];
-
-const Home = (db, setPage, studentData, setStudentData, wrongSubmission, setWrongSubmission, setErrorMessage) => {
-  return (
-    <>
-    <br/>
+const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongSubmission }) => {
+  return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
-      Course Signup
+      Student Information
     </Typography.Header>
 
     <Typography.Header2 color="white" fontSize="24px">
-      Student First Name / Nombre *
+      Student First Name *
     </Typography.Header2>
     <Form.Input
-      value={studentData.name_first}
-      onChange={inputChanged("name_first", setStudentData)}
-    />
-    <Typography.Header2 color="white" fontSize="24px">
-      Student Last Name / Apellido *
-    </Typography.Header2>
-    <Form.Input
-      value={studentData.name_last}
-      onChange={inputChanged("name_last", setStudentData)}
+      value={studentData.first_name}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          first_name: value
+        }))
+      }}
     />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Student Email / Correo electrónico *
+      Student Last Name *
     </Typography.Header2>
-    <Typography.BodyText color="white">
-      If possible, please use a personal email instead of a school email. <br/>
-      Parents: If you have multiple children signing up for courses, 
-      please make sure you input a different email per child here.
-    </Typography.BodyText>
+    <Form.Input
+      value={studentData.last_name}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          last_name: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Student Email *
+    </Typography.Header2>
     <Form.Input
       value={studentData.email}
-      onChange={inputChanged("email", setStudentData)}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          email: value
+        }))
+      }}
     />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Have you taken courses with us before? *
+      Confirm Student Email *
     </Typography.Header2>
-    {PAST_COURSES_OPTIONS.map((value) => (
-      renderMultiOption({key: "pastCourses", option: value, studentData, setStudentData})
-    ))}
+    <Form.Input
+      value={studentData.email1}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          email1: value
+        }))
+      }}
+    />
+
+<Typography.Header2 color="white" fontSize="24px">
+      Parent First Name *
+    </Typography.Header2>
+    <Form.Input
+      value={studentData.parent_first}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          parent_first: value
+        }))
+      }}
+    />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Let me know when registrations for future waves begin! / Notifícame de cursos nuevos! *
+      Parent Last Name *
     </Typography.Header2>
-    {YES_NO.map((value) => (
-      renderSingleOption({key: "futureWaves", option: value, studentData, setStudentData})
-    ))}
+    <Form.Input
+      value={studentData.parent_last}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          parent_last: value
+        }))
+      }}
+    />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Age / Edad *
+      Parent Email *
     </Typography.Header2>
+    <Form.Input
+      value={studentData.parentEmail}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          parentEmail: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Confirm Parent Email *
+    </Typography.Header2>
+    <Form.Input
+      value={studentData.parentEmail1}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          parentEmail1: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Student Grade Level *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      In the US, the grade levels are as follows: grade 6 (age 11-12), grade 7 (age 12–13), grade 8 (age 13–14), grade 9 (age 14–15), grade 10 (age 15-16), grade 11 (age 16-17), and grade 12 (age 17–18).
+    </Typography.BodyText>
     <Form.Dropdown
-      onChange={inputChanged("age", setStudentData)}
+      value={studentData.grade}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          grade: value
+        }))
+      }}
     >
-      {AGE_OPTIONS.map((value) => (
+      {GRADE_OPTIONS.map((value) => (
         renderOption({option: value})
       ))}
     </Form.Dropdown>
 
     <Typography.Header2 color="white" fontSize="24px">
-      Parent/Guardian Name (Full) / Nombre de padre o madre *
+      School *
     </Typography.Header2>
     <Form.Input
-      value={studentData.parentName}
-      onChange={inputChanged("parentName", setStudentData)}
+      value={studentData.school}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          school: value
+        }))
+      }}
     />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Parent/Guardian Email / Correo electrónico de padre o madre *
-    </Typography.Header2>
-    <Form.Input
-      value={studentData.parentEmail}
-      onChange={inputChanged("parentEmail", setStudentData)}
-    />
-
-    <Typography.Header2 color="white" fontSize="24px">
-      Country / País *
+      Country *
     </Typography.Header2>
     <Form.Dropdown
-      onChange={inputChanged("country", setStudentData)}
-    >
+      value={studentData.country}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          country: value
+        }))
+      }}>
       {COUNTRIES.map((value) => (
         renderOption({option: value})
       ))}
     </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      City *
-    </Typography.Header2>
-    <Form.Input
-      value={studentData.city}
-      onChange={inputChanged("city", setStudentData)}
-    />
 
     {studentData.country === UNITED_STATES && <>
         <Typography.Header2 color="white" fontSize="24px">
           State *
         </Typography.Header2>
         <Form.Dropdown
-          onChange={inputChanged("state", setStudentData)}
-        >
+          value={studentData.state}
+          onChange={event => {
+            const value = event.target.value
+            setStudentData(prevData => ({
+              ...prevData,
+              state: value
+            }))
+          }}>
           {STATES.map((value) => (
             renderOption({option: value})
           ))}
@@ -383,131 +331,44 @@ const Home = (db, setPage, studentData, setStudentData, wrongSubmission, setWron
         </>
     }
 
+    {studentData.country != UNITED_STATES && <>
+        <Typography.Header2 color="white" fontSize="24px">
+          State *
+        </Typography.Header2>
+        <Form.Input
+          value={studentData.state}
+          onChange={event => {
+            const value = event.target.value
+            setStudentData(prevData => ({
+              ...prevData,
+              state: value
+            }))
+          }}
+        />
+        </>
+    }
+
     <Typography.Header2 color="white" fontSize="24px">
-      School / Escuela *
+      City *
     </Typography.Header2>
     <Form.Input
-      value={studentData.school}
-      onChange={inputChanged("school", setStudentData)}
+      value={studentData.city}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          city: value
+        }))
+      }}
     />
 
     <Typography.Header2 color="white" fontSize="24px">
-      REGISTER FOR COURSES
+      Are you a member of any of these organizations?
     </Typography.Header2>
-    <Typography.BodyText color="white">
-    PLEASE READ BEFORE CONTINUING:
-    </Typography.BodyText>
-    <Typography.BodyText color="white">
-    Since we are offering more classes, you can register for up to 8 courses this Wave and be enrolled in up to 3!
-    </Typography.BodyText>
-    <Typography.BodyText color="white">
-    Please indicate the amount of courses you would ultimately like to be enrolled in (1-3 courses), and we will do our best to give you that amount. We will enroll you based on your priority ranking of the courses.
-    </Typography.BodyText>
-    <Typography.BodyText color="white">
-    Please keep in mind the target age range, course meeting times, frequency, class sizes, and duration.
-    </Typography.BodyText>
-    <Typography.Header2 color="white" fontSize="20px">
-      Check out our <a href="/courses" target="_blank">Course List</a>!
-    </Typography.Header2>
+    {ORGS.map((value) => (
+      renderMultiOption({key: "orgs", option: value, studentData, setStudentData})
+    ))}
 
-    <Typography.Header2 color="white" fontSize="24px">
-      How many courses would you like to be enrolled in? *
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("numCourses", setStudentData)}
-    >
-      {NUM_COURSES.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your first choice course? / ¿Cual es tu primer curso de elección? *
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("firstCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your second choice course? / ¿Cual es tu segundo curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("secondCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your third choice course? / ¿Cual es tu tercer curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("thirdCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your fourth choice course? / ¿Cual es tu cuarto curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("fourthCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your fifth choice course? / ¿Cual es tu quinto curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("fifthCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your sixth choice course? / ¿Cual es tu sexto curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("sixthCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your seventh choice course? / ¿Cual es tu séptimo curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("seventhCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
-
-    <Typography.Header2 color="white" fontSize="24px">
-      What is your eighth choice course? / ¿Cual es tu octavo curso de elección?
-    </Typography.Header2>
-    <Form.Dropdown
-      onChange={inputChanged("eigthCourse", setStudentData)}
-    >
-      {COURSE_LIST.map((value) => (
-        renderOption({option: value})
-      ))}
-    </Form.Dropdown>
 
     <Typography.Header2 color="white" fontSize="24px">
       I have read and agree to the <a href="/student-agreement" target="_blank">Student Agreement</a> / He leído y acepto el Acuerdo del estudiante
@@ -524,169 +385,168 @@ const Home = (db, setPage, studentData, setStudentData, wrongSubmission, setWron
       renderSingleOption({key: "termsConditions", option: value, studentData, setStudentData})
     ))}
 
-    <Typography.Header2 color="white" fontSize="24px">
-      If I am placed in a class and decide I am no longer interested or able to take it, I will let Wave (wavelf.logistics@gmail.com) know at least 24 hours before the class start date. / Si yo recibe un lugar en una clase y decido a no tomarla, voy a notificar a WLF por lo menos 24 horas antes que el día de empezar. *
-    </Typography.Header2>
-    {YES.map((value) => (
-      renderSingleOption({key: "notInterested", option: value, studentData, setStudentData})
-    ))}
-
-    <Typography.Header2 color="white" fontSize="24px">
-      How did you hear about us? / ¿Cómo discubrió usted de nosotros? *
-    </Typography.Header2>
-    {WAYS_TO_HEAR.map((value) => (
-      renderMultiOption({key: "howYouHear", option: value, studentData, setStudentData})
-    ))}
-
-    <Typography.Header2 color="white" fontSize="24px">
-      Any comments or questions for the teachers or for the board? / ¿Tiene usted alguna pregunta para los maestros o para nosotros?
-    </Typography.Header2>
-    <Form.BigInput
-      value={studentData.questions}
-      onChange={inputChanged("questions", setStudentData)}
-    />
-
-    <Typography.BodyText color="white">
-      * Required field
-    </Typography.BodyText>
-
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-      <Form.Button onClick={(event) => {
-          checkDuplicationSubmit(db, studentData.email, event.target, studentData, setErrorMessage, setPage, setWrongSubmission)
-        }} enabled={fitsRequirements(studentData, wrongSubmission, setWrongSubmission)} >
+      <Form.Button onClick={(event) => { submit() }}>
         <Typography.Header color="white" fontSize="24px">
           Submit
         </Typography.Header>
       </Form.Button>
     </div>
 
+    <Typography.BodyText color="white">
+      * Required field
+    </Typography.BodyText>
+
     {wrongSubmission &&
     <Typography.BodyText color="white">
       {wrongSubmission}
     </Typography.BodyText>}
-
-    </>
-  );
+  </div>)
 }
 
-const Complete = () => {
-  return (
-    <div>
-    <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
-    <Typography.BodyText color="white" style={{fontSize: 21}}>
-      You and/or your parent should receive a confirmation email shortly. <br/><br/>
-      We never want financial ability to prevent anyone from being able to learn. In order for us to provide accessible educational resources to students across the world, we need your help! <br/><br/>
-      If you have the means, please donate to help Wave better serve our students. (We recommend $5 per course, but any amount is greatly appreciated!)
-      <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'left', marginTop:-10, fontSize:24}}>
-        <Form.Button style={{textAlign: 'center', alignItems: 'center', marginRight:20 }}>
-          <a href="/" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Home</b></a>
-        </Form.Button> 
-        <Form.Button style={{textAlign: 'center', alignItems: 'center' }}>
-          <a href="/donate" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Donate</b></a>
-        </Form.Button>
-      </div>
-    </Typography.BodyText>
+const Thanks = ({ setPage }) => (
+  <>
+    <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
+    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews within a couple weeks. If you have any questions/concerns, please email us at wavelearningfestival@gmail.com.</Typography.Header2>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Form.Button onClick={() => "/courses"}>
+        <Typography.Header color="white" fontSize="24px">
+          Back to Seminars Page
+        </Typography.Header>
+      </Form.Button>
     </div>
-  );
-}
+  </>
+)
 
-const Loading = () => {
-  return (
-    <Typography.Header color={Colors.WLF_YELLOW}>Loading...</Typography.Header>
-  );
-}
-
-const Error = (errorMessage) => {
-  return (
-    <Typography.Header color={Colors.WLF_YELLOW}>Error! {errorMessage}</Typography.Header>
-  )
-}
-
-const EmailTaken = () => {
-  return (<>
-    <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
-    <Typography.BodyText color="white">
-      Click <a href="/">here</a> to go back to the homepage.
-    </Typography.BodyText>
-    </>
-  )
-}
-
-const CourseSignUp = () => {
-  const [page, setPage] = useState("loading");
-  const [calledOnce, setCalledOnce] = useState(false);
-  const [wrongSubmission, setWrongSubmission] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+const SeminarSignUp = () => {
+  const [page, setPage] = useState('studentData')
+  const [wrongSubmission, setWrongSubmission] = useState("")
   const [studentData, setStudentData] = useState({
-    name_first: "",
-    name_last: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    pastCourses: [],
-    futureWaves: "",
-    age: "",
-    parentName: "",
+    email1: "",
+    parent_first: "",
+    parent_last: "",
     parentEmail: "",
-    country: "",
-    city: "",
-    state: "",
+    parentEmail1: "",
+    grade: "",
     school: "",
-    numCourses: "",
-    firstCourse: "",
-    secondCourse: "",
-    thirdCourse: "",
-    fourthCourse: "",
-    fifthCourse: "",
-    sixthCourse: "",
-    seventhCourse: "",
-    eigthCourse: "",
+    country: "",
+    state: "",
+    city: "",
+    orgs: "",
     studentAgreement: "",
-    termsConditions: "",
-    notInterested: "",
-    howYouHear: [],
-    otherhowYouHear: "",
-    questions: "",
-    wave4: false,
-    wave5: true
+    termsConditions: ""
+  })
+  const [seminarData, setSeminarData] = useState({
+    email: "",
+    pastCourses: "",
+    numSeminars: "",
+    sem1: "",
+    reason1: "",
+    sem2: "",
+    reason2: "",
+    sem3: "",
+    reason3: "",
+    sem4: "",
+    reason4: "",
+    sem5: "",
+    reason5: "",
+    howYouHear: ""
   })
 
-  const {db} = useContext(FirebaseContext);
+  var requiredStudentFields = (form) => {
+    return form.first_name != "" &&
+      form.last_name != "" &&
+      form.email != "" &&
+      form.parent_first != "" &&
+      form.parent_last != "" &&
+      form.parentEmail != "" &&
+      form.grade != "" &&
+      form.school != "" &&
+      form.country != "" &&
+      form.state != "" &&
+      form.city != "" &&
+      form.studentAgreement != "" &&
+      form.termsConditions != "";
+  }
 
-  if (db && !calledOnce) {
-    setPage("home");
-    setCalledOnce(true);
+  var requiredSeminarFields = (form) => {
+    if (form.sem2 != "" && form.reason2 == ""){
+      return false;
+    }
+    if (form.sem3 != "" && form.reason3 == ""){
+      return false;
+    }
+    if (form.sem4 != "" && form.reason4 == ""){
+      return false;
+    }
+    if (form.sem5 != "" && form.reason5 == ""){
+      return false;
+    }
+    return form.pastCourses != "" &&
+      form.numSeminars != "" &&
+      form.howYouHear != "" &&
+      form.pastCourses != "" &&
+      form.sem1 != "" &&
+      form.reason1 != "";
+  }
+
+  const submit = () => {
+    console.log(studentData);
+    var email = studentData.email.toLowerCase();
+    var email1 = studentData.email1.toLowerCase();
+    var parentEmail = studentData.parentEmail.toLowerCase();
+    var parentEmail1 = studentData.parentEmail1.toLowerCase();
+    if (email != email1) {
+      setWrongSubmission("Student emails do not match.");
+    } else if (!emailValidated(email)) {
+      setWrongSubmission("Please input a valid student email address");
+    } else if (parentEmail != parentEmail1) {
+      setWrongSubmission("Parent emails do not match.");
+    } else if (!emailValidated(parentEmail)) {
+      setWrongSubmission("Please input a valid parent email address");
+    } 
+    // add conditions for duplicate account/duplicate registration here
+    else if (!requiredFields(studentData)) {
+      setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
+    } else {
+      API.graphql(graphqlOperation(createStudent, {
+        input: {
+          first_name: tutorData.first_name,
+          last_name: tutorData.last_name,
+          email: tutorData.email,
+          school: tutorData.school,
+          gradYear: tutorData.gradYear,
+          subjects: tutorData.subjects,
+          ageRanges: tutorData.ageRanges,
+          qualifications: tutorData.qualifications,
+          why: tutorData.why,
+          experience: tutorData.experience,
+          hours: tutorData.hours,
+          questions: tutorData.questions,
+          othersubjects: tutorData.othersubjects
+        }
+      }));
+      setPage('thanks');
+    }
+
   }
 
   return (
-    <div style={{overflow: 'hidden', position: 'relative'}}>
+    <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
-      <Styles.SignupBackground>
-        <div style={{maxWidth: 800}}>
-          {page === "home" && Home(db, setPage, studentData, setStudentData, wrongSubmission, setWrongSubmission, setErrorMessage)}
-          {page === "complete" && Complete()}
-          {page === "loading" && Loading()}
-          {page === "error" && Error(errorMessage)}
-          {page === "emailTaken" && EmailTaken()}
+      <Styles.TeacherBackground>
+        <div style={{ maxWidth: 800 }}>
+          {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, submit, wrongSubmission })}
+          {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission })}
+          {page === 'thanks' && Thanks({ setPage })}
         </div>
-      </Styles.SignupBackground>
-      <Styles.LogoBackground src={Logo} alt="logo" style={{
-        position: 'absolute',
-        width: 300,
-        height: 300,
-        transform: 'rotate(-35deg)',
-        top: '60%',
-        left: -100,
-      }}/>
-      <Styles.LogoBackground src={Logo} alt="logo" style={{
-        position: 'absolute',
-        width: 300,
-        height: 300,
-        transform: 'rotate(-235deg)',
-        top: '20%',
-        right: -150,
-      }}/>
+      </Styles.TeacherBackground>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default CourseSignUp;
+export default SeminarSignUp
