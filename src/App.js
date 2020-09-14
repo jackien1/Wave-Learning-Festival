@@ -8,7 +8,8 @@ import CoursePage from './pages/Courses/CoursePages'
 import Blog from './pages/Blog'
 import Students from './pages/Students'
 import Speakers from './pages/Speakers'
-import Teachers from './pages/Teachers'
+import TeacherApplications from './pages/TeacherApplications'
+import Seminars from './pages/Seminars'
 import Tutors from './pages/Tutors'
 
 
@@ -30,8 +31,11 @@ function App () {
             <Route path="/students">
               <Students />
             </Route>
-            <Route path="/instructors">
-              <Teachers />
+            <Route path="/instructor-applications">
+              <TeacherApplications />
+            </Route>
+            <Route path="/seminars">
+              <Seminars />
             </Route>
             <Route path="/tutors">
               <Tutors />

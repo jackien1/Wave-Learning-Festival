@@ -67,7 +67,10 @@ const Navbar = () => {
           </NavItem>
           */}
           <NavItem>
-            <Link to="/instructors">Instructors</Link>
+            <Link to="/seminars">Seminars</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/instructor-applications">InstructorApps</Link>
           </NavItem>
           <NavItem>
             <Link to="/tutors">Tutors</Link>
@@ -103,6 +106,9 @@ const Navbar = () => {
           */} 
           <NavItem>
             <Link to="/instructors">Instructors</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/instructor-applications">InstructorApps</Link>
           </NavItem>
           <NavItem>
             <Link to="/tutors">Tutors</Link>
