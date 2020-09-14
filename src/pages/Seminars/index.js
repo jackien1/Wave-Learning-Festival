@@ -43,28 +43,13 @@ const Teachers = () => {
       setLoading(true)
     }
   }, [registrations])
-
-  
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
 
   const columns = [{
     title: 'id',
     field: 'id',
-    type: 'ID'
-    },{
-    title: 'TimeStamp',
-    field: 'createdAt'
+    type: 'ID',
+    editable: 'onAdd'
     },{
     title: 'Course Title',
     field: 'courseTitle'
@@ -81,32 +66,39 @@ const Teachers = () => {
     title: 'Course Description',
     field: 'courseDescription'
     },{
-    title: 'maxClassSize',
-    field: 'maxClassSize'
+    title: 'Max Class Size',
+    field: 'maxClassSize',
+    type: 'numeric'
     },{
-    title: 'prereqs',
+    title: 'Prerequisites',
     field: 'prereqs'
     },{
-    title: 'targetAudience',
+    title: 'Target Audience',
     field: 'targetAudience'
     },{
     title: 'edLink',
-    field: 'edLink'
+    field: 'edLink',
+    hidden: true
     },{
     title: 'zoomLink',
-    field: 'zoomLink'
+    field: 'zoomLink',
+    hidden: true
     },{
     title: 'Course Category',
-    field: 'courseCategory'
+    field: 'courseCategory',
+    hidden: true
     },{
     title: 'syllabus',
-    field: 'syllabus'
+    field: 'syllabus',
+    hidden: true
     },{
     title: 'picture',
-    field: 'picture'
+    field: 'picture',
+    hidden: true
     },{
     title: 'teachers',
-    field: 'teachers'
+    field: 'teachers',
+    hidden: true
     }]
 
   const saveData = (teacherData, fullData) => {

@@ -46,13 +46,16 @@ const Instructors = () => {
   const columns = [{
     title: 'Teacher ID',
     field: 'id',
-    type: 'ID'
+    type: 'ID',
+    hidden: true
     },{
     title: 'TimeStamp',
-    field: 'createdAt'
+    field: 'createdAt',
+    hidden: true
     },{
     title: 'Seminar ID',
-    field: 'seminarId'
+    field: 'seminarId',
+    editable: 'onAdd'
     },{
     title: 'First Name',
     field: 'first_name'
@@ -61,7 +64,8 @@ const Instructors = () => {
     field: 'last_name'
     },{
     title: 'Email',
-    field: 'email'
+    field: 'email',
+    editable: 'onAdd'
     },{
     title: 'School',
     field: 'school'
