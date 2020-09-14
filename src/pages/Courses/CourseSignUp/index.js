@@ -129,15 +129,17 @@ var GRADE_OPTIONS = ['< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
 
 var YES = ["Yes"];
 
+var NUM_SEMINARS = ["", "1", "2"];
+
 var WAYS_TO_HEAR = [
-  "From a school/principal/superintendent",
+  "From my school (teacher/principal/superintendent)",
+  "From my company (please enter in \"Other\")",
   "From a news outlet",
-  "From a family friend",
-  "From a Facebook group",
-  "From another social media (Facebook page/Twitter/LinkedIn/etc.)",
-  "Sunday Friends",
-  "From your company (please enter in \"Other\")",
-  "From a teacher",
+  "From Facebook",
+  "From Instagram",
+  "From another social media (please enter in \"Other\")",
+  "From a family member",
+  "From a friend",
   "Other"
 ];
 
@@ -203,7 +205,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongS
       }}
     />
 
-<Typography.Header2 color="white" fontSize="24px">
+    <Typography.Header2 color="white" fontSize="24px">
       Parent First Name *
     </Typography.Header2>
     <Form.Input
@@ -386,6 +388,75 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongS
     ))}
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+      <Form.Button onClick={(event) => { nextPage() }}>
+        <Typography.Header color="white" fontSize="24px">
+          Submit
+        </Typography.Header>
+      </Form.Button>
+    </div>
+
+    <Typography.BodyText color="white">
+      * Required field
+    </Typography.BodyText>
+
+    {wrongSubmission &&
+    <Typography.BodyText color="white">
+      {wrongSubmission}
+    </Typography.BodyText>}
+  </div>)
+}
+
+const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongSubmission }) => {
+  return (<div style={{ width: '100%' }}>
+    <Typography.Header color={Colors.WLF_YELLOW}>
+      Seminar Registration
+    </Typography.Header>
+    <Typography.BodyText color="white">
+      Please keep in mind the target grade range, course meeting times, frequency, class sizes, and prerequisites (if any).
+    </Typography.BodyText>
+    <Typography.BodyText color="white">
+      Check out all our seminar offerings at <a href="/seminars" target="_blank">here</a>!
+    </Typography.BodyText>
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Have you taken courses with us before? *
+    </Typography.Header2>
+    {PAST_COURSES_OPTIONS.map((value) => (
+      renderMultiOption({key: "pastCourses", option: value, seminarData, setSeminarData})
+    ))}
+
+    <Typography.Header2 color="white" fontSize="24px">
+      How many seminars would you like to be enrolled in? *
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Of the seminars you list below, you will initially be enrolled in 1-2 seminars, and waitlisted for the others.
+    </Typography.BodyText>
+    <Form.Dropdown
+      value={seminarData.numSeminars}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          numSeminars: value
+        }))
+      }}>
+      {NUM_COURSES.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+
+    <Typography.Header2 color="white" fontSize="24px">
+      What is your first choice course? / ¿Cual es tu primer curso de elección? *
+    </Typography.Header2>
+    <Form.Dropdown
+      onChange={inputChanged("firstCourse", setStudentData)}
+    >
+      {COURSE_LIST.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+
+    <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <Form.Button onClick={(event) => { submit() }}>
         <Typography.Header color="white" fontSize="24px">
           Submit
@@ -404,6 +475,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, submit, wrongS
   </div>)
 }
 
+// UPDATE THE CONFIRMATION MESSAGE
 const Thanks = ({ setPage }) => (
   <>
     <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
@@ -493,7 +565,7 @@ const SeminarSignUp = () => {
       form.reason1 != "";
   }
 
-  const submit = () => {
+  const nextPage = () => {
     console.log(studentData);
     var email = studentData.email.toLowerCase();
     var email1 = studentData.email1.toLowerCase();
@@ -508,10 +580,38 @@ const SeminarSignUp = () => {
     } else if (!emailValidated(parentEmail)) {
       setWrongSubmission("Please input a valid parent email address");
     } 
-    // add conditions for duplicate account/duplicate registration here
-    else if (!requiredFields(studentData)) {
+    // add check for duplicate account
+    else if (!requiredStudentFields(studentData)) {
       setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
     } else {
+      setPage('seminarData');
+    }
+
+  }
+
+  const submit = () => {
+    console.log(seminarData);
+    // add conditions for duplicate registration here
+    if (!requiredSeminarFields(seminarData)) {
+      setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
+    } else {
+      API.graphql(graphqlOperation(createStudent, {
+        input: {
+          first_name: tutorData.first_name,
+          last_name: tutorData.last_name,
+          email: tutorData.email,
+          school: tutorData.school,
+          gradYear: tutorData.gradYear,
+          subjects: tutorData.subjects,
+          ageRanges: tutorData.ageRanges,
+          qualifications: tutorData.qualifications,
+          why: tutorData.why,
+          experience: tutorData.experience,
+          hours: tutorData.hours,
+          questions: tutorData.questions,
+          othersubjects: tutorData.othersubjects
+        }
+      }));
       API.graphql(graphqlOperation(createStudent, {
         input: {
           first_name: tutorData.first_name,
