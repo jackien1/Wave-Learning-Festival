@@ -3,8 +3,6 @@ import logo from './logo.svg'
 import firebase from 'firebase'
 import './App.css'
 import About from './pages/About'
-import Courses from './pages/Courses'
-import CoursePage from './pages/Courses/CoursePages'
 import Blog from './pages/Blog'
 import Students from './pages/Students'
 import Speakers from './pages/Speakers'
@@ -21,10 +19,6 @@ function App () {
       <Router>
         <div>
           <Switch>
-            <Route path="/courses">
-              <Courses />
-            </Route>
-           
             <Route path="/blog">
               <Blog />
             </Route>
@@ -43,7 +37,6 @@ function App () {
             <Route path="/speakers">
               <Speakers />
             </Route>
-            <Route path="/:slug" component={CoursePage} />
             <Route path="/">
               <About />
             </Route>
