@@ -70,20 +70,23 @@ const Navbar = () => {
             <Link to="/seminars">Seminars</Link>
           </NavItem>
           <NavItem>
-            <Link to="/instructor-applications">InstructorApps</Link>
+            <Link to="/instructors">Instructors</Link>
           </NavItem>
           <NavItem>
-            <Link to="/tutors">Tutors</Link>
+            <Link to="/instructor-applications">Instructor Apps</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/tutors">Tutor Apps</Link>
           </NavItem>
           <NavItem>
             <Link to="/students">Students</Link>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <Link to="/blog">Blog</Link>
-          </NavItem>
-          <NavItem style={{ border: 'none' }}>
+          </NavItem> */}
+          {/* <NavItem style={{ border: 'none' }}>
             {accountStatus}
-          </NavItem>
+          </NavItem> */}
         </Links>
         <Hamburger slide={slide} onClick={() => toggleSlide(!slide)}>
           <div style={{ backgroundColor: 'rgb(240,240,240)', width: 40, height: 40, borderRadius: 20, marginLeft: -5, marginTop: -4, position: 'absolute', zIndex: 1 }}></div>
@@ -108,10 +111,13 @@ const Navbar = () => {
             <Link to="/instructors">Instructors</Link>
           </NavItem>
           <NavItem>
-            <Link to="/instructor-applications">InstructorApps</Link>
+            <Link to="/seminars">Seminars</Link>
           </NavItem>
           <NavItem>
-            <Link to="/tutors">Tutors</Link>
+            <Link to="/instructor-apps">Instructor Apps</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/tutors">Tutor Apps</Link>
           </NavItem>
           <NavItem>
             <Link to="/students">Students</Link>

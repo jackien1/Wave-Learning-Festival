@@ -16,9 +16,15 @@ type Date @model {
 
 type Teacher @model {
   id: ID!
-  first_name: String!
-  last_name: String!
-  school: String!
+	first_name: String!
+	last_name: String!
+	school: String!
+	gradYear: String
+	email: String
+	country: String
+	city: String
+	bio: String
+	seminarId: String
 }
 
 type TeacherRegistration @model {
