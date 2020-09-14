@@ -1,26 +1,15 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-wavelearningfestival-dev-164155-authRole",
-      "UnauthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-wavelearningfestival-dev-164155-deployment",
-      "UnauthRoleName": "amplify-wavelearningfestival-dev-164155-unauthRole",
-      "StackName": "amplify-wavelearningfestival-dev-164155",
-      "StackId": "arn:aws:cloudformation:us-west-2:910856264954:stack/amplify-wavelearningfestival-dev-164155/1acc2150-d75c-11ea-8375-0621d00a30ea",
-      "AmplifyAppId": "d3jlx3tyqn40aw"
-    },
-    "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d3jlx3tyqn40aw",
-          "type": "cicd"
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-wavelearningfestival-dev-221713-authRole",
+            "UnauthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-221713-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-221713-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-wavelearningfestival-dev-221713-deployment",
+            "UnauthRoleName": "amplify-wavelearningfestival-dev-221713-unauthRole",
+            "StackName": "amplify-wavelearningfestival-dev-221713",
+            "StackId": "arn:aws:cloudformation:us-west-2:910856264954:stack/amplify-wavelearningfestival-dev-221713/6864efd0-f630-11ea-8ff5-066c190885f7",
+            "AmplifyAppId": "d3j07cop4p854s"
         }
-      },
-      "auth": {
-        "wavelearningfestivalfac48596": {}
-      }
     }
-  }
 }
