@@ -22,7 +22,8 @@ const Blog = () => {
         .then(function (querySnapshot) {
           const posts = []
           querySnapshot.forEach(function (doc) {
-            if (doc.data().schema === 'blogPost') {
+            console.log()
+            if (doc.data().schema === 'blogPost' && doc.data()._fl_meta_.status !== "draft") {
               posts.push(doc)
             }
           })
