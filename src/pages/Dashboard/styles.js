@@ -54,14 +54,14 @@ export const CalendarButton = styled.button`
   transition-duration: 0.2s;
   height:100px;
   width:50px;
-  background-color: ${({ active }) => active ? Colors.WLF_PURPLE : "#FFFFFF"};
-  color: ${({ active }) => active ? "#FFFFFF" : "#000000"};
+  background-color: ${({ active }) => active ? Colors.WLF_PURPLE : '#FFFFFF'};
+  color: ${({ active }) => active ? '#FFFFFF' : '#000000'};
   opacity: 1;
   &:hover{
         background-color: ${Colors.WLF_PURPLE} !important;
         color: white !important;
         cursor: pointer !important;
-        opacity: ${({active}) => active ? 1 : 0.5} !important;
+        opacity: ${({ active }) => active ? 1 : 0.5} !important;
     }
 `
 

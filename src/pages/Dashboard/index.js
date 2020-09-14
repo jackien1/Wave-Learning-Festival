@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
-import { Container, Sidebar, ListItem, Highlight, CalendarButton, SelectedCalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
+import { ListIcon, Container, Sidebar, ListItem, Highlight, CalendarButton, SelectedCalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
 import Navbar from './components/Navbar'
 import Calendar from './components/Calendar'
 import StatsCards from './components/Statistics'
