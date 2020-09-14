@@ -86,11 +86,12 @@ export const onCreateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -103,11 +104,12 @@ export const onUpdateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -120,11 +122,12 @@ export const onDeleteTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -234,13 +237,7 @@ export const onCreateStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -263,13 +260,7 @@ export const onUpdateStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -292,13 +283,67 @@ export const onDeleteStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSeminarRegistrations = /* GraphQL */ `
+  subscription OnCreateSeminarRegistrations {
+    onCreateSeminarRegistrations {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSeminarRegistrations = /* GraphQL */ `
+  subscription OnUpdateSeminarRegistrations {
+    onUpdateSeminarRegistrations {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSeminarRegistrations = /* GraphQL */ `
+  subscription OnDeleteSeminarRegistrations {
+    onDeleteSeminarRegistrations {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
       createdAt
       updatedAt
     }

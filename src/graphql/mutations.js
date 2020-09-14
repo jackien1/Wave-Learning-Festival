@@ -107,11 +107,12 @@ export const createTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -127,11 +128,12 @@ export const updateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -147,11 +149,12 @@ export const deleteTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -273,13 +276,7 @@ export const createStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -305,13 +302,7 @@ export const updateStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -337,13 +328,76 @@ export const deleteStudent = /* GraphQL */ `
       parentName
       parentEmail
       registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createSeminarRegistrations = /* GraphQL */ `
+  mutation CreateSeminarRegistrations(
+    $input: CreateSeminarRegistrationsInput!
+    $condition: ModelSeminarRegistrationsConditionInput
+  ) {
+    createSeminarRegistrations(input: $input, condition: $condition) {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSeminarRegistrations = /* GraphQL */ `
+  mutation UpdateSeminarRegistrations(
+    $input: UpdateSeminarRegistrationsInput!
+    $condition: ModelSeminarRegistrationsConditionInput
+  ) {
+    updateSeminarRegistrations(input: $input, condition: $condition) {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSeminarRegistrations = /* GraphQL */ `
+  mutation DeleteSeminarRegistrations(
+    $input: DeleteSeminarRegistrationsInput!
+    $condition: ModelSeminarRegistrationsConditionInput
+  ) {
+    deleteSeminarRegistrations(input: $input, condition: $condition) {
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
       createdAt
       updatedAt
     }
