@@ -4,10 +4,11 @@ import Footer from '@/components/Footer'
 import * as Styles from './styles'
 import { Colors, Typography, Form } from '@/styles'
 import Logo from './logo.png'
-import { FirebaseContext } from '@/firebaseContext'
-import { BodyText } from '@/styles/Typography'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createStudent, createStudentRegistration } from "../../graphql/mutations.js"
+import { listSeminars } from "../../graphql/mutations.js"
+import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
+
 
 const renderOption = ({option}) => (
   <option value={option}>{option}</option>
@@ -429,7 +430,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       How many seminars would you like to be enrolled in? *
     </Typography.Header2>
     <Typography.BodyText color="white">
-      Of the seminars you list below, you will initially be enrolled in 1-2 seminars, and waitlisted for the others.
+      Of the seminars register for below, you will initially be enrolled in 1-2 seminars, and waitlisted for the others.
     </Typography.BodyText>
     <Form.Dropdown
       value={seminarData.numSeminars}
@@ -446,7 +447,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
     </Form.Dropdown>
 
     <Typography.Header2 color="white" fontSize="24px">
-      What is your first choice course? / ¿Cual es tu primer curso de elección? *
+      What is your first choice seminar? *
     </Typography.Header2>
     <Form.Dropdown
       onChange={inputChanged("firstCourse", setStudentData)}
