@@ -132,6 +132,19 @@ var YES = ["Yes"];
 
 var NUM_SEMINARS = ["", "1", "2"];
 
+const fetchSeminars = async () => {
+  try { 
+    const semData = await API.graphql(graphqlOperation(listSeminars));
+    const semList = semData.data.listTutorRegistrations.items;
+    console.log(semList);
+    return semList;
+  } catch (error) {
+      console.log('error on fetching songs', error);
+  }
+}
+var SEMINARS_LIST = [""];
+SEMINARS_LIST = {...fetchSeminars()};
+
 var WAYS_TO_HEAR = [
   "From my school (teacher/principal/superintendent)",
   "From my company (please enter in \"Other\")",
