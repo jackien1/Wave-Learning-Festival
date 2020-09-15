@@ -271,10 +271,18 @@ export const createStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -295,10 +303,18 @@ export const updateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -319,10 +335,18 @@ export const deleteStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -749,84 +773,6 @@ export const deleteEventRegistration = /* GraphQL */ `
       questions
       extra
       howYouHear
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createSeminarRegistration = /* GraphQL */ `
-  mutation CreateSeminarRegistration(
-    $input: CreateSeminarRegistrationInput!
-    $condition: ModelSeminarRegistrationConditionInput
-  ) {
-    createSeminarRegistration(input: $input, condition: $condition) {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateSeminarRegistration = /* GraphQL */ `
-  mutation UpdateSeminarRegistration(
-    $input: UpdateSeminarRegistrationInput!
-    $condition: ModelSeminarRegistrationConditionInput
-  ) {
-    updateSeminarRegistration(input: $input, condition: $condition) {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteSeminarRegistration = /* GraphQL */ `
-  mutation DeleteSeminarRegistration(
-    $input: DeleteSeminarRegistrationInput!
-    $condition: ModelSeminarRegistrationConditionInput
-  ) {
-    deleteSeminarRegistration(input: $input, condition: $condition) {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
       createdAt
       updatedAt
     }

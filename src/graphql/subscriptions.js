@@ -232,10 +232,18 @@ export const onCreateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -253,10 +261,18 @@ export const onUpdateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -274,10 +290,18 @@ export const onDeleteStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      numCourses
+      parentName
       parentEmail
-      orgs
+      registeredEvents
+      registeredSeminars {
+        id
+        waitlisted
+        absences
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -650,75 +674,6 @@ export const onDeleteEventRegistration = /* GraphQL */ `
       questions
       extra
       howYouHear
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSeminarRegistration = /* GraphQL */ `
-  subscription OnCreateSeminarRegistration {
-    onCreateSeminarRegistration {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSeminarRegistration = /* GraphQL */ `
-  subscription OnUpdateSeminarRegistration {
-    onUpdateSeminarRegistration {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSeminarRegistration = /* GraphQL */ `
-  subscription OnDeleteSeminarRegistration {
-    onDeleteSeminarRegistration {
-      id
-      email
-      numSeminars
-      sem1
-      sem2
-      sem3
-      sem4
-      sem5
-      reason1
-      reason2
-      reason3
-      reason4
-      reason5
-      howYouHear
-      pastCourses
       createdAt
       updatedAt
     }
