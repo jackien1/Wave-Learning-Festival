@@ -173,11 +173,10 @@ const partner = "From a Wave partner organization";
 var WAYS_TO_HEAR = [
   partner,
   "From my school (teacher/principal/superintendent)",
-  "From my company (please enter in \"Other\")",
   "From a news outlet",
   "From Facebook",
   "From Instagram",
-  "From another social media (please enter in \"Other\")",
+  "From another social media",
   "From a family member",
   "From a friend",
   "Other"
@@ -423,7 +422,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
       How did you hear about us? *
     </Typography.Header2>
     {WAYS_TO_HEAR.map((value) => (
-      renderMultiOptionStudent({key: "howYouHear", option: value, studentData, setStudentData})
+      renderSingleOption({key: "howYouHear", option: value, studentData, setStudentData})
     ))}
 
     { studentData.howYouHear.includes(partner) && <>
@@ -710,13 +709,13 @@ const SeminarSignUp = () => {
           country: studentData.country,
           state: studentData.state,
           city: studentData.city,
-          howYouHear: seminarData.howYouHear,
+          howYouHear: studentData.howYouHear,
           orgs: studentData.orgs
         }
       }));
       API.graphql(graphqlOperation(createSeminarRegistration, {
         input: {
-          email: studentData.email,
+          email: studentData.email.toLowerCase(),
           pastCourses: seminarData.pastCourses,
           numSeminars: seminarData.numSeminars,
           sem1: seminarData.sem1,
@@ -757,26 +756,26 @@ const SeminarSignUp = () => {
     // SEMINARS_LIST.push([sem.courseTitle, sem.id])
   }
 
-  const [accts, updateAccts] = useState([]);
-  const fetchAccts = async () => {
-    try { 
-      const acctData = await API.graphql(graphqlOperation(listStudents));
-      const acctList = acctData.data.listStudents.items;
-      console.log(acctList);
-      updateAccts(acctList);
-    } catch (error) {
-        console.log('error on fetching student accounts', error);
-    }
-  }
-  useEffect(() => {
-    fetchAccts();
-  }, [accts]);
+  // const [accts, updateAccts] = useState([]);
+  // const fetchAccts = async () => {
+  //   try { 
+  //     const acctData = await API.graphql(graphqlOperation(listStudents));
+  //     const acctList = acctData.data.listStudents.items;
+  //     console.log(acctList);
+  //     updateAccts(acctList);
+  //   } catch (error) {
+  //       console.log('error on fetching student accounts', error);
+  //   }
+  // }
+  // useEffect(() => {
+  //   fetchAccts();
+  // }, [accts]);
 
-  const EMAILS_LIST = [""]
-  for (var em of accts){
-    EMAILS_LIST.push(em.email)
-    // SEMINARS_LIST.push([sem.courseTitle, sem.id])
-  }
+  // const EMAILS_LIST = [""]
+  // for (var em of accts){
+  //   EMAILS_LIST.push(em.email)
+  //   // SEMINARS_LIST.push([sem.courseTitle, sem.id])
+  // }
 
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
