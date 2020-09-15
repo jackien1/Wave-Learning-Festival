@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import {
@@ -10,8 +10,50 @@ import {
   ContainerInner
 } from './styles'
 import { Container } from '@/globalStyles'
+import { Auth } from 'aws-amplify'
 
 const Login = () => {
+  const [password, updatePassword] = useState('')
+  const [email, updateEmail] = useState('')
+  const [code, updateCode] = useState('')
+
+  const signIn = async () => {
+    try {
+      const user = await Auth.signIn(email, password)
+      console.log(user)
+    } catch (error) {
+      console.log('error signing in', error)
+    }
+  }
+  const signUp = async () => {
+    try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password,
+        attributes: {
+          email
+        }
+      })
+      console.log(user)
+    } catch (error) {
+      console.log('error signing up:', error)
+    }
+  }
+  const confirmSignUp = async () => {
+    try {
+      await Auth.confirmSignUp(email, code)
+    } catch (error) {
+      console.log('error confirming sign up', error)
+    }
+  }
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: true })
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
   return (
     <>
       <Navbar />
@@ -25,11 +67,18 @@ const Login = () => {
               <h1>Log in</h1>
               <p>Don't have an account? Click here to create one.</p>
               <p>Email Address</p>
-              <Input placeholder="name@email.com" />
+              <Input placeholder="name@email.com" onChange={e => updateEmail(e.target.value)}/>
 
               <p>Password</p>
-              <Input placeholder="********" />
-              <Button>Log in</Button>
+              <Input placeholder="********" onChange={e => updatePassword(e.target.value)}/>
+              <p>Code</p>
+
+              <Input placeholder="Code" onChange={e => updateCode(e.target.value)}/>
+              <Button onClick={() => confirmSignUp()}>Confirm Signup</Button>
+              <Button onClick={() => signUp()}>Create account</Button>
+              <Button onClick={() => signIn()}>Log in</Button>
+              <Button onClick={() => signOut()}> Signout</Button>
+
             </Form>
           </FormContainer>
         </ContainerInner>

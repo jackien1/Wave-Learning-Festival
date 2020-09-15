@@ -31,6 +31,16 @@ export const ListItem = styled.p`
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
   }
+
+  & p {
+    margin: 0px; 
+    margin-left: 1rem; 
+  }
+`
+
+export const ListIcon = styled.div`
+  display: flex; 
+  align-items: center; 
 `
 export const CalendarButton = styled.button`
   border: none;
@@ -44,14 +54,14 @@ export const CalendarButton = styled.button`
   transition-duration: 0.2s;
   height:100px;
   width:50px;
-  background-color: ${({ active }) => active ? Colors.WLF_PURPLE : "#FFFFFF"};
-  color: ${({ active }) => active ? "#FFFFFF" : "#000000"};
+  background-color: ${({ active }) => active ? Colors.WLF_PURPLE : '#FFFFFF'};
+  color: ${({ active }) => active ? '#FFFFFF' : '#000000'};
   opacity: 1;
   &:hover{
         background-color: ${Colors.WLF_PURPLE} !important;
         color: white !important;
         cursor: pointer !important;
-        opacity: ${({active}) => active ? 1 : 0.5} !important;
+        opacity: ${({ active }) => active ? 1 : 0.5} !important;
     }
 `
 
@@ -81,9 +91,10 @@ export const Highlight = styled.img`
 `
 export const ContentContainer = styled.div`
   position: relative;
-  left: 250px;
-width: calc(100% - 600px);
-
+  display: flex;
+  justify-content: center;
+  left: 186px;
+  width: calc(100% - 600px);
   padding: 2rem;
   min-height: 100vh;
 `
