@@ -69,10 +69,10 @@ type Student {
   last_name: String!
   email: String!
   grade: String!
-  parent_first: String!
-  parent_last: String!
+  howYouHear: String!
+  parent_first_name: String!
+  parent_last_name: String!
   parentEmail: String!
-  orgs: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -192,7 +192,6 @@ type SeminarRegistration {
   reason3: String
   reason4: String
   reason5: String
-  howYouHear: [String!]!
   pastCourses: [String!]!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -677,10 +676,10 @@ input ModelStudentFilterInput {
   last_name: ModelStringInput
   email: ModelStringInput
   grade: ModelStringInput
-  parent_first: ModelStringInput
-  parent_last: ModelStringInput
+  howYouHear: ModelStringInput
+  parent_first_name: ModelStringInput
+  parent_last_name: ModelStringInput
   parentEmail: ModelStringInput
-  orgs: ModelStringInput
   and: [ModelStudentFilterInput]
   or: [ModelStudentFilterInput]
   not: ModelStudentFilterInput
@@ -696,10 +695,10 @@ input CreateStudentInput {
   last_name: String!
   email: String!
   grade: String!
-  parent_first: String!
-  parent_last: String!
+  howYouHear: String!
+  parent_first_name: String!
+  parent_last_name: String!
   parentEmail: String!
-  orgs: [String]
 }
 
 input UpdateStudentInput {
@@ -712,10 +711,10 @@ input UpdateStudentInput {
   last_name: String
   email: String
   grade: String
-  parent_first: String
-  parent_last: String
+  howYouHear: String
+  parent_first_name: String
+  parent_last_name: String
   parentEmail: String
-  orgs: [String]
 }
 
 input DeleteStudentInput {
@@ -731,10 +730,10 @@ input ModelStudentConditionInput {
   last_name: ModelStringInput
   email: ModelStringInput
   grade: ModelStringInput
-  parent_first: ModelStringInput
-  parent_last: ModelStringInput
+  howYouHear: ModelStringInput
+  parent_first_name: ModelStringInput
+  parent_last_name: ModelStringInput
   parentEmail: ModelStringInput
-  orgs: ModelStringInput
   and: [ModelStudentConditionInput]
   or: [ModelStudentConditionInput]
   not: ModelStudentConditionInput
@@ -1148,7 +1147,6 @@ input ModelSeminarRegistrationFilterInput {
   reason3: ModelStringInput
   reason4: ModelStringInput
   reason5: ModelStringInput
-  howYouHear: ModelStringInput
   pastCourses: ModelStringInput
   and: [ModelSeminarRegistrationFilterInput]
   or: [ModelSeminarRegistrationFilterInput]
@@ -1169,7 +1167,6 @@ input CreateSeminarRegistrationInput {
   reason3: String
   reason4: String
   reason5: String
-  howYouHear: [String!]!
   pastCourses: [String!]!
 }
 
@@ -1187,7 +1184,6 @@ input UpdateSeminarRegistrationInput {
   reason3: String
   reason4: String
   reason5: String
-  howYouHear: [String!]
   pastCourses: [String!]
 }
 
@@ -1208,7 +1204,6 @@ input ModelSeminarRegistrationConditionInput {
   reason3: ModelStringInput
   reason4: ModelStringInput
   reason5: ModelStringInput
-  howYouHear: ModelStringInput
   pastCourses: ModelStringInput
   and: [ModelSeminarRegistrationConditionInput]
   or: [ModelSeminarRegistrationConditionInput]

@@ -4,5 +4,5 @@
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": false,
     "S3DeploymentBucket": "amplify-wavelearningfestival-dev-164155-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/81daba6ff001656f6fb0561ba5acd036f951302d"
+    "S3DeploymentRootKey": "amplify-appsync-files/897c0be5fa5f2578380c932225e7c7526601f7e7"
 }

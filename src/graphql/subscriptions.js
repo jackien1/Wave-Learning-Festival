@@ -232,10 +232,10 @@ export const onCreateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      parent_first_name
+      parent_last_name
       parentEmail
-      orgs
       createdAt
       updatedAt
     }
@@ -253,10 +253,10 @@ export const onUpdateStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      parent_first_name
+      parent_last_name
       parentEmail
-      orgs
       createdAt
       updatedAt
     }
@@ -274,10 +274,10 @@ export const onDeleteStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      parent_first_name
+      parent_last_name
       parentEmail
-      orgs
       createdAt
       updatedAt
     }
@@ -671,7 +671,6 @@ export const onCreateSeminarRegistration = /* GraphQL */ `
       reason3
       reason4
       reason5
-      howYouHear
       pastCourses
       createdAt
       updatedAt
@@ -694,7 +693,6 @@ export const onUpdateSeminarRegistration = /* GraphQL */ `
       reason3
       reason4
       reason5
-      howYouHear
       pastCourses
       createdAt
       updatedAt
@@ -717,7 +715,6 @@ export const onDeleteSeminarRegistration = /* GraphQL */ `
       reason3
       reason4
       reason5
-      howYouHear
       pastCourses
       createdAt
       updatedAt

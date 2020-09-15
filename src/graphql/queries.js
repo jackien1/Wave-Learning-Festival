@@ -191,10 +191,10 @@ export const getStudent = /* GraphQL */ `
       last_name
       email
       grade
-      parent_first
-      parent_last
+      howYouHear
+      parent_first_name
+      parent_last_name
       parentEmail
-      orgs
       createdAt
       updatedAt
     }
@@ -217,10 +217,10 @@ export const listStudents = /* GraphQL */ `
         last_name
         email
         grade
-        parent_first
-        parent_last
+        howYouHear
+        parent_first_name
+        parent_last_name
         parentEmail
-        orgs
         createdAt
         updatedAt
       }
@@ -531,7 +531,6 @@ export const getSeminarRegistration = /* GraphQL */ `
       reason3
       reason4
       reason5
-      howYouHear
       pastCourses
       createdAt
       updatedAt
@@ -563,7 +562,6 @@ export const listSeminarRegistrations = /* GraphQL */ `
         reason3
         reason4
         reason5
-        howYouHear
         pastCourses
         createdAt
         updatedAt
