@@ -1,141 +1,109 @@
 import styled from 'styled-components'
-import { device } from '@/theme'
 import { Colors } from '@/styles'
 
-export const Column = styled.div` 
-    height: 100%;  
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    @media ${device.mobileS} {
-        width: 100%;
-      }
-      @media ${device.mobileM} {
-        width: 100%;
-      }
-      @media ${device.mobileL} {
-        width: 100%;
-      }
-      @media ${device.tablet} {
-        width: 100%;
-      }
-      @media ${device.tabletL} {
-        width: 50%;
-        float: left;
-      }
-      @media ${device.laptop} {
-        width: 50%;
-        float: left;
-      }
+export const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  padding-top: 75px;
+  display: flex;
+  z-index: 5;
 `
 
-export const Sections = styled.div`
+export const Sidebar = styled.div`
+  height: 100vh;
+  position: fixed;
+  width: 250px;
+  background-color: ${Colors.WLF_PURPLE};
+  box-shadow: 0 0 1.25rem rgba(31,45,61,0.3);
+`
 
-@media ${device.mobileS} {
-    width: 100%;
-  }
-  @media ${device.mobileM} {
-    width: 100%;
-  }
-  @media ${device.mobileL} {
-    width: 100%;
-  }
-  @media ${device.tablet} {
-    width: 100%;
-  }
-  @media ${device.laptop} {
-    display: flex;
+export const ListItem = styled.p`
+  color: white;
+  padding-left: 2rem;
+  font-weight: 700;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  margin: 0px;
+  font-size: 1.1rem;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
   }
 
-`
-
-export const ProfileLeft = styled.div`
-    width: 25%; 
-    height: 100%;  
-    float: left;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-`
-export const ProfileRight = styled.div`
-    width: 75%; 
-    height: 100%;  
-    float: left;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-`
-
-export const Text = styled.div`
-    width: 100%;
-    margin-left: 20px;  
-`
-
-export const Row = styled.div`
-    width: 100%;  
-    display: flex;
-    flex-direction: row;
-    align-items: center; 
-`
-
-export const Label = styled.p`
-    font-weight: bold;
-    color: white;
-`
-export const Data = styled.div`
-    background-color: black ;
-    color: white;
-    border: ${props => props.edit ? 'white solid 3px' : 'none'};
-    /* border-color: white;
-    border-style: solid; */
-    border-radius: 5px;
-    height: 50%;
-    width: 90%;
-    white-space: no-wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-`
-
-export const Class = styled.div`
-    width: 100%;
-    padding: 5px;
-    clear: left;
-`
-
-export const ClassText = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    margin-right: 0;
-    text-align: center;
-`
-
-export const EditInput = styled.input`
-  width: 90%; 
-  border: ${props => props.edit ? 'white solid 3px' : 'white solid 3px'};
-  padding: 5px; 
-  background-color: ${Colors.WLF_PURPLE}; 
-  /* background-color: ${props => props.edit ? `${Colors.WLF_PURPLE}` : 'black'};  */
-  color: white; 
-  border-radius: 5px;
-
-  opacity: ${props => props.edit ? 1 : 0.7}; 
-
-  &:focus{
-    outline: none; 
+  & p {
+    margin: 0px; 
+    margin-left: 1rem; 
   }
 `
 
-export const Cancel = styled.b`
-  color: white; 
-  transition: 0.2s; 
-
+export const ListIcon = styled.div`
+  display: flex; 
+  align-items: center; 
+`
+export const CalendarButton = styled.button`
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 3px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.2s;
+  height:100px;
+  width:50px;
+  background-color: ${({ active }) => active ? Colors.WLF_PURPLE : '#FFFFFF'};
+  color: ${({ active }) => active ? '#FFFFFF' : '#000000'};
+  opacity: 1;
   &:hover{
-    text-decoration: underline; 
-    cursor: pointer; 
-  }
+        background-color: ${Colors.WLF_PURPLE} !important;
+        color: white !important;
+        cursor: pointer !important;
+        opacity: ${({ active }) => active ? 1 : 0.5} !important;
+    }
+`
+
+export const ArrowButton = styled.button`
+  display: inline-block;
+  transition-duration: 0.4s;
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  &:hover{
+        opacity: 0.2;
+        cursor: pointer;
+    }
+`
+
+// export const ButtonDot = styled.shape`
+//   height: "5px",
+//   width: "5px",
+//   borderRadius: "50%",
+//   display: "inline-block",
+//   margin: "3px"
+// `
+
+export const Highlight = styled.img`
+  position: absolute;
+  z-index: 1;
+`
+export const ContentContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  left: 186px;
+  width: calc(100% - 600px);
+  padding: 2rem;
+  min-height: 100vh;
+`
+
+export const CalendarContainer = styled.div`
+  position: fixed;
+  right: 0;
+  height: 100vh;
+  width: 475px;
+  box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
 `
