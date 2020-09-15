@@ -168,7 +168,22 @@ var emailValidated = function(email) {
 
 var GRADE_OPTIONS = ["", '< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
 
-var ORGS = ["test1", "test2", "None of the above"];
+const partner = "From a Wave partner organization";
+
+var WAYS_TO_HEAR = [
+  partner,
+  "From my school (teacher/principal/superintendent)",
+  "From my company (please enter in \"Other\")",
+  "From a news outlet",
+  "From Facebook",
+  "From Instagram",
+  "From another social media (please enter in \"Other\")",
+  "From a family member",
+  "From a friend",
+  "Other"
+];
+
+var ORGS = ["", "test1", "test2"];
 
 var YES = ["Yes"];
 
@@ -182,31 +197,6 @@ var PAST_COURSES_OPTIONS = [
 ];
 
 var NUM_SEMINARS = ["", "1", "2"];
-
-// // MAYBE DELETE THIS
-// const fetchSeminars = async () => {
-//   try { 
-//     const semData = await API.graphql(graphqlOperation(listSeminars));
-//     const semList = semData.data.listSeminars.items;
-//     console.log(semList);
-//     return semList;
-//   } catch (error) {
-//       console.log('error on fetching songs', error);
-//   }
-// }
-// var SEMINARS_LIST = ["", fetchSeminars()];
-
-var WAYS_TO_HEAR = [
-  "From my school (teacher/principal/superintendent)",
-  "From my company (please enter in \"Other\")",
-  "From a news outlet",
-  "From Facebook",
-  "From Instagram",
-  "From another social media (please enter in \"Other\")",
-  "From a family member",
-  "From a friend",
-  "Other"
-];
 
 const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wrongSubmission }) => {
   return (<div style={{ width: '100%' }}>
@@ -430,23 +420,42 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
     />
 
     <Typography.Header2 color="white" fontSize="24px">
-      Are you a member of any of these organizations?
+      How did you hear about us? *
     </Typography.Header2>
-    {ORGS.map((value) => (
-      renderMultiOptionStudent({key: "orgs", option: value, studentData, setStudentData})
+    {WAYS_TO_HEAR.map((value) => (
+      renderMultiOptionStudent({key: "howYouHear", option: value, studentData, setStudentData})
     ))}
 
+    { studentData.howYouHear.includes(partner) && <>
+      <Typography.Header2 color="white" fontSize="24px">
+        Which of our partner organizations are you affiliated with?
+      </Typography.Header2>
+      <Form.Dropdown
+        value={studentData.orgs}
+        onChange={event => {
+          const value = event.target.value
+          setStudentData(prevData => ({
+            ...prevData,
+            orgs: value
+          }))
+        }}>
+        {ORGS.map((value) => (
+          renderOption({key: "orgs", option: value, studentData, setStudentData})
+        ))}
+      </Form.Dropdown>
+      </>
+    }
 
     <Typography.Header2 color="white" fontSize="24px">
-      I have read and agree to the <a href="/student-agreement" target="_blank">Student Agreement</a> / He leído y acepto el Acuerdo del estudiante
+      I have read and agree to the <a href="/student-agreement" target="_blank" style={{color: Colors.WLF_YELLOW}}>Student Agreement</a> *
     </Typography.Header2>
     {YES.map((value) => (
       renderSingleOption({key: "studentAgreement", option: value, studentData, setStudentData})
     ))}
 
     <Typography.Header2 color="white" fontSize="24px">
-      I have read and agree to the <a href="/terms-conditions" target="_blank">Terms and Conditions</a>&nbsp;
-       and <a href="/privacy-policy" target="_blank">Privacy Policy</a>. / He leído y acepto los <a href="/terms-conditions" target="_blank">Términos y Condiciones</a> y la <a href="/privacy-policy" target="_blank">Política de Privacidad</a>. *
+      I have read and agree to the <a href="/terms-conditions" target="_blank" style={{color: Colors.WLF_YELLOW}}>Terms and Conditions</a>&nbsp;
+       and <a href="/privacy-policy" target="_blank" style={{color: Colors.WLF_YELLOW}}>Privacy Policy</a>. *
     </Typography.Header2>
     {YES.map((value) => (
       renderSingleOption({key: "termsConditions", option: value, studentData, setStudentData})
@@ -546,13 +555,6 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       }}
     />
 
-    <Typography.Header2 color="white" fontSize="24px">
-      How did you hear about us? *
-    </Typography.Header2>
-    {WAYS_TO_HEAR.map((value) => (
-      renderMultiOptionSeminar({key: "howYouHear", option: value, seminarData, setSeminarData})
-    ))}
-
     {/* REPEAT FOR ALL SEMINARS */}
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -606,6 +608,7 @@ const SeminarSignUp = () => {
     country: "",
     state: "",
     city: "",
+    howYouHear: [],
     orgs: [],
     studentAgreement: "",
     termsConditions: ""
@@ -623,8 +626,7 @@ const SeminarSignUp = () => {
     sem4: "",
     reason4: "",
     sem5: "",
-    reason5: "",
-    howYouHear: []
+    reason5: ""
   })
 
   var requiredStudentFields = (form) => {
@@ -640,7 +642,8 @@ const SeminarSignUp = () => {
       form.state != "" &&
       form.city != "" &&
       form.studentAgreement != "" &&
-      form.termsConditions != "";
+      form.termsConditions != "" && 
+      form.howYouHear != "";
   }
 
   var requiredSeminarFields = (form) => {
@@ -659,7 +662,6 @@ const SeminarSignUp = () => {
     console.log("made it past sem2-5");
     return form.pastCourses != "" &&
       form.numSeminars != "" &&
-      form.howYouHear != "" &&
       form.pastCourses != "" &&
       form.sem1 != "" &&
       form.reason1 != "";
@@ -708,6 +710,7 @@ const SeminarSignUp = () => {
           country: studentData.country,
           state: studentData.state,
           city: studentData.city,
+          howYouHear: seminarData.howYouHear,
           orgs: studentData.orgs
         }
       }));
@@ -725,8 +728,7 @@ const SeminarSignUp = () => {
           reason2: seminarData.reason2,
           reason3: seminarData.reason3,
           reason4: seminarData.reason4,
-          reason5: seminarData.reason5,
-          howYouHear: seminarData.howYouHear
+          reason5: seminarData.reason5
         }
       }));
       setPage('thanks');
@@ -751,9 +753,11 @@ const SeminarSignUp = () => {
     fetchSeminars();
   }, [seminarsAll]);
 
-  const SEMINARS_LIST = []
+  const SEMINARS_LIST = [""]
   for (var sem of seminarsAll){
-    SEMINARS_LIST.push([sem.courseTitle, sem.id])
+    SEMINARS_LIST.push(sem.id)
+
+    // SEMINARS_LIST.push([sem.courseTitle, sem.id])
   }
 
   return (
