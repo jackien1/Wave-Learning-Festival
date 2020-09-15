@@ -98,6 +98,7 @@ import Partners from './pages/Partners'
 
 import Dashboard from './pages/Dashboard'
 import TeacherDashboard from './pages/Dashboard/TeacherDashboard'
+import StudentProfile from './pages/Dashboard/components/StudentProfile'
 
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
@@ -357,6 +358,9 @@ function App () {
             </Route>
             <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />
+            </Route>
+            <Route path="/dashboard/student-profile">
+              <StudentProfile />
             </Route>
             <Route path="/change-password">
               <ChangePassword />

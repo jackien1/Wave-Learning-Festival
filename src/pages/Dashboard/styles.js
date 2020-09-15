@@ -107,3 +107,16 @@ export const CalendarContainer = styled.div`
   box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 2rem;
 `
+export const InfoContainerInner = styled.div`
+  width: 100%; 
+  padding: 2rem; 
+  box-shadow: 0 0 1.25rem rgba(31,45,61,0.3);
+  background-color: white; 
+  z-index: 5; 
+  min-height: 100vh; 
+`
+export const InfoContainer = styled.div`
+  width: 100%; 
+  z-index: 5; 
+`
+
