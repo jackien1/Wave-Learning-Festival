@@ -166,7 +166,7 @@ const About = () => {
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
                     <li>Meet influential leaders making an impact in gender-based violence and public policy at the ‘Silence is Violence’ Conference on Saturday, 9/19! <a href="/event-violence" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Student registration for Tide 1, our seminars program, opens Tuesday, 9/15! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
+                    <li>Student registration for Tide 1, our seminars program, opens Thursday, 9/17! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Our new Wave Tutoring program will begin on Monday, 10/5! <a href="/tutoring" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
