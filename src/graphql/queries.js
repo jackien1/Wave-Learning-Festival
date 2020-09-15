@@ -74,6 +74,11 @@ export const getTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      bio
+      seminarId
+      gradYear
+      country
+      city
       createdAt
       updatedAt
     }
@@ -91,6 +96,11 @@ export const listTeachers = /* GraphQL */ `
         first_name
         last_name
         school
+        bio
+        seminarId
+        gradYear
+        country
+        city
         createdAt
         updatedAt
       }
@@ -121,6 +131,7 @@ export const getTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -158,6 +169,7 @@ export const listTeacherRegistrations = /* GraphQL */ `
         skills
         previousWaves
         questions
+        approved
         createdAt
         updatedAt
       }
@@ -175,7 +187,8 @@ export const getStudent = /* GraphQL */ `
       school
       first_name
       last_name
-      age
+      email
+      grade
       howYouHear
       numCourses
       parentName
@@ -208,7 +221,8 @@ export const listStudents = /* GraphQL */ `
         school
         first_name
         last_name
-        age
+        email
+        grade
         howYouHear
         numCourses
         parentName
@@ -316,6 +330,7 @@ export const getBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -334,6 +349,7 @@ export const listBlogPosts = /* GraphQL */ `
         date
         image
         title
+        views
         createdAt
         updatedAt
       }
@@ -387,6 +403,118 @@ export const listSeminars = /* GraphQL */ `
         targetAudience
         teachers
         zoomLink
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTutorRegistration = /* GraphQL */ `
+  query GetTutorRegistration($id: ID!) {
+    getTutorRegistration(id: $id) {
+      id
+      first_name
+      last_name
+      email
+      school
+      gradYear
+      subjects
+      ageRanges
+      qualifications
+      why
+      experience
+      hours
+      questions
+      othersubjects
+      approved
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTutorRegistrations = /* GraphQL */ `
+  query ListTutorRegistrations(
+    $filter: ModelTutorRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTutorRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        first_name
+        last_name
+        email
+        school
+        gradYear
+        subjects
+        ageRanges
+        qualifications
+        why
+        experience
+        hours
+        questions
+        othersubjects
+        approved
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventRegistration = /* GraphQL */ `
+  query GetEventRegistration($id: ID!) {
+    getEventRegistration(id: $id) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      country
+      city
+      state
+      school
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEventRegistrations = /* GraphQL */ `
+  query ListEventRegistrations(
+    $filter: ModelEventRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        studentID
+        eventID
+        first_name
+        last_name
+        email
+        country
+        city
+        state
+        school
+        notes
+        questions
+        extra
+        howYouHear
         createdAt
         updatedAt
       }

@@ -33,14 +33,14 @@ export const ListItem = styled.p`
   }
 
   & p {
-    margin: 0px; 
-    margin-left: 1rem; 
+    margin: 0px;
+    margin-left: 1rem;
   }
 `
 
 export const ListIcon = styled.div`
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
 `
 export const CalendarButton = styled.button`
   border: none;

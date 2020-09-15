@@ -4,7 +4,7 @@ import { Colors } from '@/styles'
 export const StatsContainer = styled.div `
     background: none;
     position: absolute;
-    width: 70%;
+    width: 78%;
     height: 375px;
 
     & h1 {
@@ -18,6 +18,7 @@ export const StatsContainer = styled.div `
 
     & hr {
         border: 0.5px solid;
+        margin: 0 0.5em;
         color: lightgray;
     }
 `
