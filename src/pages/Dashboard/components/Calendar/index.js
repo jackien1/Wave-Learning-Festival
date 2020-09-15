@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import { CalendarButton, CalendarContainer, ArrowButton, Arrow, ButtonDot } from './styles'
+import { Auth } from 'aws-amplify'
 
 const Calendar = () => {
   const [selDate, setSelDate] = useState(new Date(Date.now()))
@@ -11,6 +12,9 @@ const Calendar = () => {
     copy.setDate(inDate.getDate() + days)
     return copy
   }
+  Auth.currentAuthenticatedUser().then(user => {
+	console.log(user)
+  });
   return (
     <CalendarContainer>
       <header>
@@ -39,11 +43,13 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{date.getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 1))} active={addDays(date, 1).toDateString() === selDate.toDateString()}>
@@ -52,14 +58,17 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 1).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
-            backgroundColor: Colors.WLF_TURQOUISE
+            backgroundColor: Colors.WLF_TURQOUISE,
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 2))} active={addDays(date, 2).toDateString() === selDate.toDateString()}>
@@ -68,11 +77,13 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 2).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 3))} active={addDays(date, 3).toDateString() === selDate.toDateString()}>
@@ -81,11 +92,13 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 3).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 4))} active={addDays(date, 4).toDateString() === selDate.toDateString()}>
@@ -94,11 +107,13 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 4).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 5))} active={addDays(date, 5).toDateString() === selDate.toDateString()}>
@@ -107,11 +122,13 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 5).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
         <CalendarButton onClick={() => setSelDate(addDays(date, 6))} active={addDays(date, 6).toDateString() === selDate.toDateString()}>
@@ -120,90 +137,95 @@ const Calendar = () => {
           <h3 style={{lineHeight: "30%"}}>{addDays(date, 6).getDate()}</h3>
           <ButtonDot style={{
             backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
           <ButtonDot style={{
             backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%"
+            lineHeight: "30%",
+            opacity: 0
           }} />
         </CalendarButton>
       </div>
       <br />
-      <div style={{width: "100%"}}>
-        <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-          <shape style={{
-            borderRadius: "25px",
-            background: Colors.WLF_ORANGE,
-            width: "100px",
-            margin: "auto",
-            opacity: "50%",
-            display: "inline-block",
-            lineHeight: "25px",
-            textAlign: "center"
-          }}>
-            <div style={{color: "#FFFFFF", display: "inline-block"}}>
-              <h2>
-                5:00
-              </h2>
-            </div>
-          </shape>
-        </div>
-        <div style={{margin: "auto", height: "75px"}}>
-          <p style={{marginTop: "0px"}}><b>Beep Bop</b></p>
-          <p style={{marginBottom: "0px"}}>Seminar</p>
-        </div>
-      </div>
-      <hr style={{opacity: "33%"}}/>
-      <div style={{width: "100%"}}>
-        <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-          <shape style={{
-            borderRadius: "25px",
-            background: Colors.WLF_YELLOW,
-            width: "100px",
-            margin: "auto",
-            opacity: "50%",
-            display: "inline-block",
-            lineHeight: "25px",
-            textAlign: "center"
-          }}>
-            <div style={{color: "#FFFFFF", display: "inline-block"}}>
-              <h2>
-                6:00
-              </h2>
-            </div>
-          </shape>
-        </div>
-        <div style={{marginLeft: "50%", height: "75px"}}>
-          <p style={{marginTop: "0px"}}><b> Intro to Due Process </b></p>
-          <p style={{marginBottom: "0px"}}>Class</p>
-        </div>
-      </div>
-      <hr style={{opacity: "33%"}}/>
-      <div style={{width: "100%"}}>
-        <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-          <shape style={{
-            borderRadius: "25px",
-            background: Colors.WLF_TURQOUISE,
-            width: "100px",
-            margin: "auto",
-            opacity: "50%",
-            display: "inline-block",
-            lineHeight: "25px",
-            textAlign: "center"
-          }}>
-            <div style={{color: "#FFFFFF", display: "inline-block"}}>
-              <h2>
-                7:00
-              </h2>
-            </div>
-          </shape>
-        </div>
-        <div style={{marginLeft: "50%", height: "75px"}}>
-          <p style={{marginTop: "0px"}}><b> To Hand and Back </b></p>
-          <p style={{marginBottom: "0px"}}>Class</p>
-        </div>
-      </div>
-      <hr style={{opacity: "33%"}}/>
+      {
+      // <div style={{width: "100%"}}>
+      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
+      //     <shape style={{
+      //       borderRadius: "25px",
+      //       background: Colors.WLF_ORANGE,
+      //       width: "100px",
+      //       margin: "auto",
+      //       opacity: "50%",
+      //       display: "inline-block",
+      //       lineHeight: "25px",
+      //       textAlign: "center"
+      //     }}>
+      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
+      //         <h2>
+      //           5:00
+      //         </h2>
+      //       </div>
+      //     </shape>
+      //   </div>
+      //   <div style={{margin: "auto", height: "75px"}}>
+      //     <p style={{marginTop: "0px"}}><b>Beep Bop</b></p>
+      //     <p style={{marginBottom: "0px"}}>Seminar</p>
+      //   </div>
+      // </div>
+      // <hr style={{opacity: "33%"}}/>
+      // <div style={{width: "100%"}}>
+      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
+      //     <shape style={{
+      //       borderRadius: "25px",
+      //       background: Colors.WLF_YELLOW,
+      //       width: "100px",
+      //       margin: "auto",
+      //       opacity: "50%",
+      //       display: "inline-block",
+      //       lineHeight: "25px",
+      //       textAlign: "center"
+      //     }}>
+      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
+      //         <h2>
+      //           6:00
+      //         </h2>
+      //       </div>
+      //     </shape>
+      //   </div>
+      //   <div style={{marginLeft: "50%", height: "75px"}}>
+      //     <p style={{marginTop: "0px"}}><b> Intro to Due Process </b></p>
+      //     <p style={{marginBottom: "0px"}}>Class</p>
+      //   </div>
+      // </div>
+      // <hr style={{opacity: "33%"}}/>
+      // <div style={{width: "100%"}}>
+      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
+      //     <shape style={{
+      //       borderRadius: "25px",
+      //       background: Colors.WLF_TURQOUISE,
+      //       width: "100px",
+      //       margin: "auto",
+      //       opacity: "50%",
+      //       display: "inline-block",
+      //       lineHeight: "25px",
+      //       textAlign: "center"
+      //     }}>
+      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
+      //         <h2>
+      //           7:00
+      //         </h2>
+      //       </div>
+      //     </shape>
+      //   </div>
+      //   <div style={{marginLeft: "50%", height: "75px"}}>
+      //     <p style={{marginTop: "0px"}}><b> To Hand and Back </b></p>
+      //     <p style={{marginBottom: "0px"}}>Class</p>
+      //   </div>
+      // </div>
+      // <hr style={{opacity: "33%"}}/>
+    }
+    <h2>Nothing Here Yet!</h2>
     </CalendarContainer>
   )
 }
