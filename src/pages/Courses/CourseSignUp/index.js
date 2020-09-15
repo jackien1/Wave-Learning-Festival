@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import * as Styles from './styles'
@@ -183,17 +183,18 @@ var PAST_COURSES_OPTIONS = [
 
 var NUM_SEMINARS = ["", "1", "2"];
 
-const fetchSeminars = async () => {
-  try { 
-    const semData = await API.graphql(graphqlOperation(listSeminars));
-    const semList = semData.data.listSeminars.items;
-    console.log(semList);
-    return semList;
-  } catch (error) {
-      console.log('error on fetching songs', error);
-  }
-}
-var SEMINARS_LIST = ["", fetchSeminars()];
+// // MAYBE DELETE THIS
+// const fetchSeminars = async () => {
+//   try { 
+//     const semData = await API.graphql(graphqlOperation(listSeminars));
+//     const semList = semData.data.listSeminars.items;
+//     console.log(semList);
+//     return semList;
+//   } catch (error) {
+//       console.log('error on fetching songs', error);
+//   }
+// }
+// var SEMINARS_LIST = ["", fetchSeminars()];
 
 var WAYS_TO_HEAR = [
   "From my school (teacher/principal/superintendent)",
@@ -470,7 +471,8 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
   </div>)
 }
 
-const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongSubmission }) => {
+const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_LIST}) => {
+  
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
       Seminar Registration
@@ -479,7 +481,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       Please keep in mind the target grade range, course meeting times, frequency, class sizes, and prerequisites (if any).
     </Typography.BodyText>
     <Typography.BodyText color="white">
-      Check out all our seminar offerings at <a href="/seminars" target="_blank">here</a>!
+      Check out all our seminar offerings <a href="/seminars" target="_blank" color={Colors.WLF_YELLOW}>here</a>!
     </Typography.BodyText>
 
     <Typography.Header2 color="white" fontSize="24px">
@@ -516,6 +518,7 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       value={seminarData.sem1}
       onChange={event => {
         const value = event.target.value
+        console.log('saved val', value);
         setSeminarData(prevData => ({
           ...prevData,
           sem1: value
@@ -653,6 +656,7 @@ const SeminarSignUp = () => {
     if (form.sem5 != "" && form.reason5 == ""){
       return false;
     }
+    console.log("made it past sem2-5");
     return form.pastCourses != "" &&
       form.numSeminars != "" &&
       form.howYouHear != "" &&
@@ -695,10 +699,10 @@ const SeminarSignUp = () => {
         input: {
           first_name: studentData.first_name,
           last_name: studentData.last_name,
-          email: studentData.email,
+          email: studentData.email.toLowerCase(),
           parent_first: studentData.parent_first,
           parent_last: studentData.parent_last,
-          parentEmail: studentData.parentEmail,
+          parentEmail: studentData.parentEmail.toLowerCase(),
           grade: studentData.grade,
           school: studentData.school,
           country: studentData.country,
@@ -730,25 +734,36 @@ const SeminarSignUp = () => {
 
   }
 
+  const [seminarsAll, updateSeminars] = useState([]);
+
+  const fetchSeminars = async () => {
+    try { 
+      const semData = await API.graphql(graphqlOperation(listSeminars));
+      const semList = semData.data.listSeminars.items;
+      console.log(semList);
+      updateSeminars(semList);
+    } catch (error) {
+        console.log('error on fetching songs', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchSeminars();
+  }, [seminarsAll]);
+
+  const SEMINARS_LIST = []
+  for (var sem of seminarsAll){
+    SEMINARS_LIST.push([sem.courseTitle, sem.id])
+  }
+
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
-      {/* <Container>
-        <ContainerInner> */}
-          <Styles.SignupBackground>
-            {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, nextPage, wrongSubmission })}
-            {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission })}
-            {page === 'thanks' && Thanks({ setPage })}
-          </Styles.SignupBackground>
-        {/* </ContainerInner>
-      </Container> */}
-      {/* <Styles.TeacherBackground>
-        <div style={{ maxWidth: 800 }}>
-          {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, submit, wrongSubmission })}
-          {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission })}
-          {page === 'thanks' && Thanks({ setPage })}
-        </div>
-      </Styles.TeacherBackground> */}
+      <Styles.SignupBackground>
+        {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, nextPage, wrongSubmission })}
+        {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_LIST })}
+        {page === 'thanks' && Thanks({ setPage })}
+      </Styles.SignupBackground>
       <Footer />
     </div>
   )
