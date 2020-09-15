@@ -7,7 +7,7 @@ import { Container, ContainerInner } from '@/globalStyles'
 import Logo from './logo.png'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createStudent, createSeminarRegistration } from "../../../graphql/mutations.js"
-import { listSeminars } from "../../../graphql/queries.js"
+import { listSeminars, listStudents } from "../../../graphql/queries.js"
 import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
 
 
@@ -702,8 +702,8 @@ const SeminarSignUp = () => {
           first_name: studentData.first_name,
           last_name: studentData.last_name,
           email: studentData.email.toLowerCase(),
-          parent_first: studentData.parent_first,
-          parent_last: studentData.parent_last,
+          parent_first_name: studentData.parent_first,
+          parent_last_name: studentData.parent_last,
           parentEmail: studentData.parentEmail.toLowerCase(),
           grade: studentData.grade,
           school: studentData.school,
@@ -737,7 +737,6 @@ const SeminarSignUp = () => {
   }
 
   const [seminarsAll, updateSeminars] = useState([]);
-
   const fetchSeminars = async () => {
     try { 
       const semData = await API.graphql(graphqlOperation(listSeminars));
@@ -745,10 +744,9 @@ const SeminarSignUp = () => {
       console.log(semList);
       updateSeminars(semList);
     } catch (error) {
-        console.log('error on fetching songs', error);
+        console.log('error on fetching seminars', error);
     }
   }
-
   useEffect(() => {
     fetchSeminars();
   }, [seminarsAll]);
@@ -756,7 +754,27 @@ const SeminarSignUp = () => {
   const SEMINARS_LIST = [""]
   for (var sem of seminarsAll){
     SEMINARS_LIST.push(sem.id)
+    // SEMINARS_LIST.push([sem.courseTitle, sem.id])
+  }
 
+  const [accts, updateAccts] = useState([]);
+  const fetchAccts = async () => {
+    try { 
+      const acctData = await API.graphql(graphqlOperation(listStudents));
+      const acctList = acctData.data.listStudents.items;
+      console.log(acctList);
+      updateAccts(acctList);
+    } catch (error) {
+        console.log('error on fetching student accounts', error);
+    }
+  }
+  useEffect(() => {
+    fetchAccts();
+  }, [accts]);
+
+  const EMAILS_LIST = [""]
+  for (var em of accts){
+    EMAILS_LIST.push(em.email)
     // SEMINARS_LIST.push([sem.courseTitle, sem.id])
   }
 
