@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import WavyPurple from '../About/assets/wavy_purple.svg'
-import { ListIcon, Container, Sidebar, ListItem, Highlight, CalendarContainer, ContentContainer, ContainerOuter } from './styles'
+import { ListIcon, Container, Sidebar, ListItem, Highlight, CalendarButton, SelectedCalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
 import Navbar from './components/Navbar'
+import Calendar from './components/Calendar'
+import StatsCards from './components/Statistics'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 import { Auth } from 'aws-amplify'
 import { FaPowerOff, FaHome } from 'react-icons/fa'
@@ -74,10 +76,10 @@ const Dashboard = () => {
           </ListItem>
         </Sidebar>
         <ContentContainer>
-          <p>Content</p>
+          <StatsCards/>
         </ContentContainer>
         <CalendarContainer>
-          <p>Calendar</p>
+          <Calendar />
         </CalendarContainer>
       </Container>
     </div>

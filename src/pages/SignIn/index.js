@@ -21,12 +21,12 @@ var inputChanged = function (key, setField) {
   return result
 }
 
-const submit = async (signInForm, setWrongSubmission) => {
+const submit = async (signInForm, setWrongSubmission, isStudent) => {
   try {
     const user = await Auth.signIn(signInForm.username, signInForm.password)
     if (user) {
       console.log(user)
-      window.location.href = '/dashboard'
+      isStudent ? window.location.href = '/dashboard' : window.location.href = '/teacher-dashboard'
     }
   } catch (error) {
     setWrongSubmission('Wrong email/password!')
@@ -65,12 +65,19 @@ const Home = (db, signInForm, setSignInForm, wrongSubmission, setWrongSubmission
       />
       <a id="forgot-password" href="/reset-password">Forgot password?</a>
 
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <div style={{ width: 'auto', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Form.Button onClick={(event) => {
-          submit(signInForm, setWrongSubmission)
+          submit(signInForm, setWrongSubmission, true)
         }}>
           <Typography.Header color="white" fontSize="24px">
-          Submit
+          Login as Student
+          </Typography.Header>
+        </Form.Button>
+        <Form.Button onClick={(event) => {
+          submit(signInForm, setWrongSubmission, false)
+        }}>
+          <Typography.Header color="white" fontSize="24px">
+          Login as Teacher
           </Typography.Header>
         </Form.Button>
       </div>
