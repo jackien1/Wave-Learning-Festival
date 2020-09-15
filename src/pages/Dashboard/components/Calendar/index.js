@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import { CalendarButton, CalendarContainer, ArrowButton, Arrow, ButtonDot } from './styles'
+import { FirebaseContext } from '../../../firebaseContext'
 import { Auth } from 'aws-amplify'
 
 const Calendar = () => {
@@ -15,6 +16,91 @@ const Calendar = () => {
   Auth.currentAuthenticatedUser().then(user => {
 	console.log(user)
   });
+  var range = [0, 1, 2, 3, 4, 5, 6];
+  const { db, storage } = useContext(FirebaseContext)
+  const [events, updateEvents] = useState([])
+  const [loading, setLoading] = useState(false)
+  const colors = [Colors.WLF_ORANGE, Colors.WLF_PURPLE, Colors.WLF_TURQOUISE, Colors.WLF_YELLOW]
+{
+  // useEffect(() => {
+  //   if (db) {
+  //     db.collection('fl_content').get().then(function (querySnapshot) {
+  //       querySnapshot.forEach(async function (doc) {
+  //         if (doc.data().schema == 'coursePage') {
+  //           db.doc(doc.data().picture[0].path).get().then(async function (picture) {
+  //             if (picture.exists) {
+  //               storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
+  //                 .then(function (url) {
+  //                   const teachers = []
+  //                   if (doc.data().teachers.teacher1Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher1Name,
+  //                       school: doc.data().teachers.teacher1School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher2Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher2Name,
+  //                       school: doc.data().teachers.teacher2School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher3Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher3Name,
+  //                       school: doc.data().teachers.teacher3School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher4Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher4Name,
+  //                       school: doc.data().teachers.teacher4School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher5Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher5Name,
+  //                       school: doc.data().teachers.teacher5School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher6Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher6Name,
+  //                       school: doc.data().teachers.teacher6School
+  //                     })
+  //                   }
+  //                   if (doc.data().teachers.teacher7Name) {
+  //                     teachers.push({
+  //                       name: doc.data().teachers.teacher7Name,
+  //                       school: doc.data().teachers.teacher7School
+  //                     })
+  //                   }
+  //                   const course = {
+  //                     title: doc.data().courseTitle,
+  //                     category: categories[doc.data().courseCategory],
+  //                     image: url,
+  //                     description: doc.data().courseDescription,
+  //                     teachers,
+  //                     wave: doc.data().wave
+  //                   }
+  //                   updateCourses(courses => [...courses, course])
+  //                 })
+  //             }
+  //           })
+  //         }
+  //       })
+  //       setLoading(true)
+  //     })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [db, storage])
+}
+  if (!loading) {
+    return (<div>
+      <CalendarContainer>
+          <p>Loading...</p>
+          </CalendarContainer>
+    </div>)
+  }
   return (
     <CalendarContainer>
       <header>
@@ -37,195 +123,61 @@ const Calendar = () => {
         </div>
       </header>
       <div>
-        <CalendarButton onClick={() => setSelDate(date)} active={selDate.toDateString() === date.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{date.toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[date.getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{date.getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 1))} active={addDays(date, 1).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 1).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 1).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 1).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_TURQOUISE,
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 2))} active={addDays(date, 2).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 2).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 2).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 2).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 3))} active={addDays(date, 3).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 3).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 3).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 3).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 4))} active={addDays(date, 4).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 4).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 4).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 4).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 5))} active={addDays(date, 5).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 5).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 5).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 5).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
-        <CalendarButton onClick={() => setSelDate(addDays(date, 6))} active={addDays(date, 6).toDateString() === selDate.toDateString()}>
-          <p style={{lineHeight: "30%"}}>{addDays(date, 6).toDateString().substring(0,3)}</p>
-          <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, 6).getMonth()]}</p>
-          <h3 style={{lineHeight: "30%"}}>{addDays(date, 6).getDate()}</h3>
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_ORANGE,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-          <ButtonDot style={{
-            backgroundColor: Colors.WLF_YELLOW,
-            lineHeight: "30%",
-            opacity: 0
-          }} />
-        </CalendarButton>
+        {range.map((i) => {
+          return (
+            <CalendarButton onClick={() => setSelDate(addDays(date, i))} active={addDays(date, i).toDateString() === selDate.toDateString()}>
+              <p style={{lineHeight: "30%"}}>{addDays(date, i).toDateString().substring(0,3)}</p>
+              <p style={{fontSize:"12px", lineHeight: "30%"}}>{months[addDays(date, i).getMonth()]}</p>
+              <h3 style={{lineHeight: "30%"}}>{addDays(date, i).getDate()}</h3>
+              {events.map((event, index) => {
+                const { color, time, name, description, dates } = event
+                if (dates.includes(addDays(date, i))) {
+                  return (
+                    <ButtonDot style={{
+                      backgroundColor: colors[index % 4],
+                      lineHeight: "30%",
+                    }} />
+                  )
+                }
+              })}
+            </CalendarButton>
+          )
+        })
+        }
       </div>
       <br />
-      {
-      // <div style={{width: "100%"}}>
-      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-      //     <shape style={{
-      //       borderRadius: "25px",
-      //       background: Colors.WLF_ORANGE,
-      //       width: "100px",
-      //       margin: "auto",
-      //       opacity: "50%",
-      //       display: "inline-block",
-      //       lineHeight: "25px",
-      //       textAlign: "center"
-      //     }}>
-      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
-      //         <h2>
-      //           5:00
-      //         </h2>
-      //       </div>
-      //     </shape>
-      //   </div>
-      //   <div style={{margin: "auto", height: "75px"}}>
-      //     <p style={{marginTop: "0px"}}><b>Beep Bop</b></p>
-      //     <p style={{marginBottom: "0px"}}>Seminar</p>
-      //   </div>
-      // </div>
-      // <hr style={{opacity: "33%"}}/>
-      // <div style={{width: "100%"}}>
-      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-      //     <shape style={{
-      //       borderRadius: "25px",
-      //       background: Colors.WLF_YELLOW,
-      //       width: "100px",
-      //       margin: "auto",
-      //       opacity: "50%",
-      //       display: "inline-block",
-      //       lineHeight: "25px",
-      //       textAlign: "center"
-      //     }}>
-      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
-      //         <h2>
-      //           6:00
-      //         </h2>
-      //       </div>
-      //     </shape>
-      //   </div>
-      //   <div style={{marginLeft: "50%", height: "75px"}}>
-      //     <p style={{marginTop: "0px"}}><b> Intro to Due Process </b></p>
-      //     <p style={{marginBottom: "0px"}}>Class</p>
-      //   </div>
-      // </div>
-      // <hr style={{opacity: "33%"}}/>
-      // <div style={{width: "100%"}}>
-      //   <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
-      //     <shape style={{
-      //       borderRadius: "25px",
-      //       background: Colors.WLF_TURQOUISE,
-      //       width: "100px",
-      //       margin: "auto",
-      //       opacity: "50%",
-      //       display: "inline-block",
-      //       lineHeight: "25px",
-      //       textAlign: "center"
-      //     }}>
-      //       <div style={{color: "#FFFFFF", display: "inline-block"}}>
-      //         <h2>
-      //           7:00
-      //         </h2>
-      //       </div>
-      //     </shape>
-      //   </div>
-      //   <div style={{marginLeft: "50%", height: "75px"}}>
-      //     <p style={{marginTop: "0px"}}><b> To Hand and Back </b></p>
-      //     <p style={{marginBottom: "0px"}}>Class</p>
-      //   </div>
-      // </div>
-      // <hr style={{opacity: "33%"}}/>
-    }
-    <h2>Nothing Here Yet!</h2>
+      {events.map((event, index) => {
+        const { color, time, name, type, dates } = event
+        if (dates.includes(date)) {
+          return (
+            <div style={{width: "100%"}}>
+              <div style={{width: "50%", height: "75px", float: "left", margin: "auto"}}>
+                <shape style={{
+                  borderRadius: "25px",
+                  background: {color},
+                  width: "100px",
+                  margin: "auto",
+                  opacity: "50%",
+                  display: "inline-block",
+                  lineHeight: "25px",
+                  textAlign: "center"
+                }}>
+                  <div style={{color: "#FFFFFF", display: "inline-block"}}>
+                    <h2>
+                      {time}
+                    </h2>
+                  </div>
+                </shape>
+              </div>
+              <div style={{margin: "auto", height: "75px"}}>
+                <p style={{marginTop: "0px"}}><b>{name}</b></p>
+                <p style={{marginBottom: "0px"}}>{type}</p>
+              </div>
+            </div>
+            <hr style={{opacity: "33%"}}/>
+          )
+        }
+      })}
     </CalendarContainer>
   )
 }
