@@ -73,6 +73,7 @@ type Student {
   parent_first_name: String!
   parent_last_name: String!
   parentEmail: String!
+  orgs: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -680,6 +681,7 @@ input ModelStudentFilterInput {
   parent_first_name: ModelStringInput
   parent_last_name: ModelStringInput
   parentEmail: ModelStringInput
+  orgs: ModelStringInput
   and: [ModelStudentFilterInput]
   or: [ModelStudentFilterInput]
   not: ModelStudentFilterInput
@@ -699,6 +701,7 @@ input CreateStudentInput {
   parent_first_name: String!
   parent_last_name: String!
   parentEmail: String!
+  orgs: [String]
 }
 
 input UpdateStudentInput {
@@ -715,6 +718,7 @@ input UpdateStudentInput {
   parent_first_name: String
   parent_last_name: String
   parentEmail: String
+  orgs: [String]
 }
 
 input DeleteStudentInput {
@@ -734,6 +738,7 @@ input ModelStudentConditionInput {
   parent_first_name: ModelStringInput
   parent_last_name: ModelStringInput
   parentEmail: ModelStringInput
+  orgs: ModelStringInput
   and: [ModelStudentConditionInput]
   or: [ModelStudentConditionInput]
   not: ModelStudentConditionInput

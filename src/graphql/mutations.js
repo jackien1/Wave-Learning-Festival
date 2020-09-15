@@ -275,6 +275,7 @@ export const createStudent = /* GraphQL */ `
       parent_first_name
       parent_last_name
       parentEmail
+      orgs
       createdAt
       updatedAt
     }
@@ -299,6 +300,7 @@ export const updateStudent = /* GraphQL */ `
       parent_first_name
       parent_last_name
       parentEmail
+      orgs
       createdAt
       updatedAt
     }
@@ -323,6 +325,7 @@ export const deleteStudent = /* GraphQL */ `
       parent_first_name
       parent_last_name
       parentEmail
+      orgs
       createdAt
       updatedAt
     }

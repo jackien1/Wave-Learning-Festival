@@ -65,6 +65,7 @@ type Student @model {
   parent_first_name: String!
   parent_last_name: String!
   parentEmail: String!
+  orgs: [String]
 }
 
 type EventAssignments @model {

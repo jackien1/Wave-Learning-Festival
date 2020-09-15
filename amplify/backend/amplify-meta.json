@@ -31,12 +31,12 @@
 				"GraphQLAPIEndpointOutput": "https://etlm4gjnrvffndchjkf5oibqei.appsync-api.us-west-2.amazonaws.com/graphql",
 				"GraphQLAPIKeyOutput": "da2-zcb6s2djyngwxircnd2adnzrii"
 			},
-			"lastPushTimeStamp": "2020-09-15T01:39:48.400Z",
+			"lastPushTimeStamp": "2020-09-15T02:12:42.481Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apiwavelearningfestival"
 			},
-			"lastPushDirHash": "U8W+G6T4+6zB6G9vwZniogfNphs="
+			"lastPushDirHash": "Jieswz3teUbM7TuBiXFT3JpiMuw="
 		}
 	},
 	"hosting": {
@@ -60,7 +60,7 @@
 				"IdentityPoolName": "wavelearningfestivalfac48596_identitypool_fac48596__dev",
 				"UserPoolName": "wavelearningfestivalfac48596_userpool_fac48596"
 			},
-			"lastPushTimeStamp": "2020-09-15T01:39:47.413Z",
+			"lastPushTimeStamp": "2020-09-15T02:12:41.547Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/auth/wavelearningfestivalfac48596-cloudformation-template.yml",
 				"logicalId": "authwavelearningfestivalfac48596"

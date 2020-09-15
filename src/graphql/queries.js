@@ -195,6 +195,7 @@ export const getStudent = /* GraphQL */ `
       parent_first_name
       parent_last_name
       parentEmail
+      orgs
       createdAt
       updatedAt
     }
@@ -221,6 +222,7 @@ export const listStudents = /* GraphQL */ `
         parent_first_name
         parent_last_name
         parentEmail
+        orgs
         createdAt
         updatedAt
       }
