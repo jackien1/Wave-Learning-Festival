@@ -9,7 +9,7 @@ import Speakers from './pages/Speakers'
 import TeacherApplications from './pages/TeacherApplications'
 import Seminars from './pages/Seminars'
 import Tutors from './pages/Tutors'
-
+import EventRegistrations from './pages/Events'
 
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
@@ -30,6 +30,9 @@ function App () {
             </Route>
             <Route path="/seminars">
               <Seminars />
+            </Route>
+            <Route path="/event-registrations">
+              <EventRegistrations />
             </Route>
             <Route path="/tutors">
               <Tutors />

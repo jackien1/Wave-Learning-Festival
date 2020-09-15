@@ -74,6 +74,12 @@ export const getTeacher = /* GraphQL */ `
       first_name
       last_name
       school
+      gradYear
+      email
+      country
+      city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -91,6 +97,12 @@ export const listTeachers = /* GraphQL */ `
         first_name
         last_name
         school
+        gradYear
+        email
+        country
+        city
+        bio
+        seminarId
         createdAt
         updatedAt
       }
@@ -121,6 +133,7 @@ export const getTeacherRegistration = /* GraphQL */ `
       skills
       previousWaves
       questions
+      approved
       createdAt
       updatedAt
     }
@@ -158,6 +171,7 @@ export const listTeacherRegistrations = /* GraphQL */ `
         skills
         previousWaves
         questions
+        approved
         createdAt
         updatedAt
       }
@@ -318,6 +332,7 @@ export const getBlogPost = /* GraphQL */ `
       date
       image
       title
+      views
       createdAt
       updatedAt
     }
@@ -336,6 +351,7 @@ export const listBlogPosts = /* GraphQL */ `
         date
         image
         title
+        views
         createdAt
         updatedAt
       }
@@ -413,6 +429,7 @@ export const getTutorRegistration = /* GraphQL */ `
       hours
       questions
       othersubjects
+      approved
       createdAt
       updatedAt
     }
@@ -444,6 +461,62 @@ export const listTutorRegistrations = /* GraphQL */ `
         hours
         questions
         othersubjects
+        approved
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventRegistration = /* GraphQL */ `
+  query GetEventRegistration($id: ID!) {
+    getEventRegistration(id: $id) {
+      id
+      studentID
+      eventID
+      first_name
+      last_name
+      email
+      country
+      city
+      state
+      school
+      notes
+      questions
+      extra
+      howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listEventRegistrations = /* GraphQL */ `
+  query ListEventRegistrations(
+    $filter: ModelEventRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        studentID
+        eventID
+        first_name
+        last_name
+        email
+        country
+        city
+        state
+        school
+        notes
+        questions
+        extra
+        howYouHear
         createdAt
         updatedAt
       }

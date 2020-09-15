@@ -73,6 +73,9 @@ const Navbar = () => {
             <Link to="/instructor-applications">InstructorApps</Link>
           </NavItem>
           <NavItem>
+            <Link to="/event-registrations">EventReg</Link>
+          </NavItem>
+          <NavItem>
             <Link to="/tutors">Tutors</Link>
           </NavItem>
           <NavItem>
@@ -109,6 +112,9 @@ const Navbar = () => {
           </NavItem>
           <NavItem>
             <Link to="/instructor-applications">InstructorApps</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/event-registartions">EventReg</Link>
           </NavItem>
           <NavItem>
             <Link to="/tutors">Tutors</Link>
