@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
 import { Colors, Typography, Form } from '@/styles'
 import { CalendarButton, CalendarContainer, ArrowButton, Arrow, ButtonDot } from './styles'
+import { Auth } from 'aws-amplify'
 
 const Calendar = () => {
   const [selDate, setSelDate] = useState(new Date(Date.now()))
@@ -11,6 +12,9 @@ const Calendar = () => {
     copy.setDate(inDate.getDate() + days)
     return copy
   }
+  Auth.currentAuthenticatedUser().then(user => {
+	console.log(user)
+  });
   return (
     <CalendarContainer>
       <header>
