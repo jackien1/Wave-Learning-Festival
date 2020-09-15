@@ -4,7 +4,7 @@ import WavyPurple from '../About/assets/wavy_purple.svg'
 import { ListIcon, Container, Sidebar, ListItem, Highlight, CalendarButton, SelectedCalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
 import Navbar from './components/Navbar'
 import Calendar from './components/Calendar'
-// import StatsCards from './components/Statistics'
+import StatsCards from './components/Statistics'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 import { Auth } from 'aws-amplify'
 import { FaPowerOff, FaHome } from 'react-icons/fa'
@@ -24,7 +24,7 @@ const Dashboard = () => {
     Auth.currentAuthenticatedUser({
       bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then(user => userEmail(user.attributes.email))
-      .catch(err => window.location.href = '/')
+      .catch(err => window.location.href = '/sign-in')
   }, [])
   return (
     <div>
