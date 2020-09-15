@@ -1,71 +1,71 @@
 {
-  "providers": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-wavelearningfestival-dev-164155-authRole",
-      "UnauthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-wavelearningfestival-dev-164155-deployment",
-      "UnauthRoleName": "amplify-wavelearningfestival-dev-164155-unauthRole",
-      "StackName": "amplify-wavelearningfestival-dev-164155",
-      "StackId": "arn:aws:cloudformation:us-west-2:910856264954:stack/amplify-wavelearningfestival-dev-164155/1acc2150-d75c-11ea-8375-0621d00a30ea",
-      "AmplifyAppId": "d3jlx3tyqn40aw"
-    }
-  },
-  "api": {
-    "wavelearningfestival": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7,
-              "description": ""
-            }
-          },
-          "additionalAuthenticationProviders": []
-        },
-        "GraphQLAPIIdOutput": "kmtcpnf7ora3tlpx34sr2e2phq",
-        "GraphQLAPIEndpointOutput": "https://etlm4gjnrvffndchjkf5oibqei.appsync-api.us-west-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-zcb6s2djyngwxircnd2adnzrii"
-      },
-      "lastPushTimeStamp": "2020-09-14T22:44:34.018Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apiwavelearningfestival"
-      },
-      "lastPushDirHash": "XJW6pxnJY3QW70hTcAAGdDanK9A="
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "type": "cicd"
-    }
-  },
-  "auth": {
-    "wavelearningfestivalfac48596": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false,
-      "output": {
-        "AppClientSecret": "bnberpg46revrhbq1h8ci70evkvqbb8so2ijtfeno522gal6cjs",
-        "UserPoolId": "us-west-2_AdtTieFO4",
-        "AppClientIDWeb": "7ejk13a5a4m38o2lvge3iek0eb",
-        "AppClientID": "27hvttfso59s539quvt515318f",
-        "IdentityPoolId": "us-west-2:7cfec17a-4c97-413c-a32a-680018d2e793",
-        "IdentityPoolName": "wavelearningfestivalfac48596_identitypool_fac48596__dev",
-        "UserPoolName": "wavelearningfestivalfac48596_userpool_fac48596"
-      },
-      "lastPushTimeStamp": "2020-09-14T22:44:34.018Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/auth/wavelearningfestivalfac48596-cloudformation-template.yml",
-        "logicalId": "authwavelearningfestivalfac48596"
-      },
-      "lastPushDirHash": "VWxGQDIOex4UlTv3omk9PCvnbPY="
-    }
-  }
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-wavelearningfestival-dev-164155-authRole",
+			"UnauthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::910856264954:role/amplify-wavelearningfestival-dev-164155-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "amplify-wavelearningfestival-dev-164155-deployment",
+			"UnauthRoleName": "amplify-wavelearningfestival-dev-164155-unauthRole",
+			"StackName": "amplify-wavelearningfestival-dev-164155",
+			"StackId": "arn:aws:cloudformation:us-west-2:910856264954:stack/amplify-wavelearningfestival-dev-164155/1acc2150-d75c-11ea-8375-0621d00a30ea",
+			"AmplifyAppId": "d3jlx3tyqn40aw"
+		}
+	},
+	"api": {
+		"wavelearningfestival": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"apiKeyExpirationDays": 7,
+							"description": ""
+						}
+					},
+					"additionalAuthenticationProviders": []
+				},
+				"GraphQLAPIIdOutput": "kmtcpnf7ora3tlpx34sr2e2phq",
+				"GraphQLAPIEndpointOutput": "https://etlm4gjnrvffndchjkf5oibqei.appsync-api.us-west-2.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-zcb6s2djyngwxircnd2adnzrii"
+			},
+			"lastPushTimeStamp": "2020-09-15T01:39:48.400Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiwavelearningfestival"
+			},
+			"lastPushDirHash": "U8W+G6T4+6zB6G9vwZniogfNphs="
+		}
+	},
+	"hosting": {
+		"amplifyhosting": {
+			"service": "amplifyhosting",
+			"type": "cicd"
+		}
+	},
+	"auth": {
+		"wavelearningfestivalfac48596": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"output": {
+				"AppClientSecret": "bnberpg46revrhbq1h8ci70evkvqbb8so2ijtfeno522gal6cjs",
+				"UserPoolId": "us-west-2_AdtTieFO4",
+				"AppClientIDWeb": "7ejk13a5a4m38o2lvge3iek0eb",
+				"AppClientID": "27hvttfso59s539quvt515318f",
+				"IdentityPoolId": "us-west-2:7cfec17a-4c97-413c-a32a-680018d2e793",
+				"IdentityPoolName": "wavelearningfestivalfac48596_identitypool_fac48596__dev",
+				"UserPoolName": "wavelearningfestivalfac48596_userpool_fac48596"
+			},
+			"lastPushTimeStamp": "2020-09-15T01:39:47.413Z",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-wavelearningfestival-dev-164155-deployment/amplify-cfn-templates/auth/wavelearningfestivalfac48596-cloudformation-template.yml",
+				"logicalId": "authwavelearningfestivalfac48596"
+			},
+			"lastPushDirHash": "VWxGQDIOex4UlTv3omk9PCvnbPY="
+		}
+	}
 }

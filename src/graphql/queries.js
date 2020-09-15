@@ -192,17 +192,9 @@ export const getStudent = /* GraphQL */ `
       email
       grade
       howYouHear
-      numCourses
-      parentName
+      parent_first_name
+      parent_last_name
       parentEmail
-      registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -226,10 +218,9 @@ export const listStudents = /* GraphQL */ `
         email
         grade
         howYouHear
-        numCourses
-        parentName
+        parent_first_name
+        parent_last_name
         parentEmail
-        registeredEvents
         createdAt
         updatedAt
       }
@@ -517,6 +508,61 @@ export const listEventRegistrations = /* GraphQL */ `
         questions
         extra
         howYouHear
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSeminarRegistration = /* GraphQL */ `
+  query GetSeminarRegistration($id: ID!) {
+    getSeminarRegistration(id: $id) {
+      id
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSeminarRegistrations = /* GraphQL */ `
+  query ListSeminarRegistrations(
+    $filter: ModelSeminarRegistrationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSeminarRegistrations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        numSeminars
+        sem1
+        sem2
+        sem3
+        sem4
+        sem5
+        reason1
+        reason2
+        reason3
+        reason4
+        reason5
+        pastCourses
         createdAt
         updatedAt
       }

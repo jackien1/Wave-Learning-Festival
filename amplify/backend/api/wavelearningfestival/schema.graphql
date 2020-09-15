@@ -62,11 +62,9 @@ type Student @model {
   email: String!
   grade: String!
   howYouHear: String!
-  numCourses: String!
-  parentName: String!
+  parent_first_name: String!
+  parent_last_name: String!
   parentEmail: String!
-  registeredEvents: [SpecialEvent]
-  registeredSeminars: [SeminarAssignments]
 }
 
 type EventAssignments @model {
@@ -156,4 +154,21 @@ type EventRegistration @model {
   questions: String
   extra: String
   howYouHear: [String]
+}
+
+type SeminarRegistration @model {
+  id: ID!
+  email: String!
+  numSeminars: Int!
+  sem1: ID!
+  sem2: ID
+  sem3: ID
+  sem4: ID
+  sem5: ID
+  reason1: String!
+  reason2: String
+  reason3: String
+  reason4: String
+  reason5: String
+  pastCourses: [String!]!
 }
