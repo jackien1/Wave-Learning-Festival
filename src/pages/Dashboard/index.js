@@ -29,7 +29,6 @@ const Dashboard = () => {
     lastName: '',
     email: '',
     school: '',
-    gradYear: '',
     country: '',
     city: ''
   }
@@ -55,11 +54,6 @@ const Dashboard = () => {
         return ({
           ...state,
           school: action.content
-        })
-      case 'GRADYEAR':
-        return ({
-          ...state,
-          gradYear: action.content
         })
       case 'COUNTRY':
         return ({
@@ -101,7 +95,6 @@ const Dashboard = () => {
         genFrag('Last Name', student.data.getStudent.last_name, 'LASTNAME', 'lastName'),
         genFrag('Email', student.data.getStudent.email, 'EMAIL', 'email'),
         genFrag('School', student.data.getStudent.school, 'SCHOOL', 'school'),
-        genFrag('Grad Year', student.data.getStudent.gradYear, 'GRADYEAR', 'gradYear'),
         genFrag('Country', student.data.getStudent.country, 'COUNTRY', 'country'),
         genFrag('City', student.data.getStudent.city, 'CITY', 'city')
       ]
@@ -109,9 +102,11 @@ const Dashboard = () => {
 
     const getStudentData = async (username) => {
       try {
-        const studentData = await API.graphql(graphqlOperation(getStudent, { id: "student1" }))
+        const studentData = await API.graphql(graphqlOperation(getStudent, { id: username }))
+        console.log(studentData.data.getStudent)
         setStudent(studentData)
       } catch (error) {
+        console.log('id', username)
         console.log('error on fetching data', error)
       }
     }
@@ -132,7 +127,6 @@ const Dashboard = () => {
           lastName: student.data.getStudent.last_name,
           email: student.data.getStudent.email,
           school: student.data.getStudent.school,
-          gradYear: student.data.getStudent.gradYear,
           country: student.data.getStudent.country,
           city: student.data.getStudent.city
         })
@@ -184,7 +178,7 @@ const Dashboard = () => {
           <ListItem>
             Curricular Support
           </ListItem>
-          <ListItem onClick={() => <StudentProfile></StudentProfile>}>
+          <ListItem onClick={() => '/dashboard/student-profile'}>
             Profile
           </ListItem>
           <ListItem onClick={() => signOut()}>

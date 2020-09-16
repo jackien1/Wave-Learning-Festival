@@ -461,9 +461,9 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
     ))}
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-      <Form.Button onClick={(event) => { nextPage() }}>
+      <Form.Button onClick={(event) => { nextPage(); window.scroll(0,0) }}>
         <Typography.Header color="white" fontSize="24px">
-          Submit
+          Next
         </Typography.Header>
       </Form.Button>
     </div>

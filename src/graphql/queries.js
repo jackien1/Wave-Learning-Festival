@@ -192,9 +192,9 @@ export const getStudent = /* GraphQL */ `
       email
       grade
       howYouHear
+      parentEmail
       parent_first_name
       parent_last_name
-      parentEmail
       orgs
       createdAt
       updatedAt
