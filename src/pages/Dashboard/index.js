@@ -33,7 +33,7 @@ const Dashboard = () => {
     country: '',
     city: ''
   }
-  
+
   const profileReducer = (state, action) => {
     switch (action.type) {
       case 'FIRSTNAME':
@@ -75,8 +75,7 @@ const Dashboard = () => {
         return (action.content)
     }
   }
-  
-  const StudentProfile = () => {
+
     const [tab, setTab] = useState(true)
     const [loading, setLoading] = useState(true)
     const [isError, setError] = useState(false)
@@ -86,7 +85,7 @@ const Dashboard = () => {
     const [profile, profileDispatch] = useReducer(profileReducer, profileState)
     const [student, setStudent] = useState(null)
     const [studentId, setStudentId] = useState('')
-  
+
     const genFrag = function (label, data, dispatch, state) {
       return {
         label,
@@ -95,7 +94,7 @@ const Dashboard = () => {
         state
       }
     }
-  
+
     const generateStudentInfo = function (student) {
       return [
         genFrag('First Name', student.data.getStudent.first_name, 'FIRSTNAME', 'firstName'),
@@ -107,7 +106,7 @@ const Dashboard = () => {
         genFrag('City', student.data.getStudent.city, 'CITY', 'city')
       ]
     }
-  
+
     const getStudentData = async (username) => {
       try {
         const studentData = await API.graphql(graphqlOperation(getStudent, { id: "student1" }))
@@ -116,7 +115,7 @@ const Dashboard = () => {
         console.log('error on fetching data', error)
       }
     }
-  
+
     useEffect(() => {
       Auth.currentUserInfo()
         .then(user => {
@@ -124,7 +123,7 @@ const Dashboard = () => {
           getStudentData(user.username)
         })
     }, [])
-  
+
     useEffect(() => {
       if (student) {
         var studentInfo = generateStudentInfo(student)
@@ -209,7 +208,6 @@ const Dashboard = () => {
         </CalendarContainer>
         </div>
   </>)
-  }
 }
 
 export default Dashboard
