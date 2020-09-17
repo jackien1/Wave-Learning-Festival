@@ -177,6 +177,7 @@ const Dashboard = () => {
       genFrag('Max Size', seminar.data.getSeminar.maxClassSize, 'COUMAXSIZE', 'maxClassSize'),
       genFrag('Prerequisites', seminar.data.getSeminar.prereqs, 'COUPREREQS', 'prereqs'),
       genFrag('Description', seminar.data.getSeminar.courseDescription, 'COUDESCRIP', 'courseDescription'),
+      genFrag('Target Audience', seminar.data.getSeminar.targetAudience, 'COUTARGAUD', 'targetAudience'),
       genFrag('Last Updated At', seminar.data.getSeminar.updatedAt, 'UPDATEDAT', 'updatedAt')
     ]
   }
@@ -274,7 +275,8 @@ const Dashboard = () => {
         courseTitle: seminarProfile.courseTitle,
         maxClassSize: seminarProfile.maxClassSize,
         prereqs: seminarProfile.prereqs,
-        courseDescription: seminarProfile.courseDescription
+        courseDescription: seminarProfile.courseDescription,
+        targetAudience: seminarProfile.targetAudience
       }
     }))
     setLocalSeminarInfo(seminarProfile)
