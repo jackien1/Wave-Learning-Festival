@@ -8,6 +8,7 @@ import StatsCards from './components/Statistics'
 import BLOB_YELLOW from './BLOB_YELLOW.svg'
 import { FaPowerOff, FaHome } from 'react-icons/fa'
 import StudentProfile from './components/StudentProfile'
+import SeminarProfile from './components/SeminarProfile'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 
 import { getStudent } from '../../graphql/queries.js'
@@ -39,6 +40,20 @@ const Dashboard = () => {
     city: '',
     howYouHear: '',
     orgs: []
+  }
+
+  const seminarState = {
+    numSeminars: '',
+    sem1: '',
+    sem2: '',
+    sem3: '',
+    sem4: '',
+    sem5: '',
+    reason1: '',
+    reason2: '',
+    reason3: '',
+    reason4: '',
+    reason5: ''
   }
 
   const profileReducer = (currstate, action) => {
@@ -113,16 +128,84 @@ const Dashboard = () => {
     }
   }
 
-    const [studentPage, setStudentPage] = useState(true)
-    const [seminarPage, setSeminarPage] = useState(false)
+  const seminarReducer = (currstate, action) => {
+    switch (action.type) {
+      case 'NUMSEMINARS':
+        return ({
+          ...currstate,
+          numSeminars: action.content
+        })
+      case 'SEM1':
+        return ({
+          ...currstate,
+          sem1: action.content
+        })
+      case 'SEM2':
+        return ({
+          ...currstate,
+          sem2: action.content
+        })
+      case 'SEM3':
+        return ({
+          ...currstate,
+          sem3: action.content
+        })
+      case 'SEM4':
+        return ({
+          ...currstate,
+          sem4: action.content
+        })
+      case 'SEM5':
+      return ({
+        ...currstate,
+        sem5: action.content
+      })
+      case 'REASON1':
+        return ({
+          ...currstate,
+          reason1: action.content
+        })
+      case 'REASON2':
+        return ({
+          ...currstate,
+          reason2: action.content
+        })
+      case 'REASON3':
+        return ({
+          ...currstate,
+          reason3: action.content
+        })
+      case 'REASON4':
+        return ({
+          ...currstate,
+          reason4: action.content
+        })
+      case 'REASON5':
+        return ({
+          ...currstate,
+          reason5: action.content
+        })
+      case 'RESET':
+        return (action.content)
+    }
+  }
+
+    const [page, setPage] = useState('student')
+    // const [studentPage, setStudentPage] = useState(false)
+    // const [seminarPage, setSeminarPage] = useState(true)
     const [loading, setLoading] = useState(true)
     const [isError, setError] = useState(false)
     const [user, setUser] = useState(null)
     const [edit, toggleEdit] = useState(false)
     const [localStudentInfo, setLocalStudentInfo] = useState({})
+    const [localSeminarInfo, setLocalSeminarInfo] = useState({})
     const [profile, profileDispatch] = useReducer(profileReducer, profileState)
+    const [seminar, seminarDispatch] = useReducer(seminarReducer, seminarState)
     const [student, setStudent] = useState(null)
+    const [seminarData, setSeminarData] = useState(null)
     const [studentId, setStudentId] = useState('')
+    const [seminarRegId, setSeminarRegId] = useState('')
+
 
     const [registrations, updateRegistrations] = useState([])
 
@@ -158,7 +241,17 @@ const Dashboard = () => {
 
     const generateSeminarInfo = function (registrations) {
       return [
-        genFrag('Number of Seminars', registrations.data.getSeminarRegistration.numSeminars, 'FIRSTNAME', 'first_name'),
+        genFrag('Number of Seminars', registrations.data.getSeminarRegistration.numSeminars, 'NUMSEMINARS', 'numSeminars'),
+        genFrag('Seminar 1', registrations.data.getSeminarRegistration.sem1, 'SEM1', 'sem1'),
+        genFrag('Seminar 2', registrations.data.getSeminarRegistration.sem2, 'SEM2', 'sem2'),
+        genFrag('Seminar 3', registrations.data.getSeminarRegistration.sem3, 'SEM3', 'sem3'),
+        genFrag('Seminar 4', registrations.data.getSeminarRegistration.sem4, 'SEM4', 'sem4'),
+        genFrag('Seminar 5', registrations.data.getSeminarRegistration.sem5, 'SEM5', 'sem5'),
+        genFrag('Reason 1', registrations.data.getSeminarRegistration.reason1, 'REASON1', 'reason1'),
+        genFrag('Reason 2', registrations.data.getSeminarRegistration.reason2, 'REASON2', 'reason1'),
+        genFrag('Reason 3', registrations.data.getSeminarRegistration.reason3, 'REASON3', 'reason1'),
+        genFrag('Reason 4', registrations.data.getSeminarRegistration.reason4, 'REASON4', 'reason1'),
+        genFrag('Reason 5', registrations.data.getSeminarRegistration.reason5, 'REASON5', 'reason1')
       ]
     }
 
@@ -177,9 +270,11 @@ const Dashboard = () => {
             studentSeminarId = itemsofSeminar[i].id
           }
         }
-        const seminarData = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
-        console.log(seminarData);
-        console.log(studentData.data.getStudent.first_name + " is enrolled in " + seminarData.data.getSeminarRegistration.numSeminars + " seminar(s)")
+        setSeminarRegId(studentSeminarId)
+        const seminars = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
+        setSeminarData(seminars)
+        console.log(seminars);
+        console.log(studentData.data.getStudent.first_name + " is enrolled in " + seminars.data.getSeminarRegistration.numSeminars + " seminar(s)")
 
       } catch (error) {
         console.log('id', username)
@@ -219,9 +314,35 @@ const Dashboard = () => {
         })
       }
     }, [student])
+    
+    useEffect(() => {
+      if (seminarData) {
+        var seminarInfo = generateSeminarInfo(seminarData)
+        setLocalSeminarInfo({
+          numSeminars: seminarData.data.getSeminarRegistration.numSeminars,
+          sem1: seminarData.data.getSeminarRegistration.sem1,
+          sem2: seminarData.data.getSeminarRegistration.sem2,
+          sem3: seminarData.data.getSeminarRegistration.sem3,
+          sem4: seminarData.data.getSeminarRegistration.sem4,
+          sem5: seminarData.data.getSeminarRegistration.sem5,
+          reason1: seminarData.data.getSeminarRegistration.reason1,
+          reason2: seminarData.data.getSeminarRegistration.reason2,
+          reason3: seminarData.data.getSeminarRegistration.reason3,
+          reason4: seminarData.data.getSeminarRegistration.reason4,
+          reason5: seminarData.data.getSeminarRegistration.reason5
+        })
+        seminarInfo.forEach(label => {
+          seminarDispatch({ type: label.dispatch, content: label.data })
+        })
+      }
+    }, [seminarData])
 
     const cancelProfile = () => {
       profileDispatch({ type: 'RESET', content: localStudentInfo })
+    }
+
+    const cancelSeminar = () => {
+      seminarDispatch({ type: 'RESET', content: localSeminarInfo })
     }
 
     const submitProfile = () => {
@@ -244,6 +365,27 @@ const Dashboard = () => {
         }
       }))
       setLocalStudentInfo(profile)
+      toggleEdit(false)
+    }
+
+    const submitSeminar = () => {
+      API.graphql(graphqlOperation(updateSeminarRegistration, {
+        input: {
+          id: seminarRegId,
+          numSeminars: seminar.numSeminars,
+          sem1: seminar.sem1,
+          sem2: seminar.sem2,
+          sem3: seminar.sem3,
+          sem4: seminar.sem4,
+          sem5: seminar.sem5,
+          reason1: seminar.reason1,
+          reason2: seminar.reason2,
+          reason3: seminar.reason3,
+          reason4: seminar.reason4,
+          reason5: seminar.reason5,
+        }
+      }))
+      setLocalSeminarInfo(seminar)
       toggleEdit(false)
     }
 
@@ -279,7 +421,7 @@ const Dashboard = () => {
           <ListItem>
             Classes
           </ListItem>
-          <ListItem onClick={() => setSeminarPage(true)}>
+          <ListItem onClick={() => setPage('seminar')}>
             Seminars
           </ListItem>
           <ListItem>
@@ -288,7 +430,7 @@ const Dashboard = () => {
           <ListItem>
             Curricular Support
           </ListItem>
-          <ListItem onClick={() => setStudentPage(true)}>
+          <ListItem onClick={() => setPage('student')}>
             Profile
           </ListItem>
           <ListItem onClick={() => signOut()}>
@@ -306,7 +448,7 @@ const Dashboard = () => {
         </Sidebar>
         <ContentContainer>
           {/* <StatsCards/> */}
-          {studentPage && <StudentProfile 
+          {page=='student' && <StudentProfile 
           first_name = {profile.first_name}
           last_name = {profile.last_name}
           email = {profile.email}
@@ -323,6 +465,21 @@ const Dashboard = () => {
           profileDispatch = {profileDispatch}
           cancelProfile = {cancelProfile}
           submitProfile = {submitProfile}  />}
+          {page=='seminar' && <SeminarProfile 
+          numSeminars = {seminar.numSeminars}
+          sem1 = {seminar.sem1}
+          sem2 = {seminar.sem2}
+          sem3 = {seminar.sem3}
+          sem4 = {seminar.sem4}
+          sem5 = {seminar.sem5}
+          reason1 = {seminar.reason1}
+          reason2 = {seminar.reason2}
+          reason3 = {seminar.reason3}
+          reason4 = {seminar.reason4}
+          reason5 = {seminar.reason5}
+          seminarDispatch = {seminarDispatch}
+          cancelSeminar = {cancelSeminar}
+          submitSeminar = {submitSeminar}  />}
         </ContentContainer>
         <CalendarContainer>
           <Calendar />
