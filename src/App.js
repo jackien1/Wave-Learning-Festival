@@ -350,8 +350,8 @@ function App () {
             <Route path="/blog">
               <Blog />
             </Route>
-            <Route path="/course-sign-up">
-              <Subscribe />
+            <Route path="/seminar-sign-up">
+              <CourseSignUp />
             </Route>
             <Route path="/subscribe">
               <Subscribe />

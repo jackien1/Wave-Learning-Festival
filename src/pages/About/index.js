@@ -146,9 +146,9 @@ const About = () => {
                   <p>Tutoring</p>
                 </Button>
               </a>
-              <a href="/subscribe" className="sign-up-link">
+              <a href="/seminar-sign-up" className="sign-up-link">
                 <Button>
-                  <p>Subscribe!</p>
+                  <p>Register Now!</p>
                 </Button>
               </a>
             </div>
@@ -164,9 +164,9 @@ const About = () => {
                 Announcements:
                 <Typography.BodyText style={{ color: 'white', fontSize: 16, fontWeight: '100' }}>
                   <ul style={{ marginTop: -10, marginLeft: -25, lineHeight: 1.5 }}>
+                    <li><b>Registration is now open for Tide 1, our seminars program!</b> <a href="/seminars" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Meet influential leaders making an impact in gender-based violence and public policy at the ‘Silence is Violence’ Conference on Saturday, 9/19! <a href="/event-violence" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Tutor applications for our fall tutoring program are now open! <a href="/tutors" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
-                    <li>Student registration for Tide 1, our seminars program, opens Thursday, 9/17! <a href="/seminars-upcoming" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                     <li>Our new Wave Tutoring program will begin on Monday, 10/5! <a href="/tutoring" style={{ color: Colors.WLF_YELLOW }}>Learn More</a></li>
                   </ul>
                 </Typography.BodyText>
