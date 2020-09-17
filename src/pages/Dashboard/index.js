@@ -11,9 +11,9 @@ import StudentProfile from './components/StudentProfile'
 import SeminarProfile from './components/SeminarProfile'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 
-import { getStudent } from '../../graphql/queries.js'
+import { getStudent, listTeachers } from '../../graphql/queries.js'
 import { updateStudent, updateSeminarRegistration } from '@/graphql/mutations'
-import { getSeminarRegistration, listSeminarRegistrations, listSeminars, getSeminar } from '../../graphql/queries.js'
+import { getSeminarRegistration, listSeminarRegistrations, getSeminar, getTeacher } from '../../graphql/queries.js'
 
 const Dashboard = () => {
   const [email, userEmail] = useState('')
@@ -204,6 +204,7 @@ const Dashboard = () => {
     const [student, setStudent] = useState(null)
     const [seminarData, setSeminarData] = useState(null)
     const [seminarInfo, setSeminarInfo] = useState(null)
+    const [instructors, setInstructors] = useState(null)
     const [studentId, setStudentId] = useState('')
     const [seminarRegId, setSeminarRegId] = useState('')
 
@@ -276,6 +277,9 @@ const Dashboard = () => {
         setSeminarData(seminars)
         console.log(seminars);
 
+        const allTeachers = await API.graphql(graphqlOperation(listTeachers))
+        const allTeacherItems = allTeachers.data.listTeachers.items;
+        var teacherList = [];
         var sem1 = seminars.data.getSeminarRegistration.sem1;
         var sem2 = seminars.data.getSeminarRegistration.sem2;
         var sem3 = seminars.data.getSeminarRegistration.sem3;
@@ -289,10 +293,18 @@ const Dashboard = () => {
             const seminarData = await API.graphql(graphqlOperation(getSeminar, { id: seminarIDList[i] }))
             console.log('seminarData', seminarData.data.getSeminar)
             seminarsList.push(seminarData.data.getSeminar)
+            for (var j = 0; j < allTeacherItems.length; j++){
+              if (allTeacherItems[j].seminarId == seminarIDList[i]){
+                teacherList.push(allTeacherItems[j])
+              }
+            }
           }
         }
         console.log('list of seminars', seminarsList)
+        console.log('list of teachers', teacherList)
         setSeminarInfo(seminarsList)
+        setInstructors(teacherList)
+
 
       } catch (error) {
         console.log('id', username)
@@ -495,6 +507,7 @@ const Dashboard = () => {
           reason3 = {seminar.reason3}
           reason4 = {seminar.reason4}
           reason5 = {seminar.reason5}
+          instructors = {instructors}
           seminarInfo = {seminarInfo}
           seminarDispatch = {seminarDispatch}
           cancelSeminar = {cancelSeminar}

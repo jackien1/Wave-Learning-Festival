@@ -4,8 +4,10 @@ import { ImageContainer, Cancel, Purple, Input, Green2, EditDescription, Contain
 import { API, graphqlOperation } from 'aws-amplify'
 import { getSeminar } from '@/graphql/queries'
 import { Typography } from '@/styles'
+import CourseCard from '../../../../components/CourseCard'
 
-const SeminarProfile = ({ numSeminars, sem1, sem2, sem3, sem4, sem5, reason1,  reason2, reason3, reason4, reason5, seminarInfo, seminarDispatch, cancelSeminar, submitSeminar}) => {
+
+const SeminarProfile = ({ numSeminars, sem1, sem2, sem3, sem4, sem5, reason1,  reason2, reason3, reason4, reason5, instructors, seminarInfo, seminarDispatch, cancelSeminar, submitSeminar}) => {
   
   const [edit, toggleEdit] = useState(false)
   const cancel = () => {
@@ -20,7 +22,41 @@ const SeminarProfile = ({ numSeminars, sem1, sem2, sem3, sem4, sem5, reason1,  r
 
   return (
     <Container>
-      {edit && <div>
+      {seminarInfo.map((seminar, index) => {
+        return (
+          <CourseCard
+            key = {index}
+            title = {seminar.courseTitle}
+            teachers = {instructors}
+            // image = {image}
+            // color = {colors[index % 4]}
+            description = {seminar.courseDescription}
+            classDates = {seminar.classDates}
+            time = {seminar.classTimes}
+            targetAudience = {seminar.targetAudience}
+            classDays = {seminar.classDays}
+            courseId = {seminar.id}
+          />
+        )})}
+      {/* {filteredCourses.map((course, index) => {
+            const { title, teachers, image, description, classDates, time, targetAudience, classDays, id } = course
+            return (
+              <CourseCard
+                key = {index}
+                title = {title}
+                teachers = {teachers}
+                image = {image}
+                color = {colors[index % 4]}
+                description = {description}
+                classDates = {classDates}
+                time = {time}
+                targetAudience = {targetAudience}
+                classDays = {classDays}
+                courseId = {id}
+              />)
+          }
+          )} */}
+      {/* {edit && <div>
       <ContainerInner>
         numSeminars: <Input placeholder="placeholder" value={numSeminars} onChange = {e => seminarDispatch({ type: 'NUMSEMINARS', content: e.target.value })}/> <br/>
         sem1: <Input placeholder="placeholder" value={sem1} onChange = {e => seminarDispatch({ type: 'SEM1', content: e.target.value })}/> <br/>
@@ -48,7 +84,7 @@ const SeminarProfile = ({ numSeminars, sem1, sem2, sem3, sem4, sem5, reason1,  r
         </ContainerInner>
         <ContainerInner1>
           <Button onClick={() => toggleEdit(!edit)}>{edit ? 'Save Changes' : 'Edit'}</Button>
-        </ContainerInner1></div>}
+        </ContainerInner1></div>} */}
 
     </Container>
   )
