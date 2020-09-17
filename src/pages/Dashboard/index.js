@@ -1,491 +1,523 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography, Form } from '@/styles'
-import { FirebaseContext } from '../../firebaseContext'
-import './styles.css'
-import { Cancel, EditInput, ProfileLeft, ProfileRight, Column, Text, Row, Label, Class, ClassText, Sections } from './styles.js'
 import WavyPurple from '../About/assets/wavy_purple.svg'
+import { ListIcon, InfoContainer, InfoContainerInner, ContainerInner, Container, Sidebar, ListItem, Highlight, CalendarButton, SelectedCalendarButton, CalendarContainer, ContentContainer, ContainerOuter, ArrowButton } from './styles'
+import Navbar from './components/Navbar'
+import Calendar from './components/Calendar'
+import StatsCards from './components/Statistics'
+import BLOB_YELLOW from './BLOB_YELLOW.svg'
+import { FaPowerOff, FaHome } from 'react-icons/fa'
+import StudentProfile from './components/StudentProfile'
+import SeminarProfile from './components/SeminarProfile'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
 
-const profileState = {
-  name: '',
-  email: '',
-  parentName: '',
-  parentEmail: '',
-  age: '',
-  school: '',
-  country: '',
-  city: ''
-}
-
-const profileReducer = (state, action) => {
-  switch (action.type) {
-    case 'NAME':
-      return ({
-        ...state,
-        name: action.content
-      })
-    case 'EMAIL':
-      return ({
-        ...state,
-        email: action.content
-      })
-    case 'PARENTNAME':
-      return ({
-        ...state,
-        parentName: action.content
-      })
-    case 'PARENTEMAIL':
-      return ({
-        ...state,
-        parentEmail: action.content
-      })
-    case 'AGE':
-      return ({
-        ...state,
-        age: action.content
-      })
-    case 'SCHOOL':
-      return ({
-        ...state,
-        school: action.content
-      })
-    case 'COUNTRY':
-      return ({
-        ...state,
-        country: action.content
-      })
-    case 'CITY':
-      return ({
-        ...state,
-        city: action.content
-      })
-    case 'RESET':
-      return (action.content)
-  }
-}
+import { getStudent, listTeachers } from '../../graphql/queries.js'
+import { updateStudent, updateSeminarRegistration } from '@/graphql/mutations'
+import { getSeminarRegistration, listSeminarRegistrations, getSeminar, getTeacher } from '../../graphql/queries.js'
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true)
-  const [isError, setError] = useState(false)
-  const [user, setUser] = useState(null)
-  const [student, setStudent] = useState(null)
-  const [theError, setTheError] = useState(null)
-  const [courses, setCourses] = useState([])
-  const [coursesDisplayed, setCoursesDisplayed] = useState([])
-  const [wave, setWave] = useState('5')
-  const [edit, toggleEdit] = useState(false)
-  const [localInfo, setLocalInfo] = useState({})
-  const [docID, setDocID] = useState('')
-  const { db, storage, auth } = useContext(FirebaseContext)
-  const [profile, profileDispatch] = useReducer(profileReducer, profileState)
+  const [email, userEmail] = useState('')
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: true })
+      window.location.href = '/sign-in'
+    } catch (error) {
+      console.log('error signing out: ', error)
+    }
+  }
 
-  const withdraw = (student, course, db) => {
-    if (window.confirm('Are you sure you want to drop "' + course.courseTitle + '"?')) {
-      db.collection('courseAssignments').doc(course.assignmentID).delete().then(function () {
-        console.log('adding to deleted')
-        db.collection('deleteAssignments')
-          .add({
-            courseID: course.id,
-            studentID: student.id,
-            waitlisted: course.waitlisted
-          })
-          .then(window.location.reload())
+  const profileState = {
+    first_name: '',
+    last_name: '',
+    email: '',
+    parent_first_name: '',
+    parent_last_name: '',
+    parentEmail: '',
+    grade: '',
+    school: '',
+    country: '',
+    state: '',
+    city: '',
+    howYouHear: '',
+    orgs: []
+  }
+
+  const seminarState = {
+    numSeminars: '',
+    sem1: '',
+    sem2: '',
+    sem3: '',
+    sem4: '',
+    sem5: '',
+    reason1: '',
+    reason2: '',
+    reason3: '',
+    reason4: '',
+    reason5: ''
+  }
+
+  const profileReducer = (currstate, action) => {
+    switch (action.type) {
+      case 'FIRSTNAME':
+        return ({
+          ...currstate,
+          first_name: action.content
+        })
+      case 'LASTNAME':
+        return ({
+          ...currstate,
+          last_name: action.content
+        })
+      case 'EMAIL':
+        return ({
+          ...currstate,
+          email: action.content
+        })
+        case 'PARENTFIRSTNAME':
+        return ({
+          ...currstate,
+          parent_first_name: action.content
+        })
+      case 'PARENTLASTNAME':
+        return ({
+          ...currstate,
+          parent_last_name: action.content
+        })
+      case 'PARENTEMAIL':
+        return ({
+          ...currstate,
+          parentEmail: action.content
+        })
+      case 'GRADE':
+        return ({
+          ...currstate,
+          grade: action.content
+        })
+      case 'SCHOOL':
+        return ({
+          ...currstate,
+          school: action.content
+        })
+      case 'COUNTRY':
+        return ({
+          ...currstate,
+          country: action.content
+        })
+      case 'STATE':
+        return ({
+          ...currstate,
+          state: action.content
+        })
+      case 'CITY':
+        return ({
+          ...currstate,
+          city: action.content
+        })
+      case 'HOWYOUHEAR':
+        return ({
+          ...currstate,
+          howYouHear: action.content
+        })
+      case 'ORGS':
+        return ({
+          ...currstate,
+          orgs: action.content
+        })
+      case 'RESET':
+        return (action.content)
+    }
+  }
+
+  const seminarReducer = (currstate, action) => {
+    switch (action.type) {
+      case 'NUMSEMINARS':
+        return ({
+          ...currstate,
+          numSeminars: action.content
+        })
+      case 'SEM1':
+        return ({
+          ...currstate,
+          sem1: action.content
+        })
+      case 'SEM2':
+        return ({
+          ...currstate,
+          sem2: action.content
+        })
+      case 'SEM3':
+        return ({
+          ...currstate,
+          sem3: action.content
+        })
+      case 'SEM4':
+        return ({
+          ...currstate,
+          sem4: action.content
+        })
+      case 'SEM5':
+      return ({
+        ...currstate,
+        sem5: action.content
       })
-    } else {
-      // phew
+      case 'REASON1':
+        return ({
+          ...currstate,
+          reason1: action.content
+        })
+      case 'REASON2':
+        return ({
+          ...currstate,
+          reason2: action.content
+        })
+      case 'REASON3':
+        return ({
+          ...currstate,
+          reason3: action.content
+        })
+      case 'REASON4':
+        return ({
+          ...currstate,
+          reason4: action.content
+        })
+      case 'REASON5':
+        return ({
+          ...currstate,
+          reason5: action.content
+        })
+      case 'RESET':
+        return (action.content)
     }
   }
 
-  const genFrag = function (label, data, dispatch, state) {
-    return {
-      label,
-      data,
-      dispatch,
-      state
+    const [page, setPage] = useState('student')
+    // const [studentPage, setStudentPage] = useState(false)
+    // const [seminarPage, setSeminarPage] = useState(true)
+    const [loading, setLoading] = useState(true)
+    const [isError, setError] = useState(false)
+    const [user, setUser] = useState(null)
+    const [edit, toggleEdit] = useState(false)
+    const [localStudentInfo, setLocalStudentInfo] = useState({})
+    const [localSeminarInfo, setLocalSeminarInfo] = useState({})
+    const [profile, profileDispatch] = useReducer(profileReducer, profileState)
+    const [seminar, seminarDispatch] = useReducer(seminarReducer, seminarState)
+    const [student, setStudent] = useState(null)
+    const [seminarData, setSeminarData] = useState(null)
+    const [seminarInfo, setSeminarInfo] = useState(null)
+    const [instructors, setInstructors] = useState(null)
+    const [studentId, setStudentId] = useState('')
+    const [seminarRegId, setSeminarRegId] = useState('')
+
+
+    const [registrations, updateRegistrations] = useState([])
+
+    var studentEmail = "";
+
+    const genFrag = function (label, data, dispatch, state) {
+      return {
+        label,
+        data,
+        dispatch,
+        state
+      }
     }
-  }
 
-  const generateStudentInfo = function (student) {
-    var studentName = student.name
-    if (typeof studentName === 'undefined') {
-      studentName = student.name_first + ' ' + student.name_last
+    const generateStudentInfo = function (student) {
+      return [
+        genFrag('Student First Name', student.data.getStudent.first_name, 'FIRSTNAME', 'first_name'),
+        genFrag('Student Last Name', student.data.getStudent.last_name, 'LASTNAME', 'last_name'),
+        genFrag('Student Email', student.data.getStudent.email, 'EMAIL', 'email'),
+        genFrag('Parent First Name', student.data.getStudent.parent_first_name, 'PARENTFIRSTNAME', 'parent_first_name'),
+        genFrag('Parent Last Name', student.data.getStudent.parent_last_name, 'PARENTLASTNAME', 'parent_last_name'),
+        genFrag('Parent Email', student.data.getStudent.parentEmail, 'PARENTEMAIL', 'parentEmail'),
+        genFrag('Grade Level', student.data.getStudent.grade, 'GRADE', 'grade'),
+        genFrag('School', student.data.getStudent.school, 'SCHOOL', 'school'),
+        genFrag('Country', student.data.getStudent.country, 'COUNTRY', 'country'),
+        genFrag('State', student.data.getStudent.state, 'COUNTRY', 'state'),
+        genFrag('City', student.data.getStudent.city, 'CITY', 'city'),
+        genFrag('How You Hear', student.data.getStudent.howYouHear, 'HOWYOUHEAR', 'howYouHear'),
+        genFrag('Orgs', student.data.getStudent.orgs, 'ORGS', 'orgs')
+      ]
+
     }
-    return [
-      genFrag('Name', studentName, 'NAME', 'name'),
-      genFrag('Email', student.email, 'EMAIL', 'email'),
-      genFrag('Parent Name', student.parentName, 'PARENTNAME', 'parentName'),
-      genFrag('Parent Email', student.parentEmail, 'PARENTEMAIL', 'parentEmail'),
-      genFrag('Age', student.age, 'AGE', 'age'),
-      genFrag('School', student.school, 'SCHOOL', 'school'),
-      genFrag('Country', student.country, 'COUNTRY', 'country'),
-      genFrag('City', student.city, 'CITY', 'city')
-    ]
-  }
 
-  useEffect(() => {
-    if (db && auth) {
-      // console.log("call " + calledOnce);
-      auth.onAuthStateChanged(function (theUser) {
-        if (theUser) {
-          // console.log(result.user.uid);
+    const generateSeminarInfo = function (registrations) {
+      return [
+        genFrag('Number of Seminars', registrations.data.getSeminarRegistration.numSeminars, 'NUMSEMINARS', 'numSeminars'),
+        genFrag('Seminar 1', registrations.data.getSeminarRegistration.sem1, 'SEM1', 'sem1'),
+        genFrag('Seminar 2', registrations.data.getSeminarRegistration.sem2, 'SEM2', 'sem2'),
+        genFrag('Seminar 3', registrations.data.getSeminarRegistration.sem3, 'SEM3', 'sem3'),
+        genFrag('Seminar 4', registrations.data.getSeminarRegistration.sem4, 'SEM4', 'sem4'),
+        genFrag('Seminar 5', registrations.data.getSeminarRegistration.sem5, 'SEM5', 'sem5'),
+        genFrag('Reason 1', registrations.data.getSeminarRegistration.reason1, 'REASON1', 'reason1'),
+        genFrag('Reason 2', registrations.data.getSeminarRegistration.reason2, 'REASON2', 'reason1'),
+        genFrag('Reason 3', registrations.data.getSeminarRegistration.reason3, 'REASON3', 'reason1'),
+        genFrag('Reason 4', registrations.data.getSeminarRegistration.reason4, 'REASON4', 'reason1'),
+        genFrag('Reason 5', registrations.data.getSeminarRegistration.reason5, 'REASON5', 'reason1')
+      ]
+    }
 
-          setUser(theUser)
-          db.collection('StudentRegistrations').where('userID', '==', theUser.uid).get().then(function (snapshot) {
-            var students = []
-            snapshot.forEach(function (snap) {
-              students.push(snap)
-            })
-            if (students.length > 0) {
-              var coursesResult = []
-              setDocID(students[0].id)
-              setStudent(students[0].data())
-              var theStudent = students[0].data()
-              db.collection('courseAssignments').where('studentID', '==', theStudent.id).get().then(function (assignments) {
-                var currentlyCounted = 0
-                var courseData = []
-                assignments.forEach(function (snap) {
-                  courseData.push({ data: snap.data(), id: snap.id })
-                })
-                var numCourses = courseData.length
-                if (numCourses >= 0) {
-                  setLoading(false)
-                }
-                var currentNum = 0
-                courseData.forEach((course, i) => {
-                  const current = course
-                  const courseId = current.data.courseID
-                  db.collection('fl_content').where('id', '==', courseId).get().then(function (snapshot) {
-                    var isWaitlisted = current.data.waitlisted
-                    currentNum++
-                    var courses = []
-                    snapshot.forEach(function (snap) {
-                      courses.push(snap)
-                    })
-                    var toPush = courses[0].data()
-                    db.doc(toPush.picture[0].path).get().then(function (picture) {
-                      storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
-                        .then(function (url) {
-                          toPush.waitlisted = isWaitlisted
-                          toPush.imageUrl = url
-                          toPush.assignmentID = current.id
-                          coursesResult.push(toPush)
-                          if (numCourses == currentNum) {
-                            setCourses(coursesResult)
-                            setCoursesDisplayed(coursesResult.filter(course => {
-                              for (let i = 0; i < courses.length; i++) {
-                                if (course.wave.includes(wave)) {
-                                  return true
-                                }
-                              }
-                              return false
-                            }))
-                            setLoading(false)
-                          }
-                        })
-                    })
-                  })
-                })
-              })
+    const getStudentData = async (username) => {
+      try {
+        const studentData = await API.graphql(graphqlOperation(getStudent, { id: username }))
+        studentEmail = studentData.data.getStudent.email
+        console.log(studentEmail)
+        setStudent(studentData)
+
+        const studentSeminar = await API.graphql(graphqlOperation(listSeminarRegistrations));
+        const itemsofSeminar = studentSeminar.data.listSeminarRegistrations.items;
+        var studentSeminarId = "";
+        for (var i = 0; i < itemsofSeminar.length; i++){
+          if (itemsofSeminar[i].email === studentEmail){
+            studentSeminarId = itemsofSeminar[i].id
+          }
+        }
+        setSeminarRegId(studentSeminarId)
+        const seminars = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
+        setSeminarData(seminars)
+        console.log(seminars);
+
+        const allTeachers = await API.graphql(graphqlOperation(listTeachers))
+        const allTeacherItems = allTeachers.data.listTeachers.items;
+        var teacherList = [];
+        var sem1 = seminars.data.getSeminarRegistration.sem1;
+        var sem2 = seminars.data.getSeminarRegistration.sem2;
+        var sem3 = seminars.data.getSeminarRegistration.sem3;
+        var sem4 = seminars.data.getSeminarRegistration.sem4;
+        var sem5 = seminars.data.getSeminarRegistration.sem5;
+        var seminarIDList =  [sem1, sem2, sem3, sem4, sem5]
+        var seminarsList = [];
+        for (var i = 0; i < seminarIDList.length; i++){
+          if (seminarIDList[i]){
+            console.log('id', seminarIDList[i])
+            const seminarData = await API.graphql(graphqlOperation(getSeminar, { id: seminarIDList[i] }))
+            console.log('seminarData', seminarData.data.getSeminar)
+            seminarsList.push(seminarData.data.getSeminar)
+            for (var j = 0; j < allTeacherItems.length; j++){
+              if (allTeacherItems[j].seminarId == seminarIDList[i]){
+                teacherList.push(allTeacherItems[j])
+              }
             }
-          })
-        } else {
-          window.location.href = '/sign-in'
+          }
         }
-      })
-    }
-  }, [db, storage, auth])
+        console.log('list of seminars', seminarsList)
+        console.log('list of teachers', teacherList)
+        setSeminarInfo(seminarsList)
+        setInstructors(teacherList)
 
-  useEffect(() => {
-    setCoursesDisplayed(courses.filter(course => {
-      for (let i = 0; i < courses.length; i++) {
-        if (course.wave.includes(wave)) {
-          return true
-        }
+
+      } catch (error) {
+        console.log('id', username)
+        console.log('error on fetching data', error)
       }
-      return false
-    }))
-  }, [wave])
+    }
 
-  useEffect(() => {
-    if (student) {
-      var studentInfo = generateStudentInfo(student)
-      var studentName = student.name
-      if (typeof studentName === 'undefined') {
-        studentName = student.name_first + ' ' + student.name_last
+    useEffect(() => {
+      Auth.currentUserInfo()
+        .then(user => {
+          setStudentId(user.username)
+          getStudentData(user.username)
+        })
+    }, [])
+
+    useEffect(() => {
+      if (student) {
+        var studentInfo = generateStudentInfo(student)
+        setLocalStudentInfo({
+          first_name: student.data.getStudent.first_name,
+          last_name: student.data.getStudent.last_name,
+          email: student.data.getStudent.email,
+          parent_first_name: student.data.getStudent.parent_first_name,
+          parent_last_name: student.data.getStudent.parent_last_name,
+          parentEmail: student.data.getStudent.parentEmail,
+          grade: student.data.getStudent.grade,
+          school: student.data.getStudent.school,
+          country: student.data.getStudent.country,
+          state: student.data.getStudent.state,
+          city: student.data.getStudent.city,
+          howYouHear: student.data.getStudent.howYouHear,
+          orgs: student.data.getStudent.orgs
+        })
+        studentInfo.forEach(label => {
+          profileDispatch({ type: label.dispatch, content: label.data })
+        })
       }
-      setLocalInfo({
-        name: studentName,
-        email: student.email,
-        parentName: student.parentName,
-        parentEmail: student.parentEmail,
-        age: student.age,
-        school: student.school,
-        country: student.country,
-        city: student.city
-      })
-      studentInfo.forEach(label => {
-        profileDispatch({ type: label.dispatch, content: label.data })
-      })
+    }, [student])
+    
+    useEffect(() => {
+      if (seminarData) {
+        var seminarInfo = generateSeminarInfo(seminarData)
+        setLocalSeminarInfo({
+          numSeminars: seminarData.data.getSeminarRegistration.numSeminars,
+          sem1: seminarData.data.getSeminarRegistration.sem1,
+          sem2: seminarData.data.getSeminarRegistration.sem2,
+          sem3: seminarData.data.getSeminarRegistration.sem3,
+          sem4: seminarData.data.getSeminarRegistration.sem4,
+          sem5: seminarData.data.getSeminarRegistration.sem5,
+          reason1: seminarData.data.getSeminarRegistration.reason1,
+          reason2: seminarData.data.getSeminarRegistration.reason2,
+          reason3: seminarData.data.getSeminarRegistration.reason3,
+          reason4: seminarData.data.getSeminarRegistration.reason4,
+          reason5: seminarData.data.getSeminarRegistration.reason5
+        })
+        seminarInfo.forEach(label => {
+          seminarDispatch({ type: label.dispatch, content: label.data })
+        })
+      }
+    }, [seminarData])
+
+    const cancelProfile = () => {
+      profileDispatch({ type: 'RESET', content: localStudentInfo })
     }
-  }, [student])
 
-  const cancel = () => {
-    profileDispatch({ type: 'RESET', content: localInfo })
-    toggleEdit(false)
-  }
+    const cancelSeminar = () => {
+      seminarDispatch({ type: 'RESET', content: localSeminarInfo })
+    }
 
-  const submit = () => {
-    if (localInfo.name !== profile.name ||
-           localInfo.email !== profile.email ||
-           localInfo.parentName !== profile.parentName ||
-            localInfo.parentEmail !== profile.parentEmail) {
-      const editRef = db.collection('editAssignments').where('studentId', '==', student.id)
-      editRef.get().then(snapshot => {
-        if (!snapshot.empty) {
-          db.collection('editAssignments').doc(snapshot.docs[0].id).update({
-            name: profile.name,
-            email: profile.email,
-            parentName: profile.parentName,
-            parentEmail: profile.parentEmail,
-            studentId: student.id,
-            userId: student.userID,
-            courses: coursesDisplayed
-          })
-        } else {
-          db.collection('editAssignments').add({
-            name: profile.name,
-            email: profile.email,
-            parentName: profile.parentName,
-            parentEmail: profile.parentEmail,
-            studentId: student.id,
-            userId: student.userID,
-            courses: coursesDisplayed
-          })
+    const submitProfile = () => {
+      API.graphql(graphqlOperation(updateStudent, {
+        input: {
+          id: studentId,
+          city: profile.city,
+          state: profile.state,
+          country: profile.country,
+          school: profile.school,
+          first_name: profile.first_name,
+          last_name: profile.last_name,
+          email: profile.email,
+          grade: profile.grade,
+          howYouHear: profile.howYouHear,
+          parent_first_name: profile.parent_first_name,
+          parent_last_name: profile.parent_last_name,
+          parentEmail: profile.parentEmail,
+          orgs: profile.orgs
         }
-      })
+      }))
+      setLocalStudentInfo(profile)
+      toggleEdit(false)
     }
-    const name = profile.name.split(' ')
-    db.collection('StudentRegistrations').doc(docID).update({
-      name_first: name[0],
-      name_last: name[1],
-      email: profile.email,
-      parentEmail: student.parentEmail,
-      parentName: profile.parentName,
-      age: profile.age,
-      school: profile.school,
-      country: profile.country,
-      city: profile.city
-    })
 
-    if (localInfo.email !== profile.email) {
-      auth.onAuthStateChanged(function (user) {
-        if (user) {
-          user.updateEmail(profile.email).then(() => {
-
-          }).catch(e => {
-            throw e
-          })
-        } else {
+    const submitSeminar = () => {
+      API.graphql(graphqlOperation(updateSeminarRegistration, {
+        input: {
+          id: seminarRegId,
+          numSeminars: seminar.numSeminars,
+          sem1: seminar.sem1,
+          sem2: seminar.sem2,
+          sem3: seminar.sem3,
+          sem4: seminar.sem4,
+          sem5: seminar.sem5,
+          reason1: seminar.reason1,
+          reason2: seminar.reason2,
+          reason3: seminar.reason3,
+          reason4: seminar.reason4,
+          reason5: seminar.reason5,
         }
-      })
+      }))
+      setLocalSeminarInfo(seminar)
+      getStudentData(studentId)
+      toggleEdit(false)
     }
 
-    setLocalInfo(profile)
-    toggleEdit(false)
-  }
+    useEffect(() => {
+      Auth.currentAuthenticatedUser({
+        bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+      }).then(user => userEmail(user.attributes.email))
+        .catch(err => window.location.href = '/')
+    }, [])
 
-  if (isError) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Error. Code: {theError.code}</p>
-            <p>Error Message: {theError.message}</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  if (loading) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Loading database...</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  if (!user) {
-    return (
-      <>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <p>Not signed in.</p>
-          </ContainerInner>
-        </Container>
-
-        <Footer/>
-      </>)
-  }
-
-  const inputChanged = function (setWave) {
-    var result = (event) => {
-      var value = event.target.value
-      setWave(prevData => {
-        var result = { ...prevData }
-        result = value
-        return result
-      })
-    }
-    return result
-  }
-
-  const WAVE_OPTIONS = [
-    5,
-    4/*,
-    3,
-    2,
-    1 */
-  ]
-
-  if (student) {
-    var studentInfo = generateStudentInfo(student)
     return (<>
-      <div>
-        <Navbar/>
-        <Container>
-          <ContainerInner>
-            <Sections>
-              <Column>
-                <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Profile</Typography.Header>
-                <div style={{
-                  backgroundImage: `url(${WavyPurple})`,
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  marginBottom: 5,
-                  paddingBottom: '20px'
-                }}>
-                  <Text>
-                    <br/><br/>
-                    {studentInfo.map((info, index) => {
-                      return (
-                        <Row key={index}>
-                          <ProfileLeft>
-                            <Label>{`${info.label} `}</Label>
-                          </ProfileLeft>
-                          <ProfileRight>
-                            <EditInput
-                              edit={edit}
-                              disabled={!edit}
-                              value={profile[info.state]}
-                              onChange={e => profileDispatch({ type: info.dispatch, content: e.target.value })}/>
-                          </ProfileRight>
-                        </Row>
-                      )
-                    })}
-                    <br/>
-                  </Text>
-                  {edit && <Row style={{ alignItems: 'center' }}>
-                    <Form.Button onClick={() => submit()} style={{ marginTop: 0, marginRight: 20, marginLeft: 20, width: 100, textAlign: 'center', fontSize: 18 }}>
-                      <b style ={{ color: 'white' }}>Submit</b>
-                    </Form.Button>
-                    <Cancel onClick={() => cancel()} style ={{ color: 'white' }}>Cancel</Cancel>
-                  </Row>}
-                </div>
-                <Row>
-                  <a href="/sign-out" style={{ textDecoration: 'none', color: 'white', float: 'left' }}>
-                    <Form.Button style={{ margin: 5, width: 125, textAlign: 'center', fontSize: 18 }}>
-                      <b>Sign Out</b>
-                    </Form.Button>
-                  </a>
-                  <a href="/change-password" style={{ textDecoration: 'none', color: 'white', float: 'right' }}>
-                    <Form.Button style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                      <b>Change Password</b>
-                    </Form.Button>
-                  </a>
-                  <Form.Button onClick={() => toggleEdit(!edit)} style={{ margin: 5, width: 200, textAlign: 'center', fontSize: 18 }}>
-                    <b style ={{ color: 'white' }}>Edit Profile</b>
-                  </Form.Button>
-                </Row>
-              </Column>
-              <Column>
-                <div style={{ display: 'flex' }}>
-                  <Column style={{ width: '70%' }}>
-                    <Typography.Header style={{ color: Colors.WLF_PURPLE }}>My Classes</Typography.Header>
-                  </Column>
-                  <Column style={{ width: '30%' }}>
-                    <Form.Dropdown
-                      onChange={inputChanged(setWave)}
-                      style={{ borderColor: 'black', width: '100%', marginTop: 25 }}>
-                      {WAVE_OPTIONS.map((value, index) => (
-                        <option key={index} value={value}>{`Wave ${value}`}</option>
-                      ))}
-                    </Form.Dropdown>
-                  </Column>
-                </div>
-
-                {coursesDisplayed.map((course, index) => {
-                  return (
-                    <Class key={index}>
-                      <img src={course.imageUrl} style={{ float: 'left', height: 'auto', maxWidth: '40%', marginRight: 10 }}/>
-                      <ClassText>
-                        <p style={{ margin: 0 }}>
-                          <a href={'/' + course.id}>{course.courseTitle}{course.waitlisted && ' (WAITLISTED)'}</a><br/>
-                          <b>Dates/Times: </b>{course.classDays + ' at ' + course.classTime + ' EDT'} <br/>
-                        </p>
-                        <Row>
-                          {course.zoomLink && !course.waitlisted &&
-                    <a href={course.zoomLink} target="_blank" style={{ textDecoration: 'none', color: 'white', margin: 'auto', height: 'auto' }}>
-                      <Form.Button style={{ margin: 5 }}>
-                        <b>Zoom Link</b>
-                      </Form.Button></a>}
-                          {course.edLink && !course.waitlisted &&
-                          <a href={course.edLink} target="_blank" style={{ textDecoration: 'none', color: 'white', margin: 'auto', height: '100%' }}>
-                            <Form.Button style={{ margin: 5 }}>
-                              <b>Ed</b>
-                            </Form.Button></a>}
-                        </Row>
-                        <Form.Button onClick={() => { withdraw(student, course, db) }}
-                          style={{ marginTop: 0, width: 'auto', height: 25, margin: 'auto', backgroundColor: 'grey' }}>
-                          <Typography.Header style={{ margin: 'auto', color: 'white', fontSize: '12px' }} >
-                    Withdraw
-                          </Typography.Header>
-                        </Form.Button>
-                      </ClassText>
-                    </Class>
-                  )
-                })}
-              </Column>
-            </Sections>
-          </ContainerInner>
-        </Container>
-        <Footer/>
-      </div>
-    </>)
-  }
-
-  return (
-    <>
-      <Navbar/>
+      {/* <Navbar user={email}/>
       <Container>
-        <ContainerInner>
-          <p>Loading information for {user.email}...</p>
-        </ContainerInner>
-      </Container>
-
-      <Footer/>
-    </>)
+        <Sidebar>
+          <Highlight
+            src={BLOB_YELLOW}
+            style={{
+              width: 200,
+              height: 50,
+              marginTop: '3.5em'
+            }}
+          />
+          <h2 style={{
+            marginBottom: '1rem',
+            marginTop: '2.5em',
+            marginLeft: '2rem',
+            color: 'white',
+            zIndex: 5,
+            position: 'relative'
+          }}>Dashboard</h2> */}
+      <div>
+        <Sidebar>
+          <ListItem>
+            Classes
+          </ListItem>
+          <ListItem onClick={() => setPage('seminar')}>
+            Seminars
+          </ListItem>
+          <ListItem>
+            Special Events
+          </ListItem>
+          <ListItem>
+            Curricular Support
+          </ListItem>
+          <ListItem onClick={() => setPage('student')}>
+            Profile
+          </ListItem>
+          <ListItem onClick={() => signOut()}>
+            <ListIcon>
+              <FaPowerOff/>
+              <p>Sign out</p>
+            </ListIcon>
+          </ListItem>
+          <ListItem onClick={() => window.location.href = '/'}>
+            <ListIcon>
+              <FaHome/>
+              <p>Return to Home</p>
+            </ListIcon>
+          </ListItem>
+        </Sidebar>
+        <ContentContainer>
+          {/* <StatsCards/> */}
+          {page=='student' && <StudentProfile 
+          first_name = {profile.first_name}
+          last_name = {profile.last_name}
+          email = {profile.email}
+          parent_first_name = {profile.parent_first_name}
+          parent_last_name = {profile.parent_last_name}
+          parentEmail = {profile.parentEmail}
+          grade = {profile.grade}
+          school = {profile.school}
+          country = {profile.country}
+          state = {profile.state}
+          city = {profile.city}
+          howYouHear = {profile.howYouHear}
+          orgs = {profile.orgs}
+          profileDispatch = {profileDispatch}
+          cancelProfile = {cancelProfile}
+          submitProfile = {submitProfile}  />}
+          {page=='seminar' && <SeminarProfile 
+          numSeminars = {seminar.numSeminars}
+          sem1 = {seminar.sem1}
+          sem2 = {seminar.sem2}
+          sem3 = {seminar.sem3}
+          sem4 = {seminar.sem4}
+          sem5 = {seminar.sem5}
+          reason1 = {seminar.reason1}
+          reason2 = {seminar.reason2}
+          reason3 = {seminar.reason3}
+          reason4 = {seminar.reason4}
+          reason5 = {seminar.reason5}
+          instructors = {instructors}
+          seminarInfo = {seminarInfo}
+          seminarDispatch = {seminarDispatch}
+          cancelSeminar = {cancelSeminar}
+          submitSeminar = {submitSeminar}  />}
+        </ContentContainer>
+        <CalendarContainer>
+          <Calendar />
+        </CalendarContainer>
+        </div>
+  </>)
 }
 
 export default Dashboard
