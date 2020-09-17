@@ -130,7 +130,7 @@ const CoursePage = ({ match }) => {
 
           {seminar.teachers && <TeachersComponent teachersProp={seminar.teachers}/>}
 
-          <a target="_blank" href="/course-sign-up" className="sign-up-link">
+          <a target="_blank" href="/seminar-sign-up" className="sign-up-link">
             <Button>
               <p>Register Now!</p>
             </Button>

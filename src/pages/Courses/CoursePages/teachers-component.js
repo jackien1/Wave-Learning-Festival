@@ -35,7 +35,7 @@ const Teachers = ({ teachersProp }) => {
         <div className="teacher-container" key={teacher.name}>
           <p>
             <img src={Logo} className="img-left"/>
-            <b>Taught by: </b>{teacher.first_name} {teacher._last_name}<br/>
+            <b>Taught by: </b>{teacher.first_name} {teacher.last_name}<br/>
             <b>Teacher Bio: </b>{teacher.bio}
           </p>
         </div>

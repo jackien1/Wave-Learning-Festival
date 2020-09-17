@@ -87,7 +87,7 @@ import Join from './pages/Join'
 import Mission from './pages/Mission'
 import Blog from './pages/Blog'
 import BlogPage from './pages/Blog/BlogPage'
-import CourseSignUp from './pages/Courses/CourseSignUp'
+import CourseSignUp from './pages/Courses/CourseSignUp/index'
 import Subscribe from './pages/Courses/CourseSignUpClosed'
 import CoursePage from './pages/Courses/CoursePages'
 import ChangePassword from './pages/ChangePassword'
@@ -98,6 +98,7 @@ import Partners from './pages/Partners'
 
 import Dashboard from './pages/Dashboard'
 import TeacherDashboard from './pages/Dashboard/TeacherDashboard'
+import StudentProfile from './pages/Dashboard/components/StudentProfile'
 
 import { Switch, Redirect, Route, BrowserRouter as Router } from 'react-router-dom'
 import { FirebaseProvider } from './firebaseContext'
@@ -349,14 +350,17 @@ function App () {
             <Route path="/blog">
               <Blog />
             </Route>
-            <Route path="/course-sign-up">
-              <Subscribe />
+            <Route path="/seminar-sign-up">
+              <CourseSignUp />
             </Route>
             <Route path="/subscribe">
               <Subscribe />
             </Route>
             <Route path="/course-sign-up-manual-wave20lfstaff">
               <CourseSignUp />
+            </Route>
+            <Route path="/dashboard/student-profile">
+              <StudentProfile />
             </Route>
             <Route path="/change-password">
               <ChangePassword />

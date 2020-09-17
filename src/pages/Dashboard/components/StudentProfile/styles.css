@@ -1,0 +1,80 @@
+
+.row-dash {
+  text-align: center;
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.course-dash {
+  width: 28%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  outline: 2px solid black;
+}
+
+/* .toggle-btn{
+  color: white;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 10px 150px;
+  background: rgb(240, 240, 240);
+  outline: none;
+  position: relative;
+
+}
+
+.toggle-btn button:hover {
+background-color: #ddd;
+border-color: rgb(128, 122, 122);
+} */
+
+/* Style the tab */
+.tab {
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+color: white;
+border: none;
+text-decoration: none;
+display: inline-flex;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+padding: 10px 150px;
+background: rgb(240, 240, 240);
+outline: none;
+position: relative;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+background-color: inherit;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 81px;
+transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+background-color: #ddd;
+}
+
+/* Style the tab content */
+.tabcontent {
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+}
