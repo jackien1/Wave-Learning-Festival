@@ -153,7 +153,7 @@ const Navbar = () => {
                 </DropdownItem>
               </Link>
               */}
-              <Link to="/seminars-upcoming">
+              <Link to="/seminars">
                 <DropdownItem>
                   <IconContext.Provider
                     value={{
