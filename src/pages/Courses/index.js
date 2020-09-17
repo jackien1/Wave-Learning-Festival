@@ -143,12 +143,12 @@ const Courses = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <div className="progressbar">
+          {/* <div className="progressbar">
             <img src= {ProgressBar} alt = "centered image" />
-          </div>
+          </div> */}
 
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
-            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Five running from <strong>August 17th to August 30th</strong>. Our
+            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
             you. Feel free to send any
