@@ -150,11 +150,21 @@ const Courses = () => {
             We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
-            you. Feel free to send any
+            you. 
+            </Typography.BodyText>
+          <Typography.BodyText color="black" style={{marginBottom: 20}}>
+            These seminars provide a comprehensive introduction to topics that students may be simply interested in or want to learn in depth. They run for five weeks, ranging from 3 to 10 sessions total, allowing students to cover a greater depth of information over that time. Wave students are free to pursue these for the love of learning - not for grades.
+          </Typography.BodyText>
+          <Typography.BodyText color="black" >
+            Have any questions? Email us at <a href = "mailto: wavelearningfestival@gmail.com" style={{color: Colors.WLF_PURPLE}}>wavelearningfestival@gmail.com</a> or check out our FAQs page for <a href="/faq-students" color={Colors.WLF_PURPLE}>students</a> or for <a href="/faq-parents" color={Colors.WLF_PURPLE}>parents</a>!
+          </Typography.BodyText>
+            {/* Feel free to send any
             questions to{' '}
             <a href="mailto:wavelf.logistics@gmail.com">
-              wavelf.logistics@gmail.com
-            </a><p></p>Click each course for more info –– note the target audience range, course times, and class maxes.<br /><br /><br />
+              wavelf.logistics@gmail.com 
+            </a> */}
+          <Typography.BodyText color="black" fontSize="20px">
+            <p></p>Click each course for more info –– note the target audience range, course times, and class maxes.<br /><br /><br />
           </Typography.BodyText>
           <a href="/seminar-sign-up" className="sign-up-link">
             <Button>

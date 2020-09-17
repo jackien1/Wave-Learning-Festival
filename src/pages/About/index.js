@@ -136,7 +136,7 @@ const About = () => {
                 flexWrap: 'wrap'
               }}
             >
-              <a href="/seminars-upcoming" className="sign-up-link">
+              <a href="/seminars" className="sign-up-link">
                 <Button>
                   <p>Seminars</p>
                 </Button>
@@ -146,9 +146,9 @@ const About = () => {
                   <p>Tutoring</p>
                 </Button>
               </a>
-              <a href="/seminar-sign-up" className="sign-up-link">
+              <a href="/subscribe" className="sign-up-link">
                 <Button>
-                  <p>Register Now!</p>
+                  <p>Newsletter</p>
                 </Button>
               </a>
             </div>
