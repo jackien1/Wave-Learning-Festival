@@ -403,6 +403,7 @@ const Dashboard = () => {
         }
       }))
       setLocalSeminarInfo(seminar)
+      getStudentData(studentId)
       toggleEdit(false)
     }
 
