@@ -10,7 +10,9 @@ import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { listSeminars, getTeacher } from '@/graphql/queries.js'
 import 'firebase/firestore'
 
-import WaveLogo from '../Blog/wave-learning-logo.png'
+// import WaveLogo from '../Blog/wave-learning-logo.png'
+import WaveLogo from '../../components/Navbar/logo.png'
+
 import ProgressBar from './ProgressBars/wlf_progressbar-04.png'
 
 import Filter from '../../components/Filter'
@@ -143,10 +145,7 @@ const Courses = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          {/* <div className="progressbar">
-            <img src= {ProgressBar} alt = "centered image" />
-          </div> */}
-
+          <Typography.Header style={{textAlign:'center'}}>Tide1</Typography.Header>
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
             We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
@@ -185,7 +184,7 @@ const Courses = () => {
                 key = {index}
                 title = {courseTitle}
                 teachers = {teacherData}
-                image = {image}
+                image = {WaveLogo} // REPLACE THIS WITH IMAGE
                 color = {colors[index % 4]}
                 description = {courseDescription}
                 classDates = {classDates}

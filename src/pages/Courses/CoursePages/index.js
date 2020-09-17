@@ -5,39 +5,39 @@ import PopUpHTML from '../../../components/PopUp/PopUpHTML.js'
 import { Container, ContainerInner } from '../../../globalStyles.js'
 import { Colors, Typography } from '../../../styles'
 import { Button } from '../styles'
-import { FirebaseContext } from '../../../firebaseContext'
-import 'firebase/firestore'
 import { Icon, Property } from './styles'
 import { FaBookOpen } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { getSeminar } from '@/graphql/queries.js'
 
 import TeachersComponent from './teachers-component.js'
 
 const CoursePage = ({ match }) => {
-  const { db, storage } = useContext(FirebaseContext)
   const slug = match.params.slug
   const [loading, setLoading] = useState(true)
   const [showSyllabus, setShowSyllabus] = useState(false)
 
   // Course Objects
-  const [courseTitle, setCourseTitle] = useState('')
-  const [courseDescription, setCourseDescription] = useState('')
   const [syllabus, setSyllabus] = useState('')
-  const [prereqs, setPrereqs] = useState('')
-  const [classSize, setClassSize] = useState('')
-  const [targetAudience, setTargetAudience] = useState('')
-  const [classDates, setClassDates] = useState('')
-  const [classDays, setClassDays] = useState('')
-  const [classTime, setClassTime] = useState('')
   const [teachersObj, setTeachersObj] = useState('')
+  const [seminar, setSeminar] = useState({})
 
-  // Teacher Objects
-  const [teachers, setTeachers] = useState([])
-  const [headshot1, setHeadshot1] = useState('')
-  const [headshot2, setHeadshot2] = useState('')
-  const [headshot3, setHeadshot3] = useState('')
+  const getCourse = async () => {
+    try {
+      const course = await API.graphql(graphqlOperation(getSeminar, { id: slug }))
+      setSeminar(course.data.getSeminar)
+    } catch (error) {
+      console.log('error on fetching data', error)
+    }
+    setLoading(false)
+  }
 
-  if (loading && (!db || !storage)) {
+  useEffect(() => {
+    getCourse()
+  }, [])
+
+  if (loading) {
     return (
       <>
         <Navbar/>
@@ -51,74 +51,6 @@ const CoursePage = ({ match }) => {
         <Footer/>
       </>
     )
-  }
-
-  if (db && loading) {
-    const courses = db.collection('fl_content').doc(slug)
-    courses.get()
-      .then(function (doc) {
-        if (doc.exists) {
-          const data = doc.data()
-          // console.log("here data:", data)
-
-          // This will all move to a course object
-          if (!courseTitle) {
-            setCourseTitle(data.courseTitle)
-          }
-          if (!courseDescription) {
-            setCourseDescription(data.courseDescription)
-          }
-          if (!syllabus) {
-            setSyllabus(data.syllabusHtml)
-          }
-          if (!prereqs) {
-            setPrereqs(data.prereqs)
-          }
-          if (!classSize) {
-            setClassSize(data.maxClassSize)
-          }
-          if (!targetAudience) {
-            setTargetAudience(data.targetAudience)
-          }
-          if (!classDates) {
-            setClassDates(data.classDates)
-          }
-          if (!classDays) {
-            setClassDays(data.classDays)
-          }
-          if (!classTime) {
-            /*
-            console.log("Class time in EDT:", data.classTime)
-            const [startTimeString, hyphen, endTimeString] = data.classTime.split(' ');
-
-            const startTime = convertHoursToLocalTime(startTimeString);
-            const endTime = convertHoursToLocalTime(endTimeString);
-            //console.log("start time:", startTime.toLocaleTimeString('en-US'));
-            //console.log("end time:", endTime.toLocaleTimeString('en-US'));
-
-            if (!startTime.toLocaleTimeString('en-US').includes('Invalid Date') || !endTime.toLocaleTimeString('en-US').includes('Invalid Date') ){
-              var startTimeNoSec = noSeconds(startTime);
-              var endTimeNoSec = noSeconds(endTime);
-
-              setClassTime(`${startTimeNoSec} - ${endTimeNoSec}`);
-            }
-            else {
-              setClassTime(data.classTime + " (Times are in EDT)");
-            }
-            */
-            setClassTime(data.classTime);
-          }
-          if (!teachersObj) {
-            setTeachersObj(data.teachers)
-          }
-        } else {
-          // doc.data() will be undefined in this case
-          console.log('No teachers!')
-        }
-      }).catch(function (error) {
-        console.log('Error getting document:', error)
-      })
-    setLoading(false)
   }
 
   const toggleSyllabus = () => {
@@ -157,16 +89,16 @@ const CoursePage = ({ match }) => {
   }
 
   const timezoneCode = "Eastern Time"; // new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split(' ')[2]
-
+  console.log(seminar)
   return (
     <div>
       <Navbar/>
       <Container>
         <ContainerInner>
-          <Typography.Header style={{ color: Colors.WLF_PURPLE }}>{courseTitle}</Typography.Header>
-          {courseDescription}
-          {prereqs &&
-                  <><br/><b>Prerequisites: </b>{prereqs}</>}
+          <Typography.Header style={{ color: Colors.WLF_PURPLE }}>{seminar.courseTitle}</Typography.Header>
+          {seminar.courseDescription}
+          {seminar.prereqs &&
+                  <><br/><b>Prerequisites: </b>{seminar.prereqs}</>}
           {syllabus &&
                   <Property>
                     <br/><b>Syllabus: </b>
@@ -183,20 +115,20 @@ const CoursePage = ({ match }) => {
                   </Property>}
           {showSyllabus &&
                   <PopUpHTML title={'Syllabus'} content={syllabus} onClose={toggleSyllabus}/>}
-          {classSize &&
-                <><br/><b>Max Class Size: </b>{classSize}</>}
-          {targetAudience &&
-                  <><br/><b>Target Audience: </b>{targetAudience}</>}
+          {seminar.maxClassSize &&
+                <><br/><b>Max Class Size: </b>{seminar.maxClassSize}</>}
+          {seminar.targetAudience &&
+                  <><br/><b>Target Audience: </b>{seminar.targetAudience.toString()} grades</>}
           <p style={{ clear: 'right' }}>
-            {classDates && classDays && classTime &&
+            {seminar.classDates && seminar.classDays && seminar.classTime &&
                   <>
-                    <b>Class Dates: </b>{classDates}
-                    <b><br/>Class Days: </b>{classDays}
-                    <b><br/>Time ({classTime.includes('EDT') ? 'EDT' : timezoneCode}): </b>{classTime}
+                    <b>Class Dates: </b>{seminar.classDates}
+                    <b><br/>Class Days: </b>{seminar.classDays}
+                    <b><br/>Time ({seminar.classTime.includes('EDT') ? 'EDT' : timezoneCode}): </b>{seminar.classTime}
                   </>}
           </p>
 
-          <TeachersComponent teachersObj={teachersObj}/>
+          {seminar.teachers && <TeachersComponent teachersProp={seminar.teachers}/>}
 
           <a target="_blank" href="/course-sign-up" className="sign-up-link">
             <Button>

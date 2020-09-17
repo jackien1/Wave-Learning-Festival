@@ -126,9 +126,9 @@ function App () {
             <Route path="/faq-tutors">
               <FAQTutors />
             </Route>
-            {/* <Route path="/courses">
+            <Route path="/seminars">
               <Courses />
-            </Route> */}
+            </Route>
             <Route path="/courses-inprogress">
               <CoursesInProgress />
             </Route>
