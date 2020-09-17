@@ -7,7 +7,7 @@ import { Container, ContainerInner } from '@/globalStyles'
 import Logo from './logo.png'
 import Amplify, { API, graphqlOperation } from "aws-amplify"
 import { createStudent, createSeminarRegistration } from "../../../graphql/mutations.js"
-import { listSeminars, listStudents } from "../../../graphql/queries.js"
+import { listSeminarRegistrations, listSeminars, listStudents } from "../../../graphql/queries.js"
 import { COUNTRIES, UNITED_STATES, STATES } from "./countries";
 
 
@@ -128,20 +128,23 @@ const renderMultiOptionSeminar = ({key, option, seminarData, setSeminarData}) =>
   </Form.RadioInputBackground>
 );
 
-// NEED TO UPDATE THIS!! (checks if student alrdy has account)
-// var isEmailDuplicated = function(db, email) {
-//   //Is in our database already for current wave?
-//   var ls = [];
-//   db.collection("StudentRegistrations").where("email", "==", email).where("wave5", "==", true).get().then(function(snapshot) {
-//     snapshot.forEach(function(snap) {
-//       ls.push(snap)
-//     })
-//   })
-//   if (ls.length > 0) {
-//     return true;
-//   }
-//   return false;
-// }
+// check if student has already registered for courses
+var isEmailDuplicated = async (studentEmail)  => {
+  const allStudentsList = await API.graphql(graphqlOperation(listSeminarRegistrations));
+  const allStudents = allStudentsList.data.listSeminarRegistrations.items;
+  var value = 0;
+  console.log('allStudents', allStudents)
+  for (var i = 0; i < allStudents.length; i++){
+    console.log("hereeeeee")
+    console.log("email", studentEmail, allStudents[i].email)
+    if (allStudents[i].email == studentEmail){
+      console.log("also hereeeeee")
+      console.log(allStudents[i].email)
+      value = 1;
+    }
+  }
+  return value
+}
 
 // NEED TO UPDATE THIS!! (check if student has already registered for Tide 1)
 // var checkDuplicationSubmit = function(db, email, target, studentData, setErrorMessage, setPage, setWrongSubmission) {
@@ -168,10 +171,10 @@ var emailValidated = function(email) {
 
 var GRADE_OPTIONS = ["", '< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
 
-const partner = "From a Wave partner organization";
+// const partner = "From a Wave partner organization";
 
 var WAYS_TO_HEAR = [
-  partner,
+  // partner,
   "From my school (teacher/principal/superintendent)",
   "From a news outlet",
   "From Facebook",
@@ -424,7 +427,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
     {WAYS_TO_HEAR.map((value) => (
       renderSingleOption({key: "howYouHear", option: value, studentData, setStudentData})
     ))}
-
+{/* 
     { studentData.howYouHear.includes(partner) && <>
       <Typography.Header2 color="white" fontSize="24px">
         Which of our partner organizations are you affiliated with?
@@ -443,7 +446,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
         ))}
       </Form.Dropdown>
       </>
-    }
+    } */}
 
     <Typography.Header2 color="white" fontSize="24px">
       I have read and agree to the <a href="/student-agreement" target="_blank" style={{color: Colors.WLF_YELLOW}}>Student Agreement</a> *
@@ -461,7 +464,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
     ))}
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-      <Form.Button onClick={(event) => { nextPage(); window.scroll(0,0) }}>
+      <Form.Button onClick={(event) => { nextPage() }}>
         <Typography.Header color="white" fontSize="24px">
           Next
         </Typography.Header>
@@ -479,7 +482,7 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
   </div>)
 }
 
-const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_LIST}) => {
+const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_TITLE}) => {
   
   return (<div style={{ width: '100%' }}>
     <Typography.Header color={Colors.WLF_YELLOW}>
@@ -526,13 +529,12 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       value={seminarData.sem1}
       onChange={event => {
         const value = event.target.value
-        console.log('saved val', value);
         setSeminarData(prevData => ({
           ...prevData,
           sem1: value
         }))
       }}>
-      {SEMINARS_LIST.map((value) => (
+      {SEMINARS_TITLE.map((value) => (
         renderOption({option: value})
       ))}
     </Form.Dropdown>
@@ -554,7 +556,141 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
       }}
     />
 
-    {/* REPEAT FOR ALL SEMINARS */}
+    <Typography.Header2 color="white" fontSize="24px">
+      What is your second choice seminar?
+    </Typography.Header2>
+    <Form.Dropdown
+      value={seminarData.sem2}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          sem2: value
+        }))
+      }}>
+      {SEMINARS_TITLE.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+      
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you interested in taking your second choice seminar?
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your response to 3-5 sentences.
+    </Typography.BodyText>
+    <Form.BigInput
+      value={seminarData.reason2}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          reason2: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      What is your third choice seminar?
+    </Typography.Header2>
+    <Form.Dropdown
+      value={seminarData.sem3}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          sem3: value
+        }))
+      }}>
+      {SEMINARS_TITLE.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+      
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you interested in taking your third choice seminar?
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your response to 3-5 sentences.
+    </Typography.BodyText>
+    <Form.BigInput
+      value={seminarData.reason3}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          reason3: value
+        }))
+      }}
+    />
+
+    <Typography.Header2 color="white" fontSize="24px">
+      What is your fourth choice seminar?
+    </Typography.Header2>
+    <Form.Dropdown
+      value={seminarData.sem4}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          sem4: value
+        }))
+      }}>
+      {SEMINARS_TITLE.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+      
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you interested in taking your fourth choice seminar?
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your response to 3-5 sentences.
+    </Typography.BodyText>
+    <Form.BigInput
+      value={seminarData.reason4}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          reason4: value
+        }))
+      }}
+    />
+
+<Typography.Header2 color="white" fontSize="24px">
+      What is your fifth choice seminar?
+    </Typography.Header2>
+    <Form.Dropdown
+      value={seminarData.sem5}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          sem5: value
+        }))
+      }}>
+      {SEMINARS_TITLE.map((value) => (
+        renderOption({option: value})
+      ))}
+    </Form.Dropdown>
+      
+    <Typography.Header2 color="white" fontSize="24px">
+      Why are you interested in taking your fifth choice seminar?
+    </Typography.Header2>
+    <Typography.BodyText color="white">
+      Please limit your response to 3-5 sentences.
+    </Typography.BodyText>
+    <Form.BigInput
+      value={seminarData.reason5}
+      onChange={event => {
+        const value = event.target.value
+        setSeminarData(prevData => ({
+          ...prevData,
+          reason5: value
+        }))
+      }}
+    />
 
     <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <Form.Button onClick={(event) => { submit() }}>
@@ -577,17 +713,22 @@ const SeminarDataInput = ({ setPage, seminarData, setSeminarData, submit, wrongS
 
 // UPDATE THE CONFIRMATION MESSAGE
 const Thanks = ({ setPage }) => (
-  <>
-    <Typography.Header color={Colors.WLF_YELLOW}>Thank you for applying!</Typography.Header>
-    <Typography.Header2 color="white">You should receive a confirmation email within the next few days, and we will reach out regarding interviews within a couple weeks. If you have any questions/concerns, please email us at wavelearningfestival@gmail.com.</Typography.Header2>
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-      <Form.Button onClick={() => "/courses"}>
-        <Typography.Header color="white" fontSize="24px">
-          Back to Seminars Page
-        </Typography.Header>
-      </Form.Button>
+  <div>
+    <Typography.Header color={Colors.WLF_YELLOW}>Thanks for signing up!</Typography.Header>
+    <Typography.BodyText color="white" style={{fontSize: 21}}>
+      You and/or your parent should receive a confirmation email in a few days. <br/><br/>
+      We never want financial ability to prevent anyone from being able to learn. In order for us to provide accessible educational resources to students across the world, we need your help! <br/><br/>
+      If you have the means, please donate to help Wave better serve our students. (We recommend $5 per seminar, but any amount is greatly appreciated!)
+      <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'left', marginTop:-10, fontSize:24}}>
+        <Form.Button style={{textAlign: 'center', alignItems: 'center', marginRight:20 }}>
+          <a href="/" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Home</b></a>
+        </Form.Button> 
+        <Form.Button style={{textAlign: 'center', alignItems: 'center' }}>
+          <a href="/donate" style={{ textDecoration: 'none', color: 'white', margin: 'auto'}}><b>Donate</b></a>
+        </Form.Button>
+      </div>
+    </Typography.BodyText>
     </div>
-  </>
 )
 
 const SeminarSignUp = () => {
@@ -646,19 +787,19 @@ const SeminarSignUp = () => {
   }
 
   var requiredSeminarFields = (form) => {
-    if (form.sem2 != "" && form.reason2 == ""){
-      return false;
-    }
-    if (form.sem3 != "" && form.reason3 == ""){
-      return false;
-    }
-    if (form.sem4 != "" && form.reason4 == ""){
-      return false;
-    }
-    if (form.sem5 != "" && form.reason5 == ""){
-      return false;
-    }
-    console.log("made it past sem2-5");
+    // if (form.sem2 != "" && form.reason2 == ""){
+    //   return false;
+    // }
+    // if (form.sem3 != "" && form.reason3 == ""){
+    //   return false;
+    // }
+    // if (form.sem4 != "" && form.reason4 == ""){
+    //   return false;
+    // }
+    // if (form.sem5 != "" && form.reason5 == ""){
+    //   return false;
+    // }
+    // console.log("made it past sem2-5");
     return form.pastCourses != "" &&
       form.numSeminars != "" &&
       form.pastCourses != "" &&
@@ -672,7 +813,11 @@ const SeminarSignUp = () => {
     var email1 = studentData.email1.toLowerCase();
     var parentEmail = studentData.parentEmail.toLowerCase();
     var parentEmail1 = studentData.parentEmail1.toLowerCase();
-    if (email != email1) {
+    if (!requiredStudentFields(studentData)) {
+      setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
+    } else if (isEmailDuplicated(email) == 1){
+      setWrongSubmission("You have already registered for Tide 1 under this student email!")
+    } else if (email != email1) {
       setWrongSubmission("Student emails do not match.");
     } else if (!emailValidated(email)) {
       setWrongSubmission("Please input a valid student email address");
@@ -680,12 +825,9 @@ const SeminarSignUp = () => {
       setWrongSubmission("Parent emails do not match.");
     } else if (!emailValidated(parentEmail)) {
       setWrongSubmission("Please input a valid parent email address");
-    } 
-    // add check for duplicate account
-    else if (!requiredStudentFields(studentData)) {
-      setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
     } else {
       setPage('seminarData');
+      window.scroll(0,0);
     }
 
   }
@@ -695,6 +837,20 @@ const SeminarSignUp = () => {
     // add conditions for duplicate registration here
     if (!requiredSeminarFields(seminarData)) {
       setWrongSubmission("Please fill out all required fields marked with an asterisk (*).")
+    } else if ((seminarData.sem1 == seminarData.sem2 && seminarData.sem1 != "") || 
+      (seminarData.sem2 == seminarData.sem3 && seminarData.sem2 != "") ||
+      (seminarData.sem3 == seminarData.sem4 && seminarData.sem3 != "") ||
+      (seminarData.sem4 == seminarData.sem5 && seminarData.sem4 != "") 
+      ){
+      setWrongSubmission("You may not register for the same course multiple times.")
+    } else if (seminarData.sem2 != "" && seminarData.reason2 == "") {
+      setWrongSubmission("Please briefly explain why you are interested in taking your second choice course.")
+    } else if (seminarData.sem3 != "" && seminarData.reason3 == "") {
+      setWrongSubmission("Please briefly explain why you are interested in taking your third choice course.")
+    } else if (seminarData.sem4 != "" && seminarData.reason4 == "") {
+      setWrongSubmission("Please briefly explain why you are interested in taking your fourth choice course.")
+    } else if (seminarData.sem5 != "" && seminarData.reason5 == "") {
+      setWrongSubmission("Please briefly explain why you are interested in taking your fifth choice course.")
     } else {
       API.graphql(graphqlOperation(createStudent, {
         input: {
@@ -713,16 +869,33 @@ const SeminarSignUp = () => {
           orgs: studentData.orgs
         }
       }));
+      var semId = [];
+      const values = [seminarData.sem1, seminarData.sem2, seminarData.sem3, seminarData.sem4, seminarData.sem5];
+      console.log(seminarData);
+      for (var i = 0; i < 5; i++){
+        for (var j = 0; j < SEMINARS_LIST.length; j++){
+          if (SEMINARS_LIST[j][0] == values[i]){
+            semId.push(SEMINARS_LIST[j][1]);
+            break;
+          }
+        }
+      }
+      console.log('semid', semId)
       API.graphql(graphqlOperation(createSeminarRegistration, {
         input: {
           email: studentData.email.toLowerCase(),
           pastCourses: seminarData.pastCourses,
           numSeminars: seminarData.numSeminars,
-          sem1: seminarData.sem1,
-          sem2: seminarData.sem2,
-          sem3: seminarData.sem3,
-          sem4: seminarData.sem4,
-          sem5: seminarData.sem5,
+          sem1: semId[0],
+          sem2: semId[1],
+          sem3: semId[2],
+          sem4: semId[3],
+          sem5: semId[4],
+          // sem1: seminarData.sem1,
+          // sem2: seminarData.sem2,
+          // sem3: seminarData.sem3,
+          // sem4: seminarData.sem4,
+          // sem5: seminarData.sem5,
           reason1: seminarData.reason1,
           reason2: seminarData.reason2,
           reason3: seminarData.reason3,
@@ -735,54 +908,48 @@ const SeminarSignUp = () => {
 
   }
 
-  const [seminarsAll, updateSeminars] = useState([]);
+  const [SEMINARS_LIST, setSeminarList] = useState(null)
+  const [SEMINARS_TITLE, setSeminarTitle] = useState(null)
   const fetchSeminars = async () => {
     try { 
+      var SEMINARS_LIST = [""];
+      var SEMINARS_TITLE = [""];
       const semData = await API.graphql(graphqlOperation(listSeminars));
       const semList = semData.data.listSeminars.items;
-      console.log(semList);
-      updateSeminars(semList);
+      for (var sem of semList){
+        SEMINARS_LIST.push([sem.courseTitle, sem.id])
+        SEMINARS_TITLE.push(sem.courseTitle)
+      }
+      SEMINARS_TITLE.sort((a, b) => {
+        let fa = a[0], fb = b[0];
+        if (fa < fb) {
+            return -1;
+        }
+        if (fa > fb) {
+            return 1;
+        }
+        return 0;
+      });
+      setSeminarList(SEMINARS_LIST)
+      setSeminarTitle(SEMINARS_TITLE);
+      console.log('list', SEMINARS_LIST);
+      console.log('title', SEMINARS_TITLE)
     } catch (error) {
         console.log('error on fetching seminars', error);
     }
   }
+
   useEffect(() => {
     fetchSeminars();
-  }, [seminarsAll]);
+  }, []);
 
-  const SEMINARS_LIST = [""]
-  for (var sem of seminarsAll){
-    SEMINARS_LIST.push(sem.id)
-    // SEMINARS_LIST.push([sem.courseTitle, sem.id])
-  }
-
-  // const [accts, updateAccts] = useState([]);
-  // const fetchAccts = async () => {
-  //   try { 
-  //     const acctData = await API.graphql(graphqlOperation(listStudents));
-  //     const acctList = acctData.data.listStudents.items;
-  //     console.log(acctList);
-  //     updateAccts(acctList);
-  //   } catch (error) {
-  //       console.log('error on fetching student accounts', error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   fetchAccts();
-  // }, [accts]);
-
-  // const EMAILS_LIST = [""]
-  // for (var em of accts){
-  //   EMAILS_LIST.push(em.email)
-  //   // SEMINARS_LIST.push([sem.courseTitle, sem.id])
-  // }
 
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
       <Navbar />
       <Styles.SignupBackground>
         {page === 'studentData' && StudentDataInput({ setPage, studentData, setStudentData, nextPage, wrongSubmission })}
-        {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_LIST })}
+        {page === 'seminarData' && SeminarDataInput({ setPage, seminarData, setSeminarData, submit, wrongSubmission, SEMINARS_TITLE })}
         {page === 'thanks' && Thanks({ setPage })}
       </Styles.SignupBackground>
       <Footer />
