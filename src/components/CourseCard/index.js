@@ -88,10 +88,11 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
         <Title show={show}><p>{title}</p></Title>
 
         {archive && <Teachers show={show}>{teachers.map((teacher, index) => {
+          console.log(teacher)
           if (index === teachers.length - 1) {
-            return <p>{teacher.name} {teacher.school && `(${teacher.school})`}</p>
+            return <p key={index}>{teacher.first_name} {teacher.last_name} {teacher.school && `(${teacher.school})`}</p>
           } else {
-            return <p>{teacher.name} {teacher.school && `(${teacher.school})`}, </p>
+            return <p key={index}>{teacher.first_name} {teacher.last_name} {teacher.school && `(${teacher.school})`}, </p>
           }
         })}</Teachers>}
         {classDates && <HeadingCompressed show = {show}><p> {classDates}</p></HeadingCompressed>}
@@ -108,13 +109,13 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
             <h3>Teachers:</h3>
             <Teachers>{teachers.map((teacher, index) => {
               if (index === teachers.length - 1) {
-                return <p>{teacher.name} {teacher.school && `(${teacher.school})`}</p>
+                return <p key={index}>{teacher.first_name} {teacher.last_name} {teacher.school && `(${teacher.school})`}</p>
               } else {
-                return <p>{teacher.name} {teacher.school && `(${teacher.school})`}, </p>
+                return <p key={index}>{teacher.first_name} {teacher.last_name} {teacher.school && `(${teacher.school})`}, </p>
               }
             })}
             </Teachers>
-            {targetAudience && <Heading><HeaderP >Target Audience: </HeaderP> <p> {targetAudience}</p></Heading>}
+            {targetAudience && <Heading><HeaderP >Target Audience: </HeaderP> <p> {targetAudience.map((e, index) => <span key={index}>{e} </span>)}</p></Heading>}
             {classDates && <Heading><HeaderP>Class Dates: </HeaderP> <p> {classDates}</p></Heading>}
             {classDays && <Heading><HeaderP>Class Days: </HeaderP> <p> {classDays}</p></Heading>}
             {time && <Heading><HeaderP>Class Time ({classTime.includes('EDT') ? 'EDT' : timezoneCode}): </HeaderP><p> {classTime}</p></Heading>}

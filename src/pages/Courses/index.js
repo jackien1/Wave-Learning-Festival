@@ -6,6 +6,8 @@ import './styles.css'
 import { Colors, Typography } from '../../styles'
 import { FirebaseContext } from '../../firebaseContext'
 import { Button, Header, Title, Heading } from './styles'
+import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { listSeminars, getTeacher } from '@/graphql/queries.js'
 import 'firebase/firestore'
 
 import WaveLogo from '../Blog/wave-learning-logo.png'
@@ -16,7 +18,7 @@ import CourseCard from '../../components/CourseCard'
 
 const Courses = () => {
   const { db, storage } = useContext(FirebaseContext)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [courses, updateCourses] = useState([])
   const [filteredCourses, setFilteredCourses] = useState([])
   const [filteredItems, updateFiltered] = useState([])
@@ -42,8 +44,8 @@ const Courses = () => {
       setFilteredCourses(courses.filter(course => {
         for (let i = 0; i < filteredItems.length; i++) {
           if (!isNaN(filteredItems[i].text)) {
-            if (!course.targetGrades.includes(filteredItems[i].text)) return false
-          } else if (!course.category.includes(filteredItems[i].text)) {
+            if (!course.targetAudience.includes(filteredItems[i].text)) return false
+          } else if (!course.courseCategory.includes(filteredItems[i].text)) {
             return false
           }
         }
@@ -51,18 +53,18 @@ const Courses = () => {
       }))
     } else if (filteredItems.length === 0) {
       setFilteredCourses(courses.filter(course => {
-        return course.title.toLowerCase().includes(e.toLowerCase())
+        return course.courseTitle.toLowerCase().includes(e.toLowerCase())
       }))
     } else {
       setFilteredCourses(courses.filter(course => {
         for (let i = 0; i < filteredItems.length; i++) {
           if (!isNaN(filteredItems[i].text)) {
-            if (!course.targetGrades.includes(filteredItems[i].text)) return false
-          } else if (!course.category.includes(filteredItems[i].text)) {
+            if (!course.targetAudience.includes(filteredItems[i].text)) return false
+          } else if (!course.courseCategory.includes(filteredItems[i].text)) {
             return false
           }
         }
-        if (course.title.toLowerCase().includes(e.toLowerCase())) {
+        if (course.courseTitle.toLowerCase().includes(e.toLowerCase())) {
           return true
         }
         return false
@@ -70,94 +72,31 @@ const Courses = () => {
     }
   }
 
+  const getTeacherData = async (username) => {
+    try {
+      const teacherData = await API.graphql(graphqlOperation(getTeacher, { id: username }))
+      return teacherData.data.getTeacher
+    } catch (error) {
+      console.log('error on fetching data', error)
+    }
+  }
+
+  const getSeminars = async () => {
+    try {
+      const seminars = await API.graphql(graphqlOperation(listSeminars))
+      updateCourses(seminars.data.listSeminars.items)
+      setFilteredCourses(seminars.data.listSeminars.items)
+    } catch (e) {
+      console.log('error on fetching data', e)
+    }
+  }
+
   /* Set Current Wave */
   const WAVE = '5'
 
   useEffect(() => {
-    if (db) {
-      db.collection('fl_content').onSnapshot(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          if (doc.data().schema === 'coursePage' && doc.data().wave === WAVE) {
-            var pic = doc.data().picture[0]
-            if (pic) {
-              db.doc(pic.path).onSnapshot(function (picture) {
-                if (picture.exists) {
-                  storage.child('flamelink/media/' + picture.data().file).getDownloadURL()
-                    .then(function (url) {
-                      const teachers = []
-                      if (doc.data().teachers.teacher1Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher1Name,
-                          school: doc.data().teachers.teacher1School
-                        })
-                      }
-                      if (doc.data().teachers.teacher2Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher2Name,
-                          school: doc.data().teachers.teacher2School
-                        })
-                      }
-                      if (doc.data().teachers.teacher3Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher3Name,
-                          school: doc.data().teachers.teacher3School
-                        })
-                      }
-                      if (doc.data().teachers.teacher4Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher4Name,
-                          school: doc.data().teachers.teacher4School
-                        })
-                      }
-                      if (doc.data().teachers.teacher5Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher5Name,
-                          school: doc.data().teachers.teacher5School
-                        })
-                      }
-                      if (doc.data().teachers.teacher6Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher6Name,
-                          school: doc.data().teachers.teacher6School
-                        })
-                      }
-                      if (doc.data().teachers.teacher7Name) {
-                        teachers.push({
-                          name: doc.data().teachers.teacher7Name,
-                          school: doc.data().teachers.teacher7School
-                        })
-                      }
-                      const course = {
-                        title: doc.data().courseTitle,
-                        category: doc.data().courseCategory,
-                        targetGrades: doc.data().targetAudienceGrades,
-                        image: url,
-                        teachers,
-                        description: doc.data().courseDescription,
-                        teacher1Name: doc.data().teachers.teacher1Name,
-                        teacher2Name: doc.data().teachers.teacher2Name,
-                        teacher3Name: doc.data().teachers.teacher3Name,
-                        teacher1School: doc.data().teachers.teacher1School,
-                        teacher2School: doc.data().teachers.teacher2School,
-                        teacher3School: doc.data().teachers.teache3School,
-                        id: doc.data().id,
-                        classDates: doc.data().classDates,
-                        time: doc.data().classTime,
-                        targetAudience: doc.data().targetAudience,
-                        classDays: doc.data().classDays
-                      }
-                      updateCourses(courses => [...courses, course])
-                      setFilteredCourses(filteredCourses => [...filteredCourses, course])
-                    })
-                }
-              })
-            }
-          }
-        })
-      })
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, storage])
+    getSeminars()
+  }, [])
 
   useEffect(() => {
     console.log(courses.length)
@@ -167,8 +106,8 @@ const Courses = () => {
       setFilteredCourses(courses.filter(course => {
         for (let i = 0; i < filteredItems.length; i++) {
           if (!isNaN(filteredItems[i].text)) {
-            if (!course.targetGrades.includes(filteredItems[i].text)) return false
-          } else if (!course.category.includes(filteredItems[i].text)) {
+            if (!course.targetAudience.includes(filteredItems[i].text)) return false
+          } else if (!course.courseCategory.includes(filteredItems[i].text)) {
             return false
           }
         }
@@ -204,12 +143,12 @@ const Courses = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <div className="progressbar">
+          {/* <div className="progressbar">
             <img src= {ProgressBar} alt = "centered image" />
-          </div>
+          </div> */}
 
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
-            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Wave Five running from <strong>August 17th to August 30th</strong>. Our
+            We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
             you. Feel free to send any
@@ -236,15 +175,19 @@ const Courses = () => {
             <Heading><p>Dates</p></Heading>
           </Header>
           {filteredCourses.map((course, index) => {
-            const { title, teachers, image, description, classDates, time, targetAudience, classDays, id } = course
+            const { courseTitle, teachers, image, courseDescription, classDates, time, targetAudience, classDays, id } = course
+            const teacherData = []
+            teachers.forEach(async teacher => {
+              teacherData.push(await getTeacherData(teacher))
+            })
             return (
               <CourseCard
                 key = {index}
-                title = {title}
-                teachers = {teachers}
+                title = {courseTitle}
+                teachers = {teacherData}
                 image = {image}
                 color = {colors[index % 4]}
-                description = {description}
+                description = {courseDescription}
                 classDates = {classDates}
                 time = {time}
                 targetAudience = {targetAudience}

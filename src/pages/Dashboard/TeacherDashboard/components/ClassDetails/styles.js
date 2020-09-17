@@ -160,3 +160,17 @@ export const Cancel = styled.b`
     cursor: pointer; 
   }
 `
+
+export const CheckboxContainer = styled.div`
+  display: flex; 
+  flex-wrap: wrap; 
+`
+
+export const CheckboxColumn = styled.div`
+  margin-right: 1.5em; 
+`
+
+export const OptionsContainer = styled.div`
+  display: flex; 
+  flex-wrap: wrap; 
+`
