@@ -10,7 +10,9 @@ import { Auth, API, graphqlOperation } from 'aws-amplify'
 import { listSeminars, getTeacher } from '@/graphql/queries.js'
 import 'firebase/firestore'
 
-import WaveLogo from '../Blog/wave-learning-logo.png'
+// import WaveLogo from '../Blog/wave-learning-logo.png'
+import WaveLogo from '../../components/Navbar/logo.png'
+
 import ProgressBar from './ProgressBars/wlf_progressbar-04.png'
 
 import Filter from '../../components/Filter'
@@ -182,7 +184,7 @@ const Courses = () => {
                 key = {index}
                 title = {courseTitle}
                 teachers = {teacherData}
-                image = {image}
+                image = {WaveLogo} // REPLACE THIS WITH IMAGE
                 color = {colors[index % 4]}
                 description = {courseDescription}
                 classDates = {classDates}
