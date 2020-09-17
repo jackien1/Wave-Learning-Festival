@@ -145,7 +145,7 @@ const Courses = () => {
       <Navbar/>
       <Container>
         <ContainerInner>
-          <Typography.Header style={{textAlign:'center'}}>Tide1</Typography.Header>
+          <Typography.Header style={{textAlign:'center'}}>Tide 1</Typography.Header>
           <Typography.BodyText style={{ color: Colors.WLF_BLACK }}>
             We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
