@@ -11,7 +11,8 @@ import StudentProfile from './components/StudentProfile'
 import { Auth, API, graphqlOperation } from 'aws-amplify'
 
 import { getStudent } from '../../graphql/queries.js'
-import { updateStudent } from '@/graphql/mutations'
+import { updateStudent, updateSeminarRegistration } from '@/graphql/mutations'
+import { getSeminarRegistration, listSeminarRegistrations, listSeminars } from '../../graphql/queries.js'
 
 const Dashboard = () => {
   const [email, userEmail] = useState('')
@@ -23,9 +24,6 @@ const Dashboard = () => {
       console.log('error signing out: ', error)
     }
   }
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  // THINGS TO DUPLICATE FOR THE SEMINARS
 
   const profileState = {
     first_name: '',
@@ -115,7 +113,8 @@ const Dashboard = () => {
     }
   }
 
-    const [page, setPage] = useState(true)
+    const [studentPage, setStudentPage] = useState(true)
+    const [seminarPage, setSeminarPage] = useState(false)
     const [loading, setLoading] = useState(true)
     const [isError, setError] = useState(false)
     const [user, setUser] = useState(null)
@@ -124,6 +123,10 @@ const Dashboard = () => {
     const [profile, profileDispatch] = useReducer(profileReducer, profileState)
     const [student, setStudent] = useState(null)
     const [studentId, setStudentId] = useState('')
+
+    const [registrations, updateRegistrations] = useState([])
+
+    var studentEmail = "";
 
     const genFrag = function (label, data, dispatch, state) {
       return {
@@ -150,18 +153,40 @@ const Dashboard = () => {
         genFrag('How You Hear', student.data.getStudent.howYouHear, 'HOWYOUHEAR', 'howYouHear'),
         genFrag('Orgs', student.data.getStudent.orgs, 'ORGS', 'orgs')
       ]
+
+    }
+
+    const generateSeminarInfo = function (registrations) {
+      return [
+        genFrag('Number of Seminars', registrations.data.getSeminarRegistration.numSeminars, 'FIRSTNAME', 'first_name'),
+      ]
     }
 
     const getStudentData = async (username) => {
       try {
         const studentData = await API.graphql(graphqlOperation(getStudent, { id: username }))
-        console.log(studentData.data.getStudent)
+        studentEmail = studentData.data.getStudent.email
+        console.log(studentEmail)
         setStudent(studentData)
+
+        const studentSeminar = await API.graphql(graphqlOperation(listSeminarRegistrations));
+        const itemsofSeminar = studentSeminar.data.listSeminarRegistrations.items;
+        var studentSeminarId = "";
+        for (var i = 0; i < itemsofSeminar.length; i++){
+          if (itemsofSeminar[i].email === studentEmail){
+            studentSeminarId = itemsofSeminar[i].id
+          }
+        }
+        const seminarData = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
+        console.log(seminarData);
+        console.log(studentData.data.getStudent.first_name + " is enrolled in " + seminarData.data.getSeminarRegistration.numSeminars + " seminar(s)")
+
       } catch (error) {
         console.log('id', username)
         console.log('error on fetching data', error)
       }
     }
+
 
     useEffect(() => {
       Auth.currentUserInfo()
@@ -221,7 +246,6 @@ const Dashboard = () => {
       setLocalStudentInfo(profile)
       toggleEdit(false)
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////
 
     useEffect(() => {
       Auth.currentAuthenticatedUser({
@@ -255,7 +279,7 @@ const Dashboard = () => {
           <ListItem>
             Classes
           </ListItem>
-          <ListItem>
+          <ListItem onClick={() => setSeminarPage(true)}>
             Seminars
           </ListItem>
           <ListItem>
@@ -264,7 +288,7 @@ const Dashboard = () => {
           <ListItem>
             Curricular Support
           </ListItem>
-          <ListItem onClick={() => setPage(true)}>
+          <ListItem onClick={() => setStudentPage(true)}>
             Profile
           </ListItem>
           <ListItem onClick={() => signOut()}>
@@ -282,7 +306,7 @@ const Dashboard = () => {
         </Sidebar>
         <ContentContainer>
           {/* <StatsCards/> */}
-          {page && <StudentProfile 
+          {studentPage && <StudentProfile 
           first_name = {profile.first_name}
           last_name = {profile.last_name}
           email = {profile.email}
