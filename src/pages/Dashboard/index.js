@@ -13,7 +13,7 @@ import { Auth, API, graphqlOperation } from 'aws-amplify'
 
 import { getStudent } from '../../graphql/queries.js'
 import { updateStudent, updateSeminarRegistration } from '@/graphql/mutations'
-import { getSeminarRegistration, listSeminarRegistrations, listSeminars } from '../../graphql/queries.js'
+import { getSeminarRegistration, listSeminarRegistrations, listSeminars, getSeminar } from '../../graphql/queries.js'
 
 const Dashboard = () => {
   const [email, userEmail] = useState('')
@@ -203,6 +203,7 @@ const Dashboard = () => {
     const [seminar, seminarDispatch] = useReducer(seminarReducer, seminarState)
     const [student, setStudent] = useState(null)
     const [seminarData, setSeminarData] = useState(null)
+    const [seminarInfo, setSeminarInfo] = useState(null)
     const [studentId, setStudentId] = useState('')
     const [seminarRegId, setSeminarRegId] = useState('')
 
@@ -274,14 +275,30 @@ const Dashboard = () => {
         const seminars = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
         setSeminarData(seminars)
         console.log(seminars);
-        console.log(studentData.data.getStudent.first_name + " is enrolled in " + seminars.data.getSeminarRegistration.numSeminars + " seminar(s)")
+
+        var sem1 = seminars.data.getSeminarRegistration.sem1;
+        var sem2 = seminars.data.getSeminarRegistration.sem2;
+        var sem3 = seminars.data.getSeminarRegistration.sem3;
+        var sem4 = seminars.data.getSeminarRegistration.sem4;
+        var sem5 = seminars.data.getSeminarRegistration.sem5;
+        var seminarIDList =  [sem1, sem2, sem3, sem4, sem5]
+        var seminarsList = [];
+        for (var i = 0; i < seminarIDList.length; i++){
+          if (seminarIDList[i]){
+            console.log('id', seminarIDList[i])
+            const seminarData = await API.graphql(graphqlOperation(getSeminar, { id: seminarIDList[i] }))
+            console.log('seminarData', seminarData.data.getSeminar)
+            seminarsList.push(seminarData.data.getSeminar)
+          }
+        }
+        console.log('list of seminars', seminarsList)
+        setSeminarInfo(seminarsList)
 
       } catch (error) {
         console.log('id', username)
         console.log('error on fetching data', error)
       }
     }
-
 
     useEffect(() => {
       Auth.currentUserInfo()
@@ -477,6 +494,7 @@ const Dashboard = () => {
           reason3 = {seminar.reason3}
           reason4 = {seminar.reason4}
           reason5 = {seminar.reason5}
+          seminarInfo = {seminarInfo}
           seminarDispatch = {seminarDispatch}
           cancelSeminar = {cancelSeminar}
           submitSeminar = {submitSeminar}  />}
