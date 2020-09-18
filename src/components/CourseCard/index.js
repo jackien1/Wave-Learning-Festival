@@ -5,7 +5,7 @@ import { Container, ContainerInner } from '@/globalStyles'
 import { Colors, Typography } from '@/styles'
 import { ListContainer, Card, Header, Title, Teachers, Category, CardCompressed, CardExpanded, CourseImage, CourseInfo, Heading, HeaderP, Button, HeadingCompressed } from './styles'
 import AnimateHeight from 'react-animate-height'
-import WaveLogo from '../../pages/Blog/wave-learning-logo.png'
+import WaveLogo from '../Navbar/logo.png'
 
 const noSeconds = (time) => {
   var timeSplit = time.toLocaleTimeString('en-US').split(':')
@@ -78,6 +78,7 @@ export const getTimezoneCode = () => {
 
 const CourseCard = ({ title, teachers, category, color, image, description, classDates, classDays, time, targetAudience, courseId, archive }) => {
   const [show, toggleShow] = useState(false)
+  console.log(image)
   useEffect(() => {
   })
   var classTime = time // getTimeDisplay(time);
@@ -101,7 +102,8 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
       <AnimateHeight height={show ? 'auto' : 0} duration={80}>
         <CardExpanded>
           <CourseImage>
-            <img src = {image} alt={WaveLogo} />
+            {image !== "" && <img src = {image}/>}
+            {image === "" && <img src = {WaveLogo}/>}
           </CourseImage>
           <CourseInfo>
             <h3>Course Description:</h3>
