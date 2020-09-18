@@ -298,7 +298,7 @@ const Dashboard = () => {
               ed = {seminar.data.getSeminar.edLink}
               teachers = {seminar.data.getSeminar.teachers}
               classDates = {seminar.data.getSeminar.classDates}
-              time = {seminar.data.getSeminar.courseTimes}
+              time = {seminar.data.getSeminar.classTimes}
               targetAudience = {seminar.data.getSeminar.targetAudience}
               classDays = {seminar.data.getSeminar.classDays}
               courseId = {seminarId}
