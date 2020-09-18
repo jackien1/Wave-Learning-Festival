@@ -78,6 +78,7 @@ export const getTimezoneCode = () => {
 
 const CourseCard = ({ title, teachers, category, color, image, description, classDates, classDays, time, targetAudience, courseId, archive }) => {
   const [show, toggleShow] = useState(false)
+  console.log(image)
   useEffect(() => {
   })
   var classTime = time // getTimeDisplay(time);

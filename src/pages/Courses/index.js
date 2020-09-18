@@ -174,7 +174,7 @@ const Courses = () => {
             <Heading><p>Dates</p></Heading>
           </Header>
           {filteredCourses.map((course, index) => {
-            const { courseTitle, teachers, image, courseDescription, classDates, time, targetAudience, classDays, id } = course
+            const { courseTitle, teachers, picture, courseDescription, classDates, time, targetAudience, classDays, id } = course
             const teacherData = []
             teachers.forEach(async teacher => {
               teacherData.push(await getTeacherData(teacher))
@@ -184,7 +184,7 @@ const Courses = () => {
                 key = {index}
                 title = {courseTitle}
                 teachers = {teacherData}
-                image = {WaveLogo} // REPLACE THIS WITH IMAGE
+                image = {picture} // REPLACE THIS WITH IMAGE
                 color = {colors[index % 4]}
                 description = {courseDescription}
                 classDates = {classDates}
