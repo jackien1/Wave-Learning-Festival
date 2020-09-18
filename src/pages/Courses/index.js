@@ -26,6 +26,11 @@ const Courses = () => {
   const [filteredItems, updateFiltered] = useState([])
   const colors = [Colors.WLF_ORANGE, Colors.WLF_PURPLE, Colors.WLF_TURQOUISE, Colors.WLF_YELLOW]
 
+/*
+  console.log("COURSES");
+  console.log(courses);
+  */
+
   const addFilter = (text, color, age) => {
     updateFiltered(filteredItems => [...filteredItems, { text, color }])
   }
@@ -150,7 +155,7 @@ const Courses = () => {
             We are excited to offer <strong>{courses.length} courses</strong> across a variety of subjects for Tide 1 running from <strong>October 5th to November 6th</strong>. Our
             volunteer educators have worked hard to prepare engaging and
             thoughtful curricula and can't wait to share their passions with
-            you. 
+            you.
             </Typography.BodyText>
           <Typography.BodyText color="black" style={{marginBottom: 20}}>
             These seminars provide a comprehensive introduction to topics that students may be simply interested in or want to learn in depth. They run for five weeks, ranging from 3 to 10 sessions total, allowing students to cover a greater depth of information over that time. Wave students are free to pursue these for the love of learning - not for grades.
@@ -161,7 +166,7 @@ const Courses = () => {
             {/* Feel free to send any
             questions to{' '}
             <a href="mailto:wavelf.logistics@gmail.com">
-              wavelf.logistics@gmail.com 
+              wavelf.logistics@gmail.com
             </a> */}
           <Typography.BodyText color="black" fontSize="20px">
             <p></p>Click each course for more info –– note the target audience range, course times, and class maxes.<br /><br /><br />
@@ -184,7 +189,7 @@ const Courses = () => {
             <Heading><p>Dates</p></Heading>
           </Header>
           {filteredCourses.map((course, index) => {
-            const { courseTitle, teachers, picture, courseDescription, classDates, time, targetAudience, classDays, id } = course
+            const { courseTitle, teachers, picture, courseDescription, classDates, classTimes, targetAudience, classDays, id } = course
             const teacherData = []
             teachers.forEach(async teacher => {
               teacherData.push(await getTeacherData(teacher))
@@ -198,7 +203,7 @@ const Courses = () => {
                 color = {colors[index % 4]}
                 description = {courseDescription}
                 classDates = {classDates}
-                time = {time}
+                time = {classTimes}
                 targetAudience = {targetAudience}
                 classDays = {classDays}
                 courseId = {id}
