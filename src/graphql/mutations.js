@@ -107,11 +107,12 @@ export const createTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -127,11 +128,12 @@ export const updateTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -147,11 +149,12 @@ export const deleteTeacher = /* GraphQL */ `
       first_name
       last_name
       school
-      bio
-      seminarId
       gradYear
+      email
       country
       city
+      bio
+      seminarId
       createdAt
       updatedAt
     }
@@ -269,17 +272,10 @@ export const createStudent = /* GraphQL */ `
       email
       grade
       howYouHear
-      numCourses
-      parentName
+      parent_first_name
+      parent_last_name
       parentEmail
-      registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -301,17 +297,10 @@ export const updateStudent = /* GraphQL */ `
       email
       grade
       howYouHear
-      numCourses
-      parentName
+      parent_first_name
+      parent_last_name
       parentEmail
-      registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -333,17 +322,10 @@ export const deleteStudent = /* GraphQL */ `
       email
       grade
       howYouHear
-      numCourses
-      parentName
+      parent_first_name
+      parent_last_name
       parentEmail
-      registeredEvents
-      registeredSeminars {
-        id
-        waitlisted
-        absences
-        createdAt
-        updatedAt
-      }
+      orgs
       createdAt
       updatedAt
     }
@@ -770,6 +752,81 @@ export const deleteEventRegistration = /* GraphQL */ `
       questions
       extra
       howYouHear
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createSeminarRegistration = /* GraphQL */ `
+  mutation CreateSeminarRegistration(
+    $input: CreateSeminarRegistrationInput!
+    $condition: ModelSeminarRegistrationConditionInput
+  ) {
+    createSeminarRegistration(input: $input, condition: $condition) {
+      id
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSeminarRegistration = /* GraphQL */ `
+  mutation UpdateSeminarRegistration(
+    $input: UpdateSeminarRegistrationInput!
+    $condition: ModelSeminarRegistrationConditionInput
+  ) {
+    updateSeminarRegistration(input: $input, condition: $condition) {
+      id
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      pastCourses
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSeminarRegistration = /* GraphQL */ `
+  mutation DeleteSeminarRegistration(
+    $input: DeleteSeminarRegistrationInput!
+    $condition: ModelSeminarRegistrationConditionInput
+  ) {
+    deleteSeminarRegistration(input: $input, condition: $condition) {
+      id
+      email
+      numSeminars
+      sem1
+      sem2
+      sem3
+      sem4
+      sem5
+      reason1
+      reason2
+      reason3
+      reason4
+      reason5
+      pastCourses
       createdAt
       updatedAt
     }
