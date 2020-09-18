@@ -102,7 +102,8 @@ const CourseCard = ({ title, teachers, category, color, image, description, clas
       <AnimateHeight height={show ? 'auto' : 0} duration={80}>
         <CardExpanded>
           <CourseImage>
-            <img src = {image} alt={WaveLogo} />
+            {image !== "" && <img src = {image} alt={WaveLogo} />}
+            {image === "" && <img src = {WaveLogo}/>}
           </CourseImage>
           <CourseInfo>
             <h3>Course Description:</h3>
