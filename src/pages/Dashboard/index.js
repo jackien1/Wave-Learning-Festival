@@ -266,13 +266,15 @@ const Dashboard = () => {
 
         const studentSeminar = await API.graphql(graphqlOperation(listSeminarRegistrations));
         const itemsofSeminar = studentSeminar.data.listSeminarRegistrations.items;
-        var studentSeminarId = "";
+        console.log(itemsofSeminar);
+        var studentSeminarId;
         for (var i = 0; i < itemsofSeminar.length; i++){
           if (itemsofSeminar[i].email === studentEmail){
             studentSeminarId = itemsofSeminar[i].id
           }
         }
         setSeminarRegId(studentSeminarId)
+        console.log(studentSeminarId);
         const seminars = await API.graphql(graphqlOperation(getSeminarRegistration, { id: studentSeminarId }));
         setSeminarData(seminars)
         console.log(seminars);
@@ -343,7 +345,7 @@ const Dashboard = () => {
         })
       }
     }, [student])
-    
+
     useEffect(() => {
       if (seminarData) {
         var seminarInfo = generateSeminarInfo(seminarData)
@@ -478,7 +480,7 @@ const Dashboard = () => {
         </Sidebar>
         <ContentContainer>
           {/* <StatsCards/> */}
-          {page=='student' && <StudentProfile 
+          {page=='student' && <StudentProfile
           first_name = {profile.first_name}
           last_name = {profile.last_name}
           email = {profile.email}
@@ -495,7 +497,7 @@ const Dashboard = () => {
           profileDispatch = {profileDispatch}
           cancelProfile = {cancelProfile}
           submitProfile = {submitProfile}  />}
-          {page=='seminar' && <SeminarProfile 
+          {page=='seminar' && <SeminarProfile
           numSeminars = {seminar.numSeminars}
           sem1 = {seminar.sem1}
           sem2 = {seminar.sem2}
