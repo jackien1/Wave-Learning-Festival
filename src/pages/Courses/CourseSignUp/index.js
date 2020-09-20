@@ -171,10 +171,7 @@ var emailValidated = function(email) {
 
 var GRADE_OPTIONS = ["", '< 6', '6', '7', '8', '9', '10', '11', '12', '> 12'];
 
-// const partner = "From a Wave partner organization";
-
 var WAYS_TO_HEAR = [
-  // partner,
   "From my school (teacher/principal/superintendent)",
   "From a news outlet",
   "From Facebook",
@@ -185,7 +182,11 @@ var WAYS_TO_HEAR = [
   "Other"
 ];
 
-var ORGS = ["", "test1", "test2"];
+var ORGS = [
+  "Boys and Girls Clubs of America", 
+  "Youth Development Resource Center (IL)", 
+  "Arts Corps Seattle", 
+  "Other"];
 
 var YES = ["Yes"];
 
@@ -394,6 +395,9 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
         <Typography.Header2 color="white" fontSize="24px">
           State *
         </Typography.Header2>
+        <Typography.BodyText color="white">
+          If this does not apply, please enter "N/A".
+        </Typography.BodyText>
         <Form.Input
           value={studentData.state}
           onChange={event => {
@@ -427,26 +431,23 @@ const StudentDataInput = ({ setPage, studentData, setStudentData, nextPage, wron
     {WAYS_TO_HEAR.map((value) => (
       renderSingleOption({key: "howYouHear", option: value, studentData, setStudentData})
     ))}
-{/* 
-    { studentData.howYouHear.includes(partner) && <>
-      <Typography.Header2 color="white" fontSize="24px">
-        Which of our partner organizations are you affiliated with?
-      </Typography.Header2>
-      <Form.Dropdown
-        value={studentData.orgs}
-        onChange={event => {
-          const value = event.target.value
-          setStudentData(prevData => ({
-            ...prevData,
-            orgs: value
-          }))
-        }}>
-        {ORGS.map((value) => (
-          renderOption({key: "orgs", option: value, studentData, setStudentData})
-        ))}
-      </Form.Dropdown>
-      </>
-    } */}
+
+    <Typography.Header2 color="white" fontSize="24px">
+      Are you a member of any of these organizations?
+    </Typography.Header2>
+    {/* <Form.Dropdown
+      value={studentData.orgs}
+      onChange={event => {
+        const value = event.target.value
+        setStudentData(prevData => ({
+          ...prevData,
+          orgs: value
+        }))
+      }}> */}
+    {ORGS.map((value) => (
+      renderMultiOptionStudent({key: "orgs", option: value, studentData, setStudentData})
+    ))}
+    {/* </Form.Dropdown> */}
 
     <Typography.Header2 color="white" fontSize="24px">
       I have read and agree to the <a href="/student-agreement" target="_blank" style={{color: Colors.WLF_YELLOW}}>Student Agreement</a> *
