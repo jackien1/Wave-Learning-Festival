@@ -12,6 +12,7 @@ import {
   FaTwitter,
   FaLinkedin,
   FaYoutubeSquare,
+  FaMedium
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { Colors, Typography } from "@/styles";
@@ -139,6 +140,23 @@ const Footer = () => {
             >
               <div>
                 <FaYoutubeSquare />
+              </div>
+            </IconContext.Provider>
+          </Icon>
+          <Icon onClick={() =>
+            window.open(
+              "https://medium.com/@wavelearningfestival",
+              "_blank"
+            )}>
+            <IconContext.Provider
+              value={{
+                color: "white",
+                size: "2em",
+                style: { verticalAlign: "middle" },
+              }}
+            >
+              <div>
+                <FaMedium />
               </div>
             </IconContext.Provider>
           </Icon>
